@@ -1,0 +1,395 @@
+---
+title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
+author: "Paulina Sell"
+date: "2025-07-25"
+date-modified: "2025-07-28"
+format:
+  html:
+    toc: true
+    theme: cosmo
+embed-resources: true
+execute: 
+  cache: true
+  #freeze: auto
+fig-align: left
+fig-height: 3.5
+---
+
+```{R}
+#| label: prep
+#| include: false
+
+
+library(ggplot2)
+library(cleanrmd)
+```
+
+# Introduction
+The aim of this project is to estimate the Environmental Burden of Disease (EBD) attributable to lead exposure in Germany. Here, we will focus on the neurodevelopmental effects of lead, therefore the health outcome will be IQ point loss in children and adolescents. In order to estimate these population health effects, we need to find solid evidence for exactly how lead exposure is related to IQ loss. The exposure data we are working with is based on whole blood samples of 720 children and adolescents (ages 3 - 17) in Germany from the German Environmental Survey, [GerES V](https://www.umweltbundesamt.de/en/topics/health/assessing-environmentally-related-health-risks/german-environmental-surveys/german-environmental-survey-2014-2017-geres-v#undefined). The data was collected between 2014 and 2017.\
+\
+In order to quantify exactly how lead exposure is related to IQ loss, we turn to epidemiological literature. There are many studies published focusing on the the neurodevelopmental effects of lead. Instead of just choosing one estimate from one study for our EBD analysis, we will pool estimates from multiple studies in order to gather and strengthen the evidence we base our analysis on. And since uncertainty plays an important role in the final burden of disease results, we will use a Bayesian approach to meta analysis. With this approach we can easily model uncertainty and get a full posterior distribution of the pooled effect (instead of a mean effect and an hard-to-interpret confidence interval). Later, we will be able to use many draws from the posterior distribution for our EBD analysis! But first, let's meta analyse some epi studies. I found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
+
+
+# Step 1: Standardizing Effect Estimates
+
+We first need to search for and identify relevant studies and extract the data necessary for our analysis. These tasks were already done by Philippe Palmont and his team at ANSES.
+Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log~10~, some ln, and some log~2~. Also, 3 of the 14 included studies did not transform their BLL at all, so it's on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of exposure in their analysis, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). But what happens to the effect estimates, when we transform them in this way?
+
+## Visually Checking Transformations
+
+Let's compare the original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) with the transformed one (ß = ß -0.277), that now should be used for linear BLL.
+
+```{r}
+#| label: lin-vs-log
+#| echo: false # Don't include source code in output
+
+
+beta_log <- -2.650
+beta_linear <- -0.277
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log <- beta_log * log(blood_lead + 1)
+IQ_loss_linear <- beta_linear * blood_lead
+
+plot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log,
+  linear_ERF = IQ_loss_linear
+)
+
+ggplot(plot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "Logarithmic")) +
+  geom_line(aes(y = linear_ERF, color = "Linear")) +
+  scale_color_manual(values = c("Logarithmic" = "blue", "Linear" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+This looks like we would likely underestimate the effect of lower BLL and overestimate the effect of higher BLL. Since today, BLL are often found to be much lower than even 30 µg/dL (in our sample, the range is ~0.04 to ~4.5 µg/dL), we would likely underestimate the population health effects of BLL on IQ in children. Transforming log estimates to linear seems to be problematic here. 
+
+## Transforming Estimates to ln(BLL)
+In order to preserve the correct exposure-response curves and harmonize the effect estimates for our meta analysis, we could try to transform all estimates to ln(BLL), since this closer to the original estimates reported by the studies, since they mostly just used different bases for their logarithmic transformations.   
+   
+These are the formulas I used:\
+$$
+\beta_{ln} = \beta_{linear} \times C_{ref}\
+$$
+$$
+\beta_{ln} = \frac{beta_{log_{2}}} {\ln(2)}\
+$$
+$$
+\beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
+$$
+Where:\
+$\beta_{ln}$ = harmonized beta coefficient (natural logarithm)\
+$\beta_{linear}$ = original linear beta coefficient\
+$\beta_{log_2}$ = original log₂-transformed beta coefficient\
+$\beta_{log_{10}}$ = original log₁₀-transformed beta coefficient\
+$C_{ref}$ = reference concentration for linear transformation\
+
+
+### Case 1: log~10~(BLL) -> ln(BLL): Dantzer et al. 2020
+```{r}
+#| label: log10-to-ln
+#| echo: false
+
+
+Dantzerbeta_log10 <- -13.150
+Dantzerbeta_ln <- -5.711
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log10 <- Dantzerbeta_log10 * log10(blood_lead + 1)
+IQ_loss_ln <- Dantzerbeta_ln * log(blood_lead + 1)
+
+Dantzerplot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log10,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Dantzerplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "log(10)")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("log(10)" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+We can't even see the blue curve, so the transformation should be valid.   
+
+
+### Case 2: log~2~(BLL) -> ln(BLL): Desrochers-Couture et al. 2018
+```{r}
+#| label: log2-to-ln
+#| echo: false
+
+
+
+Desrochersbeta_log2 <- 0.014
+Desrochersbeta_ln <- 0.020
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log2 <- Desrochersbeta_log2 * log2(blood_lead + 1)
+IQ_loss_ln <- Desrochersbeta_ln * log(blood_lead + 1)
+
+Desrochersplot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log2,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Desrochersplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "log(2)")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("log(2)" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+For the transformation from log~2~ to ln, we can see that at least in this concentration range, the transformed estimate is a good approximation for the original one.\
+**!** Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
+
+### Case 3: linear(BLL), not transformed -> ln(BLL): Iglesias et al. 2011
+In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). Here, I chose 2.2 µg/dL.  
+```{r}
+#| label: lin-to-ln
+#| echo: false
+
+
+Iglesiasbeta_linear <- -0.940
+Iglesiasbeta_ln <- -2.068
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_linear <- Iglesiasbeta_linear * blood_lead
+IQ_loss_ln <- Iglesiasbeta_ln * log(blood_lead + 1)
+
+Iglesiasplot_data <- data.frame(
+  blood_lead = blood_lead,
+  linear_ERF = IQ_loss_linear,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = linear_ERF, color = "linear")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("linear" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+This looks problematic... The concentration range is quit high though, so let's zoom in:
+
+```{r}
+#| label: lin-to-ln-zoom
+#| echo: false
+
+
+blood_lead_low <- seq(0, 5, by = 0.1)
+
+IQ_loss_linear <- Iglesiasbeta_linear * blood_lead_low
+IQ_loss_ln <- Iglesiasbeta_ln * log(blood_lead_low + 1)
+
+Iglesiasplot_data <- data.frame(
+  blood_lead_low = blood_lead_low,
+  linear_ERF = IQ_loss_linear,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Iglesiasplot_data, aes(x = blood_lead_low)) +
+  geom_line(aes(y = linear_ERF, color = "linear")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("linear" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+It looks like, even in the lower concentration range, the transformed estimate is not a good approximation of the original estimate. For my meta analysis, I therefore decided to exclude 3/14 studies with estimates for untransformed BLL data. We end up with 11 harmonized effect estimates for the association of ln(BLL) and absolute IQ point loss.
+
+# Step 2: Meta Analysis
+Now that we have collected our study data and harmonized the effect estimates, we can finally begin our meta analysis! 
+
+```{r}
+#| label: load-packages-data
+#| echo: false
+#| message: false
+
+
+# loading required packages
+library(brms)
+library(tidyverse)
+library(tidybayes)
+library(ggridges)
+library(glue)
+library(extraDistr)
+library(bayesplot)
+library(HDInterval)
+
+# loading data
+data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+
+# excluding studies that reported betas for untransformed (linear) BLL
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
+```
+
+## Setting Priors
+First, we will need to set priors. We will be conservative first and try weakly informative priors.
+For the main effect ($μ$), I chose $μ \sim N(0, 1)$.
+
+```{R}
+#| label: vis-main-effect
+#| echo: false
+
+
+# main effect, beta
+# visualize distr
+x <- seq(-3, 3, by = 0.1)
+y <- dnorm(x, mean = 0, sd = 1)
+ggplot() +
+  aes(x, y) +
+  geom_line(colour = "blue") +
+  theme_minimal()
+```
+
+The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero to make it _half_. For this model, I chose $τ \sim C(0, 0.5)$.
+
+```{R}
+#| label: vis-heterogeineity
+#| echo: false
+
+
+# heterogeneity
+sigma = 0.5
+# visualize distr
+x <- seq(0, 4, by = 0.01)
+y <- dhcauchy(x, sigma = sigma)
+ggplot() +
+  aes(x, y) +
+  geom_line(colour = "orange")+
+  theme_minimal()
+```
+
+As you can see, we grant quite a high probability (~20%) to the heterogeneity being higher than 1.5, meaning this prior is quite weakly informative. 
+
+```{R}
+1 - phcauchy(1.5, 0.5)
+```
+
+This is how we set our priors:
+
+```{R}
+#| label: set-priors
+
+
+priors <- c(prior(normal(0,1), class = Intercept), 
+            prior(cauchy(0,0.5), class = sd, lb = 0))
+```
+
+## Fitting the model
+Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
+
+```{R}
+#| label: fit-model
+#| output: false
+
+ 
+m.brm <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = priors,
+  control =
+    list(adapt_delta = 0.99),
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+```
+
+## Assessing Convergence & Model Validity
+Let's first make sure that our priors are defined well enough. We can do this by doing a prior predictive check. Prior predictive checks are used to evaluate the suitability of prior distributions before the model "sees" our data. They involve simulating data from the model using only the prior distributions and then examining the simulated data to see if it aligns with our expectations. This can help to identify problems with the chosen priors, such as implausible parameter values, before they can influence the posterior distribution and final inferences. [Here](https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html) you can read more about prior & posterior predictive checks.
+
+```{R}
+#| label: prior-pred-fit
+#| output: false
+#| echo: false
+
+ 
+# Fit model again and only sample from priors for prior predictive check
+fitPrior <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
+  data = data, 
+  prior = priors,
+  sample_prior = "only",
+  iter = 4000,
+  seed = 1223)
+```
+
+```{R}
+#| label: prior-pred-plot
+#| echo: false
+
+
+pp_check(fitPrior, ndraws = 20)
+```
+
+Now let's do a posterior predictive check:
+
+```{R}
+#| label: post-pred-plot
+#| echo: false
+
+
+pp_check(m.brm, ndraws = 20)
+```
+
+Both look okayish, even though we could consider using more informative priors.
+
+Let's look at the results summary:
+
+```{R}
+#| label: summary
+#| warning: false
+#| error: false
+#| echo: false
+
+summary(m.brm)
+```
+Here, we should pay attention to the $\hat{R}$ value (potential scale reduction factor), which tells us to assess whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the final parameters) has converged. $\hat{R}$ of less than 1.05 in generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ value are both 1.00 which is good!
+
+Now let's look at the actual results and plot the MCMC chains & posterior distributions:
+
+```{R}
+#| label: plot-chains
+#| echo: false
+#| fig-height: 6
+
+
+plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+```
+
+```{R}
+#| include: false
+# add table containing some study info
+# add info about bayesian multilvl models and our model!
+# add info on advantages for small number of studies, incl. shrinkage
+# add vis of posterior distr (ß, sd)
+# add forestplot & interpretation
+```
+
