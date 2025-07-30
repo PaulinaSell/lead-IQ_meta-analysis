@@ -8,7 +8,7 @@ format:
     toc: true
     self-contained: true
     embed-resources: true
-   # theme: cosmo
+    theme: cosmo
 execute: 
   cache: true
 fig-align: center
@@ -26,12 +26,13 @@ library(ggplot2)
 # Introduction
 The aim of this project is to estimate the Environmental Burden of Disease (EBD) attributable to lead exposure in Germany. Here, we will focus on the neurodevelopmental effects of lead, therefore the health outcome will be IQ point loss in children and adolescents. In order to estimate these population health effects, we need to find solid evidence for exactly how lead exposure is related to IQ loss. The exposure data we are working with is based on whole blood samples of 720 children and adolescents (ages 3 - 17) in Germany from the German Environmental Survey, [GerES V](https://www.umweltbundesamt.de/en/topics/health/assessing-environmentally-related-health-risks/german-environmental-surveys/german-environmental-survey-2014-2017-geres-v#undefined). The data was collected between 2014 and 2017.\
 \
-In order to quantify exactly how lead exposure is related to IQ loss, we turn to epidemiological literature. There are many studies published focusing on the the neurodevelopmental effects of lead. Instead of just choosing one estimate from one study for our EBD analysis, we will pool estimates from multiple studies in order to gather and strengthen the evidence we base our analysis on. And since uncertainty plays an important role in the final burden of disease results, we will use a Bayesian approach to meta analysis. With this approach we can easily model uncertainty and get a full posterior distribution of the pooled effect (instead of a mean effect and an hard-to-interpret confidence interval). Later, we will be able to use many draws from the posterior distribution for our EBD analysis! But first, let's meta analyse some epi studies. I found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
+In order to quantify exactly how lead exposure is related to IQ loss, we turn to the epidemiological literature. There are many studies published focusing on the the neurodevelopmental effects of lead. Instead of just choosing an estimate from one study for our EBD analysis, we will pool estimates from multiple studies in order to gather and strengthen the evidence we base our analysis on. And since uncertainty plays an important role in the final burden of disease results, we will use a Bayesian approach. With this approach we can easily model uncertainty and get a full posterior distribution of the pooled effect (instead of a mean and an hard-to-interpret confidence interval). Later, we will be able to directly use the posterior distribution in our EBD analysis! But first, let's meta analyze some epi studies.\
+I found help and inspriation in multiple sources and (hopefully) linked them all. I especially found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
 
 
 # Step 1: Standardizing Effect Estimates
 
-We first need to search for and identify relevant studies and extract the data necessary for our analysis. These tasks were already done by Philippe Palmont and his team at ANSES.
+We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES.
 Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log~10~, some ln, and some log~2~. Also, 3 of the 14 included studies did not transform their BLL at all, so it's on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of exposure in their analysis, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). But what happens to the effect estimates, when we transform them in this way?
 
 ## Visually Checking Transformations
@@ -268,7 +269,7 @@ ggplot() +
   theme_minimal()
 ```
 
-The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero (`lb = 0`)) to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
+The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero (`lb = 0`) to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
 
 ```{R}
 #| label: vis-heterogeineity
@@ -377,7 +378,7 @@ summary(m.brm)
 ```
 Here, we should pay attention to the $\hat{R}$ value (potential scale reduction factor), which tells us whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the parameters) has converged. $\hat{R}$ of less than 1.05 is generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
 
-Now let's look at the traceplots of the 4 MCMC chains for both the posterior distribution of beta (`b_intercept`) and the standard deviation of beta (`as_author_year__Intercept`). The red vertical lines indicate where the warm-up was finished (samples on from warm-up will not be used further).
+Now let's look at the traceplots of the 4 MCMC chains for both the posterior distribution of beta and the standard deviation (SD). The red vertical lines indicate where the warm-up was finished (samples on from warm-up will not be used further).
 
 ```{R}
 #| label: plot-chains
@@ -385,10 +386,12 @@ Now let's look at the traceplots of the 4 MCMC chains for both the posterior dis
 #| fig-height: 6
 
 # extract posterior samples with warm-up
-posterior_samples = as_draws_df(m.brm, inc_warmup = T)
+posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
+names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
+names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
 
-mcmc_trace(posterior_samples,
-           pars = c("b_Intercept", "sd_author_year__Intercept"),
+mcmc_trace(posterior_samples_warm,
+           pars = c("beta", "sd"),
            facet_args = list(ncol = 1)) +
   vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
 ```
@@ -403,63 +406,86 @@ mcmc_trace(posterior_samples,
 # add forestplot & interpretation
 ```
 
+## Interpreting the Results
+
+Interesting! Now what do our posterior distributions actually look like? 
+
 ```{R}
-# lets look at posterior distributions ----
-# prepare data
-post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+#| label: plot_post_distr
+#| echo: false
 
-# generate density plot for posterior distributions
-ggplot(aes(x = b_Intercept), data = post.samples) +
-  geom_density(fill = "lightblue",                # set the color
-               color = "lightblue", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$b_Intercept), 
-                               linetype = "dotted", 
-                               color = "red") +
-  geom_vline(xintercept = Mode(post.samples$b_Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
-  labs(x = expression(italic(b_Intercept)),
-       y = element_blank()) +
-  theme_minimal()
+# extract posterior samples with warm-up
+posterior_samples = as_draws_df(m.brm)
+names(posterior_samples)[names(posterior_samples) == "b_Intercept"] = "beta"
+names(posterior_samples)[names(posterior_samples) == "sd_author_year__Intercept"] = "sd"
 
-#ggsave("results/posterior_dist_b_log_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+# density plot with HDI
+mcmc_areas(posterior_samples,
+           pars = c("beta"),
+           point_est = ("mean"),
+           prob = 0.95) + # 95% HDI
+  labs(title = "Posterior Distribution of Beta with Mean & 95 % HDI")
 
-
-ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
-  geom_density(fill = "lightgreen",               # set the color
-               color = "lightgreen", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "red") +
-  geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
-  labs(x = expression(sd_author_year__Intercept),
-       y = element_blank()) +
-  theme_minimal()
+mcmc_areas(posterior_samples,
+           pars = c("sd"),
+           point_est = ("mean"),
+           prob = 0.95) + # 95% HDI
+  labs(title = "Posterior Distribution of SD with Mean & 95 % HDI")
 ```
 
+The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, beta) after observing new data, combining prior beliefs with the evidence from the data. And it actually represents probability (unlike mean effect + confidence interval)!\
+\
+This means, that we can "ask" this distribution many things, like: "What is the probability, that the effect is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ loss). To do this, we use the empirical cumulative distribution function (ecdf):
 
 ```{R}
-# lets generate a forest plot ----
+#| label: ecdf
+
+
+b.ecdf <- ecdf(posterior_samples$beta)
+x <- b.ecdf(-1)
+```
+
+The probability of the effect being greater than -1, given our data and model, is `r (round(x, 2) * 100)` %.
+\
+We can also ask about interesting intervals, for example the one we already saw in the plot above. What we see there is a 95 % high density interval, meaning the slimmest interval that contains 95 % of the probability mass.
+
+```{R}
+#| label: HDI
+#| output: false
+
+hdi = hdi(posterior_samples$beta, credMass = 0.95)
+```
+
+The true effect lies between `r round(hdi[1], 2)` and `r round(hdi[2], 2)` with a 95 % probability, given our data and model.\
+\
+Coming back to our main goal of this project, we can now use the posterior distrubution directly for our EBD assessment!
+\
+And of course, we can also plot a pretty forest plot that shows all the posterior distributions of the included studies, the mean and q2.5 - q97.5 intervals.
+
+```{R}
+#| label: forest_plot
+#| echo: false
+#| warning: false
+#| fig-height: 6
+
+
 # first, we have to prepare the data and extract the posterior distribution for each individual study 
 study.draws <- spread_draws(m.brm, r_author_year[author_year,], b_Intercept) %>% 
   mutate(b_Intercept = r_author_year + b_Intercept)
 
-# Next: generate distribution of the pooled effect
+# Generate distribution of the pooled effect
 pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>% 
   mutate(author_year = "Pooled Effect")
 
-# Next: bind study.draws and pooled.effect.draws to one data frame. 
-# We then start a pipe again, calling ungroup first, and then use mutate to clean the study labels (i.e. replace dots with spaces)
+# Bind study.draws & pooled.effect.draws to one data frame, start pipe, call ungroup, then use mutate to clean study labels
 forest.data <- bind_rows(study.draws, 
                          pooled.effect.draws) %>% 
   ungroup() %>%
   mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
   mutate(author_year = fct_rev(factor(author_year)))
 
-# Lastly: forest plot should also display the effect size (SMD and credible interval) of each study. 
-# We use forest.data data set, group it by Author, and then use the mean_qi function to calculate these values
+# The forest plot should also display the effect size & credible interval of each study. 
+# We use forest.data data set, group it by author, and then use the mean_qi function to calculate these values
 forest.data.summary <- group_by(forest.data, author_year) %>% 
   mean_qi(b_Intercept)
 
@@ -468,7 +494,7 @@ ggplot(aes(b_Intercept,
            relevel(author_year, "Pooled Effect", # Y-axis uses author_year but reorders it so "Pooled Effect" appears at the bottom (after = Inf)
                    after = Inf)), 
        data = forest.data) +
-  
+
   # Box to highlight pooled effect
   geom_rect(data = filter(forest.data.summary, author_year == "Pooled Effect"),
             aes(xmin = -Inf, xmax = Inf, 
@@ -506,16 +532,6 @@ ggplot(aes(b_Intercept,
   #xlim(-4, 1) +
   theme_light() +
   theme(panel.border = element_blank())
-
-# ggsave("results/forestplot_logBLL_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
-
-# extract draws for EBD assessment, using spread_draws ----
-# posterior_summary(m.brm)
-
-# draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
-
-
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min.csv", row.names = F)
-
 ```
 
+If you're wondering why the effect sizes are not the same as reported by the studies, this is because of a process called _shrinkage_. The Bayesian model estimates "true" effect sizes for every single study and if it sees ourliers (like Roy et al. 2013 with an observed effect of -47, sd 16.58), they will be pulled towards the overall effect. This is an advantage of the Bayesian approach, especially if we want to pool a small number of studies. The model is not as sensitive to outliers as frequentist models.
