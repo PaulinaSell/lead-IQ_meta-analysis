@@ -268,7 +268,7 @@ ggplot() +
   theme_minimal()
 ```
 
-The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
+The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero (`lb = 0`)) to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
 
 ```{R}
 #| label: vis-heterogeineity
@@ -306,10 +306,10 @@ priors <- c(prior(normal(0,1), class = Intercept),
 ```
 
 ## Fitting the model
-Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. ''se(se_beta_ln)''
+Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. If we don't do this, adapt_delta will default to 0.8 and we get `Warning: There were 5 divergent transitions after warmup`. This means that the algorithm has trouble exploring the posterior distribution.
 
 ```{R}
-#| label: fit-model
+#| label: fit-min-model
 #| output: false
 
  
@@ -317,6 +317,7 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
+  control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
   chains = 4,
   iter = 4000,
@@ -327,7 +328,7 @@ m.brm <- brm(
 Let's first make sure that our priors are defined well enough. We can do this by doing a prior predictive check. Prior predictive checks are used to evaluate the suitability of prior distributions before the model "sees" our data. They involve simulating data from the model using only the prior distributions and then examining the simulated data to see if it aligns with our expectations. This can help to identify problems with the chosen priors, such as implausible parameter values, before they can influence the posterior distribution and final inferences. [Here](https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html) you can read more about prior & posterior predictive checks.
 
 ```{R}
-#| label: prior-pred-fit
+#| label: fit-prior-pred
 #| output: false
 #| echo: false
 
@@ -337,6 +338,7 @@ fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
   prior = priors,
+  control = list(adapt_delta = 0.99),
   sample_prior = "only",
   chains = 4,
   iter = 4000,
@@ -361,7 +363,7 @@ Now let's do a posterior predictive check:
 pp_check(m.brm, ndraws = 20)
 ```
 
-Both look okayish, even though we could consider using more informative priors.
+Both look okayish? **I'm not sure here.. _is_ this okay?**
 
 Let's look at the results summary:
 
@@ -373,17 +375,22 @@ Let's look at the results summary:
 
 summary(m.brm)
 ```
-Here, we should pay attention to the $\hat{R}$ value (potential scale reduction factor), which tells us to assess whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the final parameters) has converged. $\hat{R}$ of less than 1.05 in generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ value are both 1.00 which is good!
+Here, we should pay attention to the $\hat{R}$ value (potential scale reduction factor), which tells us whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the parameters) has converged. $\hat{R}$ of less than 1.05 is generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
 
-Now let's look at the actual results and plot the MCMC chains & posterior distributions:
+Now let's look at the traceplots of the 4 MCMC chains for both the posterior distribution of beta (`b_intercept`) and the standard deviation of beta (`as_author_year__Intercept`). The red vertical lines indicate where the warm-up was finished (samples on from warm-up will not be used further).
 
 ```{R}
 #| label: plot-chains
 #| echo: false
 #| fig-height: 6
 
+# extract posterior samples with warm-up
+posterior_samples = as_draws_df(m.brm, inc_warmup = T)
 
-plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+mcmc_trace(posterior_samples,
+           pars = c("b_Intercept", "sd_author_year__Intercept"),
+           facet_args = list(ncol = 1)) +
+  vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
 ```
 
 ```{R}
