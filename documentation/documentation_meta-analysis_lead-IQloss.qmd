@@ -2,16 +2,16 @@
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
 date: "2025-07-25"
-date-modified: "2025-07-28"
+date-modified: "2025-07-30"
 format:
   html:
     toc: true
-    theme: cosmo
-embed-resources: true
+    self-contained: true
+    embed-resources: true
+   # theme: cosmo
 execute: 
   cache: true
-  #freeze: auto
-fig-align: left
+fig-align: center
 fig-height: 3.5
 ---
 
@@ -21,7 +21,6 @@ fig-height: 3.5
 
 
 library(ggplot2)
-library(cleanrmd)
 ```
 
 # Introduction
@@ -251,7 +250,7 @@ data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 20
 ```
 
 ## Setting Priors
-First, we will need to set priors. We will be conservative first and try weakly informative priors.
+First, we need to set priors. We will be conservative and use weakly informative priors.
 For the main effect ($μ$), I chose $μ \sim N(0, 1)$.
 
 ```{R}
@@ -269,7 +268,7 @@ ggplot() +
   theme_minimal()
 ```
 
-The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero to make it _half_. For this model, I chose $τ \sim C(0, 0.5)$.
+The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
 
 ```{R}
 #| label: vis-heterogeineity
@@ -287,11 +286,14 @@ ggplot() +
   theme_minimal()
 ```
 
-As you can see, we grant quite a high probability (~20%) to the heterogeneity being higher than 1.5, meaning this prior is quite weakly informative. 
-
 ```{R}
-1 - phcauchy(1.5, 0.5)
+#| label: phcauchy
+#| echo: false
+
+threshold = 1.5
+prob = (1 - phcauchy(threshold, sigma)) * 100
 ```
+As you can see, we grant quite a high probability (`r round(prob, 2)`%) to the heterogeneity being higher than `r threshold`. This prior is relatively weakly informative if you consider the median of standard errors that we extracted from our included studies (`r round(median(data$se_beta_ln), 2)`).
 
 This is how we set our priors:
 
@@ -304,7 +306,7 @@ priors <- c(prior(normal(0,1), class = Intercept),
 ```
 
 ## Fitting the model
-Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
+Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. ''se(se_beta_ln)''
 
 ```{R}
 #| label: fit-model
@@ -315,9 +317,8 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  control =
-    list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
+  chains = 4,
   iter = 4000,
   seed = 1223)
 ```
@@ -337,6 +338,7 @@ fitPrior <- brm(
   data = data, 
   prior = priors,
   sample_prior = "only",
+  chains = 4,
   iter = 4000,
   seed = 1223)
 ```
@@ -386,10 +388,127 @@ plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 ```{R}
 #| include: false
+
 # add table containing some study info
 # add info about bayesian multilvl models and our model!
 # add info on advantages for small number of studies, incl. shrinkage
 # add vis of posterior distr (ß, sd)
 # add forestplot & interpretation
+```
+
+```{R}
+# lets look at posterior distributions ----
+# prepare data
+post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+
+# generate density plot for posterior distributions
+ggplot(aes(x = b_Intercept), data = post.samples) +
+  geom_density(fill = "lightblue",                # set the color
+               color = "lightblue", alpha = 0.7) +  
+  geom_vline(xintercept = mean(post.samples$b_Intercept), 
+                               linetype = "dotted", 
+                               color = "red") +
+  geom_vline(xintercept = Mode(post.samples$b_Intercept), 
+             linetype = "dotted", 
+             color = "blue") +
+  labs(x = expression(italic(b_Intercept)),
+       y = element_blank()) +
+  theme_minimal()
+
+#ggsave("results/posterior_dist_b_log_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+
+
+ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
+  geom_density(fill = "lightgreen",               # set the color
+               color = "lightgreen", alpha = 0.7) +  
+  geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
+             linetype = "dotted", 
+             color = "red") +
+  geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
+             linetype = "dotted", 
+             color = "blue") +
+  labs(x = expression(sd_author_year__Intercept),
+       y = element_blank()) +
+  theme_minimal()
+```
+
+
+```{R}
+# lets generate a forest plot ----
+# first, we have to prepare the data and extract the posterior distribution for each individual study 
+study.draws <- spread_draws(m.brm, r_author_year[author_year,], b_Intercept) %>% 
+  mutate(b_Intercept = r_author_year + b_Intercept)
+
+# Next: generate distribution of the pooled effect
+pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>% 
+  mutate(author_year = "Pooled Effect")
+
+# Next: bind study.draws and pooled.effect.draws to one data frame. 
+# We then start a pipe again, calling ungroup first, and then use mutate to clean the study labels (i.e. replace dots with spaces)
+forest.data <- bind_rows(study.draws, 
+                         pooled.effect.draws) %>% 
+  ungroup() %>%
+  mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
+  mutate(author_year = fct_rev(factor(author_year)))
+
+# Lastly: forest plot should also display the effect size (SMD and credible interval) of each study. 
+# We use forest.data data set, group it by Author, and then use the mean_qi function to calculate these values
+forest.data.summary <- group_by(forest.data, author_year) %>% 
+  mean_qi(b_Intercept)
+
+# let's plot!
+ggplot(aes(b_Intercept, 
+           relevel(author_year, "Pooled Effect", # Y-axis uses author_year but reorders it so "Pooled Effect" appears at the bottom (after = Inf)
+                   after = Inf)), 
+       data = forest.data) +
+  
+  # Box to highlight pooled effect
+  geom_rect(data = filter(forest.data.summary, author_year == "Pooled Effect"),
+            aes(xmin = -Inf, xmax = Inf, 
+                ymin = as.numeric(factor(author_year)) - 0.4, 
+                ymax = as.numeric(factor(author_year)) + 0.4),
+            fill = "steelblue3", alpha = 0.2) +
+  
+  # Add vertical lines for pooled effect and CI
+  geom_vline(xintercept = fixef(m.brm)[1, 1], # line at the pooled effect estimate
+             color = "gray50", linewidth = 0.8, linetype = 2) + 
+  #geom_vline(xintercept = fixef(m.brm)[1, 3:4], # lines for Q2.5 & Q97.5 from pooled effect (95 % CI)
+             #color = "gray50", linewidth = 0.8, linetype = 2) + 
+  geom_vline(xintercept = 0, color = "gray20", 
+             linewidth = 1) + # line at zero (null effect line)
+  
+  # Add density ridges
+  geom_density_ridges(fill = "steelblue3", # ridge density plots for each study/row
+                      rel_min_height = 0.01, # removes very small density values
+                      col = NA, scale = 1, # no outline color, scale of distributions
+                      alpha = 0.8) + # opacity
+  
+  # Add point estimates with confidence intervals
+  geom_pointinterval(data = forest.data.summary,
+                     aes(xmin = .lower, xmax = .upper),
+                     fatten_point = 1.5,
+                     linewidth = 0.8) +
+  
+  # Add text and labels
+  geom_text(data = mutate_if(forest.data.summary,
+                             is.numeric, round, 2), # decimals
+            aes(label = glue("{b_Intercept} [{.lower}, {.upper}]"), # format text -> ß [CIlow, CIhigh]
+                x = Inf), hjust = "inward") + #aligns text inward from the edge
+  labs(x = "beta",
+       y = element_blank()) +
+  #xlim(-4, 1) +
+  theme_light() +
+  theme(panel.border = element_blank())
+
+# ggsave("results/forestplot_logBLL_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+
+# extract draws for EBD assessment, using spread_draws ----
+# posterior_summary(m.brm)
+
+# draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
+
+
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min.csv", row.names = F)
+
 ```
 

@@ -70,7 +70,7 @@ m.brm <- brm(
   seed = 13513)
 
 # plot the MCMC chains & posterior distributions
-plot(m.brm) #kommentar
+plot(m.brm)
 
 
 # Prior predictive check
