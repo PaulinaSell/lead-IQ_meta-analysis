@@ -3294,10 +3294,11 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 </section>
 <section id="step-1-standardizing-effect-estimates" class="level1">
 <h1>Step 1: Standardizing Effect Estimates</h1>
-<p>We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES. Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log<sub>10</sub>, some ln, and some log<sub>2</sub>. Also, 3 of the 14 included studies did not transform their BLL at all, so it’s on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of exposure in their analysis, using the template proposed by <a href="https://doi.org/10.1186/s12874-017-0322-8">Rodriguez Barranco 2017</a>. But what happens to the effect estimates, when we transform them in this way?</p>
+<p>We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES.<br>
+Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log<sub>10</sub>, some ln, and some log<sub>2</sub>. Also, 3 of the 14 included studies did not transform their BLL at all, so it’s on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of BLL in their analysis, using the template proposed by <a href="https://doi.org/10.1186/s12874-017-0322-8">Rodriguez Barranco 2017</a>. What happens to the effect estimates, if we transform them in this way?</p>
 <section id="visually-checking-transformations" class="level2">
 <h2 class="anchored" data-anchor-id="visually-checking-transformations">Visually Checking Transformations</h2>
-<p>Let’s compare the original beta coefficient from <a href="https://doi.org/10.3109/10408444.2013.832726">Crump et al. 2013</a> (ß = -2.65) for ln(BLL) with the transformed one (ß = ß -0.277), that now should be used for linear BLL.</p>
+<p>Let’s compare an original beta coefficient from <a href="https://doi.org/10.3109/10408444.2013.832726">Crump et al. 2013</a> (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277), that now can be used for linear BLL:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3307,12 +3308,13 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 </div>
 </div>
 </div>
-<p>This looks like we would likely underestimate the effect of lower BLL and overestimate the effect of higher BLL. Since today, BLL are often found to be much lower than even 30 µg/dL (in our sample, the range is ~0.04 to ~4.5 µg/dL), we would likely underestimate the population health effects of BLL on IQ in children. Transforming log estimates to linear seems to be problematic here.</p>
+<p>It looks like we would heavily underestimate the effects of lower BLL and overestimate the effects of higher BLL. Since today, BLL are often found to be much lower than even 30 µg/dL (in our sample, the range is approximately 0.04 to 4.5 µg/dL), we would likely underestimate the population health effects of BLL on IQ in children.<br>
+Thus, transforming log estimates to linear seems to be problematic in our case.</p>
 </section>
 <section id="transforming-estimates-to-lnbll" class="level2">
 <h2 class="anchored" data-anchor-id="transforming-estimates-to-lnbll">Transforming Estimates to ln(BLL)</h2>
-<p>In order to preserve the correct exposure-response curves and harmonize the effect estimates for our meta analysis, we could try to transform all estimates to ln(BLL), since this closer to the original estimates reported by the studies, since they mostly just used different bases for their logarithmic transformations.</p>
-<p>These are the formulas I used:<br>
+<p>In order to preserve the correct exposure-response curves and harmonize the effect estimates for the meta analysis, we could try to transform all estimates to ln(BLL), since this closer to the original estimates reported by the studies, since they mostly just used different bases for their logarithmic transformations.</p>
+<p>These are the formulas I used to transform the different estimates to ln(BLL):<br>
 <span class="math display">\[
 \beta_{ln} = \beta_{linear} \times C_{ref}\
 \]</span> <span class="math display">\[
@@ -3321,13 +3323,13 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 \beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
 \]</span> Where:<br>
 <span class="math inline">\(\beta_{ln}\)</span> = harmonized beta coefficient (natural logarithm)<br>
-<span class="math inline">\(\beta_{linear}\)</span> = original linear beta coefficient<br>
-<span class="math inline">\(\beta_{log_2}\)</span> = original log₂-transformed beta coefficient<br>
-<span class="math inline">\(\beta_{log_{10}}\)</span> = original log₁₀-transformed beta coefficient<br>
+<span class="math inline">\(\beta_{linear}\)</span> = beta coefficient for linear BLL<br>
+<span class="math inline">\(\beta_{log_2}\)</span> = beta coefficient for log₂-transformed BLL<br>
+<span class="math inline">\(\beta_{log_{10}}\)</span> = beta coefficient for log₁₀-transformed BLL<br>
 <span class="math inline">\(C_{ref}\)</span> = reference concentration for linear transformation<br>
 </p>
 <section id="case-1-log10bll---lnbll-dantzer-et-al.-2020" class="level3">
-<h3 class="anchored" data-anchor-id="case-1-log10bll---lnbll-dantzer-et-al.-2020">Case 1: log<sub>10</sub>(BLL) -&gt; ln(BLL): Dantzer et al. 2020</h3>
+<h3 class="anchored" data-anchor-id="case-1-log10bll---lnbll-dantzer-et-al.-2020">Case 1: log<sub>10</sub>(BLL) -&gt; ln(BLL): <a href="https://doi.org/10.1016/j.scitotenv.2019.134519">Dantzer et al. 2020</a></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3340,7 +3342,7 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 <p>We can’t even see the blue curve, so the transformation should be valid.</p>
 </section>
 <section id="case-2-log2bll---lnbll-desrochers-couture-et-al.-2018" class="level3">
-<h3 class="anchored" data-anchor-id="case-2-log2bll---lnbll-desrochers-couture-et-al.-2018">Case 2: log<sub>2</sub>(BLL) -&gt; ln(BLL): Desrochers-Couture et al. 2018</h3>
+<h3 class="anchored" data-anchor-id="case-2-log2bll---lnbll-desrochers-couture-et-al.-2018">Case 2: log<sub>2</sub>(BLL) -&gt; ln(BLL): <a href="https://doi.org/10.1016/j.envint.2018.10.043">Desrochers-Couture et al. 2018</a></h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3354,7 +3356,7 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 <strong>!</strong> Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.</p>
 </section>
 <section id="case-3-linearbll-not-transformed---lnbll-iglesias-et-al.-2011" class="level3">
-<h3 class="anchored" data-anchor-id="case-3-linearbll-not-transformed---lnbll-iglesias-et-al.-2011">Case 3: linear(BLL), not transformed -&gt; ln(BLL): Iglesias et al. 2011</h3>
+<h3 class="anchored" data-anchor-id="case-3-linearbll-not-transformed---lnbll-iglesias-et-al.-2011">Case 3: linear(BLL), not transformed -&gt; ln(BLL): <a href="https://doi.org/10.1179/107735211799041841">Iglesias et al. 2011</a></h3>
 <p>In order to transform this estimate, we need to set a reference BLL (<span class="math inline">\(C_{ref}\)</span>). Here, I chose 2.2 µg/dL.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -3365,7 +3367,7 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 </div>
 </div>
 </div>
-<p>This looks problematic… The concentration range is quit high though, so let’s zoom in:</p>
+<p>This looks problematic… The concentration range is quite high in this plot though, so let’s zoom in:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>

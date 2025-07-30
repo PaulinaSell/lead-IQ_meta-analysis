@@ -32,12 +32,12 @@ I found help and inspriation in multiple sources and (hopefully) linked them all
 
 # Step 1: Standardizing Effect Estimates
 
-We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES.
-Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log~10~, some ln, and some log~2~. Also, 3 of the 14 included studies did not transform their BLL at all, so it's on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of exposure in their analysis, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). But what happens to the effect estimates, when we transform them in this way?
+We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES.\
+Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) for their regression analyses. Unfortunately, they did not always use the same log bases. Some used log~10~, some ln, and some log~2~. Also, 3 of the 14 included studies did not transform their BLL at all, so it's on a linear scale. Philippe Palmont and his team standardized all estimates to linear increments of BLL in their analysis, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). What happens to the effect estimates, if we transform them in this way?
 
 ## Visually Checking Transformations
 
-Let's compare the original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) with the transformed one (ß = ß -0.277), that now should be used for linear BLL.
+Let's compare an original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277), that now can be used for linear BLL:
 
 ```{r}
 #| label: lin-vs-log
@@ -69,12 +69,13 @@ ggplot(plot_data, aes(x = blood_lead)) +
   theme_minimal()
 ```
 
-This looks like we would likely underestimate the effect of lower BLL and overestimate the effect of higher BLL. Since today, BLL are often found to be much lower than even 30 µg/dL (in our sample, the range is ~0.04 to ~4.5 µg/dL), we would likely underestimate the population health effects of BLL on IQ in children. Transforming log estimates to linear seems to be problematic here. 
+It looks like we would heavily underestimate the effects of lower BLL and overestimate the effects of higher BLL. Since today, BLL are often found to be much lower than even 30 µg/dL (in our sample, the range is approximately 0.04 to 4.5 µg/dL), we would likely underestimate the population health effects of BLL on IQ in children.\
+Thus, transforming log estimates to linear seems to be problematic in our case. 
 
 ## Transforming Estimates to ln(BLL)
-In order to preserve the correct exposure-response curves and harmonize the effect estimates for our meta analysis, we could try to transform all estimates to ln(BLL), since this closer to the original estimates reported by the studies, since they mostly just used different bases for their logarithmic transformations.   
+In order to preserve the correct exposure-response curves and harmonize the effect estimates for the meta analysis, we could try to transform all estimates to ln(BLL), since this closer to the original estimates reported by the studies, since they mostly just used different bases for their logarithmic transformations.   
    
-These are the formulas I used:\
+These are the formulas I used to transform the different estimates to ln(BLL):\
 $$
 \beta_{ln} = \beta_{linear} \times C_{ref}\
 $$
@@ -86,13 +87,13 @@ $$
 $$
 Where:\
 $\beta_{ln}$ = harmonized beta coefficient (natural logarithm)\
-$\beta_{linear}$ = original linear beta coefficient\
-$\beta_{log_2}$ = original log₂-transformed beta coefficient\
-$\beta_{log_{10}}$ = original log₁₀-transformed beta coefficient\
+$\beta_{linear}$ = beta coefficient for linear BLL\
+$\beta_{log_2}$ = beta coefficient for log₂-transformed BLL\
+$\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
 $C_{ref}$ = reference concentration for linear transformation\
 
 
-### Case 1: log~10~(BLL) -> ln(BLL): Dantzer et al. 2020
+### Case 1: log~10~(BLL) -> ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
 ```{r}
 #| label: log10-to-ln
 #| echo: false
@@ -126,7 +127,7 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
 We can't even see the blue curve, so the transformation should be valid.   
 
 
-### Case 2: log~2~(BLL) -> ln(BLL): Desrochers-Couture et al. 2018
+### Case 2: log~2~(BLL) -> ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
 ```{r}
 #| label: log2-to-ln
 #| echo: false
@@ -161,7 +162,7 @@ ggplot(Desrochersplot_data, aes(x = blood_lead)) +
 For the transformation from log~2~ to ln, we can see that at least in this concentration range, the transformed estimate is a good approximation for the original one.\
 **!** Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
 
-### Case 3: linear(BLL), not transformed -> ln(BLL): Iglesias et al. 2011
+### Case 3: linear(BLL), not transformed -> ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
 In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). Here, I chose 2.2 µg/dL.  
 ```{r}
 #| label: lin-to-ln
@@ -193,7 +194,7 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
   theme_minimal()
 ```
 
-This looks problematic... The concentration range is quit high though, so let's zoom in:
+This looks problematic... The concentration range is quite high in this plot though, so let's zoom in:
 
 ```{r}
 #| label: lin-to-ln-zoom
