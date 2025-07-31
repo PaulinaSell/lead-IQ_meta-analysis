@@ -12,10 +12,10 @@ library(extraDistr)
 library(bayesplot)
 library(HDInterval)
 
-data = read.csv("data/study_data_leadIQloss.csv")
+data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
 # try excluding studies that were transformed from linear to log, since transformation may not be valid here
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
 
 # lets look at the data 
 ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
@@ -49,11 +49,8 @@ ggplot() +
   geom_line(colour = "orange")
 
 # Set priors ----
-priors <- c(prior(normal(-0.4,0.8), class = Intercept), # overall effect size µ
-            prior(cauchy(0,0.2), class = sd, lb = 0)) # between-study heterogeneity τ with lb (lower bound) 0 to make it half-Cauchy
-
-priors_cons <- c(prior(normal(0,1), class = Intercept), 
-            prior(cauchy(0,0.5), class = sd, lb = 0)) 
+priors <- c(prior(normal(0,1), class = Intercept), # overall effect size µ
+            prior(cauchy(0,0.5), class = sd, lb = 0)) # between-study heterogeneity τ with lb (lower bound) 0 to make it half-Cauchy
 
 
 # Fit model ----
@@ -62,28 +59,41 @@ priors_cons <- c(prior(normal(0,1), class = Intercept),
 m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
-  prior = priors_cons,
-  control =                      # Whenever you see the warning "There were x divergent transitions after warmup." you should really think about increasing adapt_delta.
-    list(adapt_delta = 0.99),    # Increasing adapt_delta will slow down the sampler but will decrease the number of divergent transitions threatening the validity of your posterior draws
+  prior = priors,
+  control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
+  chains = 4,
   iter = 4000,
-  seed = 13513)
+  seed = 1223)
 
 # plot the MCMC chains & posterior distributions
-plot(m.brm)
+plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
+# nicer traceplot (incl. warmup)
+posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
+names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
+names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
+
+mcmc_trace(posterior_samples_warm,
+           pars = c("beta", "sd"),
+           facet_args = list(ncol = 1)) +
+  vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
+
+mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
 
 # Prior predictive check
 fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
-  prior = priors_cons,
+  prior = priors,
+  control = list(adapt_delta = 0.99),
   sample_prior = "only",
+  chains = 4,
   iter = 4000,
-  seed = 13513)
+  seed = 1223)
 
 # Plot
-pp_check(fitPrior, ndraws = 10)
+pp_check(fitPrior, ndraws = 20)
 
 # investigate model fit
 loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
@@ -92,10 +102,7 @@ loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (
                                                     # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
 
 # Posterior predictive check
-pp_check(m.brm, ndraws = 15)
-
-# Examine the pairs() plot to diagnose sampling problems
-pairs(m.brm) # especially useful in identifying collinearity between variables (which manifests as narrow bivariate plots) as well as the presence of multiplicative non-identifiabilities (banana-like shapes)
+pp_check(m.brm, ndraws = 20)
 
 
 # Check Rhat values & interpret results
@@ -121,7 +128,7 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
        y = element_blank()) +
   theme_minimal()
 
-#ggsave("results/posterior_dist_b_log_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
 
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
@@ -137,12 +144,12 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
        y = element_blank()) +
   theme_minimal()
 
-# ggsave("results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
 
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
-b.ecdf(-0.45) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
+b.ecdf(-1) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
 
 
@@ -212,7 +219,7 @@ ggplot(aes(b_Intercept,
   theme_light() +
   theme(panel.border = element_blank())
 
-# ggsave("results/forestplot_logBLL_no-Halabicky-Iglesias-Min.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
@@ -220,4 +227,6 @@ posterior_summary(m.brm)
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
 
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min.csv", row.names = F)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+
+

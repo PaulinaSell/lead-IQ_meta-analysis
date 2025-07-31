@@ -8,7 +8,7 @@ format:
     toc: true
     self-contained: true
     embed-resources: true
-    theme: cosmo
+    #theme: cosmo
 execute: 
   cache: true
 fig-align: center
@@ -223,7 +223,8 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead_low)) +
   theme_minimal()
 ```
 
-It looks like, even in the lower concentration range, the transformed estimate is not a good approximation of the original estimate. For my meta analysis, I therefore decided to exclude 3/14 studies with estimates for untransformed BLL data. We end up with 11 harmonized effect estimates for the association of ln(BLL) and absolute IQ point loss.
+It looks like, even in the lower concentration range, the transformed estimate is not a good approximation of the original estimate. For my meta analysis, I therefore decided to exclude 3/14 studies with estimates for untransformed BLL data.\
+We end up with 11 harmonized effect estimates for the association of ln(BLL) and absolute IQ point loss.
 
 # Step 2: Meta Analysis
 Now that we have collected our study data and harmonized the effect estimates, we can finally begin our meta analysis! 
@@ -247,8 +248,9 @@ library(HDInterval)
 # loading data
 data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
-# excluding studies that reported betas for untransformed (linear) BLL
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
+# try excluding studies that were transformed from linear to log, since transformation may not be valid here (and Roy, because I don't trust the estimate.. asked main author for confirmation / correction)
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+
 ```
 
 ## Setting Priors
@@ -270,7 +272,7 @@ ggplot() +
   theme_minimal()
 ```
 
-The prior for the heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. it is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. Then, we set the lower limit to zero (`lb = 0`) to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
+The prior for heterogeneity ($τ$) is a bit more difficult to set since it must be, by definition, positive. Here, a half-Cauchy distribution can be useful. It is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. We set the lower limit to zero (`lb = 0`) to make it half. For this model, I chose $τ \sim HC(0, 0.5)$.
 
 ```{R}
 #| label: vis-heterogeineity
@@ -295,7 +297,7 @@ ggplot() +
 threshold = 1.5
 prob = (1 - phcauchy(threshold, sigma)) * 100
 ```
-As you can see, we grant quite a high probability (`r round(prob, 2)`%) to the heterogeneity being higher than `r threshold`. This prior is relatively weakly informative if you consider the median of standard errors that we extracted from our included studies (`r round(median(data$se_beta_ln), 2)`).
+As you can see, we grant quite a high probability (`r round(prob, 2)`%) to the heterogeneity being higher than `r threshold`. This prior is weakly informative considering that the median of standard errors we extracted from our included studies is `r round(median(data$se_beta_ln), 2)`.
 
 This is how we set our priors:
 
@@ -308,10 +310,10 @@ priors <- c(prior(normal(0,1), class = Intercept),
 ```
 
 ## Fitting the model
-Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. If we don't do this, adapt_delta will default to 0.8 and we get `Warning: There were 5 divergent transitions after warmup`. This means that the algorithm has trouble exploring the posterior distribution.
+Now we can write & fit the model, using the package **brms** by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. If we don't do this, adapt_delta will default to 0.8 and we get something like `Warning: There were 5 divergent transitions after warmup`. This means that the algorithm has trouble exploring the posterior distribution.
 
 ```{R}
-#| label: fit-min-model
+#| label: fit-main-model
 #| output: false
 
  
@@ -327,7 +329,7 @@ m.brm <- brm(
 ```
 
 ## Assessing Convergence & Model Validity
-Let's first make sure that our priors are defined well enough. We can do this by doing a prior predictive check. Prior predictive checks are used to evaluate the suitability of prior distributions before the model "sees" our data. They involve simulating data from the model using only the prior distributions and then examining the simulated data to see if it aligns with our expectations. This can help to identify problems with the chosen priors, such as implausible parameter values, before they can influence the posterior distribution and final inferences. [Here](https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html) you can read more about prior & posterior predictive checks.
+Let's first make sure that our priors are defined well enough. We can do this by doing a prior predictive check. Prior predictive checks are used to evaluate the suitability of prior distributions before the model "sees" our data. They involve simulating data from the model using only the prior distributions and then examining the simulated data to see if it aligns with our expectations. This can help to identify problems with the chosen priors, such as implausible parameter values, before they can influence the posterior distribution and final inferences. [Here](https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html) you can read more about prior and posterior predictive checks.
 
 ```{R}
 #| label: fit-prior-pred
@@ -365,8 +367,8 @@ Now let's do a posterior predictive check:
 pp_check(m.brm, ndraws = 20)
 ```
 
-Both look okayish? **I'm not sure here.. _is_ this okay?**
-
+We mainly want to pay attention to extreme deviations from the area we'd expect our curves to land on. Both look okay.\
+\
 Let's look at the results summary:
 
 ```{R}
@@ -377,9 +379,9 @@ Let's look at the results summary:
 
 summary(m.brm)
 ```
-Here, we should pay attention to the $\hat{R}$ value (potential scale reduction factor), which tells us whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the parameters) has converged. $\hat{R}$ of less than 1.05 is generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
+Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which tells us whether the Markov Chain Monte Carlo (MCMC) sampling process (this is the algorithm used to estimate the parameters) has converged. $\hat{R}$ of less than 1.05 is generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov Chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
 
-Now let's look at the traceplots of the 4 MCMC chains for both the posterior distribution of beta and the standard deviation (SD). The red vertical lines indicate where the warm-up was finished (samples on from warm-up will not be used further).
+Now let's look at the traceplots of the 4 MCMC chains for both the posterior distribution of beta and the standard deviation (SD). The red vertical lines indicate where the warm-up was finished (samples from warm-up will not be used further).
 
 ```{R}
 #| label: plot-chains
@@ -434,9 +436,9 @@ mcmc_areas(posterior_samples,
   labs(title = "Posterior Distribution of SD with Mean & 95 % HDI")
 ```
 
-The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, beta) after observing new data, combining prior beliefs with the evidence from the data. And it actually represents probability (unlike mean effect + confidence interval)!\
+The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, beta) after observing new data, combining prior beliefs with the evidence from the data. And it actually represents probability (unlike a mean effect + confidence interval)!\
 \
-This means, that we can "ask" this distribution many things, like: "What is the probability, that the effect is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ loss). To do this, we use the empirical cumulative distribution function (ecdf):
+This means that we can "ask" this distribution many things like: "What is the probability that the effect is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ points lost). To do this, we use the empirical cumulative distribution function (ecdf):
 
 ```{R}
 #| label: ecdf
