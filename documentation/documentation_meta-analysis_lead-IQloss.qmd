@@ -2,7 +2,7 @@
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
 # date: "2025-07-25"
-date-modified: "2025-08-01"
+date-modified: "2025-08-04"
 format:
   html:
     toc: true
@@ -10,8 +10,6 @@ format:
     embed-resources: true
     theme: cosmo
     page-layout: full
-execute: 
-  cache: refresh
 fig-align: center
 fig-height: 4
 ---
