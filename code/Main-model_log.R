@@ -111,24 +111,29 @@ ranef(m.brm)
 
 # lets look at posterior distributions ----
 # prepare data
-str(as_draws_df(m.brm))
+# str(as_draws_df(m.brm))
 post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 # generate density plot for posterior distributions
 ggplot(aes(x = b_Intercept), data = post.samples) +
-  geom_density(fill = "lightblue",                # set the color
-               color = "lightblue", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$b_Intercept), 
-                               linetype = "dotted", 
-                               color = "red") +
-  geom_vline(xintercept = Mode(post.samples$b_Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
+  geom_density(fill = "steelblue",                # set the color
+               color = "steelblue", alpha = 0.7) +  
+  # geom_vline(xintercept = mean(post.samples$b_Intercept), 
+                               # linetype = "dotted", 
+                               # color = "red") +
+  # geom_vline(xintercept = Mode(post.samples$b_Intercept), 
+             # linetype = "dotted", 
+             # color = "blue") +
+  geom_vline(xintercept = 0,
+             color = "grey") +
   labs(x = expression(italic(b_Intercept)),
        y = element_blank()) +
-  theme_minimal()
+  theme_minimal() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
 
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
@@ -227,6 +232,6 @@ posterior_summary(m.brm)
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
 
-write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
 
 
