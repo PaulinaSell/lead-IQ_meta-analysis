@@ -6,18 +6,21 @@ library(metafor)
 
 data = read.csv("data/study_data_leadIQloss.csv")
 
+# excluding studies that were transformed from linear to log, since transformation may not be valid here
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+
 
 # Equivalent to bayesian model with random effects
 
-rma_model <- rma(yi = beta_lin, 
-                 sei = se_beta_lin, 
+rma_model <- rma(yi = beta_ln, 
+                 sei = se_beta_ln, 
                  data = data,
                  method = "REML")  # Restricted Maximum Likelihood
 
 summary(rma_model)
 
 
-png("results/freq_forestplot1.png", 
+png("results/freq_forestplot_lnBLL.png", 
     width = 20, height = 15, units = "cm", res = 300)
 
 # Jetzt den Plot erstellen
@@ -55,8 +58,8 @@ print(paste("I² =", round(rma_model$I2, 1), "%"))
 print(paste("τ² =", round(rma_model$tau2, 4)))
 
 # Alternative: Fixed Effects Model zum Vergleich
-rma_fixed <- rma(yi = beta_lin, 
-                 sei = se_beta_lin, 
+rma_fixed <- rma(yi = beta_ln, 
+                 sei = se_beta_ln, 
                  data = data,
                  method = "FE")
 summary(rma_fixed)

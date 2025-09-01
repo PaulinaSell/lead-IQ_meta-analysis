@@ -153,7 +153,6 @@ We can't even see the blue curve, so the transformation should be valid.
 #| echo: false
 
 
-
 Desrochersbeta_log2 <- 0.014
 Desrochersbeta_ln <- 0.020
 
