@@ -15,7 +15,7 @@ library(HDInterval)
 data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+data <- data[!data$author_year %in% c("Roy 2013"), ]
 
 # lets look at the data 
 ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
@@ -57,7 +57,7 @@ priors <- c(prior(normal(0,1), class = Intercept), # overall effect size µ
 
 # Main model (with conservative priors)
 m.brm <- brm(
-  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  beta_lin|se(se_beta_lin) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
   control = list(adapt_delta = 0.99),
@@ -83,7 +83,7 @@ mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
 
 # Prior predictive check
 fitPrior <- brm(
-  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
+  beta_lin|se(se_beta_lin) ~ 1 + (1|author_year), 
   data = data, 
   prior = priors,
   control = list(adapt_delta = 0.99),
@@ -97,9 +97,9 @@ pp_check(fitPrior, ndraws = 20)
 
 # investigate model fit
 loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
-                                              # reloo = T because 1 approximation was still bad, suggested by output: 
-                                                    # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
-                                                    # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
+# reloo = T because 1 approximation was still bad, suggested by output: 
+# We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
+# This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
 
 # Posterior predictive check
 pp_check(m.brm, ndraws = 20)
@@ -119,11 +119,11 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
   geom_density(fill = "steelblue",                # set the color
                color = "steelblue", alpha = 0.7) +  
   # geom_vline(xintercept = mean(post.samples$b_Intercept), 
-                               # linetype = "dotted", 
-                               # color = "red") +
+  # linetype = "dotted", 
+  # color = "red") +
   # geom_vline(xintercept = Mode(post.samples$b_Intercept), 
-             # linetype = "dotted", 
-             # color = "blue") +
+  # linetype = "dotted", 
+  # color = "blue") +
   geom_vline(xintercept = 0,
              color = "grey") +
   labs(x = expression(italic(b_Intercept)),
@@ -133,7 +133,7 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
+ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_lin_no-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
@@ -149,7 +149,7 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
        y = element_blank()) +
   theme_minimal()
 
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_lin_no-Roy.png", width = 25, height = 15, units = "cm")
 
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
@@ -197,7 +197,7 @@ ggplot(aes(b_Intercept,
   geom_vline(xintercept = fixef(m.brm)[1, 1], # line at the pooled effect estimate
              color = "gray50", linewidth = 0.8, linetype = 2) + 
   #geom_vline(xintercept = fixef(m.brm)[1, 3:4], # lines for Q2.5 & Q97.5 from pooled effect (95 % CI)
-             #color = "gray50", linewidth = 0.8, linetype = 2) + 
+  #color = "gray50", linewidth = 0.8, linetype = 2) + 
   geom_vline(xintercept = 0, color = "gray20", 
              linewidth = 1) + # line at zero (null effect line)
   
@@ -224,7 +224,7 @@ ggplot(aes(b_Intercept,
   theme_light() +
   theme(panel.border = element_blank())
 
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_linBLL_no-Roy.png", width = 25, height = 15, units = "cm")
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
