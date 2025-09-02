@@ -19,11 +19,15 @@ data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 20
 
 # lets look at the data 
 ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
+  geom_hline(yintercept = mean(data$beta_ln), colour = "red") +
+  geom_hline(yintercept = median(data$beta_ln), colour = "blue") +
   geom_point() +
   labs(x = "Study", y = "Main Effect Beta") +
   theme_minimal()
 
 ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
+  geom_hline(yintercept = mean(data$se_beta_ln), colour = "red") +
+  geom_hline(yintercept = median(data$se_beta_ln), colour = "blue") +
   geom_point() +
   labs(x = "Study", y = "Heterogeneity Tau") +
   theme_minimal()
@@ -55,7 +59,7 @@ priors <- c(prior(normal(0,1), class = Intercept), # overall effect size µ
 
 # Fit model ----
 
-# Main model (with conservative priors)
+# Main model (with weakly informative priors)
 m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
