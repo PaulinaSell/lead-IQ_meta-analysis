@@ -71,7 +71,7 @@ ggplot() +
 
 # Set priors ----
 priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
-             prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ: inverse gamme with (shape, scale)
+             prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
 
 # Fit model ----
 

@@ -37,7 +37,7 @@ ggplot() +
   aes(x, y) +
   geom_line(colour = "blue")
 
-# heterogeneity, tau
+# heterogeneity, tau with cauchy
 sigma = 0.2
 phcauchy(0.25, sigma = sigma) # check probability of less than 0.2 between-study heterogeneity τ in half-cauchy distribution with sigma 0.25 
 inverseCDF(c(0.025, 0.975), phcauchy, sigma = sigma) # use inverse Cumulative Density Function to find Q2.5 and Q97.5 of the half-cauchy with sigma x
@@ -48,9 +48,17 @@ ggplot() +
   aes(x, y) +
   geom_line(colour = "orange")
 
+# heterogeneity, tau with trunc normal
+x <- seq(0, 4, by = 0.1)
+y <- dnorm(x, mean = 0, sd = 1)
+ggplot() +
+  aes(x, y) +
+  geom_line(colour = "orange")
+
+
 # Set priors ----
-priors <- c(prior(normal(0,1), class = Intercept), # overall effect size µ
-            prior(cauchy(0,0.5), class = sd, lb = 0)) # between-study heterogeneity τ with lb (lower bound) 0 to make it half-Cauchy
+priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
+            prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
 
 
 # Fit model ----
@@ -133,23 +141,23 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_lin_no-Roy_minimal.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_lin_no-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   geom_density(fill = "lightgreen",               # set the color
                color = "lightgreen", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "red") +
-  geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
+  # geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "red") +
+  # geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "blue") +
   labs(x = expression(sd_author_year__Intercept),
        y = element_blank()) +
   theme_minimal()
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_lin_no-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_lin_no-Roy.png", width = 25, height = 15, units = "cm")
 
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
@@ -224,7 +232,7 @@ ggplot(aes(b_Intercept,
   theme_light() +
   theme(panel.border = element_blank())
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_linBLL_no-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_linBLL_no-Roy.png", width = 25, height = 15, units = "cm")
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
