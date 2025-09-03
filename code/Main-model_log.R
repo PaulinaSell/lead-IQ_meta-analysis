@@ -35,27 +35,43 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
 # how to set priors?
 # main effect, beta
 # visualize distr
-x <- seq(-3, 3, by = 0.1)
-y <- dnorm(x, mean = 0, sd = 1)
+mean <- -2
+sd <- 1.5
+
+x <- seq(-5, 1, by = 0.1)
+y <- dnorm(x, mean = mean, sd = sd)
 ggplot() +
   aes(x, y) +
   geom_line(colour = "blue")
 
-# heterogeneity, tau
+1 - pnorm(0, mean, sd = sd)
+
+# heterogeneity, tau with cauchy
 sigma = 0.2
 phcauchy(0.25, sigma = sigma) # check probability of less than 0.2 between-study heterogeneity τ in half-cauchy distribution with sigma 0.25 
 inverseCDF(c(0.025, 0.975), phcauchy, sigma = sigma) # use inverse Cumulative Density Function to find Q2.5 and Q97.5 of the half-cauchy with sigma x
-# visualize distr
+
 x <- seq(0, 5, by = 0.01)
 y <- dhcauchy(x, sigma = sigma)
+
 ggplot() +
   aes(x, y) +
   geom_line(colour = "orange")
 
-# Set priors ----
-priors <- c(prior(normal(0,1), class = Intercept), # overall effect size µ
-            prior(cauchy(0,0.5), class = sd, lb = 0)) # between-study heterogeneity τ with lb (lower bound) 0 to make it half-Cauchy
+# heterogeneity, tau with inv gamma
+shape <- 1.2
+scale <- 1
 
+X <- seq(-1, 8, by = 0.1)
+Y <- dgamma(X, shape = shape, scale = scale)
+
+ggplot() +
+  aes(X, Y) +
+  geom_line(colour = "orange")
+
+# Set priors ----
+priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
+             prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ: inverse gamme with (shape, scale)
 
 # Fit model ----
 
@@ -64,49 +80,52 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  control = list(adapt_delta = 0.99),
+  # control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
   chains = 4,
   iter = 4000,
   seed = 1223)
 
+loo(m.brm)
+
+pp_check(m.brm, ndraws = 20)
+
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
-# nicer traceplot (incl. warmup)
-posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
-names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
-names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
-
-mcmc_trace(posterior_samples_warm,
-           pars = c("beta", "sd"),
-           facet_args = list(ncol = 1)) +
-  vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
-
-mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
+# # nicer traceplot (incl. warmup)
+# posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
+# names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
+# names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
+# 
+# mcmc_trace(posterior_samples_warm,
+#            pars = c("beta", "sd"),
+#            facet_args = list(ncol = 1)) +
+#   vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
+# 
+# mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
 
 # Prior predictive check
 fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
-  prior = priors,
-  control = list(adapt_delta = 0.99),
+  prior = priors, #1 divergent transitions after warmup
+  # control = list(adapt_delta = 0.99),
   sample_prior = "only",
   chains = 4,
   iter = 4000,
   seed = 1223)
 
-# Plot
 pp_check(fitPrior, ndraws = 20)
+
+# Posterior predictive check
+pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
 loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
                                               # reloo = T because 1 approximation was still bad, suggested by output: 
                                                     # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
                                                     # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
-
-# Posterior predictive check
-pp_check(m.brm, ndraws = 20)
 
 
 # Check Rhat values & interpret results
@@ -143,12 +162,12 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   geom_density(fill = "lightgreen",               # set the color
                color = "lightgreen", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "red") +
-  geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
+  # geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "red") +
+  # geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "blue") +
   labs(x = expression(sd_author_year__Intercept),
        y = element_blank()) +
   theme_minimal()
