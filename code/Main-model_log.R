@@ -153,9 +153,94 @@ loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (
 summary(m.brm)
 ranef(m.brm)
 
+
+# Trying different priors ----
+
+m.brm1 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(normal(-2, 1), class = Intercept), # overall effect size mu
+            prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+m.brm2 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(normal(-1, 1), class = Intercept), # overall effect size mu
+            prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+m.brm3 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
+            prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+m.brm4 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
+            prior(normal(0, 2), class = sd, lb = 0)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+m.brm5 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(uniform(-5, 2), class = Intercept), # overall effect size mu
+            prior(uniform(0, 3), class = sd, lb = 0)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+m.brm6 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+  data = data,
+  prior = c(prior(student_t(3, -2.9, 2.8), class = Intercept), # overall effect size mu
+            prior(student_t(3, 0, 2.8), class = sd)), #heterogeneity tau
+  save_pars = save_pars(all = TRUE),
+  iter = 4000,
+  seed = 1223)
+
+summary(m.brm1) # mu normal(-2,1), tau truncnorm(0,1),                  beta mean -1.77 (-2.84    -0.80)
+summary(m.brm2) # mu normal(-1,1), tau truncnorm(0,1),                  beta mean -1.49 (-2.50    -0.52)
+summary(m.brm3) # mu normal(-1,2), tau truncnorm(0,1),                  beta mean -1.65 (-2.85    -0.58)
+summary(m.brm4) # mu normal(-1,2), tau truncnorm(0,2),                  beta mean -1.69 (-3.02    -0.46)
+summary(m.brm5) # mu uniform(-5,2), tau uniform(0,3),                   beta mean -1.84 (-3.42    -0.51) 1757 divergent transitions
+summary(m.brm6) # mu student_t(3, -2.9, 2.8), tau student_t(3, 0, 2.8), beta mean -1.92 (-3.45    -0.64) 2 divergent transition from get_prior
+
+
+saveRDS(m.brm1, "models/m.brm1")
+saveRDS(m.brm2, "models/m.brm2")
+saveRDS(m.brm3, "models/m.brm3")
+saveRDS(m.brm4, "models/m.brm4")
+saveRDS(m.brm5, "models/m.brm5")
+saveRDS(m.brm6, "models/m.brm6")
+
+
+
+get_prior(beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), data = data)
+
+
+# visualize students t distribution
+df <- 3
+lacation <- 0
+scale <- 2.8
+x = seq(-5, 5, 0.01)
+
+curve(dt((x - lacation)/scale, df)/scale, from = -5, to = 5, col = "red")
+
+
+
 # lets look at posterior distributions ----
-# prepare data
-# str(as_draws_df(m.brm))
 post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 # generate density plot for posterior distributions
@@ -179,7 +264,6 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
 
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
-
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   geom_density(fill = "lightgreen",               # set the color
                color = "lightgreen", alpha = 0.7) +  
@@ -195,11 +279,12 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
 
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
 
-
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
 b.ecdf(-1) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
+
+# m.brm <- m.brm6
 
 
 # lets generate a forest plot ----
@@ -212,7 +297,6 @@ pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>%
   mutate(author_year = "Pooled Effect")
 
 # Next: bind study.draws and pooled.effect.draws to one data frame. 
-# We then start a pipe again, calling ungroup first, and then use mutate to clean the study labels (i.e. replace dots with spaces)
 forest.data <- bind_rows(study.draws, 
                          pooled.effect.draws) %>% 
   ungroup() %>%
@@ -224,7 +308,6 @@ forest.data <- bind_rows(study.draws,
 forest.data.summary <- group_by(forest.data, author_year) %>% 
   mean_qi(b_Intercept)
 
-# let's plot!
 ggplot(aes(b_Intercept, 
            relevel(author_year, "Pooled Effect", # Y-axis uses author_year but reorders it so "Pooled Effect" appears at the bottom (after = Inf)
                    after = Inf)), 
@@ -269,6 +352,7 @@ ggplot(aes(b_Intercept,
   theme(panel.border = element_blank())
 
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/Forest_Priors/m.brm6.png", width = 30, height = 20, units = "cm")
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)

@@ -32,7 +32,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
 # main effect, beta
 # visualize distr
 x <- seq(-3, 3, by = 0.1)
-y <- dnorm(x, mean = 0, sd = 1)
+y <- dnorm(x, mean = -1, sd = 2)
 ggplot() +
   aes(x, y) +
   geom_line(colour = "blue")
@@ -49,16 +49,18 @@ ggplot() +
   geom_line(colour = "orange")
 
 # heterogeneity, tau with trunc normal
-x <- seq(0, 4, by = 0.1)
-y <- dnorm(x, mean = 0, sd = 1)
+x <- seq(0, 5, by = 0.1)
+y <- dnorm(x, mean = 0, sd = 2)
 ggplot() +
   aes(x, y) +
   geom_line(colour = "orange")
 
+mean(data$beta_lin)
+
 
 # Set priors ----
-priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
-            prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
+priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
+            prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 
 # Fit model ----
@@ -68,10 +70,10 @@ m.brm <- brm(
   beta_lin|se(se_beta_lin) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  control = list(adapt_delta = 0.99),
+  # control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
   chains = 4,
-  iter = 4000,
+  iter = 5000,
   seed = 1223)
 
 # plot the MCMC chains & posterior distributions
@@ -94,7 +96,7 @@ fitPrior <- brm(
   beta_lin|se(se_beta_lin) ~ 1 + (1|author_year), 
   data = data, 
   prior = priors,
-  control = list(adapt_delta = 0.99),
+  # control = list(adapt_delta = 0.99),
   sample_prior = "only",
   chains = 4,
   iter = 4000,
@@ -103,14 +105,14 @@ fitPrior <- brm(
 # Plot
 pp_check(fitPrior, ndraws = 20)
 
+# Posterior predictive check
+pp_check(m.brm, ndraws = 20)
+
 # investigate model fit
 loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
 # reloo = T because 1 approximation was still bad, suggested by output: 
 # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
 # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
-
-# Posterior predictive check
-pp_check(m.brm, ndraws = 20)
 
 
 # Check Rhat values & interpret results
@@ -239,7 +241,7 @@ posterior_summary(m.brm)
 
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
-
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+summary(m.brm)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_log‚BLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
 
 
