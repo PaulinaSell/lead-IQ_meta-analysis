@@ -38,11 +38,18 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
 mean <- -2
 sd <- 1.5
 
-x <- seq(-5, 1, by = 0.1)
+x <- seq(-8, 4, by = 0.1)
 y <- dnorm(x, mean = mean, sd = sd)
 ggplot() +
   aes(x, y) +
-  geom_line(colour = "blue")
+  geom_vline(xintercept = 0, colour = "grey") +
+  geom_line(colour = "blue", linewidth = 2) +
+  theme_minimal() +
+  theme(panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Meetings/Meeting with Philippe 04.09.2025/Vis/Prior_mu_norm.png", width = 20, height = 15, units = "cm")
 
 1 - pnorm(0, mean, sd = sd)
 
@@ -68,6 +75,20 @@ Y <- dgamma(X, shape = shape, scale = scale)
 ggplot() +
   aes(X, Y) +
   geom_line(colour = "orange")
+
+# heterogeneity, tau with trunc normal
+x <- seq(0, 6, by = 0.1)
+y <- dnorm(x, mean = 0, sd = 1)
+ggplot() +
+  aes(x, y) +
+  geom_vline(xintercept = 0, colour = "grey") +
+  geom_line(colour = "orange", linewidth = 2) +
+  theme_minimal() +
+  theme(panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Meetings/Meeting with Philippe 04.09.2025/Vis/Prior_tau_trunc-norm.png", width = 20, height = 15, units = "cm")
 
 # Set priors ----
 priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
