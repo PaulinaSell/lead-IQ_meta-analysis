@@ -91,8 +91,8 @@ ggplot() +
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Meetings/Meeting with Philippe 04.09.2025/Vis/Prior_tau_trunc-norm.png", width = 20, height = 15, units = "cm")
 
 # Set priors ----
-priors <- c(prior(normal(-1, 1), class = Intercept), # overall effect size µ
-             prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
+priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
+             prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 # Fit model ----
 
@@ -107,10 +107,6 @@ m.brm <- brm(
   iter = 4000,
   seed = 1223)
 
-loo(m.brm)
-
-pp_check(m.brm, ndraws = 20)
-
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
@@ -118,13 +114,11 @@ plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 # posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
 # names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
 # names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
-# 
+
 # mcmc_trace(posterior_samples_warm,
 #            pars = c("beta", "sd"),
 #            facet_args = list(ncol = 1)) +
 #   vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
-# 
-# mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
 
 # Prior predictive check
 fitPrior <- brm(
@@ -287,15 +281,20 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   # geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
   #            linetype = "dotted", 
   #            color = "blue") +
+  geom_vline(xintercept = 0,
+             color = "grey") +
   labs(x = expression(sd_author_year__Intercept),
        y = element_blank()) +
-  theme_minimal()
+  theme_minimal() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
 
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
-b.ecdf(-1) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
+(1 - b.ecdf(0)) * 100 # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
 
 
@@ -373,5 +372,6 @@ draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
 
 # write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
 
 
