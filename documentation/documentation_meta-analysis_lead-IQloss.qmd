@@ -264,17 +264,17 @@ data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 20
 #| label: def-values
 #| echo: false
 
-mean <- 0
-sd <- 1
+mean <- -1
+sd <- 2
 
-lower <- -2
-upper <- 2
+lower <- -3
+upper <- 1
 ```
 
 ## Setting Priors
 First, we need to define the priors. In Bayesian statistics, a prior distribution represents our initial belief about an unknown parameter before observing any data. It's a probability distribution reflecting our knowledge or assumptions about the parameter's possible values. This prior distribution is then combined with the likelihood function (based on observed data) to produce a posterior distribution, which represents our updated belief after considering the data. You can read more about choosing prior distributions in Bayesian statistics in this [book chapter](https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior).\
 \
-We will be conservative and use weakly informative priors. For the main effect ($μ$), I chose $μ \sim N(0, 1)$. This means that we assume the main effect to lie between `r lower` and `r upper`, with a `r round(pnorm(upper, mean, sd) - pnorm(lower, mean, sd), 3) * 100`% probability.
+We will be conservative and use weakly informative priors. For the main effect ($μ$), I chose $μ \sim N(-1, 2)$. This means that we assume the main effect to lie between `r lower` and `r upper`, with a `r round(pnorm(upper, mean, sd) - pnorm(lower, mean, sd), 3) * 100`% probability.
 
 ```{r}
 #| label: vis-main-effect
@@ -283,7 +283,7 @@ We will be conservative and use weakly informative priors. For the main effect (
 
 # main effect, beta
 # visualize distr
-x <- seq(-3, 3, by = 0.1)
+x <- seq((lower-1), (upper+1), by = 0.1)
 y <- dnorm(x, mean, sd)
 ggplot() +
   aes(x, y) +
@@ -292,24 +292,27 @@ ggplot() +
   labs(x= NULL, y = NULL)
 ```
 
-Setting the prior for heterogeneity ($τ$) is slightly more challenging since, by definition, it must be positive. Here, a half-Cauchy distribution can be useful. It is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. We set the lower limit to zero (`lb = 0`) to make it _half_. For this model, I chose $τ \sim HC(0, 0.5)$.
+Setting the prior for heterogeneity ($τ$) is slightly more challenging since, by definition, it must be positive. Here, a truncated normal distribution can be useful.
+<!-- It is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. We set the lower limit to zero (`lb = 0`) to make it _half_.  -->
+For this model, I chose $τ \sim truncnorm(0, 2)$.
 
 ```{r}
 #| label: vis-heterogeineity
 #| echo: false
 
+mean <- 0
+sd <- 2
 
-# heterogeneity
-sigma <- 0.5
+x <- seq(0, 6, by = 0.1)
+y <- dnorm(x, mean = mean, sd = sd)
 
-# visualize distr
-x <- seq(0, 4, by = 0.01)
-y <- dhcauchy(x, sigma = sigma)
 ggplot() +
   aes(x, y) +
+  # geom_vline(xintercept = 0, colour = "grey") +
   geom_line(colour = "orange") +
   theme_minimal() +
   labs(x= NULL, y = NULL)
+
 ```
 
 ```{r}
@@ -317,7 +320,7 @@ ggplot() +
 #| echo: false
 
 threshold <- 1.5
-prob <- (1 - phcauchy(threshold, sigma)) * 100
+prob <- (1 - pnorm(threshold, mean, sd)) * 100
 ```
 As you can see, we assign a fairly high probability (`r round(prob, 2)`%) to the heterogeneity being higher than `r threshold`. Considering that the median standard error extracted from our included studies is `r round(median(data$se_beta_ln), 2)`, this prior is weakly informative.
 
@@ -327,8 +330,8 @@ This is how we set our priors:
 #| label: set-priors
 
 
-priors <- c(prior(normal(20,0.1), class = Intercept, lb = 10), 
-            prior(cauchy(0,0.01), class = sd, lb = 0))
+priors <- c(prior(normal(-1, 2), class = Intercept),
+            prior(normal(0, 2), class = sd, lb = 0))
 ```
 
 ## Fitting the model
@@ -337,6 +340,7 @@ We can now write and fit the model, using the package _brms_ by [Bürkner 2017](
 ```{r}
 #| label: fit-main-model
 #| output: false
+#| cache: true
 
  
 m.brm <- brm(
@@ -346,7 +350,7 @@ m.brm <- brm(
   control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
   chains = 4,
-  iter = 4000,
+  iter = 5000,
   seed = 1223)
 ```
 
@@ -357,6 +361,7 @@ First, let's make sure that our priors are reasonable. We can do this by doing a
 #| label: fit-prior-pred
 #| output: false
 #| echo: false
+#| cache: true
 
  
 # Fit model again and only sample from priors for prior predictive check
@@ -367,7 +372,7 @@ fitPrior <- brm(
   control = list(adapt_delta = 0.99),
   sample_prior = "only",
   chains = 4,
-  iter = 4000,
+  iter = 5000,
   seed = 1223)
 ```
 
@@ -396,8 +401,6 @@ Let's look at the results summary:
 
 ```{r}
 #| label: summary
-#| warning: false
-#| error: false
 #| echo: false
 
 summary(m.brm)
@@ -463,16 +466,20 @@ x <- b.ecdf(-1)
 
 Given our data and model, the probability of the effect being greater than -1 is `r (round(x, 2) * 100)`%.\
 \
-We can also ask about interesting intervals;  for example, consider the interval we saw in the plot above. This is a 95% high-density interval (HDI), meaning it is the narrowest interval containing 95% of the probability mass. This interval is often referred to as _credible interval_.
+We can also ask about interesting intervals;  for example, consider the interval we saw in the plot above. 
+This is a 95% high-density interval (HDI), meaning it is the narrowest interval containing 95% of the probability mass. 
+This interval is often referred to as _credible interval_.
+You can see the 95% HDI bounds in the model summary above.
+Let's now compute a 90% HDI!
 
 ```{r}
 #| label: HDI
 #| output: false
 
-hdi <- hdi(posterior_samples$beta, credMass = 0.95)
+hdi <- hdi(posterior_samples$beta, credMass = 0.90)
 ```
 
-Given our data and model, the true effect lies between `r round(hdi[1], 2)` and `r round(hdi[2], 2)` with 95% probability.\
+Given our data and model, the true effect lies between `r round(hdi[1], 2)` and `r round(hdi[2], 2)` with 90% probability.\
 \
 Coming back to the main objective of this project, we can now use the posterior distribution directly for our EBD assessment!\
 \

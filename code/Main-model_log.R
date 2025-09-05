@@ -91,7 +91,7 @@ ggplot() +
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Meetings/Meeting with Philippe 04.09.2025/Vis/Prior_tau_trunc-norm.png", width = 20, height = 15, units = "cm")
 
 # Set priors ----
-priors <- c(prior(normal(-2, 1), class = Intercept), # overall effect size µ
+priors <- c(prior(normal(-1, 1), class = Intercept), # overall effect size µ
              prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
 
 # Fit model ----
@@ -210,20 +210,34 @@ m.brm6 <- brm(
   iter = 4000,
   seed = 1223)
 
+
+fitPrior4 <- brm(
+  beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
+  data = data, 
+  prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
+            prior(normal(0, 2), class = sd, lb = 0)), #heterogeneity tau
+  sample_prior = "only",
+  iter = 4000,
+  seed = 1223)
+
+
 summary(m.brm1) # mu normal(-2,1), tau truncnorm(0,1),                  beta mean -1.77 (-2.84    -0.80)
 summary(m.brm2) # mu normal(-1,1), tau truncnorm(0,1),                  beta mean -1.49 (-2.50    -0.52)
 summary(m.brm3) # mu normal(-1,2), tau truncnorm(0,1),                  beta mean -1.65 (-2.85    -0.58)
 summary(m.brm4) # mu normal(-1,2), tau truncnorm(0,2),                  beta mean -1.69 (-3.02    -0.46)
 summary(m.brm5) # mu uniform(-5,2), tau uniform(0,3),                   beta mean -1.84 (-3.42    -0.51) 1757 divergent transitions
-summary(m.brm6) # mu student_t(3, -2.9, 2.8), tau student_t(3, 0, 2.8), beta mean -1.92 (-3.45    -0.64) 2 divergent transition from get_prior
+summary(m.brm6) # mu student_t(3, -2.9, 2.8), tau student_t(3, 0, 2.8), beta mean -1.92 (-3.45    -0.64) 2 divergent transitions        from get_prior
 
+pp_check(fitPrior4, ndraws = 20)
+pp_check(m.brm4, ndraws = 20)
+loo(m.brm4, moment_match = T)
 
-saveRDS(m.brm1, "models/m.brm1")
-saveRDS(m.brm2, "models/m.brm2")
-saveRDS(m.brm3, "models/m.brm3")
-saveRDS(m.brm4, "models/m.brm4")
-saveRDS(m.brm5, "models/m.brm5")
-saveRDS(m.brm6, "models/m.brm6")
+# saveRDS(m.brm1, "models/m.brm1")
+# saveRDS(m.brm2, "models/m.brm2")
+# saveRDS(m.brm3, "models/m.brm3")
+# saveRDS(m.brm4, "models/m.brm4")
+# saveRDS(m.brm5, "models/m.brm5")
+# saveRDS(m.brm6, "models/m.brm6")
 
 
 
@@ -283,8 +297,6 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
 b.ecdf <- ecdf(post.samples$b_Intercept)
 b.ecdf(-1) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
-
-# m.brm <- m.brm6
 
 
 # lets generate a forest plot ----
