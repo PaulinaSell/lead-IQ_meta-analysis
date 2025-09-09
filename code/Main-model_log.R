@@ -107,6 +107,10 @@ m.brm <- brm(
   iter = 4000,
   seed = 1223)
 
+m.brm <- readRDS("models/m.brm4")
+
+
+
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 

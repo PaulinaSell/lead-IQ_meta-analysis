@@ -59,7 +59,7 @@ mean(data$beta_lin)
 
 
 # Set priors ----
-priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
+priors <- c(prior(normal(0, 1), class = Intercept), # overall effect size µ
             prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 
@@ -109,7 +109,7 @@ pp_check(fitPrior, ndraws = 20)
 pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
-loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
+# loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
 # reloo = T because 1 approximation was still bad, suggested by output: 
 # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
 # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
