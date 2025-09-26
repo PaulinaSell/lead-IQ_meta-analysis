@@ -38,6 +38,9 @@ Schnaas2006_se_1to5
 Schnaas2006_se_6to10 = ((1.88) - (-1.46)) / 3.919928
 Schnaas2006_se_6to10
 
+Wang2022_se_lin <- (0.164 - (-0.353)) / 3.919928
+Wang2022_se_lin
+
 Wang2022_se_Q1Q2 = (8.706 - (-10.60)) / 3.919928
 Wang2022_se_Q1Q2
 
