@@ -11,11 +11,12 @@ library(glue)
 library(extraDistr)
 library(bayesplot)
 library(HDInterval)
+library(bayestestR)
 
 data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
 
 # lets look at the data 
 ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
@@ -35,8 +36,8 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
 # how to set priors?
 # main effect, beta
 # visualize distr
-mean <- -2
-sd <- 1.5
+mean <- -1
+sd <- 2
 
 x <- seq(-8, 4, by = 0.1)
 y <- dnorm(x, mean = mean, sd = sd)
@@ -65,17 +66,6 @@ ggplot() +
   aes(x, y) +
   geom_line(colour = "orange")
 
-# heterogeneity, tau with inv gamma
-shape <- 1.2
-scale <- 1
-
-X <- seq(-1, 8, by = 0.1)
-Y <- dgamma(X, shape = shape, scale = scale)
-
-ggplot() +
-  aes(X, Y) +
-  geom_line(colour = "orange")
-
 # heterogeneity, tau with trunc normal
 x <- seq(0, 6, by = 0.1)
 y <- dnorm(x, mean = 0, sd = 1)
@@ -101,15 +91,15 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  # control = list(adapt_delta = 0.99),
+  control = list(adapt_delta = 0.90),
   save_pars = save_pars(all = TRUE),
   chains = 4,
   iter = 4000,
-  seed = 1223)
+  seed = 1220) # seed impacts results by around 0.04 (Intercept / main effect)?
 
-m.brm <- readRDS("models/m.brm4")
+# m.brm <- readRDS("models/m.brm4")
 
-
+summary(m.brm)
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
@@ -128,12 +118,12 @@ plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
-  prior = priors, #1 divergent transitions after warmup
-  # control = list(adapt_delta = 0.99),
+  prior = priors,
+  control = list(adapt_delta = 0.90),
   sample_prior = "only",
   chains = 4,
   iter = 4000,
-  seed = 1223)
+  seed = 1220)
 
 pp_check(fitPrior, ndraws = 20)
 
@@ -148,8 +138,10 @@ loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (
 
 
 # Check Rhat values & interpret results
-summary(m.brm)
+summary(m.brm) 
 ranef(m.brm)
+
+
 
 
 # Trying different priors ----
@@ -242,15 +234,6 @@ loo(m.brm4, moment_match = T)
 get_prior(beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), data = data)
 
 
-# visualize students t distribution
-df <- 3
-lacation <- 0
-scale <- 2.8
-x = seq(-5, 5, 0.01)
-
-curve(dt((x - lacation)/scale, df)/scale, from = -5, to = 5, col = "red")
-
-
 
 # lets look at posterior distributions ----
 post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
@@ -274,7 +257,7 @@ ggplot(aes(x = b_Intercept), data = post.samples) +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   geom_density(fill = "lightgreen",               # set the color
@@ -294,7 +277,40 @@ ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+
+
+# Plot: prior & posterior in one plot (main effect, intercept)
+# Prepare data
+posterior_samples <- as_draws_df(m.brm)
+prior_samples <- as_draws_df(fitPrior)
+
+plot_data_combined <- data.frame(
+  value = c(prior_samples[["b_Intercept"]], 
+            posterior_samples[["b_Intercept"]],
+            data$beta_ln),
+  distribution = factor(c(rep("Prior", nrow(prior_samples)),
+                          rep("Posterior", nrow(posterior_samples)),
+                          rep("Observed Effects", nrow(data))),
+                        levels = c("Prior", "Observed Effects", "Posterior"))
+)
+
+
+ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Prior, Observed Effects, and Posterior Pooled Effect",
+       x = "Effect Size", 
+       y = "Density",
+       fill = "Distribution") +
+  scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f", "Observed Effects" = "#e76f51"),
+                    name = "") +
+  theme_minimal() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
+
+ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
+
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
@@ -366,8 +382,9 @@ ggplot(aes(b_Intercept,
   theme_light() +
   theme(panel.border = element_blank())
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/Forest_Priors/m.brm6.png", width = 30, height = 20, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/Forest_Priors/m.brm6.png", width = 30, height = 20, units = "cm")
+
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
@@ -375,7 +392,7 @@ posterior_summary(m.brm)
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
 
-write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
-write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
 
 
