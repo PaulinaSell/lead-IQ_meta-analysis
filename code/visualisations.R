@@ -50,7 +50,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
- # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_no-Halabicky-Iglesias-Min-Roy_minimal.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_12studies.png", width = 25, height = 15, units = "cm")
  
  ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
    geom_density(fill = "lightgreen",               # set the color
@@ -70,7 +70,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
- # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_12studies.png", width = 25, height = 15, units = "cm")
  
  
  # Prior, data & posterior in one plot ----
@@ -102,7 +102,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
- # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
  
  
  
@@ -168,6 +168,4 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
    theme_light() +
    theme(panel.border = element_blank())
  
- # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_no-Halabicky-Iglesias-Min-Roy.png", width = 25, height = 15, units = "cm")
- # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/Forest_Priors/m.brm6.png", width = 30, height = 20, units = "cm")
- 
+ # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_12studies.png", width = 25, height = 15, units = "cm")

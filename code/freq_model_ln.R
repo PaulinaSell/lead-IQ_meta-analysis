@@ -7,7 +7,7 @@ library(metafor)
 data = read.csv("data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
 
 
 # Equivalent to bayesian model with random effects
@@ -66,3 +66,4 @@ summary(rma_fixed)
 
 # Modellvergleich
 anova(rma_fixed, rma_model)
+

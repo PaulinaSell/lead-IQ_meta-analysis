@@ -50,8 +50,7 @@ m.brm1 <- brm(
   prior = c(prior(normal(-2, 1), class = Intercept), # overall effect size mu
             prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 m.brm2 <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
@@ -59,8 +58,7 @@ m.brm2 <- brm(
   prior = c(prior(normal(-1, 1), class = Intercept), # overall effect size mu
             prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 m.brm3 <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
@@ -68,8 +66,7 @@ m.brm3 <- brm(
   prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
             prior(normal(0, 1), class = sd, lb = 0)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 m.brm4 <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
@@ -77,8 +74,7 @@ m.brm4 <- brm(
   prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
             prior(normal(0, 2), class = sd, lb = 0)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 m.brm5 <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
@@ -86,8 +82,7 @@ m.brm5 <- brm(
   prior = c(prior(uniform(-5, 2), class = Intercept), # overall effect size mu
             prior(uniform(0, 3), class = sd, lb = 0)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 m.brm6 <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
@@ -95,8 +90,7 @@ m.brm6 <- brm(
   prior = c(prior(student_t(3, -2.9, 2.8), class = Intercept), # overall effect size mu
             prior(student_t(3, 0, 2.8), class = sd)), #heterogeneity tau
   save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 
 fitPrior4 <- brm(
@@ -105,8 +99,7 @@ fitPrior4 <- brm(
   prior = c(prior(normal(-1, 2), class = Intercept), # overall effect size mu
             prior(normal(0, 2), class = sd, lb = 0)), #heterogeneity tau
   sample_prior = "only",
-  iter = 4000,
-  seed = 1223)
+  iter = 4000)
 
 
 summary(m.brm1) # mu normal(-2,1), tau truncnorm(0,1),                  beta mean -1.77 (-2.84    -0.80)
