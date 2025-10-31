@@ -2,7 +2,7 @@
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
 # date: "2025-07-25"
-date-modified: "2025-08-04"
+date-modified: "2025-10_31"
 format:
   html:
     toc: true
@@ -25,13 +25,13 @@ data_clean <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_
 The aim of this project is to estimate the environmental burden of disease (EBD) attributable to lead exposure in Germany. Our focus will be on the neurodevelopmental effects of lead; therefore, the health outcome will be IQ point loss in children and adolescents. In order to estimate these population health effects, we must find solid evidence for exactly how lead exposure is related to IQ loss. The exposure data we are working with is based on whole blood samples from 720 children and adolescents (ages 3 - 17) in Germany, collected as part of the German Environmental Survey ([GerES V](https://www.umweltbundesamt.de/en/topics/health/assessing-environmentally-related-health-risks/german-environmental-surveys/german-environmental-survey-2014-2017-geres-v#undefined)) between 2014 and 2017.\
 \
 In order to quantify exactly how lead exposure is related to IQ loss, we turn to the epidemiological literature. Many studies have been published focusing on the neurodevelopmental effects of lead. Rather than selecting an estimate from a single study for our EBD analysis, we will pool estimates from multiple studies in order to gather and strengthen the evidence we base our analysis on. And since uncertainty plays an important role in the final burden of disease results, we will use a Bayesian approach. This approach allows us to easily model uncertainty and obtain a full posterior distribution of the pooled effect (rather than a mean and a hard-to-interpret confidence interval). Later, we will be able to directly use the posterior distribution in our EBD analysis! But first, let's meta-analyze some epi studies.\
-I found help and inspiration in multiple sources and have (hopefully) linked them all. I especially found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
+I found help and inspiration in multiple sources and (hopefully) linked them all. I especially found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
 
 
 # Step 1: Standardizing Effect Estimates
 
 We first need to search for and identify relevant studies and extract the data necessary for our analysis. This was already done by Philippe Palmont and his team at ANSES.\
-Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfil the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. Unfortunately, they did not always use the same log base. Some used log~10~, some ln, and some used log~2~. Also, 3 of the 13 included studies did not transform their BLL at all, so it's on a linear scale. In their analysis, Philippe Palmont and his team standardized all estimates to linear increments of BLL, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). What happens to the effect estimates, if we transform them in this way?\
+Next, we need to harmonize / standardize the effect estimates before we can pool them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. Unfortunately, they did not always use the same log base. Some used log~10~, some ln, and some used log~2~. Also, 3 of the 15 included studies did not transform their BLL at all, so it's on a linear scale. In their analysis, Philippe Palmont and his team standardized all estimates to linear increments of BLL, using the template proposed by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). What happens to the effect estimates, if we transform them in this way?\
 
 ## Visually Checking Transformations
 
@@ -222,8 +222,8 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead_low)) +
   theme_minimal()
 ```
 
-Even in the lower concentration range, it appears that the transformed estimate does not accurately approximate the original estimate. For my meta analysis, I therefore decided to exclude 3/13 studies with estimates for untransformed BLL data.\
-This leaves us with 10 harmonized effect estimates for the association of ln(BLL) and absolute IQ point loss.\
+Even in the lower concentration range, it appears that the transformed estimate does not accurately approximate the original estimate. For my meta analysis, I therefore decided to exclude 3/15 studies with estimates for untransformed BLL data.\
+This leaves us with 12 harmonized effect estimates for the association of ln(BLL) and absolute IQ point loss.\
 \
 These are the final studies and transformed effect estimates that we will be working with.
 ```{r}
@@ -255,8 +255,8 @@ library(HDInterval)
 # loading data
 data <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
-# try excluding studies that were transformed from linear to log, since transformation may not be valid here (and Roy, because I don't trust the estimate.. asked main author for confirmation / correction)
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Roy 2013"), ]
+# excluding studies that were transformed from linear to log, since transformation may not be valid here
+data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
 
 ```
 
@@ -283,7 +283,7 @@ We will be conservative and use weakly informative priors. For the main effect (
 
 # main effect, beta
 # visualize distr
-x <- seq((lower-1), (upper+1), by = 0.1)
+x <- seq((lower-2), (upper+2), by = 0.1)
 y <- dnorm(x, mean, sd)
 ggplot() +
   aes(x, y) +
@@ -293,7 +293,7 @@ ggplot() +
 ```
 
 Setting the prior for heterogeneity ($τ$) is slightly more challenging since, by definition, it must be positive. Here, a truncated normal distribution can be useful.
-<!-- It is defined by two parameters: the location, which determines the center of the distribution, and the scale parameter, which controls the spread. We set the lower limit to zero (`lb = 0`) to make it _half_.  -->
+
 For this model, I chose $τ \sim truncnorm(0, 2)$.
 
 ```{r}
@@ -308,7 +308,6 @@ y <- dnorm(x, mean = mean, sd = sd)
 
 ggplot() +
   aes(x, y) +
-  # geom_vline(xintercept = 0, colour = "grey") +
   geom_line(colour = "orange") +
   theme_minimal() +
   labs(x= NULL, y = NULL)
@@ -316,7 +315,7 @@ ggplot() +
 ```
 
 ```{r}
-#| label: phcauchy
+#| label: pnorm
 #| echo: false
 
 threshold <- 1.5
@@ -335,7 +334,13 @@ priors <- c(prior(normal(-1, 2), class = Intercept),
 ```
 
 ## Fitting the model
-We can now write and fit the model, using the package _brms_ by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). In the second line, we specify our model. We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. If we don't do this, adapt_delta will default to 0.8 and we get something like `Warning: There were 5 divergent transitions after warmup`. This means that the algorithm is having difficulty exploring the posterior distribution.
+We can now write and fit the model, using the package _brms_ by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
+In the second line, we specify our model.
+I decided to increase the number of draws we sample by setting `iter = 4000` (default: 2,000). 
+Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.
+<!-- We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. -->
+<!-- If we don't do this, adapt_delta will default to 0.8 and we get something like `Warning: There were 5 divergent transitions after warmup`.  -->
+<!-- This means that the algorithm is having difficulty exploring the posterior distribution. -->
 
 ```{r}
 #| label: fit-main-model
@@ -347,11 +352,9 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  control = list(adapt_delta = 0.99),
   save_pars = save_pars(all = TRUE),
   chains = 4,
-  iter = 5000,
-  seed = 1223)
+  iter = 4000)
 ```
 
 ## Assessing Convergence & Model Validity
@@ -363,17 +366,15 @@ First, let's make sure that our priors are reasonable. We can do this by doing a
 #| echo: false
 #| cache: true
 
- 
+
 # Fit model again and only sample from priors for prior predictive check
 fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
   prior = priors,
-  control = list(adapt_delta = 0.99),
   sample_prior = "only",
   chains = 4,
-  iter = 5000,
-  seed = 1223)
+  iter = 4000)
 ```
 
 ```{r}
@@ -405,7 +406,7 @@ Let's look at the results summary:
 
 summary(m.brm)
 ```
-Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged. A value of less than 1.05 is generally considered good. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
+Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged. A value of less than 1.05 is generally considered okay. [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. As we can see, our $\hat{R}$ values are both 1.00 which is good!
 
 Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the standard deviation. The red vertical lines show where the warm-up ended (samples from the warm-up will not be used further).
 
@@ -558,3 +559,9 @@ ggplot(aes(b_Intercept,
 ```
 
 If you're wondering why the effect sizes are not the same as those reported in the studies, it's because of a process called _shrinkage_. The Bayesian model estimates 'true' effect sizes for each study and if it detects outliers, they will be pulled towards the overall effect. This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. The model is less sensitive to outliers than frequentist models.
+
+```{r}
+#| include: false
+# to do: add ESS & MCSD diagnostics & explain
+```
+

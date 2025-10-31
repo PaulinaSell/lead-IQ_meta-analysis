@@ -30,14 +30,14 @@ m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
-  control = list(adapt_delta = 0.90),
+  # control = list(adapt_delta = 0.90),
   save_pars = save_pars(all = TRUE),
   chains = 4,
-  iter = 4000,
-  seed = 1220) # seed impacts results by around 0.04 (Intercept / main effect)?
+  iter = 4000)
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+
 summary(m.brm)
 
 
@@ -46,36 +46,49 @@ fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data, 
   prior = priors,
-  control = list(adapt_delta = 0.90),
+  # control = list(adapt_delta = 0.90),
   sample_prior = "only",
   chains = 4,
-  iter = 4000,
-  seed = 1220)
+  iter = 4000)
+
+plot(fitPrior, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 pp_check(fitPrior, ndraws = 20)
-
-# Posterior predictive check
 pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
-loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
+loo(m.brm,
+    moment_match = TRUE, 
+    reloo = TRUE
+    ) # Leave-One-Out Cross-Validation (LOO-CV)
                                               # reloo = T because 1 approximation was still bad, suggested by output: 
                                                     # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
                                                     # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
 
 # Check Rhat
-summary(m.brm) 
+summary(m.brm)
+
+# Check ESS & MCSE
+
+# ESS (bulk) = effective sample size for the bulk of the posterior (i.e. central mass). 
+# It answers: “How many independent draws are these autocorrelated MCMC samples worth for estimating central summaries like the mean/median?”
+# ESS (tail) = effective sample size for the tails of the posterior (useful for accurate extreme quantiles, credible intervals, tail probabilities).
+
+draws <- as_draws(m.brm)
+summarise_draws(draws, "ess_bulk", "ess_tail") # bulk ESS ~1,000 and tail ESS ~2,000 indicate well-mixed chains and reasonably precise estimates
+summarise_draws(draws, "mcse_mean", "mcse_sd") # relative MCSE: MCSE / posterior SD = 0.0159/1.91 = 0.0083 -> relative MCSE < 0.01 → excellent (very high precision)
 
 
 # exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
-
 (1 - b.ecdf(0)) * 100 # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
+# save model
+# saveRDS(m.brm, "models/m.brm") # 31.10.2025
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
+write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
+write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
