@@ -12,20 +12,34 @@ library(extraDistr)
 library(bayesplot)
 library(HDInterval)
 
-data = read.csv("data/study_data_leadIQloss.csv")
+data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+
+# excluding studies that were transformed from linear to log, since transformation may not be valid here
+data <- data[!data$author_year %in% c("Roy 2013"), ]
+
+# lets look at the data 
+ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
+  geom_point() +
+  labs(x = "Study", y = "Main Effect Beta") +
+  theme_minimal()
+
+ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
+  geom_point() +
+  labs(x = "Study", y = "Heterogeneity Tau") +
+  theme_minimal()
 
 # how to set priors?
-# main effect
+# main effect, beta
 # visualize distr
 x <- seq(-3, 3, by = 0.1)
-y <- dnorm(x, mean = 0, sd = 1)
+y <- dnorm(x, mean = -1, sd = 2)
 ggplot() +
   aes(x, y) +
   geom_line(colour = "blue")
 
-# heterogeineity
+# heterogeneity, tau with cauchy
 sigma = 0.2
-phcauchy(0.25, sigma = sigma) # check probability of less than 0.2 between-study heterogeneity τ in half cauchy distribution with sigma 0.25 
+phcauchy(0.25, sigma = sigma) # check probability of less than 0.2 between-study heterogeneity τ in half-cauchy distribution with sigma 0.25 
 inverseCDF(c(0.025, 0.975), phcauchy, sigma = sigma) # use inverse Cumulative Density Function to find Q2.5 and Q97.5 of the half-cauchy with sigma x
 # visualize distr
 x <- seq(0, 5, by = 0.01)
@@ -34,54 +48,71 @@ ggplot() +
   aes(x, y) +
   geom_line(colour = "orange")
 
-# Set priors
-priors <- c(prior(normal(-0.4,0.8), class = Intercept), # overall effect size µ
-            prior(cauchy(0,0.2), class = sd, lb = 0)) # between-study heterogeneity τ with lb (lower bound) 0 to make it half-Cauchy
+# heterogeneity, tau with trunc normal
+x <- seq(0, 5, by = 0.1)
+y <- dnorm(x, mean = 0, sd = 2)
+ggplot() +
+  aes(x, y) +
+  geom_line(colour = "orange")
 
-priors_cons <- c(prior(normal(0,1), class = Intercept), 
-            prior(cauchy(0,0.5), class = sd, lb = 0)) 
+mean(data$beta_lin)
 
 
-# Model ----
+# Set priors ----
+priors <- c(prior(normal(0, 1), class = Intercept), # overall effect size µ
+            prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
+
+
+# Fit model ----
+
+# Main model (with conservative priors)
+m.brm <- brm(
+  beta_lin|se(se_beta_lin) ~ 1 + (1|author_year),
+  data = data,
+  prior = priors,
+  # control = list(adapt_delta = 0.99),
+  save_pars = save_pars(all = TRUE),
+  chains = 4,
+  iter = 5000,
+  seed = 1223)
+
+# plot the MCMC chains & posterior distributions
+plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+
+# nicer traceplot (incl. warmup)
+posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
+names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
+names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
+
+mcmc_trace(posterior_samples_warm,
+           pars = c("beta", "sd"),
+           facet_args = list(ncol = 1)) +
+  vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
+
+mcmc_pairs(m.brm, pars = c("b_Intercept", "sd_author_year__Intercept"))
 
 # Prior predictive check
-fitPrior <- brm(beta_lin|se(se_beta_lin) ~ 1 + (1|author_year), 
-                data = data, 
-                prior = priors_cons,
-                sample_prior = "only",
-                iter = 4000,
-                seed = 13513)
+fitPrior <- brm(
+  beta_lin|se(se_beta_lin) ~ 1 + (1|author_year), 
+  data = data, 
+  prior = priors,
+  # control = list(adapt_delta = 0.99),
+  sample_prior = "only",
+  chains = 4,
+  iter = 4000,
+  seed = 1223)
 
 # Plot
 pp_check(fitPrior, ndraws = 20)
 
-
-# Main model
-m.brm <- brm(
-  beta_lin|se(se_beta_lin) ~ 1 + (1|author_year),
-  data = data,
-  prior = priors_cons,
-  control =                      # Whenever you see the warning "There were x divergent transitions after warmup." you should really think about increasing adapt_delta.
-    list(adapt_delta = 0.99),    # Increasing adapt_delta will slow down the sampler but will decrease the number of divergent transitions threatening the validity of your posterior draws
-  save_pars = save_pars(all = TRUE),
-  iter = 4000,
-  seed = 13513)
-
-# plot the MCMC chains as well as the posterior distributions
-plot(m.brm)
+# Posterior predictive check
+pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
-loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV); 
-                                              # moment_match=T because 6/14 (43%) approximations were bad before; 
-                                              # reloo = T because 1 approximation was still bad, suggested by output: 
-                                                    # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
-                                                    # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
-
-# Posterior predictive check
-pp_check(m.brm)
-
-# Examine the pairs() plot to diagnose sampling problems
-pairs(m.brm) # especially useful in identifying collinearity between variables (which manifests as narrow bivariate plots) as well as the presence of multiplicative non-identifiabilities (banana-like shapes)
+# loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
+# reloo = T because 1 approximation was still bad, suggested by output: 
+# We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
+# This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
 
 
 # Check Rhat values & interpret results
@@ -90,46 +121,50 @@ ranef(m.brm)
 
 # lets look at posterior distributions ----
 # prepare data
-str(as_draws_df(m.brm))
+# str(as_draws_df(m.brm))
 post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 # generate density plot for posterior distributions
 ggplot(aes(x = b_Intercept), data = post.samples) +
-  geom_density(fill = "lightblue",                # set the color
-               color = "lightblue", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$b_Intercept), 
-                               linetype = "dotted", 
-                               color = "red") +
-  geom_vline(xintercept = Mode(post.samples$b_Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
+  geom_density(fill = "steelblue",                # set the color
+               color = "steelblue", alpha = 0.7) +  
+  # geom_vline(xintercept = mean(post.samples$b_Intercept), 
+  # linetype = "dotted", 
+  # color = "red") +
+  # geom_vline(xintercept = Mode(post.samples$b_Intercept), 
+  # linetype = "dotted", 
+  # color = "blue") +
+  geom_vline(xintercept = 0,
+             color = "grey") +
   labs(x = expression(italic(b_Intercept)),
        y = element_blank()) +
-  theme_minimal()
+  theme_minimal() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
 
-# ggsave("results/posterior_dist_b.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_lin_no-Roy_minimal.png", width = 25, height = 15, units = "cm")
 
 
 ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
   geom_density(fill = "lightgreen",               # set the color
                color = "lightgreen", alpha = 0.7) +  
-  geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "red") +
-  geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
-             linetype = "dotted", 
-             color = "blue") +
+  # geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "red") +
+  # geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
+  #            linetype = "dotted", 
+  #            color = "blue") +
   labs(x = expression(sd_author_year__Intercept),
        y = element_blank()) +
   theme_minimal()
 
-# ggsave("results/posterior_dist_sd.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_lin_no-Roy.png", width = 25, height = 15, units = "cm")
 
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
 b.ecdf <- ecdf(post.samples$b_Intercept)
-b.ecdf(-0.45) #-0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
-# 0.73425 -> 73%
+b.ecdf(-1) # -0.45 (95% CI -0.66, -0.24) is the result of Philippes meta analysis
 
 
 
@@ -172,7 +207,7 @@ ggplot(aes(b_Intercept,
   geom_vline(xintercept = fixef(m.brm)[1, 1], # line at the pooled effect estimate
              color = "gray50", linewidth = 0.8, linetype = 2) + 
   #geom_vline(xintercept = fixef(m.brm)[1, 3:4], # lines for Q2.5 & Q97.5 from pooled effect (95 % CI)
-             #color = "gray50", linewidth = 0.8, linetype = 2) + 
+  #color = "gray50", linewidth = 0.8, linetype = 2) + 
   geom_vline(xintercept = 0, color = "gray20", 
              linewidth = 1) + # line at zero (null effect line)
   
@@ -199,12 +234,14 @@ ggplot(aes(b_Intercept,
   theme_light() +
   theme(panel.border = element_blank())
 
-# ggsave("results/forestplot_light.png", width = 25, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_linBLL_no-Roy.png", width = 25, height = 15, units = "cm")
 
 # extract draws for EBD assessment, using spread_draws ----
 posterior_summary(m.brm)
 
 draws_pooled_b_sd <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 
+summary(m.brm)
+# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_log‚BLL_no-Halabicky-Iglesias-Min-Roy.csv", row.names = F)
 
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_lin.csv", row.names = F)
+

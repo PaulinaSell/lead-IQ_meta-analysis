@@ -18,20 +18,6 @@ data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
 data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
 
-# lets look at the data 
-ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
-  geom_hline(yintercept = mean(data$beta_ln), colour = "red") +
-  geom_hline(yintercept = median(data$beta_ln), colour = "blue") +
-  geom_point() +
-  labs(x = "Study", y = "Main Effect Beta") +
-  theme_minimal()
-
-ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
-  geom_hline(yintercept = mean(data$se_beta_ln), colour = "red") +
-  geom_hline(yintercept = median(data$se_beta_ln), colour = "blue") +
-  geom_point() +
-  labs(x = "Study", y = "Heterogeneity Tau") +
-  theme_minimal()
 
 # how to set priors?
 # main effect, beta
@@ -309,7 +295,7 @@ ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank()) 
 
-ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
+# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
 
 
 # check exact probability of effect being smaller (in this case: greater) than certain value (-0.45 here) (using empirical cumulative distribution function)
