@@ -1,17 +1,27 @@
 ---
-title: "PARC T6.2.4 – Case study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
-author: "Paulina Sell, UBA"
+title: "PARC T6.2.4 – Methodological Case Study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
+# author: "Paulina Sell, UBA"
 date-modified: "2025-11-03"
 format:
-  html:
+  pdf:
     toc: true
-    self-contained: true
-    embed-resources: true
-    theme: cerulean
-    page-layout: full
+    number-sections: false
+    colorlinks: true
+    geometry:
+      - margin=1in
+    fig-pos: 'h'
+  # html:
+  #   toc: true
+  #   toc_float: true
+  #   toc-location: left-body
+  #   self-contained: true
+  #   embed-resources: true
+  #   theme: cerulean
+  #   page-layout: full
 fig-align: center
 fig-height: 4
 ---
+
 
 ```{r}
 #| label: loading-data
@@ -21,24 +31,23 @@ rationale <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_I
 ```
 
 # Introduction
-This document describes the methodology of a frequentist and a Bayesian meta analysis on the effects of blood lead levels (BLL) in children (postnatal & concurrent) and their intellectual development (IQ). 
-The results of these meta analyses will be used in burden of disease estimation within this methodological case study. 
-The literature review was conducted by ANSES. 
+This document describes the methodology of a frequentist and a Bayesian meta analysis on the effects of blood lead levels (BLL) in children (postnatal, concurrent) and their intellectual development (IQ). 
+The results of these meta analyses will be used in Burden of Disease estimation within this methodological case study. 
+The literature review of epidemiological studies was conducted by ANSES. 
 \
 
 # Harmonizing Effect Estimates
-
-In order to harmonize the effect estimates before we can pool them, we need to transform some of them. 
+In order to pool the identified effect estimates, we need to transform some of them.
 Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. 
 They did not always use the same log base. 
-Some used log~10~, some ln, and some used log~2~. 
+Some used log~10~, some ln (log~e~), and some used log~2~. 
 Also, some of the included studies did not transform their BLL at all, so it is on a linear scale. 
 ANSES standardized all estimates to linear increments of BLL, using the template published by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). 
 The following visual tests will explain the rationale behind our decision to transform all effect estimates to a logarithmic scale.\
 
 ## Visualizing Transformations
 
-Comparison of original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277) (now for linear BLL).
+Comparison of original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (beta = -2.65, blue) for ln(BLL) to the transformed one (beta = -0.277, red) (now for linear BLL).
 
 ```{r}
 #| label: lin-vs-log
@@ -205,11 +214,16 @@ These are the final studies and transformed effect estimates:
 ```{r}
 #| label: view-data
 #| echo: false
+#| message: false
+
+library(tidyverse)
 
 knitr::kable(
-  rationale[,!(names(rationale) %in% "doi")],
+  rationale[,!(names(rationale) %in% "doi")] %>% 
+    mutate(across(everything(), ~replace(., is.na(.), ""))),
   col.names = c('Author, Year', 'N', 'Beta', 'SE(Beta)', 'Original BLL Scale', 'Incl.  Analysis 1', 'Incl. Analysis 2', 'Comment'),
-  digits = 2)
+  digits = 2
+)
 ```
 
 
@@ -273,9 +287,11 @@ Forest plot:
 #| label: forest_plot_Bayes_analysis1
 #| echo: false
 #| warning: false
-#| fig-height: 6
+#| fig-height: 4
+#| fig-width: 6
+#| out-width: "70%"
+#| out-height: "70%"
 
-library(tidyverse)
 library(tidybayes)
 library(ggridges)
 library(glue)
@@ -509,7 +525,7 @@ forest(rma_model2,
        main = "Random Effects Meta-Analysis - Analysis 2")
 ```
 
-## Comparing results
+# Comparing results
 Comparing the four results: 
 
 ```{r}
@@ -546,21 +562,27 @@ Freq_I2_rounded_2 <- round(rma_model2$I2, 2)
 | Bayesian, n = 12 included studies (Analysis 2)   | `r Bayes_b_Intercept_mean_2`   | `r Bayes_b_Intercept_se_2`
 | Frequentist, n = 12 included studies (Analysis 2)  | `r Freq_b_Intercept_mean_2`   | `r Freq_b_Intercept_se_2`
 
-: {tbl-colwidths="[50, 25, 25]" .hover}
+: {tbl-colwidths="[50, 25, 25]" .striped}
+
+In both analyses, the mean pooled effect resulting from the Bayesian Meta Analysis is smaller than from the frequentist approach.
+This might be due to a process called shrinkage:
+The model estimates 'true' effect sizes for each study and if it detects outliers, they will be pulled towards the overall effect. 
+This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. 
+The model is less sensitive to outliers than frequentist models.
 
 I^2^ in both frequentist models suggested high heterogeneity (`r Freq_I2_rounded_1`% and `r Freq_I2_rounded_2`%). 
 In Bayesian statistics, we directly model in-between study heterogeneity.
 This is why we set a prior for heterogeneity before we ran the model.
-These are the posterior mean and se for the heterogeneity of the two models: 
+These are the posterior mean and sd for the heterogeneity of the two models: 
 
 | Model  | Heterogeneity, tau  | SE |
 |--------|:--------:| :--------:|
 | Bayesian, n = 10 included studies (Analysis 1)  | `r Bayes_se_Intercept_mean_1`   | `r Bayes_se_Intercept_se_1`
 | Bayesian, n = 12 included studies (Analysis 2)  | `r Bayes_se_Intercept_mean_2`   | `r Bayes_se_Intercept_se_2`
 
-: {tbl-colwidths="[50, 25, 25]" .hover}
+: {tbl-colwidths="[50, 25, 25]" .striped}
 
-One great advantage of the Bayesian approach is that the full posterior distribution of the pooled effect (containing useful information on uncertainty in the result) can be used directly in EBD assessments via Monte Carlo Simulation. 
+One advantage of the Bayesian approach is that the full posterior distribution of the pooled effect can be used directly in EBD assessments via Monte Carlo simulation. 
 These are the posterior distributions of beta in both analyses: 
 
 ```{r}

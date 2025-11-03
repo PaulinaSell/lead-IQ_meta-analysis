@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Paulina Sell, UBA">
 
-<title>PARC T6.2.4 – Case study: Frequentist &amp; Bayesian Meta Analysis on Lead Exposure &amp; IQ Loss</title>
+<title>PARC T6.2.4 – Methodological Case Study: Frequentist &amp; Bayesian Meta Analysis on Lead Exposure &amp; IQ Loss</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3218,8 +3217,8 @@ window.Quarto = {
 
 <body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
   <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
@@ -3240,28 +3239,24 @@ window.Quarto = {
   <li><a href="#analysis-1.2-frequentist" id="toc-analysis-1.2-frequentist" class="nav-link" data-scroll-target="#analysis-1.2-frequentist">Analysis 1.2: Frequentist</a></li>
   <li><a href="#analysis-2.1-bayesian" id="toc-analysis-2.1-bayesian" class="nav-link" data-scroll-target="#analysis-2.1-bayesian">Analysis 2.1: Bayesian</a></li>
   <li><a href="#analysis-2.2-frequentist" id="toc-analysis-2.2-frequentist" class="nav-link" data-scroll-target="#analysis-2.2-frequentist">Analysis 2.2: Frequentist</a></li>
-  <li><a href="#comparing-results" id="toc-comparing-results" class="nav-link" data-scroll-target="#comparing-results">Comparing results</a></li>
   </ul></li>
+  <li><a href="#comparing-results" id="toc-comparing-results" class="nav-link" data-scroll-target="#comparing-results">Comparing results</a></li>
   </ul>
 </nav>
 </div>
-<main class="content column-page-left" id="quarto-document-content">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">PARC T6.2.4 – Case study: Frequentist &amp; Bayesian Meta Analysis on Lead Exposure &amp; IQ Loss</h1>
+<h1 class="title">PARC T6.2.4 – Methodological Case Study: Frequentist &amp; Bayesian Meta Analysis on Lead Exposure &amp; IQ Loss</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page-right">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Paulina Sell, UBA </p>
-          </div>
-  </div>
     
   
     <div>
@@ -3277,19 +3272,42 @@ window.Quarto = {
 
 </header>
 
-
+<nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+  <li><a href="#harmonizing-effect-estimates" id="toc-harmonizing-effect-estimates">Harmonizing Effect Estimates</a>
+  <ul>
+  <li><a href="#visualizing-transformations" id="toc-visualizing-transformations">Visualizing Transformations</a>
+  <ul>
+  <li><a href="#case-1-log10bll-to-lnbll-dantzer-et-al.-2020" id="toc-case-1-log10bll-to-lnbll-dantzer-et-al.-2020">Case 1: log<sub>10</sub>(BLL) to ln(BLL): Dantzer et al. 2020</a></li>
+  <li><a href="#case-2-log2bll-to-lnbll-desrochers-couture-et-al.-2018" id="toc-case-2-log2bll-to-lnbll-desrochers-couture-et-al.-2018">Case 2: log<sub>2</sub>(BLL) to ln(BLL): Desrochers-Couture et al. 2018</a></li>
+  <li><a href="#case-3-linearbll-to-lnbll-iglesias-et-al.-2011" id="toc-case-3-linearbll-to-lnbll-iglesias-et-al.-2011">Case 3: linear(BLL) to ln(BLL): Iglesias et al. 2011</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results">Results</a>
+  <ul>
+  <li><a href="#analysis-1.1-bayesian" id="toc-analysis-1.1-bayesian">Analysis 1.1: Bayesian</a></li>
+  <li><a href="#analysis-1.2-frequentist" id="toc-analysis-1.2-frequentist">Analysis 1.2: Frequentist</a></li>
+  <li><a href="#analysis-2.1-bayesian" id="toc-analysis-2.1-bayesian">Analysis 2.1: Bayesian</a></li>
+  <li><a href="#analysis-2.2-frequentist" id="toc-analysis-2.2-frequentist">Analysis 2.2: Frequentist</a></li>
+  </ul></li>
+  <li><a href="#comparing-results" id="toc-comparing-results">Comparing results</a></li>
+  </ul>
+</nav>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This document describes the methodology of a frequentist and a Bayesian meta analysis on the effects of blood lead levels (BLL) in children (postnatal &amp; concurrent) and their intellectual development (IQ). The results of these meta analyses will be used in burden of disease estimation within this methodological case study. The literature review was conducted by ANSES.<br>
+<p>This document describes the methodology of a frequentist and a Bayesian meta analysis on the effects of blood lead levels (BLL) in children (postnatal, concurrent) and their intellectual development (IQ). The results of these meta analyses will be used in Burden of Disease estimation within this methodological case study. The literature review of epidemiological studies was conducted by ANSES.<br>
 </p>
 </section>
 <section id="harmonizing-effect-estimates" class="level1">
 <h1>Harmonizing Effect Estimates</h1>
-<p>In order to harmonize the effect estimates before we can pool them, we need to transform some of them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. They did not always use the same log base. Some used log<sub>10</sub>, some ln, and some used log<sub>2</sub>. Also, some of the included studies did not transform their BLL at all, so it is on a linear scale. ANSES standardized all estimates to linear increments of BLL, using the template published by <a href="https://doi.org/10.1186/s12874-017-0322-8">Rodriguez Barranco 2017</a>. The following visual tests will explain the rationale behind our decision to transform all effect estimates to a logarithmic scale.<br>
+<p>In order to pool the identified effect estimates, we need to transform some of them. Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. They did not always use the same log base. Some used log<sub>10</sub>, some ln (log<sub>e</sub>), and some used log<sub>2</sub>. Also, some of the included studies did not transform their BLL at all, so it is on a linear scale. ANSES standardized all estimates to linear increments of BLL, using the template published by <a href="https://doi.org/10.1186/s12874-017-0322-8">Rodriguez Barranco 2017</a>. The following visual tests will explain the rationale behind our decision to transform all effect estimates to a logarithmic scale.<br>
 </p>
 <section id="visualizing-transformations" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-transformations">Visualizing Transformations</h2>
-<p>Comparison of original beta coefficient from <a href="https://doi.org/10.3109/10408444.2013.832726">Crump et al. 2013</a> (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277) (now for linear BLL).</p>
+<p>Comparison of original beta coefficient from <a href="https://doi.org/10.3109/10408444.2013.832726">Crump et al. 2013</a> (beta = -2.65, blue) for ln(BLL) to the transformed one (beta = -0.277, red) (now for linear BLL).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3364,19 +3382,19 @@ These are the final studies and transformed effect estimates:</p>
 <colgroup>
 <col style="width: 10%">
 <col style="width: 2%">
-<col style="width: 2%">
+<col style="width: 3%">
 <col style="width: 3%">
 <col style="width: 8%">
 <col style="width: 7%">
 <col style="width: 7%">
-<col style="width: 58%">
+<col style="width: 57%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Author, Year</th>
-<th style="text-align: right;">N</th>
-<th style="text-align: right;">Beta</th>
-<th style="text-align: right;">SE(Beta)</th>
+<th style="text-align: left;">N</th>
+<th style="text-align: left;">Beta</th>
+<th style="text-align: left;">SE(Beta)</th>
 <th style="text-align: left;">Original BLL Scale</th>
 <th style="text-align: left;">Incl. Analysis 1</th>
 <th style="text-align: left;">Incl. Analysis 2</th>
@@ -3386,9 +3404,9 @@ These are the final studies and transformed effect estimates:</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Bauer 2020</td>
-<td style="text-align: right;">635</td>
-<td style="text-align: right;">-0.10</td>
-<td style="text-align: right;">0.87</td>
+<td style="text-align: left;">635</td>
+<td style="text-align: left;">-0.1</td>
+<td style="text-align: left;">0.8674</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3396,9 +3414,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Cao 2010</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3406,9 +3424,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chen 2005</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3416,9 +3434,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Crump 2013</td>
-<td style="text-align: right;">1493</td>
-<td style="text-align: right;">-2.65</td>
-<td style="text-align: right;">0.53</td>
+<td style="text-align: left;">1493</td>
+<td style="text-align: left;">-2.65</td>
+<td style="text-align: left;">0.5306</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3426,9 +3444,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Dantzer 2020</td>
-<td style="text-align: right;">224</td>
-<td style="text-align: right;">-5.71</td>
-<td style="text-align: right;">1.61</td>
+<td style="text-align: left;">224</td>
+<td style="text-align: left;">-5.711</td>
+<td style="text-align: left;">1.6109</td>
 <td style="text-align: left;">log10</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3436,9 +3454,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Desrochers-Couture 2018</td>
-<td style="text-align: right;">606</td>
-<td style="text-align: right;">0.02</td>
-<td style="text-align: right;">0.06</td>
+<td style="text-align: left;">606</td>
+<td style="text-align: left;">0.0202</td>
+<td style="text-align: left;">0.0622</td>
 <td style="text-align: left;">log2</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3446,9 +3464,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Earl 2016</td>
-<td style="text-align: right;">127</td>
-<td style="text-align: right;">-5.86</td>
-<td style="text-align: right;">2.21</td>
+<td style="text-align: left;">127</td>
+<td style="text-align: left;">-5.863</td>
+<td style="text-align: left;">2.215</td>
 <td style="text-align: left;">log10</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">X</td>
@@ -3456,9 +3474,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Halabicky 2023</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">linear</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3466,9 +3484,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Hong 2015</td>
-<td style="text-align: right;">839</td>
-<td style="text-align: right;">-3.14</td>
-<td style="text-align: right;">1.36</td>
+<td style="text-align: left;">839</td>
+<td style="text-align: left;">-3.1399</td>
+<td style="text-align: left;">1.365</td>
 <td style="text-align: left;">log10</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3476,9 +3494,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hornung 2009</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3486,9 +3504,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Iglesias 2011</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">linear</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3496,9 +3514,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Lanphear 2019</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3506,9 +3524,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Lee 2021</td>
-<td style="text-align: right;">502</td>
-<td style="text-align: right;">-3.83</td>
-<td style="text-align: right;">2.25</td>
+<td style="text-align: left;">502</td>
+<td style="text-align: left;">-3.83</td>
+<td style="text-align: left;">2.25</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3516,9 +3534,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Lucchini 2012</td>
-<td style="text-align: right;">299</td>
-<td style="text-align: right;">-0.11</td>
-<td style="text-align: right;">0.08</td>
+<td style="text-align: left;">299</td>
+<td style="text-align: left;">-0.11</td>
+<td style="text-align: left;">0.0842</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3526,9 +3544,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Lucchini 2019</td>
-<td style="text-align: right;">299</td>
-<td style="text-align: right;">-3.48</td>
-<td style="text-align: right;">1.48</td>
+<td style="text-align: left;">299</td>
+<td style="text-align: left;">-3.483</td>
+<td style="text-align: left;">1.481</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3536,9 +3554,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Menezes-Filho 2018</td>
-<td style="text-align: right;">219</td>
-<td style="text-align: right;">-3.74</td>
-<td style="text-align: right;">1.29</td>
+<td style="text-align: left;">219</td>
+<td style="text-align: left;">-3.7388</td>
+<td style="text-align: left;">1.2877</td>
 <td style="text-align: left;">log10</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3546,9 +3564,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Min 2009</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">linear</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3556,9 +3574,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Roy 2013</td>
-<td style="text-align: right;">708</td>
-<td style="text-align: right;">-4.70</td>
-<td style="text-align: right;">1.66</td>
+<td style="text-align: left;">708</td>
+<td style="text-align: left;">-4.7</td>
+<td style="text-align: left;">1.658</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">X</td>
@@ -3566,9 +3584,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Schnaas 2006</td>
-<td style="text-align: right;">122</td>
-<td style="text-align: right;">0.21</td>
-<td style="text-align: right;">0.85</td>
+<td style="text-align: left;">122</td>
+<td style="text-align: left;">0.21</td>
+<td style="text-align: left;">0.8521</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">X</td>
 <td style="text-align: left;">X</td>
@@ -3576,9 +3594,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Wang 2022</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">linear</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -3586,9 +3604,9 @@ These are the final studies and transformed effect estimates:</p>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Total</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;">12</td>
@@ -3809,10 +3827,11 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 </div>
 </section>
-<section id="comparing-results" class="level2">
-<h2 class="anchored" data-anchor-id="comparing-results">Comparing results</h2>
+</section>
+<section id="comparing-results" class="level1">
+<h1>Comparing results</h1>
 <p>Comparing the four results:</p>
-<table class="table-hover caption-top table">
+<table class="table-striped caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 25%">
@@ -3848,8 +3867,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </tr>
 </tbody>
 </table>
-<p>I<sup>2</sup> in both frequentist models suggested high heterogeneity (98.49% and 98.47%). In Bayesian statistics, we directly model in-between study heterogeneity. This is why we set a prior for heterogeneity before we ran the model. These are the posterior mean and se for the heterogeneity of the two models:</p>
-<table class="table-hover caption-top table">
+<p>In both Analyses, the mean pooled effect resulting from the Bayesian Meta Analysis is smaller than from the frequentist approach. This might be due to a process called shrinkage: The model estimates ‘true’ effect sizes for each study and if it detects outliers, they will be pulled towards the overall effect. This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. The model is less sensitive to outliers than frequentist models.</p>
+<p>I<sup>2</sup> in both frequentist models suggested high heterogeneity (98.49% and 98.47%). In Bayesian statistics, we directly model in-between study heterogeneity. This is why we set a prior for heterogeneity before we ran the model. These are the posterior mean and sd for the heterogeneity of the two models:</p>
+<table class="table-striped caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 25%">
@@ -3875,7 +3895,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </tr>
 </tbody>
 </table>
-<p>One great advantage of the Bayesian approach is that the full posterior distribution of the pooled effect (containing useful information on uncertainty in the result) can be used directly in EBD assessments via Monte Carlo Simulation. These are the posterior distributions of beta in both analyses:</p>
+<p>One advantage of the Bayesian approach is that the full posterior distribution of the pooled effect can be used directly in EBD assessments via Monte Carlo simulation. These are the posterior distributions of beta in both analyses:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3892,7 +3912,6 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 </div>
 </div>
-</section>
 </section>
 
 </main>
