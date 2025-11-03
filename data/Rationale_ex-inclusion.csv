@@ -1,0 +1,22 @@
+author_year,doi,N,beta,se_beta,original_BLL_scale,included_analysis-1,included_analysis-2,comment
+Bauer 2020,10.1289/EHP6803,635.0000,-0.1000,0.8674,ln,X,X,
+Cao 2010,,,,,,,,ERF for linear BLL and RCT study design -> excluded
+Chen 2005,,,,,,,,ERF for linear BLL and RCT study design -> excluded
+Crump 2013,10.3109/10408444.2013.832726,1493.0000,-2.6500,0.5306,ln,X,X,"Overlap with Hornung and Lanphear - Including only this study (Lanphear: linear effect estimate, Hornung: less recent study than Crump)"
+Dantzer 2020,10.1016/j.scitotenv.2019.134519,224.0000,-5.7110,1.6109,log10,X,X,
+Desrochers-Couture 2018,10.1016/j.envint.2018.10.043,606.0000,0.0202,0.0622,log2,X,X,
+Earl 2016,10.1111/ajpy.12096,127.0000,-5.8630,2.2150,log10,,X,First excluded because 20 month time lag between BLL and IQ measurement
+Halabicky 2023,,,,,linear,,,ERF for linear BLL -> excluded
+Hong 2015,10.1289/ehp.1307420,839.0000,-3.1399,1.3650,log10,X,X,
+Hornung 2009,,,,,,,,Overlap with Crump and Lanphear -> excluded
+Iglesias 2011,,,,,linear,,,ERF for linear BLL -> excluded
+Lanphear 2019,,,,,,,,Overlap with Crump and Hornung -> excluded
+Lee 2021,10.1016/j.envint.2021.106798,502.0000,-3.8300,2.2500,ln,X,X,
+Lucchini 2012,10.1186/s12940-019-0505-3,299.0000,-0.1100,0.0842,ln,X,X,
+Lucchini 2019,10.1016/j.envres.2012.08.003,299.0000,-3.4830,1.4810,ln,X,X,
+Menezes-Filho 2018,10.3390/ijerph15112418,219.0000,-3.7388,1.2877,log10,X,X,
+Min 2009,,,,,linear,,,ERF for linear BLL -> excluded
+Roy 2013,10.1016/j.neuro.2013.05.005,708.0000,-4.7000,1.6580,ln,,X,Excluded at first because of unplausibly high effect estimate; first author confirmed missing decimal point in publication
+Schnaas 2006,10.1289/ehp.8552,122.0000,0.2100,0.8521,ln,X,X,
+Wang 2022,,,,,linear,,,ERF for linear BLL -> excluded
+Total,,,,,,10,12,

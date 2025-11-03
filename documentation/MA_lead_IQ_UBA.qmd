@@ -1,0 +1,213 @@
+---
+title: "PARC T6.2.4 – Case study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
+author: "Paulina Sell, UBA"
+date-modified: "2025-11-03"
+format:
+  html:
+    toc: true
+    self-contained: true
+    embed-resources: true
+    theme: cerulean
+    page-layout: full
+fig-align: center
+fig-height: 4
+---
+
+```{r}
+#| label: loading-data
+#| echo: false
+
+data_clean <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss_clean.csv")
+rationale <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/Rationale_ex-inclusion.csv")
+```
+
+# Introduction
+This document describes the methodology of a frequentist and a Bayesian meta analysis on the effects of blood lead levels (BLL) in children (postnatal & concurrent) and their intellectual development (IQ). 
+The results of these meta analyses will be used in burden of disease estimation within this methodological case study. 
+The literature review was conducted by ANSES. 
+\
+
+# Step 1: Harmonizing Effect Estimates
+
+In order to harmonize the effect estimates before we can pool them, we need to transform some of them. 
+Most of the studies transformed their blood lead level (BLL) data to a logarithmic scale in order to fulfill the assumption of a linear relationship between BLL (exposure) and IQ points (outcome) in their regression analyses. 
+They did not always use the same log base. 
+Some used log~10~, some ln, and some used log~2~. 
+Also, some of the included studies did not transform their BLL at all, so it is on a linear scale. 
+ANSES standardized all estimates to linear increments of BLL, using the template published by [Rodriguez Barranco 2017](https://doi.org/10.1186/s12874-017-0322-8). 
+The following visual tests will explain the rationale behind our decision to transform all effect estimates to a logarithmic scale.\
+
+## Visualizing Transformations
+
+Comparison of original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277) (now for linear BLL).
+
+```{r}
+#| label: lin-vs-log
+#| echo: false
+
+library(ggplot2)
+
+beta_log <- -2.650
+beta_linear <- -0.277
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log <- beta_log * log(blood_lead + 1)
+IQ_loss_linear <- beta_linear * blood_lead
+
+plot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log,
+  linear_ERF = IQ_loss_linear
+)
+
+ggplot(plot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "Logarithmic")) +
+  geom_line(aes(y = linear_ERF, color = "Linear")) +
+  scale_color_manual(values = c("Logarithmic" = "blue", "Linear" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+As visible in the graph, the effects of lower BLL would likely be underestimated in lower BLL ranges and overestimated in higher BLL ranges.
+Since today, BLL are often found to be very low (range in GerES V: approximately 0.04 to 4.5 µg/dL), the population health effects (Burden of Disease) of BLL would likely be underestimated.
+Therefore, effect estimates were transformed to ln(BLL) when necessary in order to harmonize them. 
+
+Formulas used to transform effect estimates to ln(BLL):\
+$$
+\beta_{ln} = \beta_{linear} \times C_{ref}\
+$$
+$$
+\beta_{ln} = \frac{beta_{log_{2}}} {\ln(2)}\
+$$
+
+$$
+\beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
+$$
+Where:\
+$\beta_{ln}$ = harmonized beta coefficient (natural logarithm)\
+$\beta_{linear}$ = beta coefficient for linear BLL\
+$\beta_{log_2}$ = beta coefficient for log₂-transformed BLL\
+$\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
+$C_{ref}$ = reference concentration for linear transformation\
+
+In the following section, all three cases of transformations are visualized in order to check for validity.
+
+### Case 1: log~10~(BLL) to ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
+```{r}
+#| label: log10-to-ln
+#| echo: false
+
+
+Dantzerbeta_log10 <- -13.150
+Dantzerbeta_ln <- -5.711
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log10 <- Dantzerbeta_log10 * log10(blood_lead + 1)
+IQ_loss_ln <- Dantzerbeta_ln * log(blood_lead + 1)
+
+Dantzerplot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log10,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Dantzerplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "log(10)")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("log(10)" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+The transformation from log~10~(BLL) to ln(BLL) does not affect the exposure-response curve.
+
+
+### Case 2: log~2~(BLL) to ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
+```{r}
+#| label: log2-to-ln
+#| echo: false
+
+
+
+Desrochersbeta_log2 <- 0.014
+Desrochersbeta_ln <- 0.020
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_log2 <- Desrochersbeta_log2 * log2(blood_lead + 1)
+IQ_loss_ln <- Desrochersbeta_ln * log(blood_lead + 1)
+
+Desrochersplot_data <- data.frame(
+  blood_lead = blood_lead,
+  log_ERF = IQ_loss_log2,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Desrochersplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = log_ERF, color = "log(2)")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("log(2)" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+The transformation from log~2~(BLL) to ln(BLL) does not affect the exposure-response curve in the lower exposure ranges.
+Note: this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
+
+### Case 3: linear(BLL) to ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
+In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). 2.2 µg/dL was set in this transformation.  
+```{r}
+#| label: lin-to-ln
+#| echo: false
+
+
+Iglesiasbeta_linear <- -0.940
+Iglesiasbeta_ln <- -2.068
+
+blood_lead <- seq(0, 50, by = 0.1)
+
+IQ_loss_linear <- Iglesiasbeta_linear * blood_lead
+IQ_loss_ln <- Iglesiasbeta_ln * log(blood_lead + 1)
+
+Iglesiasplot_data <- data.frame(
+  blood_lead = blood_lead,
+  linear_ERF = IQ_loss_linear,
+  ln_ERF = IQ_loss_ln
+)
+
+ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
+  geom_line(aes(y = linear_ERF, color = "linear")) +
+  geom_line(aes(y = ln_ERF, color = "ln")) +
+  scale_color_manual(values = c("linear" = "blue", "ln" = "red")) +
+  labs(
+    x = "Blood Lead Level (µg/dL)",
+    y = "IQ Loss (points)"
+  ) +
+  theme_minimal()
+```
+
+It appears that the transformed estimate does not accurately approximate the original estimate. 
+For this meta analysis, we therefore decided to exclude all studies with estimates for untransformed BLL data.\
+
+\
+These are the final studies and transformed effect estimates that we will be working with.
+```{r}
+#| label: view-data
+#| echo: false
+
+knitr::kable(
+  rationale[,!(names(rationale) %in% "doi")],
+  col.names = c('Author & Year', 'N', 'Beta', 'SE(Beta)', 'Original BLL Sclae', 'Incl.  Analysis 1', 'Incl. Analysis 2', 'Comment'),
+  digits = 2)
+```
