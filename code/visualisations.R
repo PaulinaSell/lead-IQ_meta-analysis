@@ -74,6 +74,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  
  
  # Prior, data & posterior in one plot ----
+ # Beta
  # Prepare data
  posterior_samples <- as_draws_df(m.brm)
  prior_samples <- as_draws_df(fitPrior)
@@ -90,17 +91,52 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  
  
  ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
-   geom_density(alpha = 0.5) +
-   labs(title = "Prior, Observed Effects, and Posterior Pooled Effect",
-        x = "Effect Size", 
-        y = "Density",
-        fill = "Distribution") +
+   geom_density(alpha = 0.5, linewidth = 0.3) +
+   labs(
+     # title = "Prior, Observed Effects, and Posterior of Beta",
+     x = "Beta", 
+     y = "Density",
+     fill = "Distribution") +
    scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f", "Observed Effects" = "#e76f51"),
                      name = "") +
-   theme_minimal() +
-   theme(panel.border = element_blank(), 
-         panel.grid.major = element_blank(), 
-         panel.grid.minor = element_blank()) 
+   theme(
+     legend.position = c(.95, .95),
+     legend.justification = c("right", "top"),
+     panel.border = element_blank(),
+     panel.grid.major = element_blank(),
+     panel.grid.minor = element_blank(),
+     panel.background = element_blank()
+   ) 
+ 
+ # Heterogeneity:
+ posterior_samples_plot <- as_draws_df(m.brm)
+ prior_samples_plot <- as_draws_df(fitPrior)
+
+ plot_data_combined <- data.frame(
+   value = c(prior_samples_plot[["sd_author_year__Intercept"]], 
+             posterior_samples_plot[["sd_author_year__Intercept"]]),
+   distribution = factor(c(rep("Prior", nrow(prior_samples_plot)),
+                           rep("Posterior", nrow(posterior_samples_plot))),
+                         levels = c("Prior", "Posterior"))
+ )
+ 
+ ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
+   geom_density(alpha = 0.5, linewidth = 0.3) +
+   labs(
+     # title = "Prior, Observed Effects, and Posterior of Beta",
+     x = "Tau", 
+     y = "Density",
+     fill = "Distribution") +
+   scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f"),
+                     name = "") +
+   theme(
+     legend.position = c(.95, .95),
+     legend.justification = c("right", "top"),
+     panel.border = element_blank(),
+     panel.grid.major = element_blank(),
+     panel.grid.minor = element_blank(),
+     panel.background = element_blank()
+   ) 
  
 # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior.jpeg", width = 22, height = 15, units = "cm")
  

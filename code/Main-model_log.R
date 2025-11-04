@@ -11,6 +11,7 @@ library(glue)
 library(bayesplot)
 library(HDInterval)
 library(bayestestR)
+library(posterior)
 
 data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 

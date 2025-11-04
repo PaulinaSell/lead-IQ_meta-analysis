@@ -2,7 +2,7 @@
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
 # date: "2025-07-25"
-date-modified: "2025-11_04"
+date-modified: "2025-11-04"
 format:
   html:
     toc: true
@@ -301,7 +301,7 @@ This prior distribution is then combined with the likelihood function (based on 
 You can read more about choosing prior distributions in Bayesian statistics in this [book chapter](https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior).\
 \
 We will be conservative and use weakly informative priors. 
-For the main effect ($μ$), I chose $μ \sim N(-1, 2)$. 
+For the main effect ($μ$), I chose $μ \sim \mathcal{N}(-1, 2)$. 
 This means that we assume the main effect to lie between `r lower` and `r upper`, with a `r round(pnorm(upper, mean, sd) - pnorm(lower, mean, sd), 3) * 100`% probability.
 
 ```{r}
@@ -323,7 +323,7 @@ ggplot() +
 Setting the prior for heterogeneity ($τ$) is slightly more challenging since, by definition, it must be positive. 
 Here, a truncated normal distribution can be useful.
 
-For this model, I chose $τ \sim truncnorm(0, 2)$.
+For this model, I chose $τ \sim TN(0, 2)$ with a lower bound of 0.
 
 ```{r}
 #| label: vis-heterogeineity
@@ -380,6 +380,7 @@ $$
 \tau \sim \mathcal{TN}(0, 2, 0, inf)
 $$
 Where: \ 
+
 $\hat{\theta}_{k}$ = Observed effect size of each study $k$\
 $\theta_{k}$ = True effect size of included study $k$\
 $\sigma_{k}^{2}$ = Variance of true effect size\
@@ -388,7 +389,7 @@ $\tau$ = Variance, representing between-study heterogeneity\
 
 In these formulas, we can see the multilevel structure of our model very well: 
 On the first level are individual participants and we assume, that data from these individuals reach us through $\hat{\theta}_{k}$, the observed effect size.
-We then assume (on level two), that the true effect size of the different studies $k$ also follow their own distribution, which are characterized by the parameters we actually model ($\mu$ and $\tau^{2}$).
+We then also assume (on level two), that the true effect size of the different studies $k$ also follow their own distribution, which are characterized by the parameters we actually model ($\mu$ and $\tau^{2}$).
 
 I decided to increase the number of draws we sample by setting `iter = 4000` (default: 2,000). 
 Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.
@@ -498,11 +499,11 @@ $$
 $$
 
 That's good precision! 
-The MCMC error contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainy.
+The MCMC error or _simulation noise_ contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainty.
 
 
 ### Trace Plots
-Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the standard deviation. 
+Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the between-study heterogeneity tau. 
 The red vertical lines show where the warm-up ended (samples from the warm-up will not be used further).
 
 ```{r}
@@ -513,27 +514,25 @@ The red vertical lines show where the warm-up ended (samples from the warm-up wi
 # extract posterior samples with warm-up
 posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
 names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
-names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
+names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "tau"
 
 mcmc_trace(posterior_samples_warm,
-           pars = c("beta", "sd"),
+           pars = c("beta", "tau"),
            facet_args = list(ncol = 1)) +
   vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warm-up
 ```
 
 ## Interpreting the Results
 
-Interesting! 
-Now what do our posterior distributions actually look like? 
-
 ```{r}
 #| label: plot_post_distr
 #| echo: false
+#| include: false
 
 # extract posterior samples with warm-up
 posterior_samples = as_draws_df(m.brm)
 names(posterior_samples)[names(posterior_samples) == "b_Intercept"] = "beta"
-names(posterior_samples)[names(posterior_samples) == "sd_author_year__Intercept"] = "sd"
+names(posterior_samples)[names(posterior_samples) == "sd_author_year__Intercept"] = "tau"
 
 # density plot with HDI
 mcmc_areas(posterior_samples,
@@ -543,17 +542,94 @@ mcmc_areas(posterior_samples,
   labs(title = "Posterior Distribution of Beta with Mean & 95% HDI")
 
 mcmc_areas(posterior_samples,
-           pars = c("sd"),
+           pars = c("tau"),
            point_est = ("mean"),
            prob = 0.95) + # 95% HDI
-  labs(title = "Posterior Distribution of SD with Mean & 95% HDI")
+  labs(title = "Posterior Distribution of Tau with Mean & 95% HDI")
 ```
 
 The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, beta) after observing new data, combining prior beliefs with the evidence from the data. 
-And unlike a mean effect + confidence interval, it actually represents probability!\
-\
+Let's visualize this!
+
+```{r}
+#| label: plot_Beta_prior-data-posterior
+#| echo: false
+#| warning: false
+
+ # Prior, data & posterior in one plot ----
+ # Prepare data
+ posterior_samples_plot <- as_draws_df(m.brm)
+ prior_samples_plot <- as_draws_df(fitPrior)
+ 
+ plot_data_combined <- data.frame(
+   value = c(prior_samples_plot[["b_Intercept"]], 
+             posterior_samples_plot[["b_Intercept"]],
+             data$beta_ln),
+   distribution = factor(c(rep("Prior", nrow(prior_samples_plot)),
+                           rep("Posterior", nrow(posterior_samples_plot)),
+                           rep("Observed Effects", nrow(data))),
+                         levels = c("Prior", "Observed Effects", "Posterior"))
+ )
+ 
+
+ ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
+   geom_density(alpha = 0.5, linewidth = 0.3) +
+   labs(
+     # title = "Prior, Observed Effects, and Posterior of Beta",
+     x = "Beta", 
+     y = "Density",
+     fill = "Distribution") +
+   scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f", "Observed Effects" = "#e76f51"),
+                     name = "") +
+   theme(
+     legend.position = c(.95, .95),
+     legend.justification = c("right", "top"),
+     panel.border = element_blank(),
+     panel.grid.major = element_blank(),
+     panel.grid.minor = element_blank(),
+     panel.background = element_blank()
+   ) 
+```
+In this plot, we can nicely see how the data we observed convinced us, that the effect is a bit stronger than we assumed (we formalized this with the prior distribution).
+Also, the model doesn't really trust the results of studies that showed a large effect.
+If you're wondering why the prior doesn't look completely smooth, this is because what we see in this plot are the actual samples the MCMC algorithm got from the prior distribution we set.
+
+We can of course plot something similar for heterogeneity:
+
+```{r}
+#| label: plot_Tau_prior-data-posterior
+#| echo: false
+
+ plot_data_combined <- data.frame(
+   value = c(prior_samples_plot[["sd_author_year__Intercept"]], 
+             posterior_samples_plot[["sd_author_year__Intercept"]]),
+   distribution = factor(c(rep("Prior", nrow(prior_samples_plot)),
+                           rep("Posterior", nrow(posterior_samples_plot))),
+                         levels = c("Prior", "Posterior"))
+ )
+ 
+ ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
+   geom_density(alpha = 0.5, linewidth = 0.3) +
+   labs(
+     # title = "Prior, Observed Effects, and Posterior of Beta",
+     x = "Tau", 
+     y = "Density",
+     fill = "Distribution") +
+   scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f"),
+                     name = "") +
+   theme(
+     legend.position = c(.95, .95),
+     legend.justification = c("right", "top"),
+     panel.border = element_blank(),
+     panel.grid.major = element_blank(),
+     panel.grid.minor = element_blank(),
+     panel.background = element_blank()
+   ) 
+```
+
+Unlike a mean effect + confidence interval, a posterior distribution actually represents probability!\
 This means that we can 'ask' this distribution many questions, such as: 
-"What is the probability that the effect is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ points would be lost). 
+"What is the probability that the pooled effect (beta) is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ points would be lost). 
 To answer such questions, we use the empirical cumulative distribution function (ECDF):
 
 ```{r}
@@ -566,8 +642,8 @@ x <- b.ecdf(-1)
 
 Given our data and model, the probability of the effect being greater than -1 is `r (round(x, 2) * 100)`%.\
 \
-We can also ask about interesting intervals;  for example, consider the interval we saw in the plot above. 
-This is a 95% high-density interval (HDI), meaning it is the narrowest interval containing 95% of the probability mass. 
+We can also ask about intervals;  for example, consider the interval we saw in the plot above. 
+This is a 95% high-density interval (HDI), meaning it is the narrowest interval containing 95% of the probability mass pf the posterior distribution. 
 This interval is often referred to as _credible interval_.
 You can see the 95% HDI bounds in the model summary above.
 Let's now compute a 90% HDI!
