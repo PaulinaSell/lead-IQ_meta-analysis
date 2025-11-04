@@ -8,7 +8,6 @@ library(tidyverse)
 library(tidybayes)
 library(ggridges)
 library(glue)
-library(extraDistr)
 library(bayesplot)
 library(HDInterval)
 library(bayestestR)
@@ -41,11 +40,8 @@ plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 summary(m.brm)
 
 # how to extract only mean beta and its sd? 
-Bayes_b_Intercept_mean_1 <- round(summary(m.brm, variable = "b_Intercept")[1], 2)
-Bayes_b_Intercept_se_1 <- round(summary(m.brm, variable = "b_Intercept")[2], 2)
-
-round(posterior_summary(m.brm, variable = "sd_author_year__Intercept")[2], 2)
-get_variables(m.brm)
+Bayes_b_Intercept_mean_1 <- round(posterior_summary(m.brm, variable = "b_Intercept")[1], 2)
+Bayes_b_Intercept_se_1 <- round(posterior_summary(m.brm, variable = "b_Intercept")[2], 2)
 
 # Sample from prior only
 fitPrior <- brm(

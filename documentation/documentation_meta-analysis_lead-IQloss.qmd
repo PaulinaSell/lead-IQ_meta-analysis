@@ -379,13 +379,15 @@ $$
 \tau \sim \mathcal{TN}(0, 2, 0, inf)
 $$
 Where: \ 
-
 $\hat{\theta}_{k}$ = Observed effect size of each study $k$\
 $\theta_{k}$ = True effect size of included study $k$\
 $\sigma_{k}^{2}$ = Variance of true effect size\
 $\mu$ = Pooled effect size we want to estimate\
 $\tau$ = Variance, representing between-study heterogeneity\
 
+In these formulas, we can see the multilevel structure of our model very well: 
+On the first level are individual participants and we assume, that data from these individuals reach us through $\hat{\theta}_{k}$, the observed effect size.
+We then assume (on level two), that the true effect size of the different studies $k$ also follow their own distribution, which are characterized by the parameters we actually model ($\mu$ and $\tau^{2}$).
 
 I decided to increase the number of draws we sample by setting `iter = 4000` (default: 2,000). 
 Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.
@@ -403,7 +405,7 @@ m.brm <- brm(
   prior = priors,
   save_pars = save_pars(all = TRUE),
   chains = 4,
-  iter = 4000)
+  iter = 5000)
 ```
 
 ## Diagnostics: Convergence & Model Validity
@@ -468,10 +470,17 @@ Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential
 A value of less than 1.01 is generally considered good ([Gelman & Rubin 1984](https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full)).
 
 [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. 
-As we can see, our $\hat{R}$ values are both `r round(s$fixed[,"Rhat"], 2)` which is good!
+As we can see, our $\hat{R}$ values are both `r format(round(s$fixed[,"Rhat"], 2), nsmall = 2)` which is good!
 
 ### ESS & MCSE
-
+In the summary above, we also find `Bulk_ESS` and `Tail_ESS` for both the pooled effect `Intercept` and between-study heterogeneity `sd(Intercept)`.
+These values tell us something about how much we can trust our results (for the _bulk_ and the _tails_ of our posterior distribution). \
+When the MCMC chain moves around the parameter space we want to learn about, each new step (or iteration) is dependent on the last one.
+This means that the samples we generate are correlated.
+ESS stands for _effective sample size_ and gives us an idea of how many _truly independent_ samples would give us the same quality of information as the correlated samples.
+In our case, for the bulk of the posterior distribution for `Intercept`, ESS is `r round(s$fixed[,"Bulk_ESS"], 0)`.
+That means that, in simple terms, our estimate is as good as `r round(s$fixed[,"Bulk_ESS"], 0)` independent samples. 
+This corresponds to `r round((s$fixe[, "Bulk_ESS"]) / (s$total_ndraws), 2)*100`% of our total samples.
 
 ### Trace Plots
 Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the standard deviation. 
@@ -564,7 +573,6 @@ And of course, we can also plot a pretty forest plot showing all the posterior d
 #| fig-height: 6
 
 
-# first, we have to prepare the data and extract the posterior distribution for each individual study 
 study.draws <- spread_draws(m.brm, r_author_year[author_year,], b_Intercept) %>% 
   mutate(b_Intercept = r_author_year + b_Intercept)
 
@@ -572,59 +580,43 @@ study.draws <- spread_draws(m.brm, r_author_year[author_year,], b_Intercept) %>%
 pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>% 
   mutate(author_year = "Pooled Effect")
 
-# Bind study.draws & pooled.effect.draws to one data frame, start pipe, call ungroup, then use mutate to clean study labels
 forest.data <- bind_rows(study.draws, 
                          pooled.effect.draws) %>% 
   ungroup() %>%
   mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
   mutate(author_year = fct_rev(factor(author_year)))
 
-# The forest plot should also display the effect size & credible interval of each study. 
-# We use forest.data data set, group it by author, and then use the mean_qi function to calculate these values
 forest.data.summary <- group_by(forest.data, author_year) %>% 
   mean_qi(b_Intercept)
 
 # let's plot!
 ggplot(aes(b_Intercept, 
-           relevel(author_year, "Pooled Effect", # Y-axis uses author_year but reorders it so "Pooled Effect" appears at the bottom (after = Inf)
+           relevel(author_year, "Pooled Effect", 
                    after = Inf)), 
        data = forest.data) +
-
-  # Box to highlight pooled effect
   geom_rect(data = filter(forest.data.summary, author_year == "Pooled Effect"),
             aes(xmin = -Inf, xmax = Inf, 
                 ymin = as.numeric(factor(author_year)) - 0.4, 
                 ymax = as.numeric(factor(author_year)) + 0.4),
             fill = "steelblue3", alpha = 0.2) +
-  
-  # Add vertical lines for pooled effect and CI
-  geom_vline(xintercept = fixef(m.brm)[1, 1], # line at the pooled effect estimate
+  geom_vline(xintercept = fixef(m.brm)[1, 1],
              color = "gray50", linewidth = 0.8, linetype = 2) + 
-  #geom_vline(xintercept = fixef(m.brm)[1, 3:4], # lines for Q2.5 & Q97.5 from pooled effect (95 % CI)
-             #color = "gray50", linewidth = 0.8, linetype = 2) + 
   geom_vline(xintercept = 0, color = "gray20", 
-             linewidth = 1) + # line at zero (null effect line)
-  
-  # Add density ridges
-  geom_density_ridges(fill = "steelblue3", # ridge density plots for each study/row
-                      rel_min_height = 0.01, # removes very small density values
-                      col = NA, scale = 1, # no outline color, scale of distributions
-                      alpha = 0.8) + # opacity
-  
-  # Add point estimates with confidence intervals
+             linewidth = 1) +
+  geom_density_ridges(fill = "steelblue3",
+                      rel_min_height = 0.01,
+                      col = NA, scale = 1,
+                      alpha = 0.8) + 
   geom_pointinterval(data = forest.data.summary,
                      aes(xmin = .lower, xmax = .upper),
                      fatten_point = 1.5,
                      linewidth = 0.8) +
-  
-  # Add text and labels
   geom_text(data = mutate_if(forest.data.summary,
-                             is.numeric, round, 2), # decimals
-            aes(label = glue("{b_Intercept} [{.lower}, {.upper}]"), # format text -> ß [CIlow, CIhigh]
-                x = Inf), hjust = "inward") + #aligns text inward from the edge
+                             is.numeric, round, 2),
+            aes(label = glue("{b_Intercept} [{.lower}, {.upper}]"), 
+                x = Inf), hjust = "inward") + 
   labs(x = "beta",
        y = element_blank()) +
-  #xlim(-4, 1) +
   theme_light() +
   theme(panel.border = element_blank())
 ```

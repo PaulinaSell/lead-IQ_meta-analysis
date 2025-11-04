@@ -2,22 +2,22 @@
 title: "PARC T6.2.4 – Methodological Case Study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 # author: "Paulina Sell, UBA"
 date-modified: "2025-11-03"
-format:
-  pdf:
+# format:
+#   pdf:
+#     toc: true
+#     number-sections: false
+#     colorlinks: true
+#     geometry:
+#       - margin=1in
+#     fig-pos: 'h'
+  html:
     toc: true
-    number-sections: false
-    colorlinks: true
-    geometry:
-      - margin=1in
-    fig-pos: 'h'
-  # html:
-  #   toc: true
-  #   toc_float: true
-  #   toc-location: left-body
-  #   self-contained: true
-  #   embed-resources: true
-  #   theme: cerulean
-  #   page-layout: full
+    toc_float: true
+    toc-location: left-body
+    self-contained: true
+    embed-resources: true
+    theme: cerulean
+    page-layout: full
 fig-align: center
 fig-height: 4
 ---
@@ -295,7 +295,6 @@ Forest plot:
 library(tidybayes)
 library(ggridges)
 library(glue)
-library(extraDistr)
 library(bayesplot)
 library(HDInterval)
 
