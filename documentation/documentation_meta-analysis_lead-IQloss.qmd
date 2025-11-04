@@ -270,7 +270,6 @@ library(tidyverse)
 library(tidybayes)
 library(ggridges)
 library(glue)
-library(extraDistr)
 library(bayesplot)
 library(HDInterval)
 
@@ -365,12 +364,32 @@ priors <- c(prior(normal(-1, 2), class = Intercept),
 
 ## Fitting the model
 We can now write and fit the model, using the package _brms_ by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
-In the second line, we specify our model.
+In the second line, we specify our model, which formalized looks like this (formula 3 and 4 refer to the priors):
+
+$$
+\hat{\theta}_{k} \sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2})\
+$$
+$$
+\theta_{k} \sim \mathcal{N}(\mu_{k}, \tau_{k}^{2}) \
+$$
+$$
+\mu \sim \mathcal{N}(-1, 2) \
+$$
+$$
+\tau \sim \mathcal{TN}(0, 2, 0, inf)
+$$
+Where: \ 
+
+$\hat{\theta}_{k}$ = Observed effect size of each study $k$\
+$\theta_{k}$ = True effect size of included study $k$\
+$\sigma_{k}^{2}$ = Variance of true effect size\
+$\mu$ = Pooled effect size we want to estimate\
+$\tau$ = Variance, representing between-study heterogeneity\
+
+
 I decided to increase the number of draws we sample by setting `iter = 4000` (default: 2,000). 
 Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.
-<!-- We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. -->
-<!-- If we don't do this, adapt_delta will default to 0.8 and we get something like `Warning: There were 5 divergent transitions after warmup`.  -->
-<!-- This means that the algorithm is having difficulty exploring the posterior distribution. -->
+
 
 ```{r}
 #| label: fit-main-model
@@ -387,7 +406,8 @@ m.brm <- brm(
   iter = 4000)
 ```
 
-## Assessing Convergence & Model Validity
+## Diagnostics: Convergence & Model Validity
+### Prior & Posterior predictive checks
 First, let's make sure that our priors are reasonable. 
 We can do this by doing a prior predictive check. 
 Prior predictive checks are used to evaluate the suitability of prior distributions before the model 'sees' our data. 
@@ -433,6 +453,8 @@ pp_check(m.brm, ndraws = 20)
 
 We mainly want to pay attention to extreme deviations from the area we'd expect our curves to land. Both look okay.\
 \
+
+### $\hat{R}$ value
 Let's look at the results summary:
 
 ```{r}
@@ -440,12 +462,18 @@ Let's look at the results summary:
 #| echo: false
 
 summary(m.brm)
+s <- summary(m.brm)
 ```
 Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged.
-A value of less than 1.05 is generally considered okay. 
-[Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. 
-As we can see, our $\hat{R}$ values are both 1.00 which is good!
+A value of less than 1.01 is generally considered good ([Gelman & Rubin 1984](https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full)).
 
+[Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. 
+As we can see, our $\hat{R}$ values are both `r round(s$fixed[,"Rhat"], 2)` which is good!
+
+### ESS & MCSE
+
+
+### Trace Plots
 Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the standard deviation. 
 The red vertical lines show where the warm-up ended (samples from the warm-up will not be used further).
 

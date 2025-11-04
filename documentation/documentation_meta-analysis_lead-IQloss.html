@@ -3138,7 +3138,13 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link" data-scroll-target="#setting-priors">Setting Priors</a></li>
   <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model">Fitting the model</a></li>
-  <li><a href="#assessing-convergence-model-validity" id="toc-assessing-convergence-model-validity" class="nav-link" data-scroll-target="#assessing-convergence-model-validity">Assessing Convergence &amp; Model Validity</a></li>
+  <li><a href="#diagnostics-convergence-model-validity" id="toc-diagnostics-convergence-model-validity" class="nav-link" data-scroll-target="#diagnostics-convergence-model-validity">Diagnostics: Convergence &amp; Model Validity</a>
+  <ul class="collapse">
+  <li><a href="#prior-posterior-predictive-checks" id="toc-prior-posterior-predictive-checks" class="nav-link" data-scroll-target="#prior-posterior-predictive-checks">Prior &amp; Posterior predictive checks</a></li>
+  <li><a href="#hatr-value" id="toc-hatr-value" class="nav-link" data-scroll-target="#hatr-value"><span class="math inline">\(\hat{R}\)</span> value</a></li>
+  <li><a href="#ess-mcse" id="toc-ess-mcse" class="nav-link" data-scroll-target="#ess-mcse">ESS &amp; MCSE</a></li>
+  <li><a href="#trace-plots" id="toc-trace-plots" class="nav-link" data-scroll-target="#trace-plots">Trace Plots</a></li>
+  </ul></li>
   <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the Results</a></li>
   </ul></li>
   </ul>
@@ -3422,7 +3428,23 @@ We will be conservative and use weakly informative priors. For the main effect (
 </section>
 <section id="fitting-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="fitting-the-model">Fitting the model</h2>
-<p>We can now write and fit the model, using the package <em>brms</em> by <a href="https://doi.org/10.18637/jss.v080.i01">Bürkner 2017</a>. In the second line, we specify our model. I decided to increase the number of draws we sample by setting <code>iter = 4000</code> (default: 2,000). Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws. <!-- We set `adapt_delta` to 0.99 to decrease the step size that the sampling algorithm explores the posterior distribution with. --> <!-- If we don't do this, adapt_delta will default to 0.8 and we get something like `Warning: There were 5 divergent transitions after warmup`.  --> <!-- This means that the algorithm is having difficulty exploring the posterior distribution. --></p>
+<p>We can now write and fit the model, using the package <em>brms</em> by <a href="https://doi.org/10.18637/jss.v080.i01">Bürkner 2017</a>. In the second line, we specify our model, which formalized looks like this (formula 3 and 4 refer to the priors):</p>
+<p><span class="math display">\[
+\hat{\theta}_{k} \sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2})\
+\]</span> <span class="math display">\[
+\theta_{k} \sim \mathcal{N}(\mu_{k}, \tau_{k}^{2}) \
+\]</span> <span class="math display">\[
+\mu \sim \mathcal{N}(-1, 2) \
+\]</span> <span class="math display">\[
+\tau \sim \mathcal{TN}(0, 2, 0, inf)
+\]</span> Where:  </p>
+<p><span class="math inline">\(\hat{\theta}_{k}\)</span> = Observed effect size of each study <span class="math inline">\(k\)</span><br>
+<span class="math inline">\(\theta_{k}\)</span> = True effect size of included study <span class="math inline">\(k\)</span><br>
+<span class="math inline">\(\sigma_{k}^{2}\)</span> = Variance of true effect size<br>
+<span class="math inline">\(\mu\)</span> = Pooled effect size we want to estimate<br>
+<span class="math inline">\(\tau\)</span> = Variance, representing between-study heterogeneity<br>
+</p>
+<p>I decided to increase the number of draws we sample by setting <code>iter = 4000</code> (default: 2,000). Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>m.brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  beta_ln<span class="sc">|</span><span class="fu">se</span>(se_beta_ln) <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>author_year),</span>
@@ -3433,8 +3455,10 @@ We will be conservative and use weakly informative priors. For the main effect (
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">4000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="assessing-convergence-model-validity" class="level2">
-<h2 class="anchored" data-anchor-id="assessing-convergence-model-validity">Assessing Convergence &amp; Model Validity</h2>
+<section id="diagnostics-convergence-model-validity" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostics-convergence-model-validity">Diagnostics: Convergence &amp; Model Validity</h2>
+<section id="prior-posterior-predictive-checks" class="level3">
+<h3 class="anchored" data-anchor-id="prior-posterior-predictive-checks">Prior &amp; Posterior predictive checks</h3>
 <p>First, let’s make sure that our priors are reasonable. We can do this by doing a prior predictive check. Prior predictive checks are used to evaluate the suitability of prior distributions before the model ‘sees’ our data. This involves simulating data from the model using only the prior distributions and then examining the simulated data to see if it aligns with our expectations. This can help to identify issues with the chosen priors, such as implausible parameter values, before they can influence the posterior distribution and final inferences. You can read more about prior and posterior predictive checks <a href="https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html">here</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -3457,7 +3481,11 @@ We will be conservative and use weakly informative priors. For the main effect (
 </div>
 <p>We mainly want to pay attention to extreme deviations from the area we’d expect our curves to land. Both look okay.<br>
 <br>
-Let’s look at the results summary:</p>
+</p>
+</section>
+<section id="hatr-value" class="level3">
+<h3 class="anchored" data-anchor-id="hatr-value"><span class="math inline">\(\hat{R}\)</span> value</h3>
+<p>Let’s look at the results summary:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
@@ -3485,7 +3513,14 @@ and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
-<p>Here, we should pay attention to the <span class="math inline">\(\hat{R}\)</span> (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged. A value of less than 1.05 is generally considered okay. <a href="https://mc-stan.org/rstan/reference/Rhat.html">Here</a> you can read more about convergence and efficiency diagnostics for Markov chains. As we can see, our <span class="math inline">\(\hat{R}\)</span> values are both 1.00 which is good!</p>
+<p>Here, we should pay attention to the <span class="math inline">\(\hat{R}\)</span> (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged. A value of less than 1.01 is generally considered good (<a href="https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full">Gelman &amp; Rubin 1984</a>).</p>
+<p><a href="https://mc-stan.org/rstan/reference/Rhat.html">Here</a> you can read more about convergence and efficiency diagnostics for Markov chains. As we can see, our <span class="math inline">\(\hat{R}\)</span> values are both 1 which is good!</p>
+</section>
+<section id="ess-mcse" class="level3">
+<h3 class="anchored" data-anchor-id="ess-mcse">ESS &amp; MCSE</h3>
+</section>
+<section id="trace-plots" class="level3">
+<h3 class="anchored" data-anchor-id="trace-plots">Trace Plots</h3>
 <p>Now let’s look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the standard deviation. The red vertical lines show where the warm-up ended (samples from the warm-up will not be used further).</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -3496,6 +3531,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="interpreting-the-results" class="level2">
 <h2 class="anchored" data-anchor-id="interpreting-the-results">Interpreting the Results</h2>

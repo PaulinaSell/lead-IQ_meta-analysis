@@ -498,7 +498,6 @@ Fitting frequentist random effects meta analysis using metafor:
 #| output: false
 
 
-library(metafor)
 
 rma_model2 <- rma(yi = beta_ln, 
                  sei = se_beta_ln, 
