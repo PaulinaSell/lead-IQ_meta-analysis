@@ -1,8 +1,8 @@
 ---
 title: "PARC T6.2.4 – Methodological Case Study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 # author: "Paulina Sell, UBA"
-date-modified: "2025-11-03"
-# format:
+date-modified: "2025-11-05"
+format:
 #   pdf:
 #     toc: true
 #     number-sections: false
@@ -11,12 +11,13 @@ date-modified: "2025-11-03"
 #       - margin=1in
 #     fig-pos: 'h'
   html:
+    number-sections: true
     toc: true
     toc_float: true
     toc-location: left-body
     self-contained: true
     embed-resources: true
-    theme: cerulean
+    theme: cosmo
     page-layout: full
 fig-align: center
 fig-height: 4
@@ -104,7 +105,7 @@ $C_{ref}$ = reference concentration for linear transformation\
 
 In the following section, all three cases of transformations are visualized in order to check for validity.
 
-### Case 1: log~10~(BLL) to ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
+### Transformation: log~10~(BLL) to ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
 ```{r}
 #| label: log10-to-ln
 #| echo: false
@@ -138,7 +139,7 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
 The transformation from log~10~(BLL) to ln(BLL) does not affect the exposure-response curve.
 
 
-### Case 2: log~2~(BLL) to ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
+### Transformation: log~2~(BLL) to ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
 ```{r}
 #| label: log2-to-ln
 #| echo: false
@@ -173,7 +174,7 @@ ggplot(Desrochersplot_data, aes(x = blood_lead)) +
 The transformation from log~2~(BLL) to ln(BLL) does not affect the exposure-response curve in the lower exposure ranges.
 Note: this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
 
-### Case 3: linear(BLL) to ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
+### Transformation: linear(BLL) to ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
 In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). 2.2 µg/dL was set in this transformation.  
 ```{r}
 #| label: lin-to-ln
@@ -568,17 +569,17 @@ The model estimates 'true' effect sizes for each study and if it detects outlier
 This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. 
 The model is less sensitive to outliers than frequentist models.
 
-I^2^ in both frequentist models suggested high heterogeneity (`r Freq_I2_rounded_1`% and `r Freq_I2_rounded_2`%). 
-In Bayesian statistics, we directly model in-between study heterogeneity.
-This is why we set a prior for heterogeneity before we ran the model.
-These are the posterior mean and sd for the heterogeneity of the two models: 
+<!-- I^2^ in both frequentist models suggested high heterogeneity (`r Freq_I2_rounded_1`% and `r Freq_I2_rounded_2`%).  -->
+<!-- In Bayesian statistics, we directly model in-between study heterogeneity. -->
+<!-- This is why we set a prior for heterogeneity before we ran the model. -->
+<!-- These are the posterior mean and sd for the heterogeneity of the two models:  -->
 
-| Model  | Heterogeneity, tau  | SE |
-|--------|:--------:| :--------:|
-| Bayesian, n = 10 included studies (Analysis 1)  | `r Bayes_se_Intercept_mean_1`   | `r Bayes_se_Intercept_se_1`
-| Bayesian, n = 12 included studies (Analysis 2)  | `r Bayes_se_Intercept_mean_2`   | `r Bayes_se_Intercept_se_2`
+<!-- | Model  | Heterogeneity, tau  | SE | -->
+<!-- |--------|:--------:| :--------:| -->
+<!-- | Bayesian, n = 10 included studies (Analysis 1)  | `r Bayes_se_Intercept_mean_1`   | `r Bayes_se_Intercept_se_1` -->
+<!-- | Bayesian, n = 12 included studies (Analysis 2)  | `r Bayes_se_Intercept_mean_2`   | `r Bayes_se_Intercept_se_2` -->
 
-: {tbl-colwidths="[50, 25, 25]" .striped}
+<!-- : {tbl-colwidths="[50, 25, 25]" .striped} -->
 
 One advantage of the Bayesian approach is that the full posterior distribution of the pooled effect can be used directly in EBD assessments via Monte Carlo simulation. 
 These are the posterior distributions of beta in both analyses: 
