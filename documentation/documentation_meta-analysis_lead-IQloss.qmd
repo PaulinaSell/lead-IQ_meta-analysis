@@ -2,13 +2,14 @@
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
 # date: "2025-07-25"
-date-modified: "2025-11-04"
+date-modified: "2025-11-05"
 format:
   html:
     toc: true
+    number-sections: true
     self-contained: true
     embed-resources: true
-    # theme: cosmo
+    theme: cosmo
     page-layout: full
 fig-align: center
 fig-height: 4
@@ -38,7 +39,7 @@ I found help and inspiration in multiple sources and (hopefully) linked them all
 I especially found this hands-on guide from [Harrer et al. 2021](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/bayesian-ma.html#bayesian-ma) very helpful.
 
 
-# Step 1: Standardizing Effect Estimates
+# Standardizing Effect Estimates
 
 We first need to search for and identify relevant studies and extract the data necessary for our analysis. 
 This was already done by Philippe Palmont and his team at ANSES.\
@@ -52,7 +53,7 @@ What happens to the effect estimates, if we transform them in this way?\
 
 ## Visually Checking Transformations
 
-Let's compare an original beta coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277), which can now be used for linear BLL.
+Let's compare an original $\mathcal{beta}$ coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for ln(BLL) to the transformed one (ß = -0.277), which can now be used for linear BLL.
 
 ```{r}
 #| label: lin-vs-log
@@ -111,7 +112,7 @@ $\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
 $C_{ref}$ = reference concentration for linear transformation\
 
 
-### Case 1: log~10~(BLL) -> ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
+**Transforming log~10~(BLL) to ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)**\
 ```{r}
 #| label: log10-to-ln
 #| echo: false
@@ -145,7 +146,7 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
 We can't even see the blue curve, so the transformation should be valid.   
 
 
-### Case 2: log~2~(BLL) -> ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
+**Transforming log~2~(BLL) to ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)**\
 ```{r}
 #| label: log2-to-ln
 #| echo: false
@@ -179,9 +180,10 @@ ggplot(Desrochersplot_data, aes(x = blood_lead)) +
 
 For the transformation from log~2~ to ln, we can see that at least in this concentration range, the transformed estimate is a good approximation of the original.
 
-**!** Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
+**!** Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.
 
-### Case 3: linear(BLL) -> ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
+
+**Transforming linear(BLL) to ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)**\
 In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). 
 Here, I chose 2.2 µg/dL.  
 ```{r}
@@ -256,7 +258,7 @@ knitr::kable(data_clean, digits = 2)
 ```
 
 
-# Step 2: Meta Analysis
+# Meta Analysis
 Now that we have collected our study data and harmonized the effect estimates, we can finally begin our meta analysis!
 ```{r}
 #| label: load-packages-data
@@ -365,7 +367,7 @@ priors <- c(prior(normal(-1, 2), class = Intercept),
 
 ## Fitting the model
 We can now write and fit the model, using the package _brms_ by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
-In the second line, we specify our model, which formalized looks like this (formula 3 and 4 refer to the priors):
+In the second line we specify our model, which formalized looks like this (formula 3 and 4 refer to the priors):
 
 $$
 \hat{\theta}_{k} \sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2})\
@@ -387,12 +389,9 @@ $\sigma_{k}^{2}$ = Variance of true effect size\
 $\mu$ = Pooled effect size we want to estimate\
 $\tau$ = Variance, representing between-study heterogeneity\
 
-In these formulas, we can see the multilevel structure of our model very well: 
-On the first level are individual participants and we assume, that data from these individuals reach us through $\hat{\theta}_{k}$, the observed effect size.
-We then also assume (on level two), that the true effect size of the different studies $k$ also follow their own distribution, which are characterized by the parameters we actually model ($\mu$ and $\tau^{2}$).
-
-I decided to increase the number of draws we sample by setting `iter = 4000` (default: 2,000). 
-Since we have 4 chains and discard the first 2,000 iterations of each chain as warmup, we end up with a total of 8,000 posterior draws.
+In these formulas we can see the multilevel structure of our model very well: 
+On the first level are individual participants and we assume that data from these individuals reach us through $\hat{\theta}_{k}$, the observed effect size.
+We then also assume (on level two) that the true effect size of the different studies $k$ also follow their own distribution which are characterized by the parameters we actually model ($\mu$ and $\tau^{2}$).
 
 
 ```{r}
@@ -400,15 +399,21 @@ Since we have 4 chains and discard the first 2,000 iterations of each chain as w
 #| output: false
 #| cache: true 
 
- 
+n_chains <- 4
+n_iter <- 4000
+
 m.brm <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data,
   prior = priors,
   save_pars = save_pars(all = TRUE),
-  chains = 4,
-  iter = 4000)
+  chains = n_chains,
+  iter = n_iter)
 ```
+
+I decided to increase the number of draws we sample to `r n_iter` (default: 2000). 
+Since we run `r n_chains` chains and discard the first `r n_iter*0.5` iterations of each chain as warmup, we end up with a total of `r (n_iter*0.5)*n_chains` posterior draws.
+
 
 ## Diagnostics: Convergence & Model Validity
 ### Prior & Posterior predictive checks
@@ -456,7 +461,6 @@ pp_check(m.brm, ndraws = 20)
 ```
 
 We mainly want to pay attention to extreme deviations from the area we'd expect our curves to land. Both look okay.\
-\
 
 ### $\hat{R}$ value
 Let's look at the results summary:
@@ -469,9 +473,10 @@ summary(m.brm)
 s <- summary(m.brm)
 x <- as_draws_df(m.brm)
 ```
-Here, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged.
-A value of less than 1.01 is generally considered good ([Gelman & Rubin 1984](https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full)).
 
+Here, we can see the posterior mean, SE and 95% quantiles for $\mathcal{beta}$, `Intercept` and $\mathcal{tau}$, `sd(Intercept)`. But before we focus on our results, we should take a few more steps to assess the quality of our results. \
+In this output, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged.
+A value of less than 1.01 is generally considered good ([Gelman & Rubin 1984](https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full)). \
 [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. 
 As we can see, our $\hat{R}$ values are both `r format(round(s$fixed[,"Rhat"], 2), nsmall = 2)` which is good!
 
@@ -481,29 +486,31 @@ These values tell us something about how much we can trust our results (for the 
 When the MCMC chain moves around the parameter space we want to learn about, each new step (or iteration) is dependent on the last one.
 This means that the samples we generate are correlated.
 The ESS value gives us an idea of how many _truly independent_ samples would give us the same quality of information as the correlated samples.
-In our case, for the bulk of the posterior distribution for `Intercept`, ESS is `r round(s$fixed[,"Bulk_ESS"], 0)`.
-That means that, in simple terms, our estimate is as good as `r round(s$fixed[,"Bulk_ESS"], 0)` independent samples. 
-This corresponds to `r round((s$fixe[, "Bulk_ESS"]) / (s$total_ndraws), 2)*100`% of our total samples.
+In our case, ESS for the bulk of the posterior distribution for `Intercept` is `r round(s$fixed[,"Bulk_ESS"], 0)`.
+This means that, in simple terms, our estimate is as good as `r round(s$fixed[,"Bulk_ESS"], 0)` independent samples. 
+This corresponds to `r round((s$fixe[, "Bulk_ESS"]) / (s$total_ndraws), 2)*100`% of our total samples, which is good.
 
 ### Monte Carlo Standard Error (MCSE)
-MCSE measures the uncertainty in our estimate that comes from not sampling an infinite amount of samples.
+MCSE measures the uncertainty in our estimate that results from not gathering an infinite amount of samples.
 If we run our model several times, we will get a slightly different posterior mean every time.
-This is due to the inherent probabilistic nature of this approach.
+This is due to the inherent probabilistic nature of the Bayesian approach.
 
 MCSE quantifies how much the posterior mean typically varies and helps us deciding if we need more iterations to get reliable estimates.
 In our case, mean MCSE of `Intercept` is `r round(mcse_mean(x$b_Intercept), 3)`.
-We compare this value with the standard deviation of `Intercept`, which is `r round(s$fixed["Est.Error"], 3)`.
+Now we compare this value to the standard deviation of `Intercept`, which is `r round(s$fixed["Est.Error"], 3)`.
 
 $$
 \frac {`r round(mcse_mean(x$b_Intercept), 3)`} {`r round(s$fixed["Est.Error"], 3)`} = `r round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)`
 $$
 
 That's good precision! 
-The MCMC error or _simulation noise_ contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainty.
+The MCMC error (or the simulation noise) contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainty.
 
 
 ### Trace Plots
-Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of beta and the between-study heterogeneity tau. 
+Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of $\mathcal{beta}$ and the between-study heterogeneity $\mathcal{tau}$.
+These are all the `r n_iter` samples the MCMC algorithm took from the parameter space it explored.
+The colors indicate the four different chains.
 The red vertical lines show where the warm-up ended (samples from the warm-up will not be used further).
 
 ```{r}
@@ -548,7 +555,7 @@ mcmc_areas(posterior_samples,
   labs(title = "Posterior Distribution of Tau with Mean & 95% HDI")
 ```
 
-The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, beta) after observing new data, combining prior beliefs with the evidence from the data. 
+The posterior probability distribution represents the updated beliefs about an unknown parameter (e.g. the effect of BLL on IQ, $\mathcal{beta}$) after observing new data, combining prior beliefs with the evidence from the data. \
 Let's visualize this!
 
 ```{r}
@@ -590,15 +597,16 @@ Let's visualize this!
      panel.background = element_blank()
    ) 
 ```
-In this plot, we can nicely see how the data we observed convinced us, that the effect is a bit stronger than we assumed (we formalized this with the prior distribution).
-Also, the model doesn't really trust the results of studies that showed a large effect.
-If you're wondering why the prior doesn't look completely smooth, this is because what we see in this plot are the actual samples the MCMC algorithm got from the prior distribution we set.
+In this plot, we can nicely see how the data we observed convinced us that the effect is a bit stronger than we assumed (we formalized this with the prior distribution).
+Also, the model didn't really trust the results of studies that showed a large effect.
+If you're wondering why the prior doesn't look completely smooth, this is because what we see in this plot are the actual samples the MCMC algorithm took from the prior distribution we set.
 
-We can of course plot something similar for heterogeneity:
+<!-- We can of course plot something similar for heterogeneity. -->
 
 ```{r}
 #| label: plot_Tau_prior-data-posterior
 #| echo: false
+#| include: false
 
  plot_data_combined <- data.frame(
    value = c(prior_samples_plot[["sd_author_year__Intercept"]], 
@@ -629,7 +637,7 @@ We can of course plot something similar for heterogeneity:
 
 Unlike a mean effect + confidence interval, a posterior distribution actually represents probability!\
 This means that we can 'ask' this distribution many questions, such as: 
-"What is the probability that the pooled effect (beta) is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ points would be lost). 
+"What is the probability that the pooled effect ($\mathcal{beta}$) is greater than -1?" ( _greater_ meaning _stronger_ here, so more IQ points would be lost). 
 To answer such questions, we use the empirical cumulative distribution function (ECDF):
 
 ```{r}
@@ -642,11 +650,10 @@ x <- b.ecdf(-1)
 
 Given our data and model, the probability of the effect being greater than -1 is `r (round(x, 2) * 100)`%.\
 \
-We can also ask about intervals;  for example, consider the interval we saw in the plot above. 
-This is a 95% high-density interval (HDI), meaning it is the narrowest interval containing 95% of the probability mass pf the posterior distribution. 
+We can also ask about intervals; for example a high-density interval (HDI).
+This is the narrowest interval containing X% of the probability mass of the posterior distribution. 
 This interval is often referred to as _credible interval_.
-You can see the 95% HDI bounds in the model summary above.
-Let's now compute a 90% HDI!
+Let's compute a 90% HDI!
 
 ```{r}
 #| label: HDI
@@ -656,8 +663,6 @@ hdi <- hdi(posterior_samples$beta, credMass = 0.90)
 ```
 
 Given our data and model, the true effect lies between `r round(hdi[1], 2)` and `r round(hdi[2], 2)` with 90% probability.
-
-Coming back to the main objective of this project, we can now use the posterior distribution directly for our EBD assessment!
 
 And of course, we can also plot a pretty forest plot showing all the posterior distributions of the included studies, the mean, and the 95% credible intervals.
 
@@ -721,8 +726,5 @@ The Bayesian model estimates 'true' effect sizes for each study and if it detect
 This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. 
 The model is less sensitive to outliers than frequentist models.
 
-```{r}
-#| include: false
-# to do: add ESS & MCSD diagnostics & explain
-```
+Coming back to the main objective of this project, we can now use the posterior distribution directly for our EBD assessment!
 
