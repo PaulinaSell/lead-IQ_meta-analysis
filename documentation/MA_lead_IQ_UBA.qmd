@@ -1,11 +1,11 @@
 ---
 title: "PARC T6.2.4 – Methodological Case Study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 # author: "Paulina Sell, UBA"
-date-modified: "2025-11-05"
+date-modified: "2025-11-06"
 format:
 #   pdf:
 #     toc: true
-#     number-sections: false
+#     number-sections: false‚
 #     colorlinks: true
 #     geometry:
 #       - margin=1in
@@ -288,10 +288,6 @@ Forest plot:
 #| label: forest_plot_Bayes_analysis1
 #| echo: false
 #| warning: false
-#| fig-height: 4
-#| fig-width: 6
-#| out-width: "70%"
-#| out-height: "70%"
 
 library(tidybayes)
 library(ggridges)
@@ -563,7 +559,7 @@ Freq_I2_rounded_2 <- round(rma_model2$I2, 2)
 
 : {tbl-colwidths="[50, 25, 25]" .striped}
 
-In both analyses, the mean pooled effect resulting from the Bayesian Meta Analysis is smaller than from the frequentist approach.
+In both analyses, the mean pooled effect resulting from the Bayesian meta analysis is smaller than from the frequentist approach.
 This might be due to a process called shrinkage:
 The model estimates 'true' effect sizes for each study and if it detects outliers, they will be pulled towards the overall effect. 
 This is an advantage of the Bayesian approach, particularly when pooling a small number of studies. 
