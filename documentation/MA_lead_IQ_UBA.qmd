@@ -221,9 +221,9 @@ library(tidyverse)
 
 knitr::kable(
   rationale[,!(names(rationale) %in% "doi")] %>% 
+    mutate(across(where(is.numeric), ~round(., 2))) %>%
     mutate(across(everything(), ~replace(., is.na(.), ""))),
-  col.names = c('Author, Year', 'N', 'Beta', 'SE(Beta)', 'Original BLL Scale', 'Incl.  Analysis 1', 'Incl. Analysis 2', 'Comment'),
-  digits = 2
+  col.names = c('Author, Year', 'N', 'Beta', 'SE(Beta)', 'Original BLL Scale', 'Incl.  Analysis 1', 'Incl. Analysis 2', 'Comment')
 )
 ```
 
