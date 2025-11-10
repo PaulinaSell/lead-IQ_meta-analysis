@@ -288,6 +288,7 @@ Forest plot:
 #| label: forest_plot_Bayes_analysis1
 #| echo: false
 #| warning: false
+#| fig-height: 6
 
 library(tidybayes)
 library(ggridges)
@@ -309,6 +310,7 @@ forest.data <- bind_rows(study.draws,
 
 forest.data.summary <- group_by(forest.data, author_year) %>% 
   mean_qi(b_Intercept)
+
 
 ggplot(aes(b_Intercept, 
            relevel(author_year, "Pooled Effect",
@@ -604,3 +606,33 @@ mcmc_areas(posterior_samples2,
            prob = 0.95) + # 95% HDI
   labs(title = "Posterior Distribution of Beta with Mean & 95% HDI, Analysis 2")
 ```
+
+# References
+
+<div style="padding-left: 2em; text-indent: -2em;">
+
+Bauer JA, Devick KL, Bobb JF, Coull BA, Bellinger D, Benedetti C, Cagna G, Fedrighi C, Guazzetti S, Oppini M, et al. Associations of a Metal Mixture Measured in Multiple Biomarkers with IQ: Evidence from Italian Adolescents Living near Ferroalloy Industry. Environmental Health Perspectives 2020, 128(9):097002.
+
+Crump KS, Van Landingham C, Bowers TS, Cahoy D, Chandalia JK. A statistical reevaluation of the data used in the Lanphear et al. () pooled-analysis that related low levels of blood lead to intellectual deficits in children. Critical Reviews in Toxicology 2013, 43(9):785-99.
+
+Dantzer J, Ryan P, Yolton K, Parsons PJ, Palmer CD, Cecil K, Unrine JM. A comparison of blood and toenails as biomarkers of children’s exposure to lead and their correlation with cognitive function. Science of The Total Environment 2020, 700:134519.
+
+Desrochers-Couture M, Oulhote Y, Arbuckle TE, Fraser WD, Séguin JR, Ouellet E, Forget-Dubois N, Ayotte P, Boivin M, Lanphear BP, et al. Prenatal, concurrent, and sex-specific associations between blood lead concentrations and IQ in preschool Canadian children. Environment International 2018, 121:1235-42.
+
+Earl R, Burns N, Nettelbeck T, Baghurst P. Low‐level environmental lead exposure still negatively associated with children's cognitive abilities. Australian Journal of Psychology 2016, 68(2):98-106.
+
+Hong S-B, Im M-H, Kim J-W, Park E-J, Shin M-S, Kim B-N, Yoo H-J, Cho I-H, Bhang S-Y, Hong Y-C, et al. Environmental Lead Exposure and Attention Deficit/Hyperactivity Disorder Symptom Domains in a Community Sample of South Korean School-Age Children. Environmental Health Perspectives 2015, 123(3):271-6.
+
+Lee K-S, Kim K-N, Ahn YD, Choi Y-J, Cho J, Jang Y, Lim Y-H, Kim JI, Shin CH, Lee YA, et al. Prenatal and postnatal exposures to four metals mixture and IQ in 6-year-old children: A prospective cohort study in South Korea. Environment International 2021, 157:106798.
+
+Lucchini RG, Guazzetti S, Renzetti S, Conversano M, Cagna G, Fedrighi C, Giorgino A, Peli M, Placidi D, Zoni S, et al. Neurocognitive impact of metal exposure and social stressors among schoolchildren in Taranto, Italy. Environmental Health 2019, 18(1):67.
+
+Lucchini RG, Zoni S, Guazzetti S, Bontempi E, Micheletti S, Broberg K, Parrinello G, Smith DR. Inverse association of intellectual function with very low blood lead but not with manganese exposure in Italian adolescents. Environmental Research 2012, 118:65-71.
+
+Menezes-Filho JA, Carvalho CF, Rodrigues JLG, Araújo CFS, Dos Santos NR, Lima CS, Bandeira MJ, Marques BLdS, Anjos ALS, Bah HAF, et al. Environmental Co-Exposure to Lead and Manganese and Intellectual Deficit in School-Aged Children. International Journal of Environmental Research and Public Health 2018, 15(11):2418.
+
+Roy A, Ettinger AS, Hu H, Bellinger D, Schwartz J, Modali R, Wright RO, Palaniappan K, Balakrishnan K. Effect modification by transferrin C2 polymorphism on lead exposure, hemoglobin levels, and IQ. NeuroToxicology 2013, 38:17-22.
+
+Schnaas L, Rothenberg Stephen J, Flores M-F, Martinez S, Hernandez C, Osorio E, Velasco Silvia R, Perroni E. Reduced Intellectual Development in Children with Prenatal Lead Exposure. Environmental Health Perspectives 2006, 114(5):791-7.
+
+</div>
