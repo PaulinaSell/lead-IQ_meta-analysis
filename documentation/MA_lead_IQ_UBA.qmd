@@ -1,7 +1,7 @@
 ---
 title: "PARC T6.2.4 – Methodological Case Study: Frequentist & Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 # author: "Paulina Sell, UBA"
-date-modified: "2025-11-06"
+date-modified: "2025-11-10"
 format:
 #   pdf:
 #     toc: true
@@ -11,13 +11,13 @@ format:
 #       - margin=1in
 #     fig-pos: 'h'
   html:
+    theme: cosmo
     number-sections: true
     toc: true
     toc_float: true
     toc-location: left-body
     self-contained: true
     embed-resources: true
-    theme: cosmo
     page-layout: full
 fig-align: center
 fig-height: 4
@@ -71,12 +71,13 @@ plot_data <- data.frame(
 )
 
 ggplot(plot_data, aes(x = blood_lead)) +
-  geom_line(aes(y = log_ERF, color = "Logarithmic")) +
-  geom_line(aes(y = linear_ERF, color = "Linear")) +
-  scale_color_manual(values = c("Logarithmic" = "blue", "Linear" = "red")) +
+  geom_line(aes(y = log_ERF, color = "log(e)")) +
+  geom_line(aes(y = linear_ERF, color = "linear")) +
+  scale_color_manual(values = c("log(e)" = "blue", "linear" = "red")) +
   labs(
     x = "Blood Lead Level (µg/dL)",
-    y = "IQ Loss (points)"
+    y = "IQ Loss (points)",
+    color = "BLL Scale"
   ) +
   theme_minimal()
 ```
@@ -105,7 +106,7 @@ $C_{ref}$ = reference concentration for linear transformation\
 
 In the following section, all three cases of transformations are visualized in order to check for validity.
 
-### Transformation: log~10~(BLL) to ln(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
+### Transformation: log~10~(BLL) to log~e~(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)
 ```{r}
 #| label: log10-to-ln
 #| echo: false
@@ -127,19 +128,20 @@ Dantzerplot_data <- data.frame(
 
 ggplot(Dantzerplot_data, aes(x = blood_lead)) +
   geom_line(aes(y = log_ERF, color = "log(10)")) +
-  geom_line(aes(y = ln_ERF, color = "ln")) +
-  scale_color_manual(values = c("log(10)" = "blue", "ln" = "red")) +
+  geom_line(aes(y = ln_ERF, color = "log(e)")) +
+  scale_color_manual(values = c("log(10)" = "blue", "log(e)" = "red")) +
   labs(
     x = "Blood Lead Level (µg/dL)",
-    y = "IQ Loss (points)"
+    y = "IQ Loss (points)",
+    color = "BLL Scale"
   ) +
   theme_minimal()
 ```
 
-The transformation from log~10~(BLL) to ln(BLL) does not affect the exposure-response curve.
+The transformation from log~10~(BLL) to log~e~(BLL) does not affect the exposure-response curve.
 
 
-### Transformation: log~2~(BLL) to ln(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
+### Transformation: log~2~(BLL) to log~e~(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)
 ```{r}
 #| label: log2-to-ln
 #| echo: false
@@ -162,19 +164,20 @@ Desrochersplot_data <- data.frame(
 
 ggplot(Desrochersplot_data, aes(x = blood_lead)) +
   geom_line(aes(y = log_ERF, color = "log(2)")) +
-  geom_line(aes(y = ln_ERF, color = "ln")) +
-  scale_color_manual(values = c("log(2)" = "blue", "ln" = "red")) +
+  geom_line(aes(y = ln_ERF, color = "log(e)")) +
+  scale_color_manual(values = c("log(2)" = "blue", "log(e)" = "red")) +
   labs(
     x = "Blood Lead Level (µg/dL)",
-    y = "IQ Loss (points)"
+    y = "IQ Loss (points)",
+    color = "BLL Scale"
   ) +
   theme_minimal()
 ```
 
-The transformation from log~2~(BLL) to ln(BLL) does not affect the exposure-response curve in the lower exposure ranges.
+The transformation from log~2~(BLL) to log~e~(BLL) does not affect the exposure-response curve in the lower exposure ranges.
 Note: this study reported a small protective effect of lead exposure, this is why the curve is flipped.   
 
-### Transformation: linear(BLL) to ln(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)
+### Transformation: linear(BLL) to log~e~(BLL): [Iglesias et al. 2011](https://www.tandfonline.com/doi/10.1179/107735211799041841?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). 2.2 µg/dL was set in this transformation.  
 ```{r}
 #| label: lin-to-ln
@@ -197,11 +200,12 @@ Iglesiasplot_data <- data.frame(
 
 ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
   geom_line(aes(y = linear_ERF, color = "linear")) +
-  geom_line(aes(y = ln_ERF, color = "ln")) +
-  scale_color_manual(values = c("linear" = "blue", "ln" = "red")) +
+  geom_line(aes(y = ln_ERF, color = "log(e)")) +
+  scale_color_manual(values = c("linear" = "blue", "log(e)" = "red")) +
   labs(
     x = "Blood Lead Level (µg/dL)",
-    y = "IQ Loss (points)"
+    y = "IQ Loss (points)",
+    color = "BLL Scale"
   ) +
   theme_minimal()
 ```
@@ -222,6 +226,7 @@ library(tidyverse)
 knitr::kable(
   rationale[,!(names(rationale) %in% "doi")] %>% 
     mutate(across(where(is.numeric), ~round(., 2))) %>%
+    mutate(original_BLL_scale = ifelse(original_BLL_scale == "ln", "log(e)", original_BLL_scale)) %>%
     mutate(across(everything(), ~replace(., is.na(.), ""))),
   col.names = c('Author, Year', 'N', 'Beta', 'SE(Beta)', 'Original BLL Scale', 'Incl.  Analysis 1', 'Incl. Analysis 2', 'Comment')
 )
@@ -561,6 +566,7 @@ Freq_I2_rounded_2 <- round(rma_model2$I2, 2)
 
 : {tbl-colwidths="[50, 25, 25]" .striped}
 
+\
 In both analyses, the mean pooled effect resulting from the Bayesian meta analysis is smaller than from the frequentist approach.
 This might be due to a process called shrinkage:
 The model estimates 'true' effect sizes for each study and if it detects outliers, they will be pulled towards the overall effect. 
@@ -609,9 +615,13 @@ mcmc_areas(posterior_samples2,
 
 # References
 
-<div style="padding-left: 2em; text-indent: -2em;">
+<div style="padding-left: 2em; text-indent: -2.5em;">
 
 Bauer JA, Devick KL, Bobb JF, Coull BA, Bellinger D, Benedetti C, Cagna G, Fedrighi C, Guazzetti S, Oppini M, et al. Associations of a Metal Mixture Measured in Multiple Biomarkers with IQ: Evidence from Italian Adolescents Living near Ferroalloy Industry. Environmental Health Perspectives 2020, 128(9):097002.
+
+Cao Y, Chen A, Jones RL, Radcliffe J, Caldwell KL, Dietrich KN, Rogan WJ. Does background postnatal methyl mercury exposure in toddlers affect cognition and behavior? NeuroToxicology 2010, 31(1):1-9.
+
+Chen A, Dietrich KN, Ware JH, Radcliffe J, Rogan WJ. IQ and Blood Lead from 2 to 7 Years of Age: Are the Effects in Older Children the Residual of High Blood Lead Concentrations in 2-Year-Olds? Environmental Health Perspectives 2005, 113(5):597-601.
 
 Crump KS, Van Landingham C, Bowers TS, Cahoy D, Chandalia JK. A statistical reevaluation of the data used in the Lanphear et al. () pooled-analysis that related low levels of blood lead to intellectual deficits in children. Critical Reviews in Toxicology 2013, 43(9):785-99.
 
@@ -621,7 +631,15 @@ Desrochers-Couture M, Oulhote Y, Arbuckle TE, Fraser WD, Séguin JR, Ouellet E, 
 
 Earl R, Burns N, Nettelbeck T, Baghurst P. Low‐level environmental lead exposure still negatively associated with children's cognitive abilities. Australian Journal of Psychology 2016, 68(2):98-106.
 
+Halabicky OM, Pinto-Martin JA, Compton P, Liu J. Low level lead exposure in early childhood and parental education on adolescent IQ and working memory: a cohort study. Journal of Exposure Science & Environmental Epidemiology 2023, 33(2):168-76.
+
 Hong S-B, Im M-H, Kim J-W, Park E-J, Shin M-S, Kim B-N, Yoo H-J, Cho I-H, Bhang S-Y, Hong Y-C, et al. Environmental Lead Exposure and Attention Deficit/Hyperactivity Disorder Symptom Domains in a Community Sample of South Korean School-Age Children. Environmental Health Perspectives 2015, 123(3):271-6.
+
+Hornung RW, Lanphear BP, Dietrich KN. Age of Greatest Susceptibility to Childhood Lead Exposure: A New Statistical Approach. Environmental Health Perspectives 2009, 117(8):1309-12.
+
+Iglesias V, Steenland K, Maisonet M, Pino P. Exposure to Lead from a Storage Site Associated with Intellectual Impairment in Chilean Children Living Nearby. International Journal of Occupational and Environmental Health 2011, 17(4):314-21.
+
+Lanphear BP, Hornung R, Khoury J, Yolton K, Baghurst P, Bellinger DC, Canfield RL, Dietrich KN, Bornschein R, Greene T, et al. Low-Level Environmental Lead Exposure and Children’s Intellectual Function: An International Pooled Analysis. Environmental Health Perspectives 2005, 113(7):894-9.
 
 Lee K-S, Kim K-N, Ahn YD, Choi Y-J, Cho J, Jang Y, Lim Y-H, Kim JI, Shin CH, Lee YA, et al. Prenatal and postnatal exposures to four metals mixture and IQ in 6-year-old children: A prospective cohort study in South Korea. Environment International 2021, 157:106798.
 
@@ -631,8 +649,14 @@ Lucchini RG, Zoni S, Guazzetti S, Bontempi E, Micheletti S, Broberg K, Parrinell
 
 Menezes-Filho JA, Carvalho CF, Rodrigues JLG, Araújo CFS, Dos Santos NR, Lima CS, Bandeira MJ, Marques BLdS, Anjos ALS, Bah HAF, et al. Environmental Co-Exposure to Lead and Manganese and Intellectual Deficit in School-Aged Children. International Journal of Environmental Research and Public Health 2018, 15(11):2418.
 
+Rodríguez-Barranco M, Tobías A, Redondo D, Molina-Portillo E, Sánchez MJ. Standardizing effect size from linear regression models with log-transformed variables for meta-analysis. BMC Medical Research Methodology 2017, 17(1):44.
+
+Min MO, Singer LT, Kirchner HL, Minnes S, Short E, Hussain Z, Nelson S. Cognitive development and low-level lead exposure in poly-drug exposed children. Neurotoxicology and Teratology 2009, 31(4):225-31.
+
 Roy A, Ettinger AS, Hu H, Bellinger D, Schwartz J, Modali R, Wright RO, Palaniappan K, Balakrishnan K. Effect modification by transferrin C2 polymorphism on lead exposure, hemoglobin levels, and IQ. NeuroToxicology 2013, 38:17-22.
 
 Schnaas L, Rothenberg Stephen J, Flores M-F, Martinez S, Hernandez C, Osorio E, Velasco Silvia R, Perroni E. Reduced Intellectual Development in Children with Prenatal Lead Exposure. Environmental Health Perspectives 2006, 114(5):791-7.
+
+Wang Y, Wang Y, Yan C. Gender differences in trace element exposures with cognitive abilities of school-aged children: a cohort study in Wujiang city, China. Environmental Science and Pollution Research 2022, 29(43):64807-21.
 
 </div>
