@@ -1,7 +1,42 @@
 ---
-title: "manuscript"
-format: html
+title: "Bayesian Meta Analysis on Lead Exposure and IQ Loss"
+author:
+  - name: Paulina Sell
+    affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    orcid: 0009-0007-7419-2956
+  - name: Dietrich Plass
+    affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    orcid: 0000-0002-8058-1399
+date-modified: "2025-12-01"
 bibliography: references.bib
+csl: vancouver.csl
+reference-section-title: "References"
+format:
+  html:
+    toc: true
+    title-block-banner: true
+    number-sections: true
+    self-contained: true
+    embed-resources: true
+    theme: cosmo
+    page-layout: full
 ---
 
-Text
+```{r}
+#| label: test_ref
+#| cache: true
+#| include: false
+
+
+# source("../code/Main-model_log.R")
+# summary(m.brm)
+```
+
+# Introduction
+
+There is no safe exposure level for lead [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead]
+
+# Methods 
+# Results 
+# Discussion 
+# Conclusion
