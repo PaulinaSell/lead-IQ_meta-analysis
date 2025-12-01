@@ -1,0 +1,7 @@
+---
+title: "manuscript"
+format: html
+bibliography: references.bib
+---
+
+Text
