@@ -1,5 +1,5 @@
 ---
-title: "Bayesian Meta Analysis on Lead Exposure and IQ Loss"
+title: "Lead Exposure and IQ Loss: Comparison of a Bayesian vs. Frequentist Meta Analysis Approach"
 author:
   - name: Paulina Sell
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
@@ -33,7 +33,7 @@ format:
 ```
 # Notes {.unnumbered}
 * Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
-* using PRISMA statement
+* using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
 
 
 # Abstract {.unnumbered}
