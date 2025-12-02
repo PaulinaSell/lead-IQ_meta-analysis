@@ -7,9 +7,9 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2025-12-01"
+date-modified: "2025-12-02"
 bibliography: references.bib
-csl: vancouver.csl
+csl: vancouver.csl  # citation style
 reference-section-title: "References"
 format:
   html:
@@ -31,12 +31,39 @@ format:
 # source("../code/Main-model_log.R")
 # summary(m.brm)
 ```
+# Notes {.unnumbered}
+* Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
+* using PRISMA statement
 
-# Introduction
 
-There is no safe exposure level for lead [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead]
+# Abstract {.unnumbered}
 
-# Methods 
-# Results 
-# Discussion 
-# Conclusion
+# Background
+- [ ] Short intro: Lead, health effects, burden of disease, exposure in Germany
+- [ ] Aim of this study
+
+# Methods
+- [ ] Overview: systematic review and meta analysis, comparing a frequentist to a Bayesian approach
+- [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
+- [ ] (Risk of bias analysis method)
+- [ ] Description & rationale of harmonization of reported effect measures
+- [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
+- [ ] Method to assess robustness of synthesized results
+
+# Results
+- [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
+- [ ] Study characteristics (table), including original and harmonized effect measures
+- [ ] Flow diagram, description of (fulltext) screening results
+- [ ] RoB results for each included study
+- [ ] Forest plots
+
+# Discussion
+- [ ] General interpretation of results in light of evidence in literature
+- [ ] Discuss differences, similarities, strenghts and weaknesses of freq vs. Bayesian approach
+- [ ] Study limitations & strengths
+
+# Conclusions
+- [ ] Conclusion, with reference to aim of study
+- [ ] Implications of results: policy, (scientific?) practice, future research needs
+
+# List of abbreviations {.unnumbered}
