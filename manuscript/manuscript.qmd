@@ -7,28 +7,29 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2025-12-02"
+date-modified: "2025-12-03"
 bibliography: references.bib
 csl: vancouver.csl  # citation style
 reference-section-title: "References"
-# format:
-#   html:
-#     toc: true
-#     title-block-banner: true
-#     number-sections: true
-#     self-contained: true
-#     embed-resources: true
-#     theme: cosmo
-#     page-layout: full
 format:
+  # html:
+  #   toc: true
+  #   title-block-banner: true
+  #   number-sections: true
+  #   self-contained: true
+  #   embed-resources: true
+  #   theme: cosmo
+  #   page-layout: full
   docx:
     reference-doc: ../manuscript/ref.docx
+    number-sections: true
     toc: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    toc-depth: 5
+    # fig-align: "center"
+    # fig-width: 6.5
+    # fig-height: 3.5
+    # fig-dpi: 600
+    # out-width: "40%"
 ---
 
 ```{r}
@@ -50,7 +51,9 @@ summary(m.brm)
 
 # Notes {.unnumbered}
 * Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
-* using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
+* Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
+* Reference @cao2010DoesBackgroundPostnatal 
+* testtest?
 
 
 # Abstract {.unnumbered}
@@ -84,12 +87,13 @@ summary(m.brm)
 - [ ] Implications of results: policy, (scientific?) practice, future research needs
 
 # List of abbreviations {.unnumbered}
+- Text example
 
-Normal text example exapsi
+## Title 2
+Text example
 
-## Setting Priors
-First, we need to define the priors. 
-In Bayesian statistics, a prior distribution represents our initial belief about an unknown parameter before observing any data. 
-It's a probability distribution reflecting our knowledge or assumptions about the parameter's possible values. 
-This prior distribution is then combined with the likelihood function (based on observed data) to produce a posterior distribution, which represents our updated belief after considering the data. 
-You can read more about choosing prior distributions in Bayesian statistics in this [book chapter](https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior).\
+### Title 3
+Text example
+
+#### Title 4
+Text example

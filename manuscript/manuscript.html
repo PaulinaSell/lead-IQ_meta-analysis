@@ -21,7 +21,26 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-</style>
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
 
 
 <script>/*!
@@ -3082,7 +3101,7 @@ vertical-align: -.125em;
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">December 2, 2025</p>
+        <p class="date-modified">December 3, 2025</p>
       </div>
     </div>
       
@@ -3102,9 +3121,13 @@ vertical-align: -.125em;
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">5</span> Conclusions</a></li>
-  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations">List of abbreviations</a></li>
+  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations">List of abbreviations</a>
+  <ul class="collapse">
+  <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link" data-scroll-target="#setting-priors"><span class="header-section-number">5.1</span> Setting Priors</a></li>
+  </ul></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="manuscript.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </div>
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -3143,7 +3166,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <h1 class="unnumbered">Notes</h1>
 <ul>
 <li>Journal: <a href="https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope">Population Health Metrics, BMC</a></li>
-<li>using <a href="https://www.prisma-statement.org/prisma-2020">PRISMA 2020 checklist</a> for structure</li>
+<li>Using <a href="https://www.prisma-statement.org/prisma-2020">PRISMA 2020 checklist</a> for structure</li>
+<li>Reference <span class="citation" data-cites="cao2010DoesBackgroundPostnatal">(<a href="#ref-cao2010DoesBackgroundPostnatal" role="doc-biblioref">1</a>)</span></li>
+<li>testtest?</li>
 </ul>
 </section>
 <section id="abstract" class="level1 unnumbered">
@@ -3194,10 +3219,23 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </section>
 <section id="list-of-abbreviations" class="level1 unnumbered">
 <h1 class="unnumbered">List of abbreviations</h1>
-<p>Normal text example</p>
+<p>Normal text example exapsi</p>
+<section id="setting-priors" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="setting-priors"><span class="header-section-number">5.1</span> Setting Priors</h2>
+<p>First, we need to define the priors. In Bayesian statistics, a prior distribution represents our initial belief about an unknown parameter before observing any data. It’s a probability distribution reflecting our knowledge or assumptions about the parameter’s possible values. This prior distribution is then combined with the likelihood function (based on observed data) to produce a posterior distribution, which represents our updated belief after considering the data. You can read more about choosing prior distributions in Bayesian statistics in this <a href="https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior">book chapter</a>.<br>
+</p>
+</section>
+</section>
+<section id="bibliography" class="level1 unnumbered">
+
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-cao2010DoesBackgroundPostnatal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Cao Y, Chen A, Jones RL, Radcliffe J, Caldwell KL, Dietrich KN, et al. <a href="https://doi.org/10.1016/j.neuro.2009.10.017">Does background postnatal methyl mercury exposure in toddlers affect cognition and behavior?</a> NeuroToxicology. 2010;31(1):1–9. </div>
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
