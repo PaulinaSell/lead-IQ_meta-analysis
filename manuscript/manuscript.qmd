@@ -20,16 +20,26 @@ format:
     embed-resources: true
     theme: cosmo
     page-layout: full
+# format: 
+#   docx:
+#     reference-doc: ../manuscript/ref.docx
+#     toc: true
+#     fig-align: "center"
+#     fig-width: 6.5
+#     fig-height: 3.5
+#     fig-dpi: 600
+#     out-width: "40%"
 ---
 
 ```{r}
 #| label: test_ref
 #| cache: true
-#| include: false
+#| echo: false
+#| message: false
 
 
-# source("../code/Main-model_log.R")
-# summary(m.brm)
+source("../code/Main-model_log.R")
+summary(m.brm)
 ```
 # Notes {.unnumbered}
 * Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
@@ -67,3 +77,5 @@ format:
 - [ ] Implications of results: policy, (scientific?) practice, future research needs
 
 # List of abbreviations {.unnumbered}
+
+Normal text example
