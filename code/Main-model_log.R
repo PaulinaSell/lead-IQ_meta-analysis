@@ -35,6 +35,9 @@ m.brm <- brm(
   chains = 4,
   iter = 4000)
 
+# save model
+saveRDS(m.brm, file = "models/m.brm_main.rds")
+
 # plot the MCMC chains & posterior distributions
 plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
@@ -54,6 +57,9 @@ fitPrior <- brm(
   chains = 4,
   iter = 4000)
 
+# save model for manuscript
+saveRDS(fitPrior, file = "models/fitPrior_main.rds")
+
 plot(fitPrior, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
 pp_check(fitPrior, ndraws = 20)
@@ -68,8 +74,7 @@ loo(m.brm,
                                                     # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
                                                     # This will refit the model 1 times to compute the ELPDs for the problematic observations directly. 
 
-# Check Rhat
-summary(m.brm)
+
 
 # Check ESS & MCSE
 
