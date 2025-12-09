@@ -18,7 +18,7 @@ data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/
 # data cleaning: exclude studies that were transformed from linear to log since transformation may not be valid here
 data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
 
-
+View(data)
 # Set priors ----
 priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
              prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
