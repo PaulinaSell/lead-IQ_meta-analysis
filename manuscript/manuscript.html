@@ -3101,7 +3101,7 @@ vertical-align: -.125em;
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">December 3, 2025</p>
+        <p class="date-modified">December 15, 2025</p>
       </div>
     </div>
       
@@ -3121,10 +3121,7 @@ vertical-align: -.125em;
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">5</span> Conclusions</a></li>
-  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations">List of abbreviations</a>
-  <ul class="collapse">
-  <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link" data-scroll-target="#setting-priors"><span class="header-section-number">5.1</span> Setting Priors</a></li>
-  </ul></li>
+  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations">List of Abbreviations</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="manuscript.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
@@ -3135,40 +3132,13 @@ vertical-align: -.125em;
 
 
 
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code> Family: gaussian 
-  Links: mu = identity; sigma = identity 
-Formula: beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year) 
-   Data: data (Number of observations: 12) 
-  Draws: 4 chains, each with iter = 4000; warmup = 2000; thin = 1;
-         total post-warmup draws = 8000
-
-Multilevel Hyperparameters:
-~author_year (Number of levels: 12) 
-              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     1.94      0.55     1.05     3.19 1.00     1796     3188
-
-Regression Coefficients:
-          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept    -2.10      0.65    -3.44    -0.87 1.00     1843     3230
-
-Further Distributional Parameters:
-      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.00      0.00     0.00     0.00   NA       NA       NA
-
-Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
-and Tail_ESS are effective sample size measures, and Rhat is the potential
-scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
-</div>
-</div>
 <section id="notes" class="level1 unnumbered">
 <h1 class="unnumbered">Notes</h1>
 <ul>
 <li>Journal: <a href="https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope">Population Health Metrics, BMC</a></li>
 <li>Using <a href="https://www.prisma-statement.org/prisma-2020">PRISMA 2020 checklist</a> for structure</li>
-<li>Reference <span class="citation" data-cites="cao2010DoesBackgroundPostnatal">(<a href="#ref-cao2010DoesBackgroundPostnatal" role="doc-biblioref">1</a>)</span></li>
-<li>testtest?</li>
+<li>Using <a href="https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925">raRoB tool</a> for Risk of Bias Assessment</li>
+<li>Test reference <span class="citation" data-cites="cao2010DoesBackgroundPostnatal">(<a href="#ref-cao2010DoesBackgroundPostnatal" role="doc-biblioref">1</a>)</span></li>
 </ul>
 </section>
 <section id="abstract" class="level1 unnumbered">
@@ -3218,13 +3188,37 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </ul>
 </section>
 <section id="list-of-abbreviations" class="level1 unnumbered">
-<h1 class="unnumbered">List of abbreviations</h1>
-<p>Normal text example exapsi</p>
-<section id="setting-priors" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="setting-priors"><span class="header-section-number">5.1</span> Setting Priors</h2>
-<p>First, we need to define the priors. In Bayesian statistics, a prior distribution represents our initial belief about an unknown parameter before observing any data. It’s a probability distribution reflecting our knowledge or assumptions about the parameter’s possible values. This prior distribution is then combined with the likelihood function (based on observed data) to produce a posterior distribution, which represents our updated belief after considering the data. You can read more about choosing prior distributions in Bayesian statistics in this <a href="https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior">book chapter</a>.<br>
-</p>
-</section>
+<h1 class="unnumbered">List of Abbreviations</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Abbreviation</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">EBD</td>
+<td style="text-align: left;">Environmental Burden of Disease</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">YLL</td>
+<td style="text-align: left;">Years of Life Lost</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YLD</td>
+<td style="text-align: left;">Years Lived with Disability</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DALY</td>
+<td style="text-align: left;">Disability-adjusted Life Year</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 <section id="bibliography" class="level1 unnumbered">
 

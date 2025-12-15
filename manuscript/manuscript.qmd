@@ -4,10 +4,16 @@ author:
   - name: Paulina Sell
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0009-0007-7419-2956
+  - name: Margaux Sanchez
+    affiliation: Agence nationale de sécurité sanitaire
+    orcid: 
+  - name: Philippe Palmont
+    affiliation: Agence nationale de sécurité sanitaire
+    orcid: 
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2025-12-03"
+date-modified: "2025-12-15"
 bibliography: references.bib
 csl: vancouver.csl  # citation style
 reference-section-title: "References"
@@ -44,6 +50,7 @@ fitPrior <- readRDS("../models/fitPrior_main.rds")
 ```{r}
 #| label: test
 #| echo: false
+#| include: false
 
 
 summary(m.brm)
@@ -52,8 +59,9 @@ summary(m.brm)
 # Notes {.unnumbered}
 * Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
 * Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
-* Reference @cao2010DoesBackgroundPostnatal 
-* testtest?
+* Using [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
+* Test reference @cao2010DoesBackgroundPostnatal 
+
 
 
 # Abstract {.unnumbered}
@@ -86,14 +94,15 @@ summary(m.brm)
 - [ ] Conclusion, with reference to aim of study
 - [ ] Implications of results: policy, (scientific?) practice, future research needs
 
-# List of abbreviations {.unnumbered}
-- Text example
+# List of Abbreviations {.unnumbered}
+```{r}
+#| label: table example
+#| echo: false
 
-## Title 2
-Text example
+Meaning <- c("Environmental Burden of Disease", "Years of Life Lost", "Years Lived with Disability", "Disability-adjusted Life Year")
+Abbreviation <- c("EBD", "YLL", "YLD", "DALY")
+table_abbr <- data.frame(Abbreviation, Meaning)
 
-### Title 3
-Text example
+knitr::kable(table_abbr)
+```
 
-#### Title 4
-Text example
