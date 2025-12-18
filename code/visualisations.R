@@ -145,11 +145,11 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  # Forest plot ----
  
  # 1. extract posterior distribution for each individual study 
- study.draws <- spread_draws(m.brm, r_author_year[author_year,], b_Intercept) %>% 
+ study.draws <- spread_draws(m.brm_full, r_author_year[author_year,], b_Intercept) %>% 
    mutate(b_Intercept = r_author_year + b_Intercept)
  
  # 2. generate distribution of the pooled effect
- pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>% 
+ pooled.effect.draws <- spread_draws(m.brm_full, b_Intercept) %>% 
    mutate(author_year = "Pooled Effect")
  
  # 3. bind study.draws and pooled.effect.draws to one data frame. 
@@ -177,7 +177,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
              fill = "steelblue3", alpha = 0.2) +
    
    # Add vertical lines for pooled effect and CI
-   geom_vline(xintercept = fixef(m.brm)[1, 1], # line at the pooled effect estimate
+   geom_vline(xintercept = fixef(m.brm_full)[1, 1], # line at the pooled effect estimate
               color = "gray50", linewidth = 0.8, linetype = 2) + 
    geom_vline(xintercept = 0, color = "gray20", 
               linewidth = 1) + # line at zero (null effect line)
@@ -205,3 +205,83 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
    theme(panel.border = element_blank())
  
  # ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_12studies.png", width = 25, height = 15, units = "cm")
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ # Forest plot looping ----
+ 
+result_models <- list(
+   full = m.brm_full, 
+   low_medium = m.brm_low_medium, 
+   low = m.brm_low)
+ 
+ 
+for (model_name in names(result_models)) {
+   model <- result_models[[model_name]] 
+  
+ study.draws <- spread_draws(model, r_author_year[author_year,], b_Intercept) %>% 
+   mutate(b_Intercept = r_author_year + b_Intercept)
+ 
+ pooled.effect.draws <- spread_draws(model, b_Intercept) %>% 
+   mutate(author_year = "Pooled Effect")
+ 
+ forest.data <- bind_rows(study.draws, 
+                          pooled.effect.draws) %>% 
+   ungroup() %>%
+   mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
+   mutate(author_year = fct_rev(factor(author_year)))
+ 
+ forest.data.summary <- group_by(forest.data, author_year) %>% 
+   mean_qi(b_Intercept)
+ 
+p <- ggplot(aes(b_Intercept, 
+            relevel(author_year, "Pooled Effect",
+                    after = Inf)), 
+        data = forest.data) +
+   
+   geom_rect(data = filter(forest.data.summary, author_year == "Pooled Effect"),
+             aes(xmin = -Inf, xmax = Inf, 
+                 ymin = as.numeric(factor(author_year)) - 0.4, 
+                 ymax = as.numeric(factor(author_year)) + 0.4),
+             fill = "steelblue3", alpha = 0.2) +
+   
+   geom_vline(xintercept = fixef(model)[1, 1],
+              color = "gray50", linewidth = 0.8, linetype = 2) + 
+   geom_vline(xintercept = 0, color = "gray20", 
+              linewidth = 1) +
+   
+   geom_density_ridges(fill = "steelblue3", 
+                       rel_min_height = 0.01,
+                       col = NA, scale = 1, 
+                       alpha = 0.8) +
+   
+   geom_pointinterval(data = forest.data.summary,
+                      aes(xmin = .lower, xmax = .upper),
+                      fatten_point = 1.5,
+                      linewidth = 0.8) +
+   
+   geom_text(data = mutate_if(forest.data.summary,
+                              is.numeric, round, 2), 
+             aes(label = glue("{b_Intercept} [{.lower}, {.upper}]"),
+                 x = Inf), hjust = "inward") +
+   labs(x = "beta",
+        y = element_blank()) +
+   theme_light() +
+   theme(panel.border = element_blank())
+
+ggsave(
+  filename = paste0("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_12studies_", model_name, ".png"),
+  plot = p,
+  width = 25,
+  height = 15, 
+  units = "cm")
+
+}
