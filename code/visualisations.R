@@ -1,42 +1,38 @@
+rm(list=ls(all=T))
+
 # Visualizations for Bayesian Meta Analysis of Epidemiological Studies on Lead and IQ loss
 
 # load data & models
 data <- read.csv("data/study_data_leadIQloss.csv")
 
 read_model <- function(model_name) {
-  model = readRDS(paste0("model/", model_name))
+  model = readRDS(paste0("models/", model_name, ".rds"))
   return(model)
 }
 
-# Looking at the data ----
-ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
-  geom_hline(yintercept = mean(data$beta_ln), colour = "red") +
-  geom_hline(yintercept = median(data$beta_ln), colour = "blue") +
-  geom_point() +
-  labs(x = "Study", y = "Main Effect Beta") +
-  theme_minimal()
+m.brm_full <- read_model("m.brm_full")
+m.brm_low_medium <- read_model("m.brm_low_medium")
+m.brm_low <- read_model("m.brm_low")
 
-ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
-  geom_hline(yintercept = mean(data$se_beta_ln), colour = "red") +
-  geom_hline(yintercept = median(data$se_beta_ln), colour = "blue") +
-  geom_point() +
-  labs(x = "Study", y = "Heterogeneity Tau") +
-  theme_minimal()
+fitPrior_full <- read_model("fitPrior_full")
+fitPrior_low_medium <- read_model("fitPrior_low_medium")
+fitPrior_low <- read_model("fitPrior_low")
+
 
 # Traceplot incl. warmup ----
- posterior_samples_warm = as_draws_df(m.brm, inc_warmup = T)
+ posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
  names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
- names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "sd"
+ names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "tau"
 
  mcmc_trace(posterior_samples_warm,
-            pars = c("beta", "sd"),
+            pars = c("beta", "tau"),
             facet_args = list(ncol = 1)) +
    vline_at(2000, color = "red", linetype = 2, size = 0.5)  # mark end of warmup
  
  
 
  # Posterior distributions ----
- post.samples <- as_draws_df(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
+ post.samples <- as_draws_df(m.brm_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
  
  # generate density plot for posterior distributions
  ggplot(aes(x = b_Intercept), data = post.samples) +
@@ -110,10 +106,10 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  plot_data_combined <- data.frame(
    value = c(prior_samples[["b_Intercept"]], 
              posterior_samples[["b_Intercept"]],
-             data_full$beta_ln),
+             data$beta_ln),
    distribution = factor(c(rep("Prior", nrow(prior_samples)),
                            rep("Posterior", nrow(posterior_samples)),
-                           rep("Observed Effects", nrow(data_full))),
+                           rep("Observed Effects", nrow(data))),
                          levels = c("Prior", "Observed Effects", "Posterior"))
  )
  
@@ -173,7 +169,7 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  for(p_name in names(plot_list)) {
    
  ggsave(
-   filename = paste0("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/prior_obs-effects_posterior_", config_name, "-", p_name, ".png"),
+   filename = paste0("results/prior_obs-effects_posterior_", p_name, "-", config_name, ".png"),
    plot = plot_list[[p_name]],
    width = 22,
    height = 15,
