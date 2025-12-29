@@ -13,7 +13,7 @@ library(HDInterval)
 library(bayestestR)
 library(posterior)
 
-data_full = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+data_full = read.csv("data/study_data_leadIQloss.csv")
 
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
 data_low_medium <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016"), ]
@@ -24,6 +24,51 @@ priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
              prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 
+# store data subsets in list for looping
+models_data <- list(
+  full = data_full,
+  low_medium = data_low_medium,
+  low = data_low
+)
+
+# create empty list for storing models
+m.brm_models <- list(
+  main = list(),
+  prior = list()
+)
+
+# Loop through model fits: full study base -> low & medium RoB studies -> low RoB studies
+for (data_subset in names(models_data)) {
+  data <- models_data[[data_subset]]
+  
+  # main model (with weakly informative priors)
+  m.brm <- brm(
+    beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+    data = data,
+    prior = priors,
+    save_pars = save_pars(all = TRUE),
+    chains = 4,
+    iter = 4000)
+  
+  # Sample from prior only
+  fitPrior <- brm(
+    beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
+    data = data, 
+    prior = priors,
+    sample_prior = "only",
+    chains = 4,
+    iter = 4000)
+  
+  # store models in lists (env)
+  m.brm_models$main[[data_subset]] <- m.brm
+  m.brm_models$prior[[data_subset]] <- fitPrior
+  
+  # save models for later use
+  saveRDS(m.brm, file = paste0("models/m.brm_", data_subset, ".rds"))
+  saveRDS(fitPrior, file = paste0("models/fitPrior_", data_subset, ".rds"))
+}
+
+
 # Fit model with full study base (12 studies) ----
 
 # Main model (with weakly informative priors)
@@ -31,13 +76,12 @@ m.brm_full <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
   data = data_full,
   prior = priors,
-  # control = list(adapt_delta = 0.90),
   save_pars = save_pars(all = TRUE),
   chains = 4,
   iter = 4000)
 
 # save model
-saveRDS(m.brm_full, file = "models/m.brm_main_full.rds")
+# saveRDS(m.brm_full, file = "models/m.brm_main_full.rds")
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
@@ -49,13 +93,12 @@ fitPrior_full <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
   data = data_full, 
   prior = priors,
-  # control = list(adapt_delta = 0.90),
   sample_prior = "only",
   chains = 4,
   iter = 4000)
 
 # save model for manuscript
-saveRDS(fitPrior_full, file = "models/fitPrior_main_full.rds")
+# saveRDS(fitPrior_full, file = "models/fitPrior_main_full.rds")
 
 plot(fitPrior_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
@@ -83,7 +126,7 @@ m.brm_low_medium <- brm(
   iter = 4000)
 
 # save model
-saveRDS(m.brm_low_medium, file = "models/m.brm_main_low_medium.rds")
+# saveRDS(m.brm_low_medium, file = "models/m.brm_main_low_medium.rds")
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm_low_medium, variable = c("b_Intercept", "sd_author_year__Intercept"))
@@ -101,7 +144,7 @@ fitPrior_low_medium <- brm(
   iter = 4000)
 
 # save model for manuscript
-saveRDS(fitPrior_low_medium, file = "models/fitPrior_main_low_medium.rds")
+# saveRDS(fitPrior_low_medium, file = "models/fitPrior_main_low_medium.rds")
 
 plot(fitPrior_low_medium, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
@@ -127,7 +170,7 @@ m.brm_low <- brm(
   iter = 4000)
 
 # save model
-saveRDS(m.brm_low, file = "models/m.brm_main_low.rds")
+# saveRDS(m.brm_low, file = "models/m.brm_main_low.rds")
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm_low, variable = c("b_Intercept", "sd_author_year__Intercept"))
@@ -145,7 +188,7 @@ fitPrior_low <- brm(
   iter = 4000)
 
 # save model for manuscript
-saveRDS(fitPrior_low, file = "models/fitPrior_main_low.rds")
+# saveRDS(fitPrior_low, file = "models/fitPrior_main_low.rds")
 
 plot(fitPrior_low, variable = c("b_Intercept", "sd_author_year__Intercept"))
 

@@ -1,5 +1,12 @@
 # Visualizations for Bayesian Meta Analysis of Epidemiological Studies on Lead and IQ loss
-# run after main-model_log.R
+
+# load data & models
+data <- read.csv("data/study_data_leadIQloss.csv")
+
+read_model <- function(model_name) {
+  model = readRDS(paste0("model/", model_name))
+  return(model)
+}
 
 # Looking at the data ----
 ggplot(data, aes(x = 1:nrow(data), y = beta_ln)) +
@@ -175,8 +182,13 @@ ggplot(data, aes(x = 1:nrow(data), y = se_beta_ln)) +
  }
 
  
+ result_models <- list(
+   full = m.brm_full,
+   low_medium = m.brm_low_medium,
+   low = m.brm_low
+ )
  
- # Forest plot looping ----
+ # Bayesian MA forest plot looping ----
  
  for (model_name in names(result_models)) {
    model <- result_models[[model_name]] 

@@ -4,32 +4,43 @@ rm(list=ls(all=T))
 
 library(metafor)
 
-data = read.csv("data/study_data_leadIQloss.csv")
+data_full = read.csv("data/study_data_leadIQloss.csv")
 
-# excluding studies that were transformed from linear to log, since transformation may not be valid here
-data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
+# Subsetting full study base for sensitivity analysis: excluding studies with RoB
+data_low_medium <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016"), ]
+data_low <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016", "Lucchini 2012", "Lucchini 2019"), ]
 
+models_data <- list(
+  full = data_full,
+  low_medium = data_low_medium,
+  low = data_low
+)
+  
+for (data_subset in names(models_data)) {
+  data <- models_data[[data_subset]]
+  
+  # Run model equivalent to Bayesian model (same data, random effects)
+  rma_model <- rma(yi = beta_ln, 
+                   sei = se_beta_ln,
+                   data = data,
+                   method = "REML")  # Restricted Maximum Likelihood
 
-# Equivalent to bayesian model with random effects
+  cat("\n===========================================\n")
+  cat("Model including:", data_subset, "RoB studies \n")
+  cat("===========================================\n")
+  print(summary(rma_model))
 
-rma_model <- rma(yi = beta_ln, 
-                 sei = se_beta_ln, 
-                 data = data,
-                 method = "REML")  # Restricted Maximum Likelihood
+  png(paste0("results/freq_forestplot_lnBLL_", data_subset, ".png"), 
+      width = 20, height = 15, units = "cm", res = 300)
 
-summary(rma_model)
+  forest(rma_model, 
+        slab = data$author_year,
+        main = "Random Effects Meta-Analysis")
 
+  dev.off() # close device
 
-png("results/freq_forestplot_lnBLL.png", 
-    width = 20, height = 15, units = "cm", res = 300)
+}
 
-# Jetzt den Plot erstellen
-forest(rma_model, 
-       slab = data$author_year,
-       main = "Random Effects Meta-Analysis")
-
-# Datei schließen und speichern
-dev.off()
 
 # Funnel plot
 funnel(rma_model)
@@ -45,25 +56,4 @@ plot(rma_model)
 # Leave-One-Out Analysis
 loo_results <- leave1out(rma_model)
 print(loo_results)
-
-# Forest plot mit Leave-One-Out results
-forest(loo_results)
-
-# Test für Heterogenität
-# Q-Test und I²
-print(paste("Q =", round(rma_model$QE, 2), 
-            "df =", rma_model$k - rma_model$p, 
-            "p =", round(rma_model$QEp, 4)))
-print(paste("I² =", round(rma_model$I2, 1), "%"))
-print(paste("τ² =", round(rma_model$tau2, 4)))
-
-# Alternative: Fixed Effects Model zum Vergleich
-rma_fixed <- rma(yi = beta_ln, 
-                 sei = se_beta_ln, 
-                 data = data,
-                 method = "FE")
-summary(rma_fixed)
-
-# Modellvergleich
-anova(rma_fixed, rma_model)
 
