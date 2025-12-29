@@ -5,6 +5,11 @@ rm(list=ls(all=T))
 # load data & models
 data <- read.csv("data/study_data_leadIQloss.csv")
 
+# Subsetting full study base for sensitivity analysis: excluding studies with RoB
+data_low_medium <- data[!data$author_year %in% c("Crump 2013", "Earl 2016"), ]
+data_low <- data[!data$author_year %in% c("Crump 2013", "Earl 2016", "Lucchini 2012", "Lucchini 2019"), ]
+
+
 read_model <- function(model_name) {
   model = readRDS(paste0("models/", model_name, ".rds"))
   return(model)
@@ -81,15 +86,18 @@ fitPrior_low <- read_model("fitPrior_low")
  result_configs <- list(
    full = list(
      model = m.brm_full,
-     prior = fitPrior_full
+     prior = fitPrior_full,
+     data = data
    ),
    low_medium = list(
      model = m.brm_low_medium,
-     prior = fitPrior_low_medium
+     prior = fitPrior_low_medium,
+     data = data_low_medium
    ),
    low = list(
      model = m.brm_low,
-     prior = fitPrior_low
+     prior = fitPrior_low,
+     data = data_low
    )
   )
 
@@ -97,6 +105,9 @@ fitPrior_low <- read_model("fitPrior_low")
    current_config <- result_configs[[config_name]]
    model <- current_config$model
    prior <- current_config$prior
+   data <- current_config$data
+   
+ 
 
  # Beta
  # Prepare data
@@ -109,7 +120,8 @@ fitPrior_low <- read_model("fitPrior_low")
              data$beta_ln),
    distribution = factor(c(rep("Prior", nrow(prior_samples)),
                            rep("Posterior", nrow(posterior_samples)),
-                           rep("Observed Effects", nrow(data))),
+                           rep("Observed Effects", nrow(data))
+                           ),
                          levels = c("Prior", "Observed Effects", "Posterior"))
  )
  
