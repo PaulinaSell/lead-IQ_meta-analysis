@@ -4,6 +4,8 @@ library(tidyverse)
 library(tidybayes)
 library(brms)
 library(bayesplot)
+library(ggridges)
+library(glue)
 
 # Visualizations for Bayesian Meta Analysis of Epidemiological Studies on Lead and IQ loss
 
@@ -28,10 +30,45 @@ fitPrior_full <- read_model("fitPrior_full")
 fitPrior_low_medium <- read_model("fitPrior_low_medium")
 fitPrior_low <- read_model("fitPrior_low")
 
-# todo: loading freq models 
+freq_full <- read_model("freq_full")
+freq_low_medium <- read_model("freq_low_medium")
+freq_low <- read_model("freq_low")
 
+# create lists ----
+# simple list for Bayes MA
+result_models <- list(
+  full = m.brm_full,
+  low_medium = m.brm_low_medium,
+  low = m.brm_low
+)
 
-# Traceplot incl. warmup ----
+# list for "prior, data & posterior" plot
+result_configs <- list(
+  full = list(
+    model = m.brm_full,
+    prior = fitPrior_full,
+    data = data
+  ),
+  low_medium = list(
+    model = m.brm_low_medium,
+    prior = fitPrior_low_medium,
+    data = data_low_medium
+  ),
+  low = list(
+    model = m.brm_low,
+    prior = fitPrior_low,
+    data = data_low
+  )
+)
+
+# for freq MA
+freq_result_models <- list(
+  full = freq_full,
+  low_medium = freq_low_medium,
+  low = freq_low
+)
+
+# Traceplot incl. warmup (no loop) ----
  posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
  names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
  names(posterior_samples_warm)[names(posterior_samples_warm) == "sd_author_year__Intercept"] = "tau"
@@ -44,13 +81,6 @@ fitPrior_low <- read_model("fitPrior_low")
  
 
 # Posterior: beta & tau ----
- 
-# list for loop
- result_models <- list(
-   full = m.brm_full,
-   low_medium = m.brm_low_medium,
-   low = m.brm_low
- )
 
 # loop -> plot & save posterior for all 3 data configs for beta & tau
 for (model_name in names(result_models)) {
@@ -109,24 +139,6 @@ for (model_name in names(result_models)) {
 }
  
  # Prior, data & posterior in one plot: looped over all 3 sensitivity analyses----
- 
- result_configs <- list(
-   full = list(
-     model = m.brm_full,
-     prior = fitPrior_full,
-     data = data
-   ),
-   low_medium = list(
-     model = m.brm_low_medium,
-     prior = fitPrior_low_medium,
-     data = data_low_medium
-   ),
-   low = list(
-     model = m.brm_low,
-     prior = fitPrior_low,
-     data = data_low
-   )
-  )
 
  for (config_name in names(result_configs)) {
    current_config <- result_configs[[config_name]]
@@ -215,7 +227,20 @@ for (model_name in names(result_models)) {
  }
  }
 
- 
+ # Freq MA forest plot looping ----
+ for (freq_model_name in names(freq_result_models)) {
+   model <- freq_result_models[[freq_model_name]]
+   
+   # plot & save forests
+   png(paste0("results/freq_forestplot_", freq_model_name, ".png"), 
+       width = 20, height = 15, units = "cm", res = 300)
+   
+   forest(model, 
+          slab = model$data$author_year,
+          main = "Random Effects Meta-Analysis")
+   
+   dev.off()
+  }
 
  
  # Bayesian MA forest plot looping ----
@@ -284,11 +309,89 @@ for (model_name in names(result_models)) {
    theme(panel.border = element_blank())
  
  ggsave(
-   filename = paste0("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/forestplot_logBLL_12studies_", model_name, ".png"),
+   filename = paste0("results/forestplot_", model_name, ".png"),
    plot = p,
    width = 25,
    height = 15, 
    units = "cm")
  
  }
+ 
+ 
+# Plotting curves: lead & IQ loss function with uncertainty ----
+ 
+# Bayes:
+ for (model_name in names(result_models)) {
+   model <- result_models[[model_name]] 
+   
+ # extract results from brmsfit object
+ mean_beta <- posterior_summary(model, variable = "b_Intercept")[, "Estimate"] 
+ lower_beta <- posterior_summary(model, variable = "b_Intercept")[, 3]
+ upper_beta <- posterior_summary(model, variable = "b_Intercept")[, 4]
+ 
+ IQ_loss <- data.frame(
+   blood_lead = seq(0, 30, by = 0.1)
+ )
+ 
+ IQ_loss$mean <- mean_beta * log(IQ_loss$blood_lead + 1)
+ IQ_loss$lowerCI <- lower_beta * log(IQ_loss$blood_lead + 1)
+ IQ_loss$upperCI <- upper_beta * log(IQ_loss$blood_lead + 1)
+ 
+ plot <- ggplot(IQ_loss, aes(x = blood_lead)) +
+   geom_line(aes(y = mean, color = "Mean"), show.legend = F) +
+   geom_ribbon(aes(ymin = lowerCI, ymax = upperCI), fill = "lightblue", alpha = 0.4) +
+   labs(
+     x = "Blood Lead Level (µg/dL)",
+     y = "IQ Loss (points)"
+   ) +
+   xlim(0, 30) +
+   ylim(-14, 0) +
+   theme_minimal() 
+ 
+ ggsave(
+   filename = paste0("results/Bayes_curve_", model_name, ".png"),
+   plot = plot,
+   width = 15,
+   height = 15, 
+   units = "cm")
+ }
+ 
+ # Freq: 
+ for (freq_model_name in names(freq_result_models)) {
+   model <- freq_result_models[[freq_model_name]]
+   
+   # extract results from brmsfit object
+   mean_beta <- model$beta[1, 1]
+   lower_beta <- model$ci.lb[1]
+   upper_beta <- model$ci.ub[1]
+   
+   IQ_loss <- data.frame(
+     blood_lead = seq(0, 30, by = 0.1)
+   )
+   
+   IQ_loss$mean <- mean_beta * log(IQ_loss$blood_lead + 1)
+   IQ_loss$lowerCI <- lower_beta * log(IQ_loss$blood_lead + 1)
+   IQ_loss$upperCI <- upper_beta * log(IQ_loss$blood_lead + 1)
+   
+   plot <- ggplot(IQ_loss, aes(x = blood_lead)) +
+     geom_line(aes(y = mean, color = "Mean"), show.legend = F) +
+     geom_ribbon(aes(ymin = lowerCI, ymax = upperCI), fill = "lightblue", alpha = 0.4) +
+     labs(
+       x = "Blood Lead Level (µg/dL)",
+       y = "IQ Loss (points)"
+     ) +
+     xlim(0, 30) +
+     ylim(-14, 0) +
+     theme_minimal() 
+   
+   ggsave(
+     filename = paste0("results/freq_curve_", freq_model_name, ".png"),
+     plot = plot,
+     width = 15,
+     height = 15, 
+     units = "cm")
+   
+   # ggsave
+ }
+ 
  

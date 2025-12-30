@@ -15,29 +15,30 @@ models_data <- list(
   low_medium = data_low_medium,
   low = data_low
 )
+
+# create list to store results 
+rma_models <- list()
   
 for (data_subset in names(models_data)) {
   data <- models_data[[data_subset]]
   
-  # Run model equivalent to Bayesian model (same data, random effects)
+  # run model
   rma_model <- rma(yi = beta_ln, 
                    sei = se_beta_ln,
                    data = data,
                    method = "REML")  # Restricted Maximum Likelihood
-
+  
+  # save in env
+  rma_models[[data_subset]] <- rma_model
+  
+  # print model summaries
   cat("\n===========================================\n")
   cat("Model including:", data_subset, "RoB studies \n")
   cat("===========================================\n")
   print(summary(rma_model))
-
-  png(paste0("results/freq_forestplot_lnBLL_", data_subset, ".png"), 
-      width = 20, height = 15, units = "cm", res = 300)
-
-  forest(rma_model, 
-        slab = data$author_year,
-        main = "Random Effects Meta-Analysis")
-
-  dev.off() # close device
+  
+  # save models for later use
+  saveRDS(rma_model, file = paste0("models/freq_", data_subset, ".rds"))
 
 }
 
