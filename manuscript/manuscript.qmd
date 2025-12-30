@@ -18,19 +18,19 @@ bibliography: references.bib
 csl: vancouver.csl  # citation style
 reference-section-title: "References"
 format:
-  # html:
-  #   toc: true
-  #   title-block-banner: true
-  #   number-sections: true
-  #   self-contained: true
-  #   embed-resources: true
-  #   theme: cosmo
-  #   page-layout: full
-  docx:
-    reference-doc: ../manuscript/ref.docx
-    number-sections: true
+  html:
     toc: true
-    toc-depth: 5
+    title-block-banner: true
+    number-sections: true
+    self-contained: true
+    embed-resources: true
+    theme: cosmo
+    page-layout: full
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   toc: true
+  #   toc-depth: 5
     # fig-align: "center"
     # fig-width: 6.5
     # fig-height: 3.5
@@ -43,8 +43,8 @@ format:
 #| include: false
 
 
-m.brm <- readRDS("../models/m.brm_main.rds")
-fitPrior <- readRDS("../models/fitPrior_main.rds")
+m.brm <- readRDS("../models/m.brm_full.rds")
+fitPrior <- readRDS("../models/fitPrior_full.rds")
 ```
 
 ```{r}

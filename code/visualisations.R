@@ -68,6 +68,38 @@ freq_result_models <- list(
   low = freq_low
 )
 
+# Priors ----
+# beta
+x <- seq(-6, 4, by = 0.1)
+y <- dnorm(x, -1, 2)
+ggplot() +
+  aes(x, y) +
+  geom_vline(xintercept = 0, colour = "black") +
+  geom_area(fill = "steelblue3", alpha = 0.6) +
+  theme_minimal() +
+  labs(x = NULL, y = NULL)
+
+ggsave(filename = "manuscript/figures/prior_beta.png", 
+       width = 20, 
+       height = 10, 
+       units = "cm")
+
+# tau
+a <- seq(0, 10, by = 0.1)
+b <- dnorm(a, 0, 2)
+
+ggplot() +
+  aes(a, b) +
+  geom_vline(xintercept = 0, colour = "black") +
+  geom_area(fill = "orange", alpha = 0.6) +
+  theme_minimal() +
+  labs(x = NULL, y = NULL)
+
+ggsave(filename = "manuscript/figures/prior_tau.png", 
+       width = 20, 
+       height = 10, 
+       units = "cm")
+
 # Traceplot incl. warmup (no loop) ----
  posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
  names(posterior_samples_warm)[names(posterior_samples_warm) == "b_Intercept"] = "beta"
@@ -351,7 +383,7 @@ for (model_name in names(result_models)) {
  ggsave(
    filename = paste0("results/Bayes_curve_", model_name, ".png"),
    plot = plot,
-   width = 15,
+   width = 22,
    height = 15, 
    units = "cm")
  }
@@ -387,11 +419,10 @@ for (model_name in names(result_models)) {
    ggsave(
      filename = paste0("results/freq_curve_", freq_model_name, ".png"),
      plot = plot,
-     width = 15,
+     width = 22,
      height = 15, 
      units = "cm")
    
-   # ggsave
  }
  
  
