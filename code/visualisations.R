@@ -1,8 +1,13 @@
 rm(list=ls(all=T))
 
+library(tidyverse)
+library(tidybayes)
+library(brms)
+library(bayesplot)
+
 # Visualizations for Bayesian Meta Analysis of Epidemiological Studies on Lead and IQ loss
 
-# load data & models
+# load data & models ----
 data <- read.csv("data/study_data_leadIQloss.csv")
 
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
@@ -23,6 +28,8 @@ fitPrior_full <- read_model("fitPrior_full")
 fitPrior_low_medium <- read_model("fitPrior_low_medium")
 fitPrior_low <- read_model("fitPrior_low")
 
+# todo: loading freq models 
+
 
 # Traceplot incl. warmup ----
  posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
@@ -36,17 +43,28 @@ fitPrior_low <- read_model("fitPrior_low")
  
  
 
- # Posterior distributions ----
- post.samples <- as_draws_df(m.brm_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
+# Posterior: beta & tau ----
  
- # generate density plot for posterior distributions
- ggplot(aes(x = b_Intercept), data = post.samples) +
-   geom_density(fill = "steelblue",                # set the color
+# list for loop
+ result_models <- list(
+   full = m.brm_full,
+   low_medium = m.brm_low_medium,
+   low = m.brm_low
+ )
+
+# loop -> plot & save posterior for all 3 data configs for beta & tau
+for (model_name in names(result_models)) {
+   model <- result_models[[model_name]]
+ 
+ post_samples <- as_draws_df(model, variable = c("b_Intercept", "sd_author_year__Intercept"))
+ 
+ beta <- ggplot(aes(x = b_Intercept), data = post_samples) +
+   geom_density(fill = "steelblue",
                 color = "steelblue", alpha = 0.7) +  
-   # geom_vline(xintercept = mean(post.samples$b_Intercept), 
+   # geom_vline(xintercept = mean(post_samples$b_Intercept), 
    # linetype = "dotted", 
    # color = "red") +
-   # geom_vline(xintercept = Mode(post.samples$b_Intercept), 
+   # geom_vline(xintercept = Mode(post_samples$b_Intercept), 
    # linetype = "dotted", 
    # color = "blue") +
    geom_vline(xintercept = 0,
@@ -58,15 +76,13 @@ fitPrior_low <- read_model("fitPrior_low")
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_b_log_12studies.png", width = 25, height = 15, units = "cm")
- 
- ggplot(aes(x = sd_author_year__Intercept), data = post.samples) +
-   geom_density(fill = "lightgreen",               # set the color
+ tau <- ggplot(aes(x = sd_author_year__Intercept), data = post_samples) +
+   geom_density(fill = "lightgreen",
                 color = "lightgreen", alpha = 0.7) +  
-   # geom_vline(xintercept = mean(post.samples$sd_author_year__Intercept), 
+   # geom_vline(xintercept = mean(post_samples$sd_author_year__Intercept), 
    #            linetype = "dotted", 
    #            color = "red") +
-   # geom_vline(xintercept = Mode(post.samples$sd_author_year__Intercept), 
+   # geom_vline(xintercept = Mode(post_samples$sd_author_year__Intercept), 
    #            linetype = "dotted", 
    #            color = "blue") +
    geom_vline(xintercept = 0,
@@ -78,8 +94,19 @@ fitPrior_low <- read_model("fitPrior_low")
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
-# ggsave("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/posterior_dist_sd_log_12studies.png", width = 25, height = 15, units = "cm")
+ ggsave(filename = paste0("results/posterior_b_", model_name, ".png"), 
+        plot = beta, 
+        width = 30, 
+        height = 10, 
+        units = "cm")
  
+ ggsave(filename = paste0("results/posterior_tau_", model_name, ".png"), 
+        plot = tau, 
+        width = 30, 
+        height = 10, 
+        units = "cm")
+
+}
  
  # Prior, data & posterior in one plot: looped over all 3 sensitivity analyses----
  
@@ -107,7 +134,6 @@ fitPrior_low <- read_model("fitPrior_low")
    prior <- current_config$prior
    data <- current_config$data
    
- 
 
  # Beta
  # Prepare data
@@ -190,11 +216,7 @@ fitPrior_low <- read_model("fitPrior_low")
  }
 
  
- result_models <- list(
-   full = m.brm_full,
-   low_medium = m.brm_low_medium,
-   low = m.brm_low
- )
+
  
  # Bayesian MA forest plot looping ----
  
