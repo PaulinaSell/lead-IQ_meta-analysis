@@ -13,36 +13,16 @@ library(HDInterval)
 library(bayestestR)
 library(posterior)
 
-data_full = read.csv("data/study_data_leadIQloss.csv")
-
-# Subsetting full study base for sensitivity analysis: excluding studies with RoB
-data_low_medium <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016"), ]
-data_low <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016", "Lucchini 2012", "Lucchini 2019"), ]
+data = read.csv("data/study_data_leadIQloss.csv")
 
 # Set priors ----
 priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
              prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 
-# store data subsets in list for looping
-models_data <- list(
-  full = data_full,
-  low_medium = data_low_medium,
-  low = data_low
-)
 
-# create empty list for storing models
-m.brm_models <- list(
-  main = list(),
-  prior = list()
-)
-
-# Loop through model fits: full study base -> low & medium RoB studies -> low RoB studies
-for (data_subset in names(models_data)) {
-  data <- models_data[[data_subset]]
-  
-  # main model (with weakly informative priors)
-  m.brm <- brm(
+# main model (with weakly informative priors) and full dataset
+m.brm <- brm(
     beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
     data = data,
     prior = priors,
@@ -51,28 +31,21 @@ for (data_subset in names(models_data)) {
     iter = 4000)
   
   # Sample from prior only
-  fitPrior <- brm(
+fitPrior <- brm(
     beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
     data = data, 
     prior = priors,
     sample_prior = "only",
     chains = 4,
     iter = 4000)
-  
-  # store models in list (env)
-  m.brm_models$main[[data_subset]] <- m.brm
-  m.brm_models$prior[[data_subset]] <- fitPrior
-  
-  # save models for later use
-  saveRDS(m.brm, file = paste0("models/m.brm_", data_subset, ".rds"))
-  saveRDS(fitPrior, file = paste0("models/fitPrior_", data_subset, ".rds"))
-  saveRDS(m.brm_models, file = "models/m.brm_models_list.rds") # save whole list
-  
-  # save draws from main models (not fitPrior) as .csv for EBD assessment (later)
-  draws <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
-  write.csv(draws, paste0("results/draws_beta_tau_", data_subset, ".csv"), row.names = F)
-  
-}
+
+# save models for later use
+saveRDS(m.brm, "models/main/m.brm_full.rds")
+saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
+
+# save draws from main models (not fitPrior) as .csv for EBD assessment (later)
+draws <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
+write.csv(draws, paste0("results/draws_beta_tau_", data_subset, ".csv"), row.names = F)
 
 
 # plot the MCMC chains & posterior distributions

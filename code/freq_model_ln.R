@@ -6,41 +6,15 @@ library(metafor)
 
 data_full = read.csv("data/study_data_leadIQloss.csv")
 
-# Subsetting full study base for sensitivity analysis: excluding studies with RoB
-data_low_medium <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016"), ]
-data_low <- data_full[!data_full$author_year %in% c("Crump 2013", "Earl 2016", "Lucchini 2012", "Lucchini 2019"), ]
+# run model
+rma_model <- rma(yi = beta_ln, 
+                 sei = se_beta_ln,
+                 data = data,
+                 method = "REML")  # Restricted Maximum Likelihood
+  
 
-models_data <- list(
-  full = data_full,
-  low_medium = data_low_medium,
-  low = data_low
-)
+saveRDS(rma_model, file = "models/main/freq_full.rds")
 
-# create list to store results 
-rma_models <- list()
-  
-for (data_subset in names(models_data)) {
-  data <- models_data[[data_subset]]
-  
-  # run model
-  rma_model <- rma(yi = beta_ln, 
-                   sei = se_beta_ln,
-                   data = data,
-                   method = "REML")  # Restricted Maximum Likelihood
-  
-  # save in env
-  rma_models[[data_subset]] <- rma_model
-  
-  # print model summaries
-  cat("\n===========================================\n")
-  cat("Model including:", data_subset, "RoB studies \n")
-  cat("===========================================\n")
-  print(summary(rma_model))
-  
-  # save models for later use
-  saveRDS(rma_model, file = paste0("models/freq_", data_subset, ".rds"))
-
-}
 
 
 # Funnel plot
