@@ -1,18 +1,5 @@
 # Sensitivity analyses ----
 
-# heterogeneity, tau with cauchy
-sigma = 0.2
-phcauchy(0.25, sigma = sigma) # check probability of less than 0.2 between-study heterogeneity τ in half-cauchy distribution with sigma 0.25 
-inverseCDF(c(0.025, 0.975), phcauchy, sigma = sigma) # use inverse Cumulative Density Function to find Q2.5 and Q97.5 of the half-cauchy with sigma x
-
-x <- seq(0, 5, by = 0.01)
-y <- dhcauchy(x, sigma = sigma)
-
-ggplot() +
-  aes(x, y) +
-  geom_line(colour = "orange")
-
-
 # 1 Risk of Bias ----
 # 1.1 Bayesian MA ----
 library(brms)
@@ -123,5 +110,77 @@ priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
             prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
 
 # less informative priors: 
-priors_wider <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
-            prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
+priors_wide <- c(prior(normal(0, 6), class = Intercept), # overall effect size µ
+            prior(normal(0, 6), class = sd, lb = 0)) # between-study heterogeneity τ
+
+# more informative (optimistic) priors:
+priors_narrow <- c(prior(normal(-1, 1), class = Intercept), # overall effect size µ
+            prior(normal(0, 1), class = sd, lb = 0)) # between-study heterogeneity τ
+
+# store priors in list
+priors_list <- list(
+  main = priors,
+  wide = priors_wide,
+  narrow = priors_narrow
+)
+
+# loop
+for (prior_set in names(priors_list)) {
+  priors = priors_list[[prior_set]]
+  
+  m.brm <- brm(
+    beta_ln|se(se_beta_ln) ~ 1 + (1|author_year),
+    data = data_full,
+    prior = priors,
+    save_pars = save_pars(all = TRUE),
+    chains = 4,
+    iter = 4000)
+  
+  # Sample from prior only
+  fitPrior <- brm(
+    beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
+    data = data_full, 
+    prior = priors,
+    sample_prior = "only",
+    chains = 4,
+    iter = 4000)
+  
+  # store models in list (env)
+  m.brm_models$main[[prior_set]] <- m.brm
+  m.brm_models$prior[[prior_set]] <- fitPrior
+  
+  # save models for later use
+  saveRDS(m.brm, file = paste0("models/sensitivity/priors/m.brm_", prior_set, ".rds"))
+  saveRDS(fitPrior, file = paste0("models/sensitivity/priors/fitPrior_", prior_set, ".rds"))
+  saveRDS(m.brm_models, file = "models/sensitivity/priors/m.brm_models_list.rds") # save whole list
+}
+
+
+# 2.1 Checking Results ----
+results_priors <- list(
+  m.brm_main = m.brm_main,
+  m.brm_wide = m.brm_wide,
+  m.brm_narrow = m.brm_narrow,
+  fitPrior_main = fitPrior_main,
+  fitPrior_wide = fitPrior_wide,
+  fitPrior_narrow = fitPrior_narrow
+)
+
+for (result_name in names(results_priors)) {
+  result = results_priors[[result_name]]
+  
+  pp_check_priors <- pp_check(result, ndraws = 20) +
+    ggtitle(paste("PP Check:", result_name))
+  print(pp_check_priors)
+  
+  plot_chains <- plot(result, variable = c("b_Intercept", "sd_author_year__Intercept")) +
+    ggtitle(paste("MCMC Chains for ", result_name, "Model"))
+  print(plot_chains)
+  
+  # print model summaries
+  cat("\n======================================================================================\n")
+  cat("Sensitivity analysis with alternative priors. Model:", result_name, "\n")
+  cat("======================================================================================\n")
+  print(summary(result))
+  
+}

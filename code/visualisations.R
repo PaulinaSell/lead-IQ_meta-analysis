@@ -16,23 +16,27 @@ data <- read.csv("data/study_data_leadIQloss.csv")
 data_low_medium <- data[!data$author_year %in% c("Crump 2013", "Earl 2016"), ]
 data_low <- data[!data$author_year %in% c("Crump 2013", "Earl 2016", "Lucchini 2012", "Lucchini 2019"), ]
 
+# loading model results from RoB sensitivity analysis
+m.brm_full <- readRDS("models/sensitivity/RoB/m.brm_full.rds")
+m.brm_low_medium <- readRDS("models/sensitivity/RoB/m.brm_low_medium.rds")
+m.brm_low <- readRDS("models/sensitivity/RoB/m.brm_low.rds")
 
-read_model <- function(model_name) {
-  model = readRDS(paste0("models/", model_name, ".rds"))
-  return(model)
-}
+fitPrior_full <- readRDS("models/sensitivity/RoB/fitPrior_full.rds")
+fitPrior_low_medium <- readRDS("models/sensitivity/RoB/fitPrior_low_medium.rds")
+fitPrior_low <- readRDS("models/sensitivity/RoB/fitPrior_low.rds")
 
-m.brm_full <- read_model("m.brm_full")
-m.brm_low_medium <- read_model("m.brm_low_medium")
-m.brm_low <- read_model("m.brm_low")
+freq_full <- readRDS("models/sensitivity/RoB/freq_full.rds")
+freq_low_medium <- readRDS("models/sensitivity/RoB/freq_low_medium.rds")
+freq_low <- readRDS("models/sensitivity/RoB/freq_low.rds")
 
-fitPrior_full <- read_model("fitPrior_full")
-fitPrior_low_medium <- read_model("fitPrior_low_medium")
-fitPrior_low <- read_model("fitPrior_low")
+# loading model results from priors sensitivity analysis
+m.brm_main <- readRDS("models/sensitivity/priors/m.brm_main.rds")
+m.brm_narrow <- readRDS("models/sensitivity/priors/m.brm_narrow.rds")
+m.brm_wide <- readRDS("models/sensitivity/priors/m.brm_wide.rds")
 
-freq_full <- read_model("freq_full")
-freq_low_medium <- read_model("freq_low_medium")
-freq_low <- read_model("freq_low")
+fitPrior_main <- readRDS("models/sensitivity/priors/fitPrior_main.rds")
+fitPrior_wide <- readRDS("models/sensitivity/priors/fitPrior_wide.rds")
+fitPrior_narrow <- readRDS("models/sensitivity/priors/fitPrior_narrow.rds")
 
 # create lists ----
 # simple list for Bayes MA
@@ -42,8 +46,8 @@ result_models <- list(
   low = m.brm_low
 )
 
-# list for "prior, data & posterior" plot
-result_configs <- list(
+# list for "prior, data & posterior" plot for RoB sensi anaylsis
+result_configs_RoB <- list(
   full = list(
     model = m.brm_full,
     prior = fitPrior_full,
@@ -58,6 +62,25 @@ result_configs <- list(
     model = m.brm_low,
     prior = fitPrior_low,
     data = data_low
+  )
+)
+
+# list for "prior, data & posterior" plot for Priors sensi anaylsis
+result_configs_Priors <- list(
+  main = list(
+    model = m.brm_main,
+    prior = fitPrior_main,
+    data = data
+  ),
+  wide = list(
+    model = m.brm_wide,
+    prior = fitPrior_wide,
+    data = data
+  ),
+  narrow = list(
+    model = m.brm_narrow,
+    prior = fitPrior_narrow,
+    data = data
   )
 )
 
@@ -172,8 +195,8 @@ for (model_name in names(result_models)) {
  
  # Prior, data & posterior in one plot: looped over all 3 sensitivity analyses----
 
- for (config_name in names(result_configs)) {
-   current_config <- result_configs[[config_name]]
+ for (config_name in names(result_configs_Priors)) {
+   current_config <- result_configs_Priors[[config_name]]
    model <- current_config$model
    prior <- current_config$prior
    data <- current_config$data
@@ -199,12 +222,14 @@ for (model_name in names(result_models)) {
    ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
    geom_density(alpha = 0.5, linewidth = 0.3) +
    labs(
-     # title = "Prior, Observed Effects, and Posterior of Beta",
+     title = paste0("Sensi. analysis: ", config_name, " Prior, Observed Effects, and Posterior of Beta"),
      x = "Beta", 
      y = "Density",
      fill = "Distribution") +
    scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f", "Observed Effects" = "#e76f51"),
                      name = "") +
+   xlim((-8), 5) +
+   ylim(0, 0.9) +
    theme(
      legend.position.inside = c(.95, .95),
      legend.justification = c("right", "top"),
@@ -228,12 +253,14 @@ for (model_name in names(result_models)) {
    ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
    geom_density(alpha = 0.5, linewidth = 0.3) +
    labs(
-     # title = "Prior, Observed Effects, and Posterior of Beta",
+     title = paste0("Sensi. analysis: ", config_name, " Prior, Observed Effects, and Posterior of Heterogeneity"),
      x = "Tau", 
      y = "Density",
      fill = "Distribution") +
    scale_fill_manual(values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f"),
                      name = "") +
+   xlim((-1), 8) +
+   ylim(0, 1.1) +
    theme(
      legend.position = c(.95, .95),
      legend.justification = c("right", "top"),
@@ -251,7 +278,7 @@ for (model_name in names(result_models)) {
  for(p_name in names(plot_list)) {
    
  ggsave(
-   filename = paste0("results/prior_obs-effects_posterior_", p_name, "-", config_name, ".png"),
+   filename = paste0("results/sensitivity/priors/prior_obs-effects_posterior_", p_name, "-", config_name, ".png"),
    plot = plot_list[[p_name]],
    width = 22,
    height = 15,
