@@ -17,8 +17,7 @@ data = read.csv("data/study_data_leadIQloss.csv")
 
 # Set priors ----
 priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
-             prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
-
+             prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ‚
 
 
 # main model (with weakly informative priors) and full dataset

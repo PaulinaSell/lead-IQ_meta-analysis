@@ -13,8 +13,8 @@ ggplot() +
   geom_line(colour = "orange")
 
 
-# Risk of Bias ----
-# 1 Bayesian MA ----
+# 1 Risk of Bias ----
+# 1.1 Bayesian MA ----
 library(brms)
 library(tidyverse)
 library(tidybayes)
@@ -86,7 +86,7 @@ for (data_subset in names(models_data)) {
   
 }
 
-# 2 Frequentist MA ----
+# 1.2 Frequentist MA ----
 
 library(metafor)
 
@@ -115,3 +115,13 @@ for (data_subset in names(models_data)) {
   saveRDS(rma_model, file = paste0("models/sensitivity/RoB/freq_", data_subset, ".rds"))
   
 }
+
+# 2 Priors (only for BMA)----
+
+# priors for main analysis:
+priors <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
+            prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ
+
+# less informative priors: 
+priors_wider <- c(prior(normal(-1, 2), class = Intercept), # overall effect size µ
+            prior(normal(0, 2), class = sd, lb = 0)) # between-study heterogeneity τ

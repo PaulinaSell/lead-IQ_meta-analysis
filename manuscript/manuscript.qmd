@@ -76,7 +76,7 @@ summary(m.brm)
 - [ ] (Risk of bias analysis method)
 - [ ] Description & rationale of harmonization of reported effect measures
 - [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
-- [ ] Method to assess robustness of synthesized results
+- [ ] Sensitivity analysis
 
 # Results
 - [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
@@ -84,6 +84,7 @@ summary(m.brm)
 - [ ] Flow diagram, description of (fulltext) screening results
 - [ ] RoB results for each included study
 - [ ] Forest plots
+- [ ] Sensitivity analysis results
 
 # Discussion
 - [ ] General interpretation of results in light of evidence in literature
