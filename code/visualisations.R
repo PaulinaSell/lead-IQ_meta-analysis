@@ -408,7 +408,7 @@ for (model_name in names(result_models)) {
    theme_minimal() 
  
  ggsave(
-   filename = paste0("results/Bayes_curve_", model_name, ".png"),
+   filename = paste0("results/meeting_06-01//Bayes_curve_", model_name, ".png"),
    plot = plot,
    width = 22,
    height = 15, 
@@ -444,7 +444,7 @@ for (model_name in names(result_models)) {
      theme_minimal() 
    
    ggsave(
-     filename = paste0("results/freq_curve_", freq_model_name, ".png"),
+     filename = paste0("results/meeting_06-01/freq_curve_", freq_model_name, ".png"),
      plot = plot,
      width = 22,
      height = 15, 
