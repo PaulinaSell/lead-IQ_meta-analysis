@@ -6,6 +6,8 @@ library(brms)
 library(bayesplot)
 library(ggridges)
 library(glue)
+library(metafor)
+
 
 # Visualizations for Bayesian Meta Analysis of Epidemiological Studies on Lead and IQ loss
 
@@ -102,10 +104,10 @@ ggplot() +
   theme_minimal() +
   labs(x = NULL, y = NULL)
 
-ggsave(filename = "manuscript/figures/prior_beta.png", 
-       width = 20, 
-       height = 10, 
-       units = "cm")
+# ggsave(filename = "manuscript/figures/prior_beta.png", 
+#        width = 20, 
+#        height = 10, 
+#        units = "cm")
 
 # tau
 a <- seq(0, 10, by = 0.1)
@@ -118,10 +120,10 @@ ggplot() +
   theme_minimal() +
   labs(x = NULL, y = NULL)
 
-ggsave(filename = "manuscript/figures/prior_tau.png", 
-       width = 20, 
-       height = 10, 
-       units = "cm")
+# ggsave(filename = "manuscript/figures/prior_tau.png", 
+#        width = 20, 
+#        height = 10, 
+#        units = "cm")
 
 # Traceplot incl. warmup (no loop) ----
  posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
@@ -156,6 +158,7 @@ for (model_name in names(result_models)) {
               color = "grey") +
    labs(x = expression(italic(b_Intercept)),
         y = element_blank()) +
+   xlim(-5, 1) +
    theme_minimal() +
    theme(panel.border = element_blank(), 
          panel.grid.major = element_blank(), 
@@ -174,18 +177,19 @@ for (model_name in names(result_models)) {
               color = "grey") +
    labs(x = expression(sd_author_year__Intercept),
         y = element_blank()) +
+   xlim(-1, 5) +
    theme_minimal() +
    theme(panel.border = element_blank(), 
          panel.grid.major = element_blank(), 
          panel.grid.minor = element_blank()) 
  
- ggsave(filename = paste0("results/posterior_b_", model_name, ".png"), 
+ ggsave(filename = paste0("results/sensitivity/RoB/posterior_b_", model_name, ".png"), 
         plot = beta, 
         width = 30, 
         height = 10, 
         units = "cm")
  
- ggsave(filename = paste0("results/posterior_tau_", model_name, ".png"), 
+ ggsave(filename = paste0("results/sensitivity/RoB/posterior_tau_", model_name, ".png"), 
         plot = tau, 
         width = 30, 
         height = 10, 
@@ -291,7 +295,7 @@ for (model_name in names(result_models)) {
    model <- freq_result_models[[freq_model_name]]
    
    # plot & save forests
-   png(paste0("results/freq_forestplot_", freq_model_name, ".png"), 
+   png(paste0("results/sensitivity/RoB/freq_forestplot_", freq_model_name, ".png"), 
        width = 20, height = 15, units = "cm", res = 300)
    
    forest(model, 
@@ -368,7 +372,7 @@ for (model_name in names(result_models)) {
    theme(panel.border = element_blank())
  
  ggsave(
-   filename = paste0("results/forestplot_", model_name, ".png"),
+   filename = paste0("results//sensitivity/RoB/forestplot_", model_name, ".png"),
    plot = p,
    width = 25,
    height = 15, 
