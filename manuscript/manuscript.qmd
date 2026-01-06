@@ -43,8 +43,8 @@ format:
 #| include: false
 
 
-m.brm <- readRDS("../models/m.brm_full.rds")
-fitPrior <- readRDS("../models/fitPrior_full.rds")
+m.brm <- readRDS("../models/main/m.brm_full.rds")
+fitPrior <- readRDS("../models/main/fitPrior_full.rds")
 ```
 
 ```{r}
@@ -68,15 +68,22 @@ summary(m.brm)
 
 # Background
 - [ ] Short intro: Lead, health effects, burden of disease, exposure in Germany
-- [ ] Aim of this study
+- [ ] Aim of this study\
+
+The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (measured as IQ score). 
+We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
+
 
 # Methods
 - [ ] Overview: systematic review and meta analysis, comparing a frequentist to a Bayesian approach
 - [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
-- [ ] (Risk of bias analysis method)
+- [ ] Risk of bias analysis method
 - [ ] Description & rationale of harmonization of reported effect measures
 - [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
-- [ ] Sensitivity analysis
+- [ ] Sensitivity analysis \
+
+In order to quantitatively synthesize the available epidemiological literature on the association of childrens blood lead levels and their IQ, we conducted a systematic review and meta analysis.
+In order to compare the "classic" meta analysis approach to an alternative, we also conducted a Bayesian meta analysis, that has gained popularity in recent years but is still not widely used in the field of epidemiology.
 
 # Results
 - [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
