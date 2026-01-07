@@ -57,52 +57,59 @@ summary(m.brm)
 ```
 
 # Notes {.unnumbered}
-* Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
-* Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
-* Using [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
-* Test reference @cao2010DoesBackgroundPostnatal 
 
-
+-   Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
+-   Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
+-   Using [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
+-   Test reference @cao2010DoesBackgroundPostnatal
 
 # Abstract {.unnumbered}
 
 # Background
-- [ ] Short intro: Lead, health effects, burden of disease, exposure in Germany
-- [ ] Aim of this study\
 
-The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (measured as IQ score). 
-We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
+-   [ ] Short intro: Lead, health effects, burden of disease, exposure in Germany
+-   [x] Aim of this study\
 
+The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (measured as IQ score). We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
 
 # Methods
-- [ ] Overview: systematic review and meta analysis, comparing a frequentist to a Bayesian approach
-- [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
-- [ ] Risk of bias analysis method
-- [ ] Description & rationale of harmonization of reported effect measures
-- [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
-- [ ] Sensitivity analysis \
 
-In order to quantitatively synthesize the available epidemiological literature on the association of childrens blood lead levels and their IQ, we conducted a systematic review and meta analysis.
-In order to compare the "classic" meta analysis approach to an alternative, we also conducted a Bayesian meta analysis, that has gained popularity in recent years but is still not widely used in the field of epidemiology.
+-   [ ] Overview: systematic review and meta analysis, comparing a frequentist to a Bayesian approach
+-   [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
+-   [ ] Risk of bias analysis method
+-   [ ] Description & rationale of harmonization of reported effect measures
+-   [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
+-   [ ] Sensitivity analysis\
+
+In order to quantitatively synthesize the available epidemiological literature on the association of childrens blood lead levels and their IQ, we conducted a systematic review and meta analysis. We compare the "classic" meta analysis approach to a Bayesian meta analysis approach that has specific advantages and has gained popularity in recent years but is still not widely used in the field of epidemiology.\
+(Information on literature review)\
+We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. The overall risk of bias for each individual study is then categorized as either low, moderate or high. 
+Each publication was first assessed by one researcher and then consensus with a large language model (LLM) was sought. 
+This was done by uploading the publications and the list of all raRoB items.
+If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher.
 
 # Results
-- [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
-- [ ] Study characteristics (table), including original and harmonized effect measures
-- [ ] Flow diagram, description of (fulltext) screening results
-- [ ] RoB results for each included study
-- [ ] Forest plots
-- [ ] Sensitivity analysis results
+
+-   [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
+-   [ ] Study characteristics (table), including original and harmonized effect measures
+-   [ ] Flow diagram, description of (fulltext) screening results
+-   [ ] RoB results for each included study
+-   [ ] Forest plots
+-   [ ] Sensitivity analysis results
 
 # Discussion
-- [ ] General interpretation of results in light of evidence in literature
-- [ ] Discuss differences, similarities, strenghts and weaknesses of freq vs. Bayesian approach
-- [ ] Study limitations & strengths
+
+-   [ ] General interpretation of results in light of evidence in literature
+-   [ ] Discuss differences, similarities, strenghts and weaknesses of freq vs. Bayesian approach
+-   [ ] Study limitations & strengths
 
 # Conclusions
-- [ ] Conclusion, with reference to aim of study
-- [ ] Implications of results: policy, (scientific?) practice, future research needs
+
+-   [ ] Conclusion, with reference to aim of study
+-   [ ] Implications of results: policy, (scientific?) practice, future research needs
 
 # List of Abbreviations {.unnumbered}
+
 ```{r}
 #| label: table example
 #| echo: false
@@ -113,4 +120,3 @@ table_abbr <- data.frame(Abbreviation, Meaning)
 
 knitr::kable(table_abbr)
 ```
-
