@@ -13,14 +13,14 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2025-12-15"
+date-modified: "2026-01-08"
 bibliography: references.bib
-csl: vancouver.csl  # citation style
+csl: vancouver.csl
 reference-section-title: "References"
 format:
   html:
     toc: true
-    title-block-banner: true
+    title-block-banner: false
     number-sections: true
     self-contained: true
     embed-resources: true
@@ -61,7 +61,6 @@ summary(m.brm)
 -   Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
 -   Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
 -   Using [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
--   Test reference @cao2010DoesBackgroundPostnatal
 
 # Abstract {.unnumbered}
 
@@ -70,7 +69,22 @@ summary(m.brm)
 -   [ ] Short intro: Lead, health effects, burden of disease, exposure in Germany
 -   [x] Aim of this study\
 
-The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (measured as IQ score). We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
+Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
+Although concentrations have declined in the past decades following the phase-out of leaded gasoline, lead is still found in the environment @lacerda2023GlobalDecreaseBlood.
+The main exposure pathways in Europe are dietary products (food), drinking water and indoor dust @europeanfoodsafetyauthority2012LeadDietaryExposure @sy2024AssessmentLongTermExposure.
+Exposure to low concnetrations of lead has been linked to several adverse health outcomes including attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, antisocial behavior @shaffer2025LeadExposureAntisocial, infertility in women @chang2006LowBloodLead, decreased kidney function @harari2018BloodLeadLevels, liver disease @wan2022ChronicLeadExposure, coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary and all-cause, cardiovascular disease and ischaemic heart disease mortality @lanphear2018LowlevelLeadExposure.
+
+Children and adolescents remain a vulnerable group due to their developing nervous systems and relatively high exposure per body mass. 
+Even low levels of lead exposure have been linked to impaired intellectual development and the loss of IQ (intelligence quotient) points in children and no safe exposure level has been found @lanphear2005LowLevelEnvironmentalLead.
+
+lead is everywhere -> children are especially vulnerable, even low lvls lower IQ -> no safe exposure lvl identified -> burden of disease (GBD) study results, they still use effect measure based on single old study with questionable methods -> in order to quantify the burden of disease of lead, either for national or larger-scale burden of disease studies, pooling of evidence is needed. -> 
+The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (IQ score). 
+We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
+
+
+given this public health relevance, need for updated ERF for low BLL and IQ loss that can be used in e.g. EBD studies to quantify burden due to lead today. Pooling evidence  
+
+
 
 # Methods
 
@@ -81,11 +95,14 @@ The aim of this study is to summarize and quantitatively pool the available epid
 -   [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
 -   [ ] Sensitivity analysis\
 
-In order to quantitatively synthesize the available epidemiological literature on the association of childrens blood lead levels and their IQ, we conducted a systematic review and meta analysis. We compare the "classic" meta analysis approach to a Bayesian meta analysis approach that has specific advantages and has gained popularity in recent years but is still not widely used in the field of epidemiology.\
+In order to quantitatively synthesize the available epidemiological literature on the association of childrens blood lead levels and their IQ, we conducted a systematic review and meta analysis. 
+We compare a frequentist meta analysis approach to a Bayesian approach that has specific advantages and has gained popularity in recent years but is still not widely used in the field of epidemiology.\
 (Information on literature review)\
-We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. The overall risk of bias for each individual study is then categorized as either low, moderate or high. 
+We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
+Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. 
+The overall risk of bias for each individual study is then categorized as either low, moderate or high. 
 Each publication was first assessed by one researcher and then consensus with a large language model (LLM) was sought. 
-This was done by uploading the publications and the list of all raRoB items.
+This was done by uploading the publications and the list of all raRoB items. 
 If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher.
 
 # Results
@@ -109,6 +126,12 @@ If there were any deviations in the judgement of the researcher and the LLM, the
 -   [ ] Implications of results: policy, (scientific?) practice, future research needs
 
 # List of Abbreviations {.unnumbered}
+
+# Funding {.unnumbered}
+
+This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. 
+Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
+Neither the European Union nor the granting authority can be held responsible for them.
 
 ```{r}
 #| label: table example
