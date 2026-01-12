@@ -55,32 +55,37 @@ format:
 -   [x] Aim of this study\
 
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
-Although concentrations have declined in the past decades following the phase-out of leaded gasoline, lead is still found in the environment and human blood [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
-The main exposure pathways in Europe are dietary products, drinking water and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
-Exposure to low concentration of lead has been linked to several adverse health outcomes including 
+Although concentrations have declined in past decades following the phase-out of leaded gasoline, lead remains present in the environment and human blood [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
+The main exposure pathways in Europe are dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
+The Global Burden of Disease Study 2023 estimated that 3.4 Million	(95% Confidence Interval (CI): 2.7; 4.0 Million) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in 2023 in the European Union (EU) @brauer2024GlobalBurdenStrength.
+Among the various adverse health outcomes associated with low lead exposure — including
 infertility in women @chang2006LowBloodLead, 
-attention-deficit/hyperactivity disorder and impaired intellectual development in children [@dimitrov2024SystematicReviewMetaanalysis; @crump2013StatisticalReevaluationData] , 
+attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis , 
 antisocial behavior @shaffer2025LeadExposureAntisocial, 
 decreased kidney function @harari2018BloodLeadLevels, 
 liver disease @wan2022ChronicLeadExposure, 
 coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary and 
-all-cause, cardiovascular mortality @lanphear2018LowlevelLeadExposure.\
-The Global Burden of Disease Study 2023 estimated that 3.4 Million	(95% Confidence Interval (CI): 4.0; 2,7) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in 2023 in the European Union (EU) @brauer2024GlobalBurdenStrength.
+cardiovascular mortality @lanphear2018LowlevelLeadExposure,
+— impaired intellectual development in children represents a particularly critical endpoint for public health policy @crump2013StatisticalReevaluationData.
 
-Children remain a vulnerable group due to their developing nervous systems and relatively high exposure per body mass.
-No threshold concentration has been found for the detrimental effects of lead on intellectual development @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead.
+Children remain especially vulnerable to lead neurotoxicity due to their developing nervous systems and relatively high exposure per body mass.
+Importantly, there is no evidence for a threshold concentration below which lead's detrimental effects on intellectual development can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead.
+This underscores the continued importance of accurately characterizing the exposure-response relationship between lead exposure and impaired intellectual development, especially in lower concentrations ranges more prevalent today.
 
-Multiple studies [@brauer2024GlobalBurdenStrength; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] estimating the burden of disease due to IQ loss attributable to lead exposure on a national or global scale have used the same exposure-response function (ERF) based on a pooled analysis of cohort studies or a re-analysis of this study [@crump2013StatisticalReevaluationData; @lanphear2005LowLevelEnvironmentalLead].
-Even though these studies are important landmark studies shaping the course of research on health effects of low lead exposure in children, methodological issues and errors in the Lanphear et al. 2005 article have been discussed [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and methods central to the findings used by Crump et al. 2013, especially stepwise backward-elimination covariate selection approach based on p-values has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise]. 
+Current burden of disease assessments on lead-related IQ loss at national and global scales [@brauer2024GlobalBurdenStrength; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] have predominantly relied on exposure-response functions (ERFs) derived from two studies: the pooled analysis by Lanphear et al. (2005) or its subsequent re-analysis by Crump et al. (2013) [@crump2013StatisticalReevaluationData; @lanphear2005LowLevelEnvironmentalLead].
+While these are important landmark studies shaping the course of research on health effects of lead exposure in children, methodological issues and errors in the Lanphear et al. 2005 article have been raised [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and the stepwise backward-elimination covariate selection approach employed by Crump et al. (2013), which is central to their findings, has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise].
+These important limitations warrant reconsideration of their continued use as evidence base.
+Furthermore, since their publication, several new primary epidemiological studies examining the association between lead exposure and intellectual development have been published.
+Many of these more recent studies reflect lower exposure levels found in EU or other countries in the global north. (?)
+An updated synthesis incorporating the latest evidence would therefore better represent exposure contexts currently found in e.g. the EU and provide more relevant risk estimates.
 
-Since the publication of Lanphear et al. 2005 and Crump et al. 2013, more primary epidemiological studies on the association of lead exposure and intellectual development have been published.
-In order to 
+Beyond updating the evidence base, there is also a methodological opportunity to enhance the utility of meta-analytic findings for risk assessment applications. (?)
+While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis offers distinct advantages. (?)
+Specifically, the posterior distributions generated by Bayesian approaches can be directly incorporated into probabilistic environment burden of disease (EBD) studies. (?)
+As probabilistic methods become increasingly adopted in contemporary risk assessment and policy evaluation, having exposure-response estimates in a format that integrates seamlessly with these frameworks represents a practical advancement beyond purely methodological considerations. (?)
 
-+ more recent epi studies with lower BLL range reflect todays exposure in EU better 
-+ rationale for comparing FMA to BMA: posterior distribution can be directly used in probabilistic EBD studies, that become more popular now.  
-
-The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens exposure to lead (measured in blood) and their neurodevelopment (IQ score).
-We conduct a "classic" frequentist meta analysis approach widely used in epidemiology and compare it to a Bayesian approach.
+The aim of this study is to summarize and quantitatively pool the available epidemiological literature on childrens blood lead levels and neurodevelopment (IQ scores).
+We conduct both a frequentist meta-analysis—representing the established approach widely used in epidemiology—and compare it to a Bayesian meta-analysis, evaluating how methodological choices influence risk estimates and their applicability to probabilistic burden of disease assessment. (?)
 
 <!-- (lead is everywhere -> children are especially vulnerable, even low lvls lower IQ -> no safe exposure lvl identified -> burden of disease (GBD) study results, they still use effect measure based on single old study with questionable methods -> in order to quantify the burden of disease of lead, either for national or larger-scale burden of disease studies, pooling of evidence is needed. -> given this public health relevance, need for updated ERF for low BLL and IQ loss that can be used in e.g. EBD studies to quantify burden due to lead today.) -->
 
