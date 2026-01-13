@@ -13,31 +13,27 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-12"
+date-modified: "2026-01-13"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
 format:
-  html:
-    toc: true
-    title-block-banner: false
-    number-sections: true
-    self-contained: true
-    embed-resources: true
-    theme: cosmo
-    page-layout: full
-comments:
-  hypothesis: true
-  # docx:
-  #   reference-doc: ../manuscript/ref.docx
-  #   number-sections: true
+  # html:
   #   toc: true
-  #   toc-depth: 5
-    # fig-align: "center"
-    # fig-width: 6.5
-    # fig-height: 3.5
-    # fig-dpi: 600
-    # out-width: "40%"
+  #   title-block-banner: false
+  #   number-sections: true
+  #   self-contained: true
+  #   embed-resources: true
+  #   theme: cosmo
+  #   page-layout: full
+  docx:
+    reference-doc: ../manuscript/ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
 ---
 
 ```{css}
@@ -55,11 +51,13 @@ p {
 
 # Abstract {.unnumbered}
 
+\newpage
+
 # Background
 
 -   [x] Intro: Lead, health effects, burden of disease
 -   [x] Currently used ERFs
--   [ ] Rationale for methodological comparison (BMA - FMA)
+-   [x] Rationale for methodological comparison (BMA - FMA)
 -   [x] Aim of this study\
 
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
@@ -67,7 +65,7 @@ Although concentrations have declined in past decades following the phase-out of
 The main exposure pathways in Europe are dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
 The Global Burden of Disease Study 2023 estimated that 3.4 Million	(95% Confidence Interval (CI): 2.7; 4.0 Million) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in 2023 in the European Union (EU) @brauer2024GlobalBurdenStrength.
 
-Among the various adverse health outcomes associated with low lead exposure — including
+Among the various adverse health outcomes associated with low lead exposure, including
 infertility in women @chang2006LowBloodLead, 
 attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis , 
 antisocial behavior @shaffer2025LeadExposureAntisocial, 
@@ -85,7 +83,7 @@ Current burden of disease assessments on lead-related IQ loss at national and gl
 While these are important landmark studies shaping the course of research on health effects of lead exposure in children, methodological issues and errors in the Lanphear et al. 2005 article have been raised [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and the stepwise backward-elimination covariate selection approach employed by Crump et al. (2013), which is central to their findings, has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise].
 These limitations warrant reconsideration of their continued use as evidence base.
 
-Another motivation to conduct an updated meta analysis today, is that while Lanphear et al. investigated low BLL (<10 µg/dL) exposures in their study, BLL in the EU have decreased even further and now mostly lie below 5 µg/dL.
+Another motivation to conduct an updated meta analysis today, is that while Lanphear et al. investigated low BLL (<10 µg/dL) exposures in their study, BLL in the EU have decreased even further and now mostly lie below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)).
 In order to provide more relevant risk estimates, a synthesis of new epidemiological studies is needed.
 The pooled exposure-response relationship can then be applied to risk assessments and used by policymakers. \
 Beyond updating the evidence base, there is also a methodological opportunity to enhance the utility of meta-analytic findings.
