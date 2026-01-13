@@ -1,5 +1,5 @@
 ---
-title: "Lead Exposure and IQ Loss: Comparison of a Bayesian vs. Frequentist Meta Analysis Approach"
+title: "Lead Exposure and IQ Loss in Children: Bayesian vs. Frequentist Meta Analysis"
 author:
   - name: Paulina Sell
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
@@ -13,7 +13,7 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-08"
+date-modified: "2026-01-12"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
@@ -26,6 +26,8 @@ format:
     embed-resources: true
     theme: cosmo
     page-layout: full
+comments:
+  hypothesis: true
   # docx:
   #   reference-doc: ../manuscript/ref.docx
   #   number-sections: true
