@@ -62,37 +62,37 @@ p {
 
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
 Although concentrations have declined in past decades following the phase-out of leaded gasoline, lead remains present in the environment and human blood [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
-The main exposure pathways in Europe are dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
-The Global Burden of Disease Study 2023 estimated that 3.4 Million	(95% Confidence Interval (CI): 2.7; 4.0 Million) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in 2023 in the European Union (EU) @brauer2024GlobalBurdenStrength.
+In Europe, primary exposure pathways include dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
+The Global Burden of Disease Study 2023 estimated that 3.4 million	(95% Confidence Interval (CI): 2.7; 4.0 million) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in 2023 in the European Union (EU) @brauer2024GlobalBurdenStrength, underscoring the continued public health significance even of low-level exposure.
 
-Among the various adverse health outcomes associated with low lead exposure, including
-infertility in women @chang2006LowBloodLead, 
-attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, 
-antisocial behavior @shaffer2025LeadExposureAntisocial, 
+Lead exposure is associated with multiple adverse health outcomes across the lifespan, including
 decreased kidney function @harari2018BloodLeadLevels, 
 liver disease @wan2022ChronicLeadExposure, 
-coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary, and 
+coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary,
 cardiovascular mortality @lanphear2018LowlevelLeadExposure,
-impaired intellectual development in children represents a particularly critical endpoint for public health policy @crump2013StatisticalReevaluationData.
+infertility in women @chang2006LowBloodLead, 
+attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, and 
+antisocial behavior @shaffer2025LeadExposureAntisocial.
+Among these endpoints, impaired cognitive development in children — manifested as reduced IQ scores — @crump2013StatisticalReevaluationData represents a particularly critical endpoint for public health policy.
 Children are especially vulnerable to lead's neurotoxicity due to their developing nervous systems and relatively high exposure per body mass.
-The effects of lead on the IQ score (intelligence quotient) are lifelong and therefore lead to substantial societal costs @larsen2023GlobalHealthBurden.
+Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making accurate characterization of the exposure-response relationship essential for evidence-based policy.
 
-While past studies investigated blood lead levels (BLL) below 10 µg/dL, concentrations have decreased even further in the EU and now mostly lie below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)).
-Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ score can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead and the exposure-response relationship has been found to be non-linear with higher risk increase at lower concentrations (source).
-It is therefore important to further characterize this relationship and provide a synthesis of new epidemiological studies that can then be applied to risk assessments and used by policymakers.
+Contemporary blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)), well below the concentrations  examined in many earlier studies (<10 µg/dL).
+Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead, , and the exposure-response relationship appears non-linear, with steeper IQ decrements per unit increase in BLL at lower concentrations (source).
+These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating contemporary data to inform risk assessment at currently relevant exposure levels.
 
-<!-- Another reason to continue the efforts to accurately characterize the exposure-response relationship of lead exposure and IQ loss is substantive criticism concerning the existing evidence base. \ -->
-Current burden of disease assessments on lead-related IQ loss at national and global scales [@brauer2024GlobalBurdenStrength; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] predominantly rely on the results of two studies: a pooled analysis of seven cohort-studies by Lanphear et al. (2005) or its subsequent re-analysis by Crump et al. (2013) [@crump2013StatisticalReevaluationData; @lanphear2005LowLevelEnvironmentalLead].
-While these are important landmark studies shaping the course of research on health effects of lead exposure in children, methodological issues and errors in the Lanphear et al. 2005 article have been raised [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and the stepwise backward-elimination approach to regression model building employed by Crump et al. (2013), which is central to their findings, has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise].
-These limitations warrant reconsideration of their continued use as evidence base for policy-making, Burden of Disease studies and risk assessment.
+Existing burden of disease assessments at national and global scales [@brauer2024GlobalBurdenStrength; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] rely predominantly on two foundational studies: a pooled analysis of seven cohort-studies by Lanphear et al. (2005) or its subsequent re-analysis by Crump et al. (2013) [@crump2013StatisticalReevaluationData; @lanphear2005LowLevelEnvironmentalLead].
+While these landmark studies have substantially shaped research and policy on childhood lead exposure, methodological issues and errors in the Lanphear et al. 2005 article have been raised [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and the stepwise backward-elimination regression approach used by Crump et al. (2013), which is central to their findings, has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise].
+These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for updated evidence synthesis but also for methodologically robust analytical approaches that can provide reliable exposure-response estimates for burden of disease and risk assessments.
 
-Beyond updating the evidence base, there is also a methodological opportunity to enhance the utility of meta-analytic findings.
-While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis offers distinct advantages.
-Specifically, the posterior distributions generated by Bayesian approaches offer consistent and holistic (?) quantification of uncertainty that can be directly incorporated into probabilistic Burden of Disease studies, risk assessment and policy evaluation.
-As probabilistic methods become increasingly adopted, having exposure-response estimates in a format that integrates seamlessly with these frameworks represents a practical advancement beyond purely methodological considerations.
+Methodological advances in meta-analysis offer an opportunity to enhance the utility of synthesized estimates for risk assessment applications. 
+While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that naturally incorporate both within-study and between-study variability (?) [citation needed].
+Unlike frequentist confidence intervals, which are often misinterpreted in probabilistic terms, Bayesian credible intervals directly represent the probability distribution of the parameter of interest, facilitating transparent communication of uncertainty.
+Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease studies and risk assessments [citation needed], providing seamless integration with the probabilistic frameworks increasingly adopted in public health decision-making.
+By comparing frequentist and Bayesian approaches, we will explore how inferential framework and uncertainty quantification influence exposure-response estimates and their application.
 
-The aim of this study is to summarize and quantitatively pool the available epidemiological literature on children's blood lead levels and neurodevelopment (operationalized as IQ score).
-We conduct both a frequentist meta-analysis—representing the established approach widely used in epidemiology—and compare it to a Bayesian meta-analysis, evaluating how methodological choices influence risk estimates and their applicability to probabilistic burden of disease assessment.
+The aim of this study is twofold: first, to synthesize and quantitatively pool available epidemiological findings on the association between blood lead levels and IQ scores in children; and second, to conduct both a frequentist and Bayesian meta-analyses, comparing how these analytical frameworks influence exposure-response estimates, uncertainty characterization, and applicability to burden of disease and risk assessment.
+
 
 # Methods
 
