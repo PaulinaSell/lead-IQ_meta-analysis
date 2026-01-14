@@ -67,11 +67,11 @@ The Global Burden of Disease Study 2023 estimated that 3.4 Million	(95% Confiden
 
 Among the various adverse health outcomes associated with low lead exposure, including
 infertility in women @chang2006LowBloodLead, 
-attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis , 
+attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, 
 antisocial behavior @shaffer2025LeadExposureAntisocial, 
 decreased kidney function @harari2018BloodLeadLevels, 
 liver disease @wan2022ChronicLeadExposure, 
-coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary and 
+coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary, and 
 cardiovascular mortality @lanphear2018LowlevelLeadExposure,
 impaired intellectual development in children represents a particularly critical endpoint for public health policy @crump2013StatisticalReevaluationData.
 The effects of lead on the IQ score (intelligence quotient) are lifelong and therefore lead to substantial societal costs @larsen2023GlobalHealthBurden.
