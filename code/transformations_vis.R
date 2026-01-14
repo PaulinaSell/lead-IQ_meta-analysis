@@ -25,7 +25,7 @@ ggplot(plot_data, aes(x = blood_lead)) +
   ) +
   theme_minimal()
 
-# transformation is not valid! 
+# transformation is not valid!
 # trying to transform everything to ln(BLL)
 
 # visually check transormations
@@ -53,8 +53,7 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
     y = "IQ Loss (points)"
   ) +
   theme_minimal()
-# almost exactly the same! 
-
+# almost exactly the same!
 
 # case 2: from log2(BLL) to ln(BLL): Desrochers-Couture et al. 2018
 Desrochersbeta_log2 <- 0.014
@@ -83,7 +82,6 @@ ggplot(Desrochersplot_data, aes(x = blood_lead)) +
 
 # almost exactly the same!
 
-
 # case 3: from linear to ln(BLL): Iglesias et al. 2011, reference BLL 2.2 µg/dL
 Iglesiasbeta_linear <- -0.940
 Iglesiasbeta_ln <- -2.068
@@ -109,7 +107,7 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
   ) +
   theme_minimal()
 
-# looks not very good in higher concentrations, lets focus on lower concentrations! 
+# looks not very good in higher concentrations, lets focus on lower concentrations!
 blood_lead_low <- seq(0, 5, by = 0.1)
 
 IQ_loss_linear <- Iglesiasbeta_linear * blood_lead_low
