@@ -18,22 +18,22 @@ bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
 format:
-  # html:
-  #   toc: true
-  #   title-block-banner: false
-  #   number-sections: true
-  #   self-contained: true
-  #   embed-resources: true
-  #   theme: cosmo
-  #   page-layout: full
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    self-contained: true
+    embed-resources: true
+    theme: cosmo
+    page-layout: full
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
 ---
 
 ```{css}
