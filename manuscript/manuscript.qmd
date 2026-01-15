@@ -75,20 +75,21 @@ attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicRevi
 antisocial behavior @shaffer2025LeadExposureAntisocial.
 Among these endpoints, impaired cognitive development in children — manifested as reduced IQ scores — @crump2013StatisticalReevaluationData represents a particularly critical endpoint for public health policy.
 Children are especially vulnerable to lead's neurotoxicity due to their developing nervous systems and relatively high exposure per body mass.
-Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making accurate characterization of the exposure-response relationship essential for evidence-based policy.
+Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy.
 
-Contemporary blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)), well below the concentrations  examined in many earlier studies (<10 µg/dL).
-Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead, , and the exposure-response relationship appears non-linear, with steeper IQ decrements per unit increase in BLL at lower concentrations (source).
+Contemporary blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)), well below the concentrations examined in many earlier studies (<10 µg/dL).
+Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead
+There is evidence for a supralinear exposure-response relationship with steeper IQ decrements per unit increase in BLL at low concentrations compared to higher concentration ranges [@canfield2003IntellectualImpairmentChildren; @lanphear2005LowLevelEnvironmentalLead].
 These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating contemporary data to inform risk assessment at currently relevant exposure levels.
 
 Existing burden of disease assessments at national and global scales [@brauer2024GlobalBurdenStrength; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] rely predominantly on two foundational studies: a pooled analysis of seven cohort-studies by Lanphear et al. (2005) or its subsequent re-analysis by Crump et al. (2013) [@crump2013StatisticalReevaluationData; @lanphear2005LowLevelEnvironmentalLead].
 While these landmark studies have substantially shaped research and policy on childhood lead exposure, methodological issues and errors in the Lanphear et al. 2005 article have been raised [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData] and the stepwise backward-elimination regression approach used by Crump et al. (2013), which is central to their findings, has received substantial criticism [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise].
-These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for updated evidence synthesis but also for methodologically robust analytical approaches that can provide reliable exposure-response estimates for burden of disease and risk assessments.
+These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for updated evidence synthesis but also for (methodologically) robust  approaches that can provide reliable exposure-response estimates for burden of disease and risk assessments.
 
-Methodological advances in meta-analysis offer an opportunity to enhance the utility of synthesized estimates for risk assessment applications. 
-While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that naturally incorporate both within-study and between-study variability (?) [citation needed].
+Methodological advances in meta-analysis offer an opportunity to enhance the utility of synthesized estimates for burden of disease and risk assessment applications. 
+While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that inherently incorporate both within-study and between-study variability @grant2025BayesianMetaAnalysisPractical.
 Unlike frequentist confidence intervals, which are often misinterpreted in probabilistic terms, Bayesian credible intervals directly represent the probability distribution of the parameter of interest, facilitating transparent communication of uncertainty.
-Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease studies and risk assessments [citation needed], providing seamless integration with the probabilistic frameworks increasingly adopted in public health decision-making.
+Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease studies and risk assessments, providing seamless integration with the probabilistic frameworks increasingly adopted in public health decision-making.
 By comparing frequentist and Bayesian approaches, we will explore how inferential framework and uncertainty quantification influence exposure-response estimates and their application.
 
 The aim of this study is twofold: first, to synthesize and quantitatively pool available epidemiological findings on the association between blood lead levels and IQ scores in children; and second, to conduct both a frequentist and Bayesian meta-analyses, comparing how these analytical frameworks influence exposure-response estimates, uncertainty characterization, and applicability to burden of disease and risk assessment.
@@ -105,13 +106,13 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a systematic review and meta analysis. 
 We compare a frequentist meta analysis approach to a Bayesian approach that has specific advantages and has gained popularity in recent years but is still not widely used in the field of epidemiology.\
-(Information on literature review)\
+(Section on literature review)\
 We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
 Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. 
-The overall risk of bias for each individual study is then categorized as either low, moderate or high. 
+The overall risk of bias for each individual study was then categorized as either low, moderate or high. 
 Each publication was first assessed by one researcher and then consensus with a large language model (LLM) was sought. 
 This was done by uploading the publications and the list of all raRoB items. 
-If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher and they made the final decision on each item.
+If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher and they made the final decision on the respective item.
 
 # Results
 
@@ -138,9 +139,10 @@ If there were any deviations in the judgement of the researcher and the LLM, the
 ```{r}
 #| label: table example
 #| echo: false
+#| classes: plain
 
-Meaning <- c("Environmental Burden of Disease", "Years of Life Lost", "Years Lived with Disability", "Disability-adjusted Life Year")
-Abbreviation <- c("EBD", "YLL", "YLD", "DALY")
+Meaning <- c("Blood lead levels", "Confidence interval", "Environmental Burden of Disease", "European Union", "Intelligence quotient", "Years of Life Lost", "Years Lived with Disability", "Disability-adjusted Life Year")
+Abbreviation <- c("BLL", "CI", "EBD", "EU", "IQ", "YLL", "YLD", "DALY")
 table_abbr <- data.frame(Abbreviation, Meaning)
 
 knitr::kable(table_abbr)
