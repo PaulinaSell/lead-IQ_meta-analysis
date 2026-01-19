@@ -102,7 +102,7 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 -   [x] Overview: systematic review and meta-analysis, comparing a frequentist to a Bayesian approach
 -   [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
 -   [x] Risk of bias analysis method
--   [ ] Description & rationale of harmonization of reported effect measures
+-   [x] Description & rationale of harmonization of reported effect measures
 -   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
 -   [ ] Sensitivity analysis\
 
@@ -130,29 +130,10 @@ $$
 Where $y$ is the IQ score, $\alpha$ is the $y$-intercept, $\beta$ is the slope, and ${log_{b}}(X)$ is the log-transformed BLL($X$), with the basis $b$.
 
 Since the logarithmic base used in the literature sometiemes varies between $e$ (Euler's number), 2 and 10, all identified effect measures will be harmonized to log~e~(BLL).
-If reported effect estimates resulted from a linear regression model with untransformed BLLs, they were also transformed to log~e~(BLL).
-this approach was tested by visually comparing the exposure-response relationship for a linear BLL scale with the same effect estimate that has been transformed to a log~e~(BLL) scale.
-The transformed estimate was a good approximation of the original effect estimate in low concnetration ranges, which are often present in the studies.
-
-To do this, the following formulas were used: 
-$$
-\beta_{ln} = \beta_{linear} \times C_{ref}\
-$$
-$$
-\beta_{ln} = \frac{beta_{log_{2}}} {\ln(2)}\
-$$
-$$
-\beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
-$$
-Where:\
-$\beta_{ln}$ = harmonized beta coefficient (natural logarithm)\
-$\beta_{linear}$ = beta coefficient for linear BLL\
-$\beta_{log_2}$ = beta coefficient for log₂-transformed BLL\
-$\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
-$C_{ref}$ = reference concentration for linear transformation\
+When BLL untransformed -> excluded because not a good approximation 
+In order to harmonize all estimates and their 95% CI, the template proposed by Rodriguez Barranco et al. (2017) @rodriguez-barranco2017StandardizingEffectSizea was used (link to suppl).
 
 
-In order to quantitatively pool the effect estimates of multiple studies,  
 
 # Results
 

@@ -2428,7 +2428,7 @@ text-align: justify
 <li><label><input type="checkbox" checked>Overview: systematic review and meta-analysis, comparing a frequentist to a Bayesian approach</label></li>
 <li><label><input type="checkbox">Inclusion &amp; exclusion criteria, databases, search strategy, screening process</label></li>
 <li><label><input type="checkbox" checked>Risk of bias analysis method</label></li>
-<li><label><input type="checkbox">Description &amp; rationale of harmonization of reported effect measures</label></li>
+<li><label><input type="checkbox" checked>Description &amp; rationale of harmonization of reported effect measures</label></li>
 <li><label><input type="checkbox">Description of meta-analysis methodology (frequentist &amp; Bayesian), models and software used, heterogeneity identification</label></li>
 <li><label><input type="checkbox">Sensitivity analysis<br>
 </label></li>
@@ -2449,21 +2449,7 @@ text-align: justify
 <p>Within the literature on the health effects of lead exposure on the IQ, there have been different assumptions made on the shape of the association. Studies that tested different shapes of the exposure-response function found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption (reference). The general type of regression model used for a log-linear association is: <span class="math display">\[
 y = \alpha + \beta * {log_{b}}(X) + \varepsilon
 \]</span> Where <span class="math inline">\(y\)</span> is the IQ score, <span class="math inline">\(\alpha\)</span> is the <span class="math inline">\(y\)</span>-intercept, <span class="math inline">\(\beta\)</span> is the slope, and <span class="math inline">\({log_{b}}(X)\)</span> is the log-transformed BLL(<span class="math inline">\(X\)</span>), with the basis <span class="math inline">\(b\)</span>.</p>
-<p>Since the logarithmic base used in the literature sometiemes varies between <span class="math inline">\(e\)</span> (Euler’s number), 2 and 10, all identified effect measures will be harmonized to log<sub>e</sub>(BLL). If reported effect estimates resulted from a linear regression model with untransformed BLLs, they were also transformed to log<sub>e</sub>(BLL). this approach was tested by visually comparing the exposure-response relationship for a linear BLL scale with the same effect estimate that has been transformed to a log<sub>e</sub>(BLL) scale. The transformed estimate was a good approximation of the original effect estimate in low concnetration ranges, which are often present in the studies.</p>
-<p>To do this, the following formulas were used: <span class="math display">\[
-\beta_{ln} = \beta_{linear} \times C_{ref}\
-\]</span> <span class="math display">\[
-\beta_{ln} = \frac{beta_{log_{2}}} {\ln(2)}\
-\]</span> <span class="math display">\[
-\beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
-\]</span> Where:<br>
-<span class="math inline">\(\beta_{ln}\)</span> = harmonized beta coefficient (natural logarithm)<br>
-<span class="math inline">\(\beta_{linear}\)</span> = beta coefficient for linear BLL<br>
-<span class="math inline">\(\beta_{log_2}\)</span> = beta coefficient for log₂-transformed BLL<br>
-<span class="math inline">\(\beta_{log_{10}}\)</span> = beta coefficient for log₁₀-transformed BLL<br>
-<span class="math inline">\(C_{ref}\)</span> = reference concentration for linear transformation<br>
-</p>
-<p>In order to quantitatively pool the effect estimates of multiple studies,</p>
+<p>Since the logarithmic base used in the literature sometiemes varies between <span class="math inline">\(e\)</span> (Euler’s number), 2 and 10, all identified effect measures will be harmonized to log<sub>e</sub>(BLL). When BLL untransformed -&gt; excluded because not a good approximation In order to harmonize all estimates and their 95% CI, the template proposed by Rodriguez Barranco et al. (2017) <span class="citation" data-cites="rodriguez-barranco2017StandardizingEffectSizea">(<a href="#ref-rodriguez-barranco2017StandardizingEffectSizea" role="doc-biblioref">27</a>)</span> was used (link to suppl).</p>
 </section>
 </section>
 <section id="results" class="level1" data-number="3">
@@ -2628,6 +2614,9 @@ y = \alpha + \beta * {log_{b}}(X) + \varepsilon
 </div>
 <div id="ref-plate2024DevelopmentToolRapid" class="csl-entry" role="listitem">
 <div class="csl-left-margin">26. </div><div class="csl-right-inline">Plate K, Knüppel S, Hornbacher A, Greiner M, Müller-Graf C. <a href="https://doi.org/10.2903/sp.efsa.2024.EN-8925">Development of a tool for rapid assessment of the evidence of human observational epidemiological studies with focus on risk of bias in the context of public health and risk assessment</a>. EFS3. 2024 Jul;21(7). </div>
+</div>
+<div id="ref-rodriguez-barranco2017StandardizingEffectSizea" class="csl-entry" role="listitem">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Rodríguez-Barranco M, Tobías A, Redondo D, Molina-Portillo E, Sánchez MJ. <a href="https://doi.org/10.1186/s12874-017-0322-8">Standardizing effect size from linear regression models with log-transformed variables for meta-analysis</a>. BMC Med Res Methodol. 2017 Dec;17(1):44. </div>
 </div>
 </div></section></div></main>
 <!-- /main column -->
