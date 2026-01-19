@@ -13,31 +13,33 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-13"
+date-modified: "2026-01-19"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
 format:
-  # html:
-  #   toc: true
-  #   title-block-banner: false
-  #   number-sections: true
-  #   self-contained: true
-  #   embed-resources: true
-  #   theme: cosmo
-  #   page-layout: full
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    self-contained: true
+    embed-resources: true
+    # theme: lumen
+    # theme: materia
+    theme: yeti
+    # theme: cosmo
+    page-layout: full
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
 ---
 
-```{css}
-#| echo: false
+```{css echo = FALSE}
 p {
   text-align: justify
 }
@@ -104,9 +106,13 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 -   [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
 -   [ ] Sensitivity analysis\
 
-In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a systematic review and meta analysis. 
-We compare a frequentist meta analysis approach to a Bayesian approach that has specific advantages and has gained popularity in recent years but is still not widely used in the field of epidemiology.\
+## Overview
+In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we first conducted a systematic review and then a meta analysis of the results, comparing a Bayesian to a frequentist approach.\
+
+## Literature Review
 (Section on literature review)\
+
+## Risk of Bias Assessment
 We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
 Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. 
 The overall risk of bias for each individual study was then categorized as either low, moderate or high. 
