@@ -1,5 +1,5 @@
 ---
-title: "Lead Exposure and IQ Loss in Children: a Bayesian and Frequentist Meta Analysis of Recent Epidemiological Studies"
+title: "Lead Exposure and IQ Loss in Children: a Bayesian and Frequentist Meta-Analysis of Recent Epidemiological Studies"
 author:
   - name: Paulina Sell
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
@@ -99,26 +99,60 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 
 # Methods
 
--   [ ] Overview: systematic review and meta analysis, comparing a frequentist to a Bayesian approach
+-   [x] Overview: systematic review and meta-analysis, comparing a frequentist to a Bayesian approach
 -   [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
--   [ ] Risk of bias analysis method
+-   [x] Risk of bias analysis method
 -   [ ] Description & rationale of harmonization of reported effect measures
--   [ ] Description of meta analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
+-   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
 -   [ ] Sensitivity analysis\
 
-## Overview
-In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we first conducted a systematic review and then a meta analysis of the results, comparing a Bayesian to a frequentist approach.\
+In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we first conducted a systematic review and then a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
 
 ## Literature Review
 (Section on literature review)\
 
 ## Risk of Bias Assessment
-We conducted a Risk of Bias assessment using a rapid Risk of Bias (raROB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
-Each included publications risk of bias was appraised by answering 15 items in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. 
-The overall risk of bias for each individual study was then categorized as either low, moderate or high. 
-Each publication was first assessed by one researcher and then consensus with a large language model (LLM) was sought. 
-This was done by uploading the publications and the list of all raRoB items. 
+To assess study quality, we conducted a Risk of Bias assessment using a rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
+Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
+In total, 15 items were evaluated for each study.
+The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see @plate2024DevelopmentToolRapid).
+Each publication was first assessed by one researcher and afterwards, consensus with a large language model (LLM) was sought. 
+This was done by uploading the list of all raRoB items along with the respective publication and a prompt to the LLM. 
 If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher and they made the final decision on the respective item.
+
+## Harmonization of Effect Estimates
+Within the literature on the health effects of lead exposure on the IQ, there have been different assumptions made on the shape of the association.
+Studies that tested different shapes of the exposure-response function   found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption (reference).
+The general type of regression model used for a log-linear association is:
+$$
+y = \alpha + \beta * {log_{b}}(X) + \varepsilon
+$$
+Where $y$ is the IQ score, $\alpha$ is the $y$-intercept, $\beta$ is the slope, and ${log_{b}}(X)$ is the log-transformed BLL($X$), with the basis $b$.
+
+Since the logarithmic base used in the literature sometiemes varies between $e$ (Euler's number), 2 and 10, all identified effect measures will be harmonized to log~e~(BLL).
+If reported effect estimates resulted from a linear regression model with untransformed BLLs, they were also transformed to log~e~(BLL).
+this approach was tested by visually comparing the exposure-response relationship for a linear BLL scale with the same effect estimate that has been transformed to a log~e~(BLL) scale.
+The transformed estimate was a good approximation of the original effect estimate in low concnetration ranges, which are often present in the studies.
+
+To do this, the following formulas were used: 
+$$
+\beta_{ln} = \beta_{linear} \times C_{ref}\
+$$
+$$
+\beta_{ln} = \frac{beta_{log_{2}}} {\ln(2)}\
+$$
+$$
+\beta_{ln} = \frac{beta_{log_{10}}} {\ln(10)}\
+$$
+Where:\
+$\beta_{ln}$ = harmonized beta coefficient (natural logarithm)\
+$\beta_{linear}$ = beta coefficient for linear BLL\
+$\beta_{log_2}$ = beta coefficient for log₂-transformed BLL\
+$\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
+$C_{ref}$ = reference concentration for linear transformation\
+
+
+In order to quantitatively pool the effect estimates of multiple studies,  
 
 # Results
 
@@ -143,7 +177,7 @@ If there were any deviations in the judgement of the researcher and the LLM, the
 # List of Abbreviations {.unnumbered}
 
 ```{r}
-#| label: table example
+#| label: table_abbreviations
 #| echo: false
 #| classes: plain
 
@@ -152,18 +186,18 @@ Meaning <- c(
   "Confidence interval", 
   "Environmental Burden of Disease", 
   "European Union", 
-  "Intelligence quotient", 
-  "Years of Life Lost", 
-  "Years Lived with Disability", 
+  "Intelligence quotient",
+  "Large language model",
+  "Risk of Bias",
   "Disability-adjusted Life Year")
 Abbreviation <- c(
   "BLL", 
   "CI", 
   "EBD", 
   "EU", 
-  "IQ", 
-  "YLL", 
-  "YLD", 
+  "IQ",
+  "LLM",
+  "RoB",
   "DALY")
 table_abbr <- data.frame(Abbreviation, Meaning)
 
