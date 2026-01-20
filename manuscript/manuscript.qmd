@@ -116,20 +116,23 @@ To assess study quality, we conducted a Risk of Bias assessment using a rapid Ri
 Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
 In total, 15 items were evaluated for each study.
 The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see @plate2024DevelopmentToolRapid).
-Each publication was first assessed by one researcher and afterwards, consensus with a large language model (LLM) was sought. 
-This was done by uploading the list of all raRoB items along with the respective publication and a prompt to the LLM. 
-If there were any deviations in the judgement of the researcher and the LLM, the corresponding item was revisited by the researcher and they made the final decision on the respective item.
+Each publication was first assessed by one researcher.
+Subsequently, consensus with a large language model (LLM) was sought. 
+This was done by uploading the list of all raRoB items along with the respective publication.
+Then, the LLm was promted to assess the study, using the raRoB items and possible answer categories. 
+If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.
 
 ## Harmonization of Effect Estimates
-Within the literature on the health effects of lead exposure on the IQ, there have been different assumptions made on the shape of the association.
-Studies that tested different shapes of the exposure-response function   found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption (reference).
+Within the literature on the health effects of lead exposure on the IQ, different assumptions were made on the shape of the association.
+Some assumed a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], but this shape has been suggested to be only valid in very low concentration ranges @crump2013StatisticalReevaluationData.
+Studies that tested different shapes of the exposure-response function found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
 The general type of regression model used for a log-linear association is:
 $$
 y = \alpha + \beta * {log_{b}}(X) + \varepsilon
 $$
-Where $y$ is the IQ score, $\alpha$ is the $y$-intercept, $\beta$ is the slope, and ${log_{b}}(X)$ is the log-transformed BLL($X$), with the basis $b$.
+Where $y$ is the IQ score, $\alpha$ is the $y$-intercept, $\beta$ is the slope, and ${log_{b}}(X)$ is the log-transformed $BLL(X)$, with the basis $b$.
 
-Since the logarithmic base used in the literature sometiemes varies between $e$ (Euler's number), 2 and 10, all identified effect measures will be harmonized to log~e~(BLL).
+Since the logarithmic base used in the literature sometimes varies between $e$ (Euler's number, approximately equal to 2.71828), 2 and 10, all identified effect measures will be harmonized to $log_{e}(BLL)$, also called natural logarithm (ln).
 When BLL untransformed -> excluded because not a good approximation 
 In order to harmonize all estimates and their 95% CI, the template proposed by Rodriguez Barranco et al. (2017) @rodriguez-barranco2017StandardizingEffectSizea was used (link to suppl).
 
