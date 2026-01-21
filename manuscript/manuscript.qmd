@@ -143,11 +143,42 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 ## Meta-Analysis Methodology
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
 In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison.
-We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage and Positron Version 2026.01.0-147 @PositTeam2025Positron for all computations.
-All of the computational code to produce this study, including the manuscript, is publicly available at GitHub: [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
+We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage and Positron version 2026.01.0-147 @PositTeam2025Positron for all computations.
+All of the computational code to produce this study, including the manuscript, is publicly available on GitHub: [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Frequentist Meta-Analysis
-For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@Viechtbauer2010metafor]. 
+For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@Viechtbauer2010metafor].
+We computed 
+
+### Bayesian Meta-Analysis
+Choice of priors
+
+### Sensitivity Analysis
+We conducted two sets of sensitivity analyses.
+To examine the sensitivity of the results to possibly biased study results, we ran both the frequentist and Bayesian models again, excluding (1) studies with a high RoB and (2) with a high or medium RoB.
+
+To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect ($μ$) and heterogeneity ($τ$).
+The first set of priors was more informative (more narrow) than the main priors, with $μ \sim \mathcal{N}(-1, 1)$ and $τ \sim \mathcal{N}^+(0, 1)$.
+The second set of priors was less informative (or broader) with $μ \sim \mathcal{N}(0, 6)$ and $τ \sim \mathcal{N}^+(0, 6)$. 
+Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
+
+(Alternatively, we could display the alternative priors as a list:)
+
+More informative priors (more narrow):
+$$
+\begin{aligned}
+μ \sim \mathcal{N}(-1, 1) \\
+τ \sim \mathcal{N}^+(0, 1)
+\end{aligned}
+$$
+
+Less informative priors (more broad):
+$$
+\begin{aligned}
+μ \sim \mathcal{N}(0, 6) \\
+τ \sim \mathcal{N}^+(0, 6)
+\end{aligned}
+$$
 
 # Results
 

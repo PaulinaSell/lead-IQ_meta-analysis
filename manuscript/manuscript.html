@@ -2317,6 +2317,8 @@ window.Quarto = {
   <li><a href="#meta-analysis-methodology" id="toc-meta-analysis-methodology" class="nav-link" data-scroll-target="#meta-analysis-methodology"><span class="header-section-number">2.5</span> Meta-Analysis Methodology</a>
   <ul class="collapse">
   <li><a href="#frequentist-meta-analysis" id="toc-frequentist-meta-analysis" class="nav-link" data-scroll-target="#frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</a></li>
+  <li><a href="#bayesian-meta-analysis" id="toc-bayesian-meta-analysis" class="nav-link" data-scroll-target="#bayesian-meta-analysis"><span class="header-section-number">2.5.2</span> Bayesian Meta-Analysis</a></li>
+  <li><a href="#sensitivity-analysis" id="toc-sensitivity-analysis" class="nav-link" data-scroll-target="#sensitivity-analysis"><span class="header-section-number">2.5.3</span> Sensitivity Analysis</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a></li>
@@ -2462,10 +2464,32 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 <section id="meta-analysis-methodology" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="meta-analysis-methodology"><span class="header-section-number">2.5</span> Meta-Analysis Methodology</h2>
 <p>In order to quantitatively synthesize the available epidemiological literature on the association of children’s blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.<br>
-In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison. We used R version 4.4.2 (2024-10-31) <span class="citation" data-cites="RCoreTeam2024RLanuage">(<a href="#ref-RCoreTeam2024RLanuage" role="doc-biblioref">32</a>)</span> and Positron Version 2026.01.0-147 <span class="citation" data-cites="PositTeam2025Positron">(<a href="#ref-PositTeam2025Positron" role="doc-biblioref">33</a>)</span> for all computations. All of the computational code to produce this study, including the manuscript, is publicly available at GitHub: <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">https://github.com/PaulinaSell/lead-IQ_meta-analysis</a>.</p>
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison. We used R version 4.4.2 (2024-10-31) <span class="citation" data-cites="RCoreTeam2024RLanuage">(<a href="#ref-RCoreTeam2024RLanuage" role="doc-biblioref">32</a>)</span> and Positron version 2026.01.0-147 <span class="citation" data-cites="PositTeam2025Positron">(<a href="#ref-PositTeam2025Positron" role="doc-biblioref">33</a>)</span> for all computations. All of the computational code to produce this study, including the manuscript, is publicly available on GitHub: <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">https://github.com/PaulinaSell/lead-IQ_meta-analysis</a>.</p>
 <section id="frequentist-meta-analysis" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</h3>
-<p>For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="Viechtbauer2010metafor">(<a href="#ref-Viechtbauer2010metafor" role="doc-biblioref">34</a>)</span>.</p>
+<p>For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="Viechtbauer2010metafor">(<a href="#ref-Viechtbauer2010metafor" role="doc-biblioref">34</a>)</span>. We computed</p>
+</section>
+<section id="bayesian-meta-analysis" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="bayesian-meta-analysis"><span class="header-section-number">2.5.2</span> Bayesian Meta-Analysis</h3>
+<p>Choice of priors</p>
+</section>
+<section id="sensitivity-analysis" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="sensitivity-analysis"><span class="header-section-number">2.5.3</span> Sensitivity Analysis</h3>
+<p>We conducted two sets of sensitivity analyses. To examine the sensitivity of the results to possibly biased study results, we ran both the frequentist and Bayesian models again, excluding (1) studies with a high RoB and (2) with a high or medium RoB.</p>
+<p>To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect (<span class="math inline">\(μ\)</span>) and heterogeneity (<span class="math inline">\(τ\)</span>). The first set of priors was more informative (more narrow) than the main priors, with <span class="math inline">\(μ \sim \mathcal{N}(-1, 1)\)</span> and <span class="math inline">\(τ \sim \mathcal{N}^+(0, 1)\)</span>. The second set of priors was less informative (or broader) with <span class="math inline">\(μ \sim \mathcal{N}(0, 6)\)</span> and <span class="math inline">\(τ \sim \mathcal{N}^+(0, 6)\)</span>. Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.</p>
+<p>(Alternatively, we could display the alternative priors as a list:)</p>
+<p>More informative priors (more narrow): <span class="math display">\[
+\begin{aligned}
+μ \sim \mathcal{N}(-1, 1) \\
+τ \sim \mathcal{N}^+(0, 1)
+\end{aligned}
+\]</span></p>
+<p>Less informative priors (more broad): <span class="math display">\[
+\begin{aligned}
+μ \sim \mathcal{N}(0, 6) \\
+τ \sim \mathcal{N}^+(0, 6)
+\end{aligned}
+\]</span></p>
 </section>
 </section>
 </section>

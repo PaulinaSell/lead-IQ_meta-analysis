@@ -10,7 +10,7 @@ data_full = read.csv("data/study_data_leadIQloss.csv")
 rma_model <- rma(
   yi = beta_ln,
   sei = se_beta_ln,
-  data = data,
+  data = data_full,
   method = "REML"
 ) # Restricted Maximum Likelihood
 
