@@ -2295,11 +2295,15 @@ window.Quarto = {
 };
 </script>
 
+<style type="text/css">/*-- scss:rules --*/
+#title-block-header.quarto-title-block.default .quarto-title-meta-author {
+  grid-template-columns: 0.3fr 0.7fr !important;
+}</style>
 </head>
 
 <body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
@@ -2330,7 +2334,7 @@ window.Quarto = {
   </ul>
 </nav>
 </div>
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -2338,7 +2342,7 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author column-page-left">
+<div class="quarto-title-meta-author">
   <div class="quarto-title-meta-heading">Authors</div>
   <div class="quarto-title-meta-heading">Affiliations</div>
   
@@ -2376,14 +2380,14 @@ window.Quarto = {
       </div>
   </div>
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
       
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 19, 2026</p>
+      <p class="date-modified">January 21, 2026</p>
     </div>
   </div>
     
@@ -2464,7 +2468,7 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 <section id="meta-analysis-methodology" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="meta-analysis-methodology"><span class="header-section-number">2.5</span> Meta-Analysis Methodology</h2>
 <p>In order to quantitatively synthesize the available epidemiological literature on the association of children’s blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.<br>
-In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison. We used R version 4.4.2 (2024-10-31) <span class="citation" data-cites="RCoreTeam2024RLanuage">(<a href="#ref-RCoreTeam2024RLanuage" role="doc-biblioref">32</a>)</span> and Positron version 2026.01.0-147 <span class="citation" data-cites="PositTeam2025Positron">(<a href="#ref-PositTeam2025Positron" role="doc-biblioref">33</a>)</span> for all computations. All of the computational code to produce this study, including the manuscript, is publicly available on GitHub: <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">https://github.com/PaulinaSell/lead-IQ_meta-analysis</a>.</p>
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison. We used R version 4.4.2 (2024-10-31) <span class="citation" data-cites="RCoreTeam2024RLanuage">(<a href="#ref-RCoreTeam2024RLanuage" role="doc-biblioref">32</a>)</span> and Positron version 2026.01.0-147 <span class="citation" data-cites="PositTeam2025Positron">(<a href="#ref-PositTeam2025Positron" role="doc-biblioref">33</a>)</span> for all computations. All of the computational code for this study is publicly available on <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">GitHub</a>.</p>
 <section id="frequentist-meta-analysis" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</h3>
 <p>For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="Viechtbauer2010metafor">(<a href="#ref-Viechtbauer2010metafor" role="doc-biblioref">34</a>)</span>. We computed</p>

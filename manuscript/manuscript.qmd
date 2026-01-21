@@ -13,7 +13,7 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-19"
+date-modified: "2026-01-21"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
@@ -22,13 +22,12 @@ format:
     toc: true
     title-block-banner: false
     number-sections: true
-    self-contained: true
     embed-resources: true
+    css: custom.scss
     # theme: lumen
     # theme: materia
     theme: yeti
     # theme: cosmo
-    page-layout: full
   # docx:
   #   reference-doc: ../manuscript/ref.docx
   #   number-sections: true
@@ -144,7 +143,7 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
 In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison.
 We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage and Positron version 2026.01.0-147 @PositTeam2025Positron for all computations.
-All of the computational code to produce this study, including the manuscript, is publicly available on GitHub: [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
+All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Frequentist Meta-Analysis
 For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@Viechtbauer2010metafor].
