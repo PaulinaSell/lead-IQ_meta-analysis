@@ -2311,8 +2311,13 @@ window.Quarto = {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">2</span> Methods</a>
   <ul class="collapse">
   <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review"><span class="header-section-number">2.1</span> Literature Review</a></li>
-  <li><a href="#risk-of-bias-assessment" id="toc-risk-of-bias-assessment" class="nav-link" data-scroll-target="#risk-of-bias-assessment"><span class="header-section-number">2.2</span> Risk of Bias Assessment</a></li>
-  <li><a href="#harmonization-of-effect-estimates" id="toc-harmonization-of-effect-estimates" class="nav-link" data-scroll-target="#harmonization-of-effect-estimates"><span class="header-section-number">2.3</span> Harmonization of Effect Estimates</a></li>
+  <li><a href="#data-extraction" id="toc-data-extraction" class="nav-link" data-scroll-target="#data-extraction"><span class="header-section-number">2.2</span> Data Extraction</a></li>
+  <li><a href="#risk-of-bias-assessment" id="toc-risk-of-bias-assessment" class="nav-link" data-scroll-target="#risk-of-bias-assessment"><span class="header-section-number">2.3</span> Risk of Bias Assessment</a></li>
+  <li><a href="#harmonization-of-effect-estimates" id="toc-harmonization-of-effect-estimates" class="nav-link" data-scroll-target="#harmonization-of-effect-estimates"><span class="header-section-number">2.4</span> Harmonization of Effect Estimates</a></li>
+  <li><a href="#meta-analysis-methodology" id="toc-meta-analysis-methodology" class="nav-link" data-scroll-target="#meta-analysis-methodology"><span class="header-section-number">2.5</span> Meta-Analysis Methodology</a>
+  <ul class="collapse">
+  <li><a href="#frequentist-meta-analysis" id="toc-frequentist-meta-analysis" class="nav-link" data-scroll-target="#frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
@@ -2433,23 +2438,35 @@ text-align: justify
 <li><label><input type="checkbox">Sensitivity analysis<br>
 </label></li>
 </ul>
-<p>In order to quantitatively synthesize the available epidemiological literature on the association of children’s blood lead levels and their IQ, we first conducted a systematic review and then a meta-analysis of the results, comparing a Bayesian to a frequentist approach.<br>
-</p>
 <section id="literature-review" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="literature-review"><span class="header-section-number">2.1</span> Literature Review</h2>
-<p>(Section on literature review)<br>
-</p>
+<p>This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines <span class="citation" data-cites="page2021PRISMA2020Statement">(<a href="#ref-page2021PRISMA2020Statement" role="doc-biblioref">26</a>)</span> and the checklist can be found in the supplementary documents. (Section on literature review)</p>
 </section>
-<section id="risk-of-bias-assessment" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="risk-of-bias-assessment"><span class="header-section-number">2.2</span> Risk of Bias Assessment</h2>
-<p>To assess study quality, we conducted a Risk of Bias assessment using a rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies <span class="citation" data-cites="plate2024DevelopmentToolRapid">(<a href="#ref-plate2024DevelopmentToolRapid" role="doc-biblioref">26</a>)</span>. Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. In total, 15 items were evaluated for each study. The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see <span class="citation" data-cites="plate2024DevelopmentToolRapid">(<a href="#ref-plate2024DevelopmentToolRapid" role="doc-biblioref">26</a>)</span>). Each publication was first assessed by one researcher. Subsequently, consensus with a large language model (LLM) was sought. This was done by uploading the list of all raRoB items along with the respective publication. Then, the LLm was promted to assess the study, using the raRoB items and possible answer categories. If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.</p>
+<section id="data-extraction" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="data-extraction"><span class="header-section-number">2.2</span> Data Extraction</h2>
+<p>For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.</p>
 </section>
-<section id="harmonization-of-effect-estimates" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="harmonization-of-effect-estimates"><span class="header-section-number">2.3</span> Harmonization of Effect Estimates</h2>
-<p>Within the literature on the health effects of lead exposure on the IQ, different assumptions were made on the shape of the association. Some assumed a linear relationship <span class="citation" data-cites="halabicky2023LowLevelLead chen2005IQBloodLead">(<a href="#ref-halabicky2023LowLevelLead" role="doc-biblioref">27</a>,<a href="#ref-chen2005IQBloodLead" role="doc-biblioref">28</a>)</span>, but this shape has been suggested to be only valid in very low concentration ranges <span class="citation" data-cites="crump2013StatisticalReevaluationData">(<a href="#ref-crump2013StatisticalReevaluationData" role="doc-biblioref">13</a>)</span>. Studies that tested different shapes of the exposure-response function found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption <span class="citation" data-cites="schnaas2006ReducedIntellectualDevelopment crump2013StatisticalReevaluationData">(<a href="#ref-crump2013StatisticalReevaluationData" role="doc-biblioref">13</a>,<a href="#ref-schnaas2006ReducedIntellectualDevelopment" role="doc-biblioref">29</a>)</span>. The general type of regression model used for a log-linear association is: <span class="math display">\[
-y = \alpha + \beta * {log_{b}}(X) + \varepsilon
-\]</span> Where <span class="math inline">\(y\)</span> is the IQ score, <span class="math inline">\(\alpha\)</span> is the <span class="math inline">\(y\)</span>-intercept, <span class="math inline">\(\beta\)</span> is the slope, and <span class="math inline">\({log_{b}}(X)\)</span> is the log-transformed <span class="math inline">\(BLL(X)\)</span>, with the basis <span class="math inline">\(b\)</span>.</p>
-<p>Since the logarithmic base used in the literature sometimes varies between <span class="math inline">\(e\)</span> (Euler’s number, approximately equal to 2.71828), 2 and 10, all identified effect measures will be harmonized to <span class="math inline">\(log_{e}(BLL)\)</span>, also called natural logarithm (ln). When BLL untransformed -&gt; excluded because not a good approximation In order to harmonize all estimates and their 95% CI, the template proposed by Rodriguez Barranco et al. (2017) <span class="citation" data-cites="rodriguez-barranco2017StandardizingEffectSizea">(<a href="#ref-rodriguez-barranco2017StandardizingEffectSizea" role="doc-biblioref">30</a>)</span> was used (link to suppl).</p>
+<section id="risk-of-bias-assessment" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="risk-of-bias-assessment"><span class="header-section-number">2.3</span> Risk of Bias Assessment</h2>
+<p>To assess study quality, we conducted a Risk of Bias assessment using a rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies <span class="citation" data-cites="plate2024DevelopmentToolRapid">(<a href="#ref-plate2024DevelopmentToolRapid" role="doc-biblioref">27</a>)</span>. Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting. In total, 15 items were evaluated for each study. The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see <span class="citation" data-cites="plate2024DevelopmentToolRapid">(<a href="#ref-plate2024DevelopmentToolRapid" role="doc-biblioref">27</a>)</span>). Each publication was first assessed by one researcher. Subsequently, consensus with a large language model (LLM) was sought. This was done by uploading the list of all raRoB items along with the respective publication. Then, the LLm was promted to assess the study, using the raRoB items and possible answer categories. If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.</p>
+</section>
+<section id="harmonization-of-effect-estimates" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="harmonization-of-effect-estimates"><span class="header-section-number">2.4</span> Harmonization of Effect Estimates</h2>
+<p>Studies investigating the association between lead exposure and childhood IQ have made different assumptions regarding the shape of the exposure-response relationship. While some studies assume a linear relationship <span class="citation" data-cites="halabicky2023LowLevelLead chen2005IQBloodLead">(<a href="#ref-halabicky2023LowLevelLead" role="doc-biblioref">28</a>,<a href="#ref-chen2005IQBloodLead" role="doc-biblioref">29</a>)</span>, this assumption may only be valid at very low concentration ranges <span class="citation" data-cites="crump2013StatisticalReevaluationData">(<a href="#ref-crump2013StatisticalReevaluationData" role="doc-biblioref">13</a>)</span>. Studies that tested multiple shapes of the exposure-response function have concluded that a log-linear relationship, where BLL are logarithmically transformed, provides a more appropriate model <span class="citation" data-cites="schnaas2006ReducedIntellectualDevelopment crump2013StatisticalReevaluationData">(<a href="#ref-crump2013StatisticalReevaluationData" role="doc-biblioref">13</a>,<a href="#ref-schnaas2006ReducedIntellectualDevelopment" role="doc-biblioref">30</a>)</span>.</p>
+<p>The general form of regression model used for a log-linear association is: <span class="math display">\[
+y = \alpha + \beta \cdot {log_{b}}(X) + \varepsilon
+\]</span> Where <span class="math inline">\(y\)</span> represents the IQ score, <span class="math inline">\(\alpha\)</span> is the intercept, <span class="math inline">\(\beta\)</span> is the regression coefficient (slope), <span class="math inline">\(X\)</span> denotes BLL, <span class="math inline">\(b\)</span> is the logarithmic base, and <span class="math inline">\(\varepsilon\)</span> is the error term.</p>
+<p>Studies have used different logarithmic bases: the natural logarithm (<span class="math inline">\(\log_e\)</span>​ where <span class="math inline">\(e \approx 2.71828\)</span>), base 2, and base 10. To enable pooling of the effect estimates, we harmonized all regression coefficients and their standart error (SE) to the natural logarithm scale (<span class="math inline">\(\log_e\)</span>) using the standardization framework proposed by Rodríguez-Barranco et al. (2017) <span class="citation" data-cites="rodriguez-barranco2017StandardizingEffectSizea">(<a href="#ref-rodriguez-barranco2017StandardizingEffectSizea" role="doc-biblioref">31</a>)</span>. The transformations are fully documented in suppl. file x<br>
+Studies that left BLL on the original (untransformed) linear scale were excluded from the meta-analysis, as transformation from linear to log-linear effect estimates could not be justified based on visual inspection (supplement: plots?).</p>
+</section>
+<section id="meta-analysis-methodology" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="meta-analysis-methodology"><span class="header-section-number">2.5</span> Meta-Analysis Methodology</h2>
+<p>In order to quantitatively synthesize the available epidemiological literature on the association of children’s blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.<br>
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison. We used R version 4.4.2 (2024-10-31) <span class="citation" data-cites="RCoreTeam2024RLanuage">(<a href="#ref-RCoreTeam2024RLanuage" role="doc-biblioref">32</a>)</span> and Positron Version 2026.01.0-147 <span class="citation" data-cites="PositTeam2025Positron">(<a href="#ref-PositTeam2025Positron" role="doc-biblioref">33</a>)</span> for all computations. All of the computational code to produce this study, including the manuscript, is publicly available at GitHub: <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">https://github.com/PaulinaSell/lead-IQ_meta-analysis</a>.</p>
+<section id="frequentist-meta-analysis" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</h3>
+<p>For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="Viechtbauer2010metafor">(<a href="#ref-Viechtbauer2010metafor" role="doc-biblioref">34</a>)</span>.</p>
+</section>
 </section>
 </section>
 <section id="results" class="level1" data-number="3">
@@ -2519,6 +2536,10 @@ y = \alpha + \beta * {log_{b}}(X) + \varepsilon
 <td style="text-align: left;">Risk of Bias</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">SE</td>
+<td style="text-align: left;">Standard error</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">DALY</td>
 <td style="text-align: left;">Disability-adjusted Life Year</td>
 </tr>
@@ -2612,20 +2633,32 @@ y = \alpha + \beta * {log_{b}}(X) + \varepsilon
 <div id="ref-grant2025BayesianMetaAnalysisPractical" class="csl-entry" role="listitem">
 <div class="csl-left-margin">25. </div><div class="csl-right-inline">Grant R, Di Tanna GL. <a href="https://doi.org/10.1201/9781003375821">Bayesian <span>Meta-Analysis</span>: <span>A Practical Introduction</span></a>. 1st ed. Boca Raton: <span>Chapman and Hall/CRC</span>; 2025. </div>
 </div>
+<div id="ref-page2021PRISMA2020Statement" class="csl-entry" role="listitem">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Page MJ, McKenzie JE, Bossuyt PM, Boutron I, Hoffmann TC, Mulrow CD, et al. <a href="https://doi.org/10.1136/bmj.n71">The <span>PRISMA</span> 2020 statement: An updated guideline for reporting systematic reviews</a>. BMJ. 2021 Mar;n71. </div>
+</div>
 <div id="ref-plate2024DevelopmentToolRapid" class="csl-entry" role="listitem">
-<div class="csl-left-margin">26. </div><div class="csl-right-inline">Plate K, Knüppel S, Hornbacher A, Greiner M, Müller-Graf C. <a href="https://doi.org/10.2903/sp.efsa.2024.EN-8925">Development of a tool for rapid assessment of the evidence of human observational epidemiological studies with focus on risk of bias in the context of public health and risk assessment</a>. EFS3. 2024 Jul;21(7). </div>
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Plate K, Knüppel S, Hornbacher A, Greiner M, Müller-Graf C. <a href="https://doi.org/10.2903/sp.efsa.2024.EN-8925">Development of a tool for rapid assessment of the evidence of human observational epidemiological studies with focus on risk of bias in the context of public health and risk assessment</a>. EFS3. 2024 Jul;21(7). </div>
 </div>
 <div id="ref-halabicky2023LowLevelLead" class="csl-entry" role="listitem">
-<div class="csl-left-margin">27. </div><div class="csl-right-inline">Halabicky OM, Pinto-Martin JA, Compton P, Liu J. <a href="https://doi.org/10.1038/s41370-022-00450-9">Low level lead exposure in early childhood and parental education on adolescent <span>IQ</span> and working memory: A cohort study</a>. Journal of Exposure Science &amp; Environmental Epidemiology. 2023;33(2):168–76. </div>
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Halabicky OM, Pinto-Martin JA, Compton P, Liu J. <a href="https://doi.org/10.1038/s41370-022-00450-9">Low level lead exposure in early childhood and parental education on adolescent <span>IQ</span> and working memory: A cohort study</a>. Journal of Exposure Science &amp; Environmental Epidemiology. 2023;33(2):168–76. </div>
 </div>
 <div id="ref-chen2005IQBloodLead" class="csl-entry" role="listitem">
-<div class="csl-left-margin">28. </div><div class="csl-right-inline">Chen A, Dietrich KN, Ware JH, Radcliffe J, Rogan WJ. <a href="https://doi.org/doi:10.1289/ehp.7625"><span>IQ</span> and <span>Blood Lead</span> from 2 to 7 <span>Years</span> of <span>Age</span>: <span>Are</span> the <span>Effects</span> in <span>Older Children</span> the <span>Residual</span> of <span>High Blood Lead Concentrations</span> in 2-<span>Year-Olds</span>?</a> Environmental Health Perspectives. 2005;113(5):597–601. </div>
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Chen A, Dietrich KN, Ware JH, Radcliffe J, Rogan WJ. <a href="https://doi.org/doi:10.1289/ehp.7625"><span>IQ</span> and <span>Blood Lead</span> from 2 to 7 <span>Years</span> of <span>Age</span>: <span>Are</span> the <span>Effects</span> in <span>Older Children</span> the <span>Residual</span> of <span>High Blood Lead Concentrations</span> in 2-<span>Year-Olds</span>?</a> Environmental Health Perspectives. 2005;113(5):597–601. </div>
 </div>
 <div id="ref-schnaas2006ReducedIntellectualDevelopment" class="csl-entry" role="listitem">
-<div class="csl-left-margin">29. </div><div class="csl-right-inline">Schnaas L, Rothenberg Stephen J, Flores MF, Martinez S, Hernandez C, Osorio E, et al. <a href="https://doi.org/10.1289/ehp.8552">Reduced <span>Intellectual Development</span> in <span>Children</span> with <span>Prenatal Lead Exposure</span></a>. Environmental Health Perspectives. 2006;114(5):791–7. </div>
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Schnaas L, Rothenberg Stephen J, Flores MF, Martinez S, Hernandez C, Osorio E, et al. <a href="https://doi.org/10.1289/ehp.8552">Reduced <span>Intellectual Development</span> in <span>Children</span> with <span>Prenatal Lead Exposure</span></a>. Environmental Health Perspectives. 2006;114(5):791–7. </div>
 </div>
 <div id="ref-rodriguez-barranco2017StandardizingEffectSizea" class="csl-entry" role="listitem">
-<div class="csl-left-margin">30. </div><div class="csl-right-inline">Rodríguez-Barranco M, Tobías A, Redondo D, Molina-Portillo E, Sánchez MJ. <a href="https://doi.org/10.1186/s12874-017-0322-8">Standardizing effect size from linear regression models with log-transformed variables for meta-analysis</a>. BMC Med Res Methodol. 2017 Dec;17(1):44. </div>
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Rodríguez-Barranco M, Tobías A, Redondo D, Molina-Portillo E, Sánchez MJ. <a href="https://doi.org/10.1186/s12874-017-0322-8">Standardizing effect size from linear regression models with log-transformed variables for meta-analysis</a>. BMC Med Res Methodol. 2017 Dec;17(1):44. </div>
+</div>
+<div id="ref-RCoreTeam2024RLanuage" class="csl-entry" role="listitem">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">R Core Team. R: A language and environment for statistical computing [Internet]. Vienna, Austria: R Foundation for Statistical Computing; 2024. Available from: <a href="https://www.R-project.org/">https://www.R-project.org/</a></div>
+</div>
+<div id="ref-PositTeam2025Positron" class="csl-entry" role="listitem">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Posit team. Positron: Integrated development environment for r and python [Internet]. Boston, MA: Posit Software, PBC; 2025. Available from: <a href="http://www.posit.co/">http://www.posit.co/</a></div>
+</div>
+<div id="ref-Viechtbauer2010metafor" class="csl-entry" role="listitem">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Viechtbauer W. <a href="https://doi.org/10.18637/jss.v036.i03">Conducting meta-analyses in <span>R</span> with the <span class="nocase">metafor</span> package</a>. Journal of Statistical Software. 2010;36(3):1–48. </div>
 </div>
 </div></section></div></main>
 <!-- /main column -->

@@ -106,10 +106,12 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 -   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
 -   [ ] Sensitivity analysis\
 
-In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we first conducted a systematic review and then a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
-
 ## Literature Review
-(Section on literature review)\
+This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement] and the checklist can be found in the supplementary documents.
+(Section on literature review)
+
+## Data Extraction
+For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.
 
 ## Risk of Bias Assessment
 To assess study quality, we conducted a Risk of Bias assessment using a rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
@@ -123,20 +125,29 @@ Then, the LLm was promted to assess the study, using the raRoB items and possibl
 If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.
 
 ## Harmonization of Effect Estimates
-Within the literature on the health effects of lead exposure on the IQ, different assumptions were made on the shape of the association.
-Some assumed a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], but this shape has been suggested to be only valid in very low concentration ranges @crump2013StatisticalReevaluationData.
-Studies that tested different shapes of the exposure-response function found that a log-linear relationship (where BLL are transformed to a logarithmic scale) is a valid assumption [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
-The general type of regression model used for a log-linear association is:
+Studies investigating the association between lead exposure and childhood IQ have made different assumptions regarding the shape of the exposure-response relationship. 
+While some studies assume a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], this assumption may only be valid at very low concentration ranges [@crump2013StatisticalReevaluationData].
+Studies that tested multiple shapes of the exposure-response function have concluded that a log-linear relationship, where BLL are logarithmically transformed, provides a more appropriate model [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
+
+The general form of regression model used for a log-linear association is:
 $$
-y = \alpha + \beta * {log_{b}}(X) + \varepsilon
+y = \alpha + \beta \cdot {log_{b}}(X) + \varepsilon
 $$
-Where $y$ is the IQ score, $\alpha$ is the $y$-intercept, $\beta$ is the slope, and ${log_{b}}(X)$ is the log-transformed $BLL(X)$, with the basis $b$.
+Where $y$ represents the IQ score, $\alpha$ is the intercept, $\beta$ is the regression coefficient (slope), $X$ denotes BLL, $b$ is the logarithmic base, and $\varepsilon$ is the error term.
 
-Since the logarithmic base used in the literature sometimes varies between $e$ (Euler's number, approximately equal to 2.71828), 2 and 10, all identified effect measures will be harmonized to $log_{e}(BLL)$, also called natural logarithm (ln).
-When BLL untransformed -> excluded because not a good approximation 
-In order to harmonize all estimates and their 95% CI, the template proposed by Rodriguez Barranco et al. (2017) @rodriguez-barranco2017StandardizingEffectSizea was used (link to suppl).
+Studies have used different logarithmic bases: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
+To enable pooling of the effect estimates, we harmonized all regression coefficients and their standart error (SE) to the natural logarithm scale ($\log_e$) using the standardization framework proposed by Rodríguez-Barranco et al. (2017) [@rodriguez-barranco2017StandardizingEffectSizea].
+The transformations are fully documented in suppl. file x \
+Studies that left BLL on the original (untransformed) linear scale were excluded from the meta-analysis, as transformation from linear to log-linear effect estimates could not be justified based on visual inspection (supplement: plots?).
 
+## Meta-Analysis Methodology
+In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison.
+We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage and Positron Version 2026.01.0-147 @PositTeam2025Positron for all computations.
+All of the computational code to produce this study, including the manuscript, is publicly available at GitHub: [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
+### Frequentist Meta-Analysis
+For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@Viechtbauer2010metafor]. 
 
 # Results
 
@@ -173,6 +184,7 @@ Meaning <- c(
   "Intelligence quotient",
   "Large language model",
   "Risk of Bias",
+  "Standard error",
   "Disability-adjusted Life Year")
 Abbreviation <- c(
   "BLL", 
@@ -182,6 +194,7 @@ Abbreviation <- c(
   "IQ",
   "LLM",
   "RoB",
+  "SE",
   "DALY")
 table_abbr <- data.frame(Abbreviation, Meaning)
 
