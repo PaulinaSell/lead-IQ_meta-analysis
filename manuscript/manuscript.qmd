@@ -5,15 +5,15 @@ author:
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0009-0007-7419-2956
   - name: Margaux Sanchez
-    affiliation: Agence nationale de sécurité sanitaire
+    affiliation: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
     orcid: 
   - name: Philippe Palmont
-    affiliation: Agence nationale de sécurité sanitaire
+    affiliation: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
     orcid: 
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-21"
+date-modified: "2026-01-22"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
@@ -24,6 +24,7 @@ format:
     number-sections: true
     embed-resources: true
     css: custom.scss
+    page-layout: full
     # theme: lumen
     # theme: materia
     theme: yeti
@@ -106,7 +107,8 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 -   [ ] Sensitivity analysis\
 
 ## Literature Review
-This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement] and the checklist can be found in the supplementary documents.
+This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement] and the checklist can be found in the supplementary files.
+The reporting of the Bayesian methods and their results is guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting]. \
 (Section on literature review)
 
 ## Data Extraction
@@ -141,13 +143,13 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 
 ## Meta-Analysis Methodology
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
-In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison.
-We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage and Positron version 2026.01.0-147 @PositTeam2025Positron for all computations.
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison betwen the results.
+We estimated pooled beta estimates for the absolute loss of IQ points per unit increase in $\log_e$-transformed blood lead concentration (µg/dL).
+We used R version 4.4.2 (2024-10-31) @RCoreTeam2024RLanuage in the Positron software version 2026.01.0-147 @PositTeam2025Positron for all computations.
 All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Frequentist Meta-Analysis
 For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@Viechtbauer2010metafor].
-We computed 
 
 ### Bayesian Meta-Analysis
 Choice of priors
@@ -161,22 +163,20 @@ The first set of priors was more informative (more narrow) than the main priors,
 The second set of priors was less informative (or broader) with $μ \sim \mathcal{N}(0, 6)$ and $τ \sim \mathcal{N}^+(0, 6)$. 
 Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
-(Alternatively, we could display the alternative priors as a list:)
-
 More informative priors (more narrow):
 $$
-\begin{aligned}
-μ \sim \mathcal{N}(-1, 1) \\
-τ \sim \mathcal{N}^+(0, 1)
-\end{aligned}
+\begin{align}
+μ &\sim \mathcal{N}(-1, 1) \\
+τ &\sim \mathcal{N}^+(0, 1)
+\end{align}
 $$
 
 Less informative priors (more broad):
 $$
-\begin{aligned}
-μ \sim \mathcal{N}(0, 6) \\
-τ \sim \mathcal{N}^+(0, 6)
-\end{aligned}
+\begin{align}
+μ &\sim \mathcal{N}(0, 6) \\
+τ &\sim \mathcal{N}^+(0, 6)
+\end{align}
 $$
 
 # Results
