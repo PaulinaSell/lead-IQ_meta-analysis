@@ -154,25 +154,25 @@ All of the computational code for this study is publicly available on [GitHub](h
 For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 
 ### Bayesian Meta-Analysis
-In order to pool the results of the included studies, we employed a Bayesian multilevel model.
-The first level is made up of individual participants who's data is contained in $\hat{\theta}_{k}$, the observed effect size.
-On the second level are the true effect sized of the different studies $k$ that are assumed to also follow their own distribution which are characterized by the modelled parameters ($\mu$ and $\tau^{2}$).
+To synthesize results across studies, we employed a Bayesian random-effects meta-analysis model with two hierarchical levels. 
+At the first level, the observed effect size from each study $\hat{\theta}_{k}$ is modeled as an estimate of that study's true underlying effect $\theta_{k}$, with deviation from the true effect determined by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
+At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study heterogeneity $\tau$.
 
 $$
 \begin{split}
-\hat{\theta}_{k} &\sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2}) \\
-\theta_{k} &\sim \mathcal{N}(\mu_{k}, \tau_{k}^{2}) \\
+\hat{\theta}_{k} &\sim \mathcal{N}(\theta_{k}, \sigma_{k}) \\
+\theta_{k} &\sim \mathcal{N}(\mu, \tau) \\
 \mu &\sim \mathcal{N}(-1, 2) \\
 \tau &\sim \mathcal{N}^+(0, 2)
 \end{split}
 $$ {#eq-model}
 
 Where:\
-$\hat{\theta}_{k}$ = Observed effect size of each study $k$\
-$\theta_{k}$ = True effect of study $k$\
-$\sigma_{k}^{2}$ = Variance of true effect\
-$\mu$ = Pooled effect\
-$\tau$ = Variance, representing between-study heterogeneity\
+$\hat{\theta}_{k}$ = Observed effect size for study $k$\
+$\sigma_{k}$ = Within-study sampling standard deviation for study $k$\
+$\theta_{k}$ = True underlying effect for study $k$\
+$\mu$ = Overall pooled effect\
+$\tau$ = Between-study standard deviation (heterogeneity)\
 
 ### Sensitivity Analysis
 We conducted two sets of sensitivity analyses.

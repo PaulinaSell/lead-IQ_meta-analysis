@@ -2476,21 +2476,21 @@ In both approaches, the same studies and effect estimates were included and anal
 </section>
 <section id="bayesian-meta-analysis" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="bayesian-meta-analysis"><span class="header-section-number">2.5.2</span> Bayesian Meta-Analysis</h3>
-<p>In order to pool the results of the included studies, we employed a Bayesian multilevel model. The first level is made up of individual participants who’s data is contained in <span class="math inline">\(\hat{\theta}_{k}\)</span>, the observed effect size. On the second level are the true effect sized of the different studies <span class="math inline">\(k\)</span> that are assumed to also follow their own distribution which are characterized by the modelled parameters (<span class="math inline">\(\mu\)</span> and <span class="math inline">\(\tau^{2}\)</span>).</p>
+<p>To synthesize results across studies, we employed a Bayesian random-effects meta-analysis model with two hierarchical levels. At the first level, the observed effect size from each study <span class="math inline">\(\hat{\theta}_{k}\)</span> is modeled as an estimate of that study’s true underlying effect <span class="math inline">\(\theta_{k}\)</span>, with deviation from the true effect determined by the within-study sampling error <span class="math inline">\(\sigma_{k}\)</span> ​(treated as known based on reported study statistics). At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect <span class="math inline">\(\mu\)</span> and between-study heterogeneity <span class="math inline">\(\tau\)</span>.</p>
 <p><span id="eq-model"><span class="math display">\[
 \begin{split}
-\hat{\theta}_{k} &amp;\sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2}) \\
-\theta_{k} &amp;\sim \mathcal{N}(\mu_{k}, \tau_{k}^{2}) \\
+\hat{\theta}_{k} &amp;\sim \mathcal{N}(\theta_{k}, \sigma_{k}) \\
+\theta_{k} &amp;\sim \mathcal{N}(\mu, \tau) \\
 \mu &amp;\sim \mathcal{N}(-1, 2) \\
 \tau &amp;\sim \mathcal{N}^+(0, 2)
 \end{split}
 \tag{2}\]</span></span></p>
 <p>Where:<br>
-<span class="math inline">\(\hat{\theta}_{k}\)</span> = Observed effect size of each study <span class="math inline">\(k\)</span><br>
-<span class="math inline">\(\theta_{k}\)</span> = True effect of study <span class="math inline">\(k\)</span><br>
-<span class="math inline">\(\sigma_{k}^{2}\)</span> = Variance of true effect<br>
-<span class="math inline">\(\mu\)</span> = Pooled effect<br>
-<span class="math inline">\(\tau\)</span> = Variance, representing between-study heterogeneity<br>
+<span class="math inline">\(\hat{\theta}_{k}\)</span> = Observed effect size for study <span class="math inline">\(k\)</span><br>
+<span class="math inline">\(\sigma_{k}\)</span> = Within-study sampling standard deviation for study <span class="math inline">\(k\)</span><br>
+<span class="math inline">\(\theta_{k}\)</span> = True underlying effect for study <span class="math inline">\(k\)</span><br>
+<span class="math inline">\(\mu\)</span> = Overall pooled effect<br>
+<span class="math inline">\(\tau\)</span> = Between-study standard deviation (heterogeneity)<br>
 </p>
 </section>
 <section id="sensitivity-analysis" class="level3" data-number="2.5.3">
