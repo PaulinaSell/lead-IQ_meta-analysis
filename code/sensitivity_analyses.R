@@ -128,13 +128,13 @@ priors <- c(
   prior(normal(0, 2), class = sd, lb = 0)
 ) # between-study heterogeneity τ
 
-# less informative priors:
+# less informative / wider priors:
 priors_wide <- c(
   prior(normal(0, 6), class = Intercept), # overall effect size µ
   prior(normal(0, 6), class = sd, lb = 0)
 ) # between-study heterogeneity τ
 
-# more informative (optimistic) priors:
+# more informative / more narrow priors:
 priors_narrow <- c(
   prior(normal(-1, 1), class = Intercept), # overall effect size µ
   prior(normal(0, 1), class = sd, lb = 0)

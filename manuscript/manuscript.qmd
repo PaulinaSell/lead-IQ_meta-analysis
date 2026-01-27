@@ -76,12 +76,12 @@ cardiovascular mortality @lanphear2018LowlevelLeadExposure,
 infertility in women @chang2006LowBloodLead, 
 attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, and 
 antisocial behavior @shaffer2025LeadExposureAntisocial.
-Among these endpoints, impaired cognitive development in children — manifested as reduced IQ scores — @crump2013StatisticalReevaluationData represents a particularly critical endpoint for public health policy.
+Among these endpoints, impaired cognitive development in children — manifested as reduced IQ scores — [@baghurst1992EnvironmentalExposureLead; @needleman1990LowLevelLeadExposure; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead] represents a particularly critical endpoint for public health policy.
 Children are especially vulnerable to lead's neurotoxic effects due to their developing nervous systems and relatively high exposure per body mass.
 Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy.
 
 Contemporary blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)), well below the concentrations examined in many earlier studies (<10 µg/dL).
-Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead
+Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead; @schwartz1994LowLevelLeadExposurea]
 There is evidence for a supralinear exposure-response relationship with steeper IQ decrements per unit increase in BLL at low concentrations compared to higher concentration ranges [@canfield2003IntellectualImpairmentChildren; @lanphear2005LowLevelEnvironmentalLead].
 These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating recent data to inform risk assessment at currently relevant exposure levels.
 
@@ -151,7 +151,7 @@ We used R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistica
 All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Frequentist Meta-Analysis
-For the frequentist Meta-Analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
+For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 
 ### Bayesian Meta-Analysis
 To synthesize results across studies, we employed a Bayesian random-effects meta-analysis model with two hierarchical levels. 
@@ -162,8 +162,6 @@ $$
 \begin{split}
 \hat{\theta}_{k} &\sim \mathcal{N}(\theta_{k}, \sigma_{k}) \\
 \theta_{k} &\sim \mathcal{N}(\mu, \tau) \\
-\mu &\sim \mathcal{N}(-1, 2) \\
-\tau &\sim \mathcal{N}^+(0, 2)
 \end{split}
 $$ {#eq-model}
 
@@ -173,6 +171,16 @@ $\sigma_{k}$ = Within-study sampling standard deviation for study $k$\
 $\theta_{k}$ = True underlying effect for study $k$\
 $\mu$ = Overall pooled effect\
 $\tau$ = Between-study standard deviation (heterogeneity)\
+
+## Priors
+* choice based on previous evidence, e.g. @needleman1990LowLevelLeadExposure
+
+$$
+\begin{split}
+\mu &\sim \mathcal{N}(-1, 2) \\
+\tau &\sim \mathcal{N}^+(0, 2)
+\end{split}
+$$
 
 ### Sensitivity Analysis
 We conducted two sets of sensitivity analyses.
