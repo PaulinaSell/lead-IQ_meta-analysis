@@ -1,7 +1,5 @@
 # Frequentist Random Effects Meta Analysis Lead - IQ loss in Children
 
-rm(list = ls(all = T))
-
 library(metafor)
 
 data_full = read.csv("data/study_data_leadIQloss.csv")
@@ -14,9 +12,7 @@ rma_model <- rma(
   method = "REML"
 ) # Restricted Maximum Likelihood
 
-
 saveRDS(rma_model, file = "models/main/freq_full.rds")
-
 
 # Funnel plot
 funnel(rma_model)
