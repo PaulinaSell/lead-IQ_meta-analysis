@@ -47,8 +47,8 @@ saveRDS(m.brm, "models/main/m.brm_full.rds")
 saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
 
 # read models
-# m.brm <- readRDS("models/main/m.brm_full.rds")
-# fitPrior <- readRDS("models/main/fitPrior_full.rds")
+m.brm <- readRDS("models/main/m.brm_full.rds")
+fitPrior <- readRDS("models/main/fitPrior_full.rds")
 
 # save draws from main models (not fitPrior) as .csv for EBD assessment (later)
 draws <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)

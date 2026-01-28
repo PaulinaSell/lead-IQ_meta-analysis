@@ -14,6 +14,8 @@ rma_model <- rma(
 
 saveRDS(rma_model, file = "models/main/freq_full.rds")
 
+rma_model <- readRDS("models/main/freq_full.rds")
+
 # Funnel plot
 funnel(rma_model)
 
