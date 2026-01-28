@@ -22,24 +22,24 @@ data_low <- data[
 ]
 
 # loading model results from RoB sensitivity analysis
-m.brm_full <- readRDS("models/sensitivity/RoB/m.brm_full.rds")
+m.brm_full <- readRDS("models/main/m.brm_full.rds")
 m.brm_low_medium <- readRDS("models/sensitivity/RoB/m.brm_low_medium.rds")
 m.brm_low <- readRDS("models/sensitivity/RoB/m.brm_low.rds")
 
-fitPrior_full <- readRDS("models/sensitivity/RoB/fitPrior_full.rds")
+fitPrior_full <- readRDS("models/main/fitPrior_full.rds")
 fitPrior_low_medium <- readRDS("models/sensitivity/RoB/fitPrior_low_medium.rds")
 fitPrior_low <- readRDS("models/sensitivity/RoB/fitPrior_low.rds")
 
-freq_full <- readRDS("models/sensitivity/RoB/freq_full.rds")
+freq_full <- readRDS("models/main/freq_full.rds")
 freq_low_medium <- readRDS("models/sensitivity/RoB/freq_low_medium.rds")
 freq_low <- readRDS("models/sensitivity/RoB/freq_low.rds")
 
 # loading model results from priors sensitivity analysis
-m.brm_main <- readRDS("models/sensitivity/priors/m.brm_main.rds")
+m.brm_main <- readRDS("models/main/m.brm_full.rds")
 m.brm_narrow <- readRDS("models/sensitivity/priors/m.brm_narrow.rds")
 m.brm_wide <- readRDS("models/sensitivity/priors/m.brm_wide.rds")
 
-fitPrior_main <- readRDS("models/sensitivity/priors/fitPrior_main.rds")
+fitPrior_main <- readRDS("models/main/fitPrior_full.rds")
 fitPrior_wide <- readRDS("models/sensitivity/priors/fitPrior_wide.rds")
 fitPrior_narrow <- readRDS("models/sensitivity/priors/fitPrior_narrow.rds")
 
@@ -269,8 +269,9 @@ for (config_name in names(result_configs_Priors)) {
     ) +
     xlim((-8), 5) +
     ylim(0, 0.9) +
+    theme_minimal() +
     theme(
-      legend.position.inside = c(.95, .95),
+      legend.position = c(.95, .95),
       legend.justification = c("right", "top"),
       panel.border = element_blank(),
       panel.grid.major = element_blank(),
@@ -313,6 +314,7 @@ for (config_name in names(result_configs_Priors)) {
     ) +
     xlim((-1), 8) +
     ylim(0, 1.1) +
+    theme_minimal() +
     theme(
       legend.position = c(.95, .95),
       legend.justification = c("right", "top"),
