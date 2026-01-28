@@ -46,6 +46,10 @@ fitPrior <- brm(
 saveRDS(m.brm, "models/main/m.brm_full.rds")
 saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
 
+# read models
+# m.brm <- readRDS("models/main/m.brm_full.rds")
+# fitPrior <- readRDS("models/main/fitPrior_full.rds")
+
 # save draws from main models (not fitPrior) as .csv for EBD assessment (later)
 draws <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 write.csv(
@@ -54,6 +58,12 @@ write.csv(
   row.names = F
 )
 
+# save draws in EBD folder for later use
+write.csv(
+  draws,
+  "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_beta_tau.csv",
+  row.names = F
+)
 
 # plot the MCMC chains & posterior distributions
 plot(m.brm_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
