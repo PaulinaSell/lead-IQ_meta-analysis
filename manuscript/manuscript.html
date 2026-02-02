@@ -2322,11 +2322,9 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#frequentist-meta-analysis" id="toc-frequentist-meta-analysis" class="nav-link" data-scroll-target="#frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</a></li>
   <li><a href="#bayesian-meta-analysis" id="toc-bayesian-meta-analysis" class="nav-link" data-scroll-target="#bayesian-meta-analysis"><span class="header-section-number">2.5.2</span> Bayesian Meta-Analysis</a></li>
+  <li><a href="#priors" id="toc-priors" class="nav-link" data-scroll-target="#priors"><span class="header-section-number">2.5.3</span> Priors</a></li>
   </ul></li>
-  <li><a href="#priors" id="toc-priors" class="nav-link" data-scroll-target="#priors"><span class="header-section-number">2.6</span> Priors</a>
-  <ul class="collapse">
-  <li><a href="#sensitivity-analysis" id="toc-sensitivity-analysis" class="nav-link" data-scroll-target="#sensitivity-analysis"><span class="header-section-number">2.6.1</span> Sensitivity Analysis</a></li>
-  </ul></li>
+  <li><a href="#sensitivity-analysis" id="toc-sensitivity-analysis" class="nav-link" data-scroll-target="#sensitivity-analysis"><span class="header-section-number">2.6</span> Sensitivity Analysis</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">3</span> Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
@@ -2450,7 +2448,11 @@ text-align: justify
 <section id="literature-review" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="literature-review"><span class="header-section-number">2.1</span> Literature Review</h2>
 <p>This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines <span class="citation" data-cites="page2021PRISMA2020Statement">(<a href="#ref-page2021PRISMA2020Statement" role="doc-biblioref">31</a>)</span>. The checklist can be found in the supplementary files. The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) <span class="citation" data-cites="kruschke2021BayesianAnalysisReporting">(<a href="#ref-kruschke2021BayesianAnalysisReporting" role="doc-biblioref">32</a>)</span>.<br>
-(Section on literature review)</p>
+</p>
+<p>We conducted a literature review to identify recent studies investigating associations between prenatal or postnatal exposure to Pb and IQ loss in children. Within the larger project that this study was conducted in, there was another study done on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes. Therefore, one joint literature review was conducted for both of these associations. Here, we will only report results for the literature on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material does contain parts of the serach for the other associations and exposure timeframes.<br>
+We searched for articles published between January 2005 and July 2023. We only considered references published after 2005, given the previously-used ERFs in the literature were published before 2005. (source!) Search queries in Pubmed and Scopus included the following terms: substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). We prioritized references naming substance (the word “substance”? - to be confirmed) in the title in order to decrease the volume of results.<br>
+All titles and abstracts were screened by two reviewers. Any conflicts were resolved by a third person. Full text was then assessed by one reviewer. Papers were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 and , pregnant women and women of childbearing age), Exposure (biological measures of Pb, MeHg or Hg from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ or similar indicator), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). We excluded reviews and background articles that inventoried the literature with no new results. We also excluded references written in languages other than English.<br>
+From the papers considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (2015). When mercury speciation was not clearly stated, we considered total mercury to be methylmercury (Berglund et al. 2005).</p>
 </section>
 <section id="data-extraction" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="data-extraction"><span class="header-section-number">2.2</span> Data Extraction</h2>
@@ -2476,7 +2478,8 @@ In both approaches, the same studies and effect estimates were included and anal
 R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024LanguageEnvironmentStatistical">(<a href="#ref-rcoreteam2024LanguageEnvironmentStatistical" role="doc-biblioref">38</a>)</span> and Positron version 2026.01.0-147 was used for all computations. All of the computational code for this study is publicly available on <a href="https://github.com/PaulinaSell/lead-IQ_meta-analysis">GitHub</a>.</p>
 <section id="frequentist-meta-analysis" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.1</span> Frequentist Meta-Analysis</h3>
-<p>For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="wolfgangviechtbauer2010ConductingMetaanalysesMetafor">(<a href="#ref-wolfgangviechtbauer2010ConductingMetaanalysesMetafor" role="doc-biblioref">39</a>)</span>.</p>
+<p>For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="wolfgangviechtbauer2010ConductingMetaanalysesMetafor">(<a href="#ref-wolfgangviechtbauer2010ConductingMetaanalysesMetafor" role="doc-biblioref">39</a>)</span>. Within studies, results from the most-adjusted models were chosen to enter the meta-analysis; unadjusted results were not considered.<br>
+The I² statistic was used as a quantitative indication of heterogeneity.</p>
 </section>
 <section id="bayesian-meta-analysis" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="bayesian-meta-analysis"><span class="header-section-number">2.5.2</span> Bayesian Meta-Analysis</h3>
@@ -2495,9 +2498,8 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 <span class="math inline">\(\tau\)</span> = Between-study standard deviation (heterogeneity)<br>
 </p>
 </section>
-</section>
-<section id="priors" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="priors"><span class="header-section-number">2.6</span> Priors</h2>
+<section id="priors" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="priors"><span class="header-section-number">2.5.3</span> Priors</h3>
 <ul>
 <li>Parameters to be estimated: mu and tau (mu later calles beta?)</li>
 <li>choice based on previous evidence, e.g. <span class="citation" data-cites="needleman1990LowLevelLeadExposure">(<a href="#ref-needleman1990LowLevelLeadExposure" role="doc-biblioref">14</a>)</span></li>
@@ -2509,8 +2511,10 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 \tau &amp;\sim \mathcal{N}^+(0, 2)
 \end{split}
 \]</span></p>
-<section id="sensitivity-analysis" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="sensitivity-analysis"><span class="header-section-number">2.6.1</span> Sensitivity Analysis</h3>
+</section>
+</section>
+<section id="sensitivity-analysis" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sensitivity-analysis"><span class="header-section-number">2.6</span> Sensitivity Analysis</h2>
 <p>We conducted two sets of sensitivity analyses. To examine the sensitivity of the results to possibly biased study results, we ran both the frequentist and Bayesian models again, excluding (1) studies with a high RoB and (2) with a high or medium RoB.</p>
 <p>To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect (<span class="math inline">\(μ\)</span>) and heterogeneity (<span class="math inline">\(τ\)</span>). The first set of priors was more informative (more narrow) than the main priors, with <span class="math inline">\(μ \sim \mathcal{N}(-1, 1)\)</span> and <span class="math inline">\(τ \sim \mathcal{N}^+(0, 1)\)</span>. The second set of priors was less informative (or broader) with <span class="math inline">\(μ \sim \mathcal{N}(0, 6)\)</span> and <span class="math inline">\(τ \sim \mathcal{N}^+(0, 6)\)</span>. Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.</p>
 <p>More informative priors (more narrow): <span id="eq-prior-sensitivity1"><span class="math display">\[
@@ -2525,7 +2529,6 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 \tau &amp;\sim \mathcal{N}^+(0, 6)
 \end{split}
 \tag{4}\]</span></span></p>
-</section>
 </section>
 </section>
 <section id="results" class="level1" data-number="3">
