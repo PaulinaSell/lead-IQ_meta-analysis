@@ -117,7 +117,7 @@ Within the larger project that this study was conducted in, there was another st
 Therefore, one joint literature review was conducted for both of these associations.
 Here, we will only report results for the literature on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material does contain parts of the serach for the other associations and exposure timeframes. \
 We searched for articles published between January 2005 and July 2023. 
-We only considered references published after 2005, given the previously-used ERFs in the literature were published before 2005. (source!) 
+We only considered studies published after 2005, given the previously-used ERFs in the literature were published before 2005. (source!) 
 Search queries in Pubmed and Scopus included the following terms: 
 substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). 
 We prioritized references naming substance (the word "substance"? - to be confirmed) in the title in order to decrease the volume of results. \
@@ -141,7 +141,7 @@ The overall RoB for each individual study was then categorized by one researcher
 Each publication was first assessed by one researcher.
 Subsequently, consensus with a large language model (LLM) was sought. 
 This was done by uploading the list of all raRoB items along with the respective publication.
-Then, the LLm was promted to assess the study, using the raRoB items and possible answer categories. 
+Then, the LLM was promted to assess the study, using the raRoB items and possible answer categories. 
 If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.
 
 ## Harmonization of Effect Estimates
@@ -156,7 +156,7 @@ $$ {#eq-regression-model}
 Where $y$ represents the IQ score, $\alpha$ is the intercept, $\beta$ is the regression coefficient (slope), $X$ denotes BLL, $b$ is the logarithmic base, and $\varepsilon$ is the error term.
 
 Studies have used different logarithmic bases: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
-To enable pooling of the effect estimates, we harmonized all regression coefficients and their standart error (SE) to the natural logarithm scale ($\log_e$) using the standardization framework proposed by Rodríguez-Barranco et al. (2017) [@rodriguez-barranco2017StandardizingEffectSizea].
+To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to the natural logarithm scale ($\log_e$) using the standardization framework proposed by Rodríguez-Barranco et al. (2017) [@rodriguez-barranco2017StandardizingEffectSizea].
 The transformations are fully documented in suppl. file x \
 Studies that left BLL on the original (untransformed) linear scale were excluded from the meta-analysis, as transformation from linear to log-linear effect estimates could not be justified based on visual inspection (supplement: plots?).
 
@@ -164,12 +164,12 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
 In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison betwen the results.
 We estimated pooled beta estimates for the absolute loss of IQ points per unit increase in $\log_e$-transformed blood lead concentration (µg/dL).\
-R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical and Positron version 2026.01.0-147 was used for all computations.
+Within studies, results from the most-adjusted models were chosen to enter the meta-analysis; unadjusted results were not considered. \
+R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical and Positron version 2026.01.0-147 were used for all computations.
 All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
-Within studies, results from the most-adjusted models were chosen to enter the meta-analysis; unadjusted results were not considered. \
 The I² statistic was used as a quantitative indication of heterogeneity. 
 
 ### Bayesian Meta-Analysis
