@@ -13,7 +13,7 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-01-22"
+date-modified: "2026-02-03"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
@@ -192,7 +192,7 @@ $\mu$ = Overall pooled effect\
 $\tau$ = Between-study standard deviation (heterogeneity)\
 
 ### Priors
-* Parameters to be estimated: mu and tau (mu later calles beta?)
+* Parameters to be estimated: mu and tau (mu later called beta?)
 * choice based on previous evidence, e.g. @needleman1990LowLevelLeadExposure
 * explain scale (log, µg/dL)
 

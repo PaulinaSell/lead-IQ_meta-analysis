@@ -26,15 +26,15 @@ format:
         css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
         page-layout: full
         theme: yeti
+        output-dir: "/Users/paulinasell/Documents/UBA/Konferenzen/2026/ISEE_2026/"
 ---
 
 ## Information for Authors:
 * Deadline: February 27, 2026 (23:59 CET)
 * The submitting author is required to ensure that all co-authors are aware of the content of the abstract before submission
-
 * Use acronyms only when necessary and define all non-standard abbreviations and concepts in your abstract at first use
-* Abstract titles can contain a maximum of 20 words (no abbreviations)
-* The abstract body should not exceed 300 words and should consist of the four sections: Objective, Material and Methods, Results, Conclusion.
+* Abstract titles can contain a maximum of *20 words* (no abbreviations)
+* The abstract body should not exceed *300 words* and should consist of the four sections: Objective, Material and Methods, Results, Conclusion.
 * Phrases such as “results will be discussed” or “data will be presented” should not be used.
 * Please mention all sources of funding for the work described and other acknowledgements briefly at the end of the abstract text.
 
@@ -45,7 +45,9 @@ The Scientific Organizing Committee reserves the right to change the topics duri
 * Topic: A-10: Chemical exposures / A-18: Methods ?
 * Keywords: Chemical exposures, Environmental epidemiology, Heavy metals, Lead, International collaboration, Modeling
 
-## Abstract
+## Abstct
+### Title
+Quantifying uncertainty: Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
 ### Objective
 In epidemiology, evidence synthesis is often done by meta-analysis, primarily using a frequentist approach. Bayesian meta-analysis provides a framework for uncertainty quantification that incorporates both within-study and between-study variability and providing posterior distributions of the parameter of interest, facilitating transparent communication of uncertainty. The aim of this study is to compare a frequentist to a Bayesian approach and investigate how these frameworks influence exposure-response estimates, uncertainty characterisation, and applicability to further use of the results. The use case is the association of blood lead levels and children’s neurodevelopment.
 
