@@ -13,7 +13,8 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-02-03"
+date-modified: last-modified
+date-format: "D MMMM YYYY"
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
@@ -136,7 +137,7 @@ For all studies, adjusted effect estimates were extracted and the set of confoun
 ## Risk of Bias Assessment
 To assess study quality, we conducted a Risk of Bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
 Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
-In total, 15 items were evaluated for each study.
+In total, 15 items were evaluated for each study.‚
 The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see @plate2024DevelopmentToolRapid).
 Each publication was first assessed by one researcher.
 Subsequently, consensus with a large language model (LLM) was sought. 

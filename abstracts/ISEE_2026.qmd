@@ -13,7 +13,8 @@ author:
   - name: Dietrich Plass
     affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
     orcid: 0000-0002-8058-1399
-date-modified: "2026-02-03"
+date-modified: last-modified
+date-format: "D MMMM YYYY"
 bibliography: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/references.bib
 csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/vancouver.csl
 reference-section-title: "References"
@@ -26,7 +27,6 @@ format:
         css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
         page-layout: full
         theme: yeti
-        output-dir: "/Users/paulinasell/Documents/UBA/Konferenzen/2026/ISEE_2026/"
 ---
 
 ## Information for Authors:
@@ -45,17 +45,60 @@ The Scientific Organizing Committee reserves the right to change the topics duri
 * Topic: A-10: Chemical exposures / A-18: Methods ?
 * Keywords: Chemical exposures, Environmental epidemiology, Heavy metals, Lead, International collaboration, Modeling
 
-## Abstct
+```{r}
+#| label: read_model
+#| echo: false
+
+m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
+freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+```
+
+```{r}‚
+#| label: extract_results
+#| echo: false
+#| message: false
+
+
+library(posterior)
+library(HDInterval)
+
+freq_mean <- round(as.numeric(freq_model$beta), 2)
+freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
+freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+
+m.brm_samples <- as_draws_df(m.brm)
+Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
+
+hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+Bayes_lb <- round(as.numeric(hdi[2]), 2)
+Bayes_ub <- round(as.numeric(hdi[3]), 2)
+
+Bayes_ub
+```
+
+## Abstract
 ### Title
-Quantifying uncertainty: Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
+Understanding uncertainty: Comparative Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
+
 ### Objective
-In epidemiology, evidence synthesis is often done by meta-analysis, primarily using a frequentist approach. Bayesian meta-analysis provides a framework for uncertainty quantification that incorporates both within-study and between-study variability and providing posterior distributions of the parameter of interest, facilitating transparent communication of uncertainty. The aim of this study is to compare a frequentist to a Bayesian approach and investigate how these frameworks influence exposure-response estimates, uncertainty characterisation, and applicability to further use of the results. The use case is the association of blood lead levels and children’s neurodevelopment.
+Evidence synthesis in epidemiology is often done by meta-analysis, primarily using a frequentist approach. 
+Bayesian meta-analysis provides a framework for uncertainty quantification that incorporates both within-study and between-study variability and provides posterior distributions of the parameter of interest, facilitating transparent communication of uncertainty. 
+The aim of this study is to compare a frequentist to a Bayesian approach and investigate how these frameworks influence exposure-response estimates, uncertainty characterization, and applicability to further use of the results. 
+The use case is the association of blood lead levels and children’s neurodevelopment.
 
 ### Material and Methods
-We conducted a systematic review searching Pubmed and Scopus for studies on the association of blood lead levels and children’s neurodevelopment (operationalised as IQ score). Risk of bias (RoB) was assessed using the rapid RoB tool by Plate et al. 2024. All regression coefficients were harmonised to the loge scale before pooling and the same estimates were included in both meta-analyses. For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation. For the Bayesian approach, we employed a hierarchical Bayesian random-effects model, with weakly-informative priors (main effect, mu: Normal(-1, 2), heterogeneity, tau: Normal+(0, 2)). We conducted sensitivity analyses to examine the sensitivity of the results to (1) possibly biased study results (RoB) and (2) the choice of priors. 
+We conducted a systematic review searching PubMed and Scopus for studies on the association of blood lead levels (BLL) and children’s neurodevelopment (operationalized as IQ score). 
+Risk of bias (RoB) was assessed using the rapid RoB tool [@plate2024DevelopmentToolRapid]. 
+All regression coefficients were harmonized to the $\log_e$​ scale before pooling.
+The same estimates were included in both meta-analyses.
+For the frequentist approach, we employed a random-effects model using the restricted maximum-likelihood estimation. 
+For the Bayesian meta-analysis, we employed a hierarchical Bayesian random-effects model, with weakly-informative priors (main effect, mu: Normal(-1, 2), heterogeneity, tau: Normal+(0, 2)). 
+We conducted sensitivity analyses to examine the sensitivity of the results to (1) possibly biased study results (RoB) and (2) the choice of priors. 
 
 ### Results
-
+After title/abstract and full-text screening, we included 12 studies in the meta-analysis.
+The frequentist approach lead to a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (in µg/dL).
+The Bayesian model yielded a mean pooled effect of `r Bayes_mean` (95% high density interval (HDI): `r Bayes_lb`; `r Bayes_ub`). 
 
 ### Conclusion
 Funding

@@ -541,7 +541,7 @@ mcmc_trace(posterior_samples_warm,
 #| echo: false
 #| include: false
 
-# extract posterior samples with warm-up
+# extract posterior samples
 posterior_samples = as_draws_df(m.brm)
 names(posterior_samples)[names(posterior_samples) == "b_Intercept"] = "beta"
 names(posterior_samples)[names(posterior_samples) == "sd_author_year__Intercept"] = "tau"
