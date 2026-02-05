@@ -53,7 +53,7 @@ m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss
 freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
 ```
 
-```{r}‚
+```{r}
 #| label: extract_results
 #| echo: false
 #| message: false
