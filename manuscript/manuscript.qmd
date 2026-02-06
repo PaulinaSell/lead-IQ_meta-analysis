@@ -19,17 +19,17 @@ bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
 format:
-  # html:
-  #   toc: true
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   # theme: lumen
-  #   # theme: materia
-  #   theme: yeti
-  #   # theme: cosmo
+  html:
+    toc: true
+    title-block-banner: false
+    number-sections: true
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    # theme: lumen
+    # theme: materia
+    theme: yeti
+    # theme: cosmo
   # docx:
   #   reference-doc: ../manuscript/ref.docx
   #   number-sections: true
@@ -38,8 +38,8 @@ format:
   #   fig-height: 3.5
   #   fig-dpi: 600
   #   out-width: "40%"
-    pdf:
-      toc: true
+    # pdf:
+    #   toc: true
 ---
 
 ```{css echo = FALSE}
@@ -116,22 +116,21 @@ The checklist can be found in the supplementary files.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting]. \
 
 We conducted a literature review to identify recent studies investigating associations between prenatal or postnatal exposure to Pb and IQ loss in children.
-Within the larger project that this study was conducted in, there was another study done on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes.
-Therefore, one joint literature review was conducted for both of these associations.
-Here, we will only report results for the literature on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material does contain parts of the serach for the other associations and exposure timeframes. \
+This study was conducted wothin the EU-funded project Partnership for the Assessment of Risks from Chemicals ([PARC](https://www.eu-parc.eu)), and the literature review was conducted as the basis for multiple studies, including one on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes.
+Here, we will only report results for the literature we identified on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material documenting the literature review does contain parts of the search for other associations and exposure timeframes. \
 We searched for articles published between January 2005 and July 2023. 
-We only considered studies published after 2005, given the previously-used ERFs in the literature were published before 2005. (source!) 
+We only considered studies published after 2005, as the previously-used ERFs in the literature were published before 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at finding updated studies on the association.
+Also, as described in the backround section, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
 Search queries in Pubmed and Scopus included the following terms: 
 substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). 
-We prioritized references naming substance (the word "substance"? - to be confirmed) in the title in order to decrease the volume of results. \
+We prioritized references naming the substance in the title in order to decrease the volume of results. \
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
 Full text was then assessed by one reviewer. 
-Papers were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 and , pregnant women and women of childbearing age), Exposure (biological measures of Pb, MeHg or Hg from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ or similar indicator), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
+Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 and , pregnant women and women of childbearing age), Exposure (biological measures of Pb, MeHg or Hg from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ or similar indicator), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
 We excluded reviews and background articles that inventoried the literature with no new results. 
 We also excluded references written in languages other than English. \
-From the papers considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (2015). 
-When mercury speciation was not clearly stated, we considered total mercury to be methylmercury (Berglund et al. 2005).
+From the publications considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (2015). 
 
 ## Data Extraction
 For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.
@@ -159,8 +158,8 @@ $$ {#eq-regression-model}
 Where $y$ represents the IQ score, $\alpha$ is the intercept, $\beta$ is the regression coefficient (slope), $X$ denotes BLL, $b$ is the logarithmic base, and $\varepsilon$ is the error term.
 
 Studies have used different logarithmic bases: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
-To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to the natural logarithm scale ($\log_e$) using the standardization framework proposed by Rodríguez-Barranco et al. (2017) [@rodriguez-barranco2017StandardizingEffectSizea].
-The transformations are fully documented in suppl. file x \
+To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to the natural logarithm scale ($\log_e$).
+The calculations are fully documented in suppl. file x \
 Studies that left BLL on the original (untransformed) linear scale were excluded from the meta-analysis, as transformation from linear to log-linear effect estimates could not be justified based on visual inspection (supplement: plots?).
 
 ## Meta-Analysis Methodology
