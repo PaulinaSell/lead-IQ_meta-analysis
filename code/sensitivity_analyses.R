@@ -43,7 +43,8 @@ m.brm_models <- list(
   prior = list()
 )
 
-# Loop through model fits: full study base -> low & medium RoB studies -> low RoB studies
+# Loop through brms model fits
+# Full study base -> low & medium RoB studies -> low RoB studies
 for (data_subset in names(models_data)) {
   data <- models_data[[data_subset]]
 
@@ -192,12 +193,12 @@ for (prior_set in names(priors_list)) {
 
 # 2.1 Checking Results ----
 results_priors <- list(
-  m.brm_main = m.brm_main,
-  m.brm_wide = m.brm_wide,
-  m.brm_narrow = m.brm_narrow,
-  fitPrior_main = fitPrior_main,
-  fitPrior_wide = fitPrior_wide,
-  fitPrior_narrow = fitPrior_narrow
+  m.brm_main = m.brm_models$main$main,
+  m.brm_wide = m.brm_models$main$wide,
+  m.brm_narrow = m.brm_models$main$narrow,
+  fitPrior_main = m.brm_models$prior$main,
+  fitPrior_wide = m.brm_models$prior$wide,
+  fitPrior_narrow = m.brm_models$prior$narrow
 )
 
 for (result_name in names(results_priors)) {
@@ -210,9 +211,7 @@ for (result_name in names(results_priors)) {
   plot_chains <- plot(
     result,
     variable = c("b_Intercept", "sd_author_year__Intercept")
-  ) +
-    ggtitle(paste("MCMC Chains for ", result_name, "Model"))
-  print(plot_chains)
+  )
 
   # print model summaries
   cat(

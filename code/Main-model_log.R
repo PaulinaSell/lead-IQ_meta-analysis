@@ -54,7 +54,7 @@ fitPrior <- readRDS("models/main/fitPrior_full.rds")
 draws <- spread_draws(m.brm, b_Intercept, sd_author_year__Intercept)
 write.csv(
   draws,
-  paste0("results/draws_beta_tau_", data_subset, ".csv"),
+  "results/draws_beta_tau_full.csv",
   row.names = F
 )
 
@@ -66,30 +66,16 @@ write.csv(
 )
 
 # plot the MCMC chains & posterior distributions
-plot(m.brm_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
+dev.new()
+plot(m.brm, variable = c("b_Intercept", "sd_author_year__Intercept"))
 
-summary(m.brm_full)
+summary(m.brm)
 
-# Sample from prior only
-fitPrior_full <- brm(
-  beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
-  data = data_full,
-  prior = priors,
-  sample_prior = "only",
-  chains = 4,
-  iter = 4000
-)
-
-# save model for manuscript
-# saveRDS(fitPrior_full, file = "models/fitPrior_main_full.rds")
-
-plot(fitPrior_full, variable = c("b_Intercept", "sd_author_year__Intercept"))
-
-pp_check(fitPrior_full, ndraws = 20)
-pp_check(m.brm_full, ndraws = 20)
+pp_check(fitPrior, ndraws = 20)
+pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
-loo(m.brm_full, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
+loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
 # reloo = T because 1 approximation was still bad, suggested by output:
 # We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible.
 # This will refit the model 1 times to compute the ELPDs for the problematic observations directly.
@@ -100,15 +86,15 @@ loo(m.brm_full, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validat
 # It answers: “How many independent draws are these autocorrelated MCMC samples worth for estimating central summaries like the mean/median?”
 # ESS (tail) = effective sample size for the tails of the posterior (useful for accurate extreme quantiles, credible intervals, tail probabilities).
 
-draws_full <- as_draws(m.brm_full)
-summarise_draws(draws_full, "ess_bulk", "ess_tail") # bulk ESS ~1,000 and tail ESS ~2,000 indicate well-mixed chains and reasonably precise estimates
-summarise_draws(draws_full, "mcse_mean", "mcse_sd") # relative MCSE: MCSE / posterior SD = 0.0159/1.91 = 0.0083 -> relative MCSE < 0.01 → excellent (very high precision)
+draws <- as_draws(m.brm)
+summarise_draws(draws, "ess_bulk", "ess_tail") # bulk ESS ~1,000 and tail ESS ~2,000 indicate well-mixed chains and reasonably precise estimates
+summarise_draws(draws, "mcse_mean", "mcse_sd") # relative MCSE: MCSE / posterior SD = 0.0159/1.91 = 0.0083 -> relative MCSE < 0.01 → excellent (very high precision)
 
 
 # extract draws for EBD assessment, using spread_draws ----
-posterior_summary(m.brm_full)
+posterior_summary(m.brm)
 draws_pooled_b_sd <- spread_draws(
-  m.brm_full,
+  m.brm,
   b_Intercept,
   sd_author_year__Intercept
 )
