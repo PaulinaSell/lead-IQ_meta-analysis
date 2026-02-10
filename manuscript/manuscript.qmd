@@ -203,7 +203,7 @@ $$
 \mu &\sim \mathcal{N}(-1, 2) \\
 \tau &\sim \mathcal{N}^+(0, 2)
 \end{split}
-$$
+$$ {#eq-priors}
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].

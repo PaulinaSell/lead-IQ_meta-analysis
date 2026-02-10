@@ -2532,12 +2532,12 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 <li>choice based on previous evidence, e.g. <span class="citation" data-cites="needleman1990LowLevelLeadExposure">(<a href="#ref-needleman1990LowLevelLeadExposure" role="doc-biblioref">14</a>)</span></li>
 <li>explain scale (log, µg/dL)</li>
 </ul>
-<p><span class="math display">\[
+<p><span id="eq-priors"><span class="math display">\[
 \begin{split}
 \mu &amp;\sim \mathcal{N}(-1, 2) \\
 \tau &amp;\sim \mathcal{N}^+(0, 2)
 \end{split}
-\]</span></p>
+\tag{3}\]</span></span></p>
 </section>
 <section id="frequentist-meta-analysis" class="level3" data-number="2.5.3">
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.3</span> Frequentist Meta-Analysis</h3>
@@ -2553,13 +2553,13 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 \mu &amp;\sim \mathcal{N}(-1, 1) \\
 \tau &amp;\sim \mathcal{N}^+(0, 1)
 \end{split}
-\tag{3}\]</span></span></p>
+\tag{4}\]</span></span></p>
 <p>Less informative priors (more broad): <span id="eq-prior-sensitivity2"><span class="math display">\[
 \begin{split}
 \mu &amp;\sim \mathcal{N}(0, 6) \\
 \tau &amp;\sim \mathcal{N}^+(0, 6)
 \end{split}
-\tag{4}\]</span></span></p>
+\tag{5}\]</span></span></p>
 </section>
 </section>
 <section id="results" class="level1" data-number="3">

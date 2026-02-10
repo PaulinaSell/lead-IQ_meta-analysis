@@ -1,11 +1,11 @@
 ---
 title: "Bayesian Meta Analysis on Lead Exposure & IQ Loss"
 author: "Paulina Sell"
-# date: "2025-07-25"
-date-modified: "2025-11-06"
+date-modified: last-modified
 format:
   html:
     toc: true
+    toc-depth: 4
     number-sections: true
     self-contained: true
     embed-resources: true
@@ -13,6 +13,8 @@ format:
     page-layout: full
 fig-align: center
 fig-height: 4
+bibliography: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/references.bib
+csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/vancouver.csl
 ---
 
 ```{r}
@@ -53,11 +55,11 @@ What happens to the effect estimates, if we transform them in this way?\
 
 ## Visually Checking Transformations
 
-Let's compare an original $\mathcal{beta}$ coefficient from [Crump et al. 2013](https://doi.org/10.3109/10408444.2013.832726) (ß = -2.65) for log~e~(BLL) to the transformed one (ß = -0.277), which can now be used for linear BLL.
+Let's compare an original $\text{beta}$ coefficient from Crump et al. 2013 @crump2013StatisticalReevaluationData ($\beta$= -2.65) for log~e~(BLL) to the transformed one ($\beta$ = -0.277), which can now be used for linear BLL.
 
 ```{r}
 #| label: lin-vs-log
-#| echo: false
+#| code-fold: true
 
 library(ggplot2)
 
@@ -113,10 +115,10 @@ $\beta_{log_{10}}$ = beta coefficient for log₁₀-transformed BLL\
 $C_{ref}$ = reference concentration for linear transformation\
 
 
-**Transforming log~10~(BLL) to log~e~(BLL): [Dantzer et al. 2020](https://doi.org/10.1016/j.scitotenv.2019.134519)**\
+### Transforming log~10~(BLL) to log~e~(BLL): Dantzer et al. 2020 @dantzer2020ComparisonBloodToenails
 ```{r}
 #| label: log10-to-ln
-#| echo: false
+#| code-fold: true
 
 
 Dantzerbeta_log10 <- -13.150
@@ -148,12 +150,10 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
 We can't even see the blue curve, so the transformation should be valid.   
 
 
-**Transforming log~2~(BLL) to log~e~(BLL): [Desrochers-Couture et al. 2018](https://doi.org/10.1016/j.envint.2018.10.043)**\
+### Transforming log~2~(BLL) to log~e~(BLL): Desrochers-Couture et al. 2018 @desrochers-couture2018PrenatalConcurrentSexspecific
 ```{r}
 #| label: log2-to-ln
-#| echo: false
-
-
+#| code-fold: true
 
 Desrochersbeta_log2 <- 0.014
 Desrochersbeta_ln <- 0.020
@@ -186,12 +186,12 @@ For the transformation from log~2~ to ln, we can see that at least in this conce
 **!** Note that this study reported a small protective effect of lead exposure, this is why the curve is flipped.
 
 
-**Transforming linear(BLL) to log~e~(BLL): [Iglesias et al. 2011](https://doi.org/10.1179/107735211799041841)**\
+### Transforming linear(BLL) to log~e~(BLL): Iglesias et al. 2011 @iglesias2011ExposureLeadStorage
 In order to transform this estimate, we need to set a reference BLL ($C_{ref}$). 
 Here, I chose 2.2 µg/dL.  
 ```{r}
 #| label: lin-to-ln
-#| echo: false
+#| code-fold: true
 
 
 Iglesiasbeta_linear <- -0.940
@@ -224,8 +224,7 @@ This looks problematic... However, the concentration range is quite high in this
 
 ```{r}
 #| label: lin-to-ln-zoom
-#| echo: false
-
+#| code-fold: true
 
 blood_lead_low <- seq(0, 5, by = 0.1)
 
@@ -263,7 +262,7 @@ knitr::kable(data_clean, digits = 2)
 ```
 
 
-# Meta Analysis
+# Meta-Analysis
 Now that we have collected our study data and harmonized the effect estimates, we can finally begin our meta analysis!
 ```{r}
 #| label: load-packages-data
@@ -308,15 +307,19 @@ This prior distribution is then combined with the likelihood function (based on 
 You can read more about choosing prior distributions in Bayesian statistics in this [book chapter](https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/prior.html#prior).\
 \
 We will be conservative and use weakly informative priors. 
-For the main effect ($μ$), I chose $μ \sim \mathcal{N}(-1, 2)$. 
+For the main effect ($\mu$), I chose $\mu \sim \mathcal{N}(-1, 2)$. 
 This means that we assume the main effect to lie between `r lower` and `r upper`, with a `r round(pnorm(upper, mean, sd) - pnorm(lower, mean, sd), 3) * 100`% probability.
 
 ```{r}
 #| label: vis-main-effect
-#| echo: false
+#| code-fold: true
 
+mean <- -1
+sd <- 2
 
-# main effect, beta
+lower <- -3
+upper <- 1
+
 # visualize distr
 x <- seq((lower-2), (upper+2), by = 0.1)
 y <- dnorm(x, mean, sd)
@@ -327,10 +330,10 @@ ggplot() +
   labs(x= NULL, y = NULL)
 ```
 
-Setting the prior for heterogeneity ($τ$) is slightly more challenging since, by definition, it must be positive. 
+Setting the prior for heterogeneity ($\tau$) is slightly more challenging since, by definition, it must be positive. 
 Here, a truncated normal distribution can be useful.
 
-For this model, I chose $τ \sim TN(0, 2)$ with a lower bound of 0.
+For this model, I chose $\tau \sim \mathcal{N^+}(0, 2)$.
 
 ```{r}
 #| label: vis-heterogeineity
@@ -371,14 +374,14 @@ priors <- c(prior(normal(-1, 2), class = Intercept),
 ```
 
 ## Fitting the model
-We can now write and fit the model, using the package _brms_ by [Bürkner 2017](https://doi.org/10.18637/jss.v080.i01). 
+We can now write and fit the model, using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
 In the second line we specify our model, which formalized looks like this (formula 3 and 4 refer to the priors):
 
 $$
-\hat{\theta}_{k} \sim \mathcal{N}(\theta_{k}, \sigma_{k}^{2})\
+\hat{\theta}_{k} \sim \mathcal{N}(\theta_{k}, \sigma_{k})\
 $$
 $$
-\theta_{k} \sim \mathcal{N}(\mu_{k}, \tau_{k}^{2}) \
+\theta_{k} \sim \mathcal{N}(\mu_{k}, \tau_{k}) \
 $$
 $$
 \mu \sim \mathcal{N}(-1, 2) \
@@ -416,6 +419,7 @@ m.brm <- brm(
   iter = n_iter)
 ```
 
+Posterior draws are sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
 I decided to increase the number of draws we sample to `r n_iter` (default: 2000). 
 Since we run `r n_chains` chains and discard the first `r n_iter*0.5` iterations of each chain as warmup, we end up with a total of `r (n_iter*0.5)*n_chains` posterior draws.
 
@@ -435,7 +439,6 @@ You can read more about prior and posterior predictive checks [here](https://mc-
 #| echo: false
 #| cache: true
 
-
 # Fit model again and only sample from priors for prior predictive check
 fitPrior <- brm(
   beta_ln|se(se_beta_ln) ~ 1 + (1|author_year), 
@@ -450,7 +453,6 @@ fitPrior <- brm(
 #| label: prior-pred-plot
 #| echo: false
 
-
 pp_check(fitPrior, ndraws = 20)
 ```
 
@@ -459,7 +461,7 @@ Now let's do a posterior predictive check:
 ```{r}
 #| label: post-pred-plot
 #| echo: false
-#| cache: false
+#| cache: true
 
 
 pp_check(m.brm, ndraws = 20)
@@ -480,27 +482,27 @@ x <- as_draws_df(m.brm)
 ```
 
 Here, we can see the posterior mean, SE and 95% quantiles for $\mathcal{beta}$, `Intercept` and $\mathcal{tau}$, `sd(Intercept)`. But before we focus on our results, we should take a few more steps to assess the quality of our results. \
-In this output, we should pay attention to the $\hat{R}$ (Rhat in output) value (potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process (this is the class of algorithms used to estimate the parameters) has converged.
-A value of less than 1.01 is generally considered good ([Gelman & Rubin 1984](https://projecteuclid.org/journals/statistical-science/volume-7/issue-4/Inference-from-Iterative-Simulation-Using-Multiple-Sequences/10.1214/ss/1177011136.full)). \
+In this output, we should pay attention to the $\hat{R}$ value (`Rhat` in output, potential scale reduction factor), which indicates whether the Markov chain Monte Carlo (MCMC) sampling process has converged.
+A value of less than 1.01 is generally considered good @gelman1992InferenceIterativeSimulation. \
 [Here](https://mc-stan.org/rstan/reference/Rhat.html) you can read more about convergence and efficiency diagnostics for Markov chains. 
 As we can see, our $\hat{R}$ values are both `r format(round(s$fixed[,"Rhat"], 2), nsmall = 2)` which is good!
 
 ### Effective Sample Size (ESS)
 In the summary above, we also find `Bulk_ESS` and `Tail_ESS` for both the pooled effect `Intercept` and between-study heterogeneity `sd(Intercept)`.
 These values tell us something about how much we can trust our results (for the _bulk_ and the _tails_ of our posterior distribution). \
-When the MCMC chain moves around the parameter space we want to learn about, each new step (or iteration) is dependent on the last one.
-This means that the samples we generate are correlated.
+When the MCMC algorithm moves around the parameter space we want to learn about, each new step (or iteration) is dependent on the last one.
+This means that the samples we generate are somewhat correlated.
 The ESS value gives us an idea of how many _truly independent_ samples would give us the same quality of information as the correlated samples.
 In our case, ESS for the bulk of the posterior distribution for `Intercept` is `r round(s$fixed[,"Bulk_ESS"], 0)`.
 This means that, in simple terms, our estimate is as good as `r round(s$fixed[,"Bulk_ESS"], 0)` independent samples. 
 This corresponds to `r round((s$fixe[, "Bulk_ESS"]) / (s$total_ndraws), 2)*100`% of our total samples, which is good.
 
 ### Monte Carlo Standard Error (MCSE)
-MCSE measures the uncertainty in our estimate that results from not gathering an infinite amount of samples.
+MCSE measures the uncertainty in our estimate that results from not sampling an infinite amount of draws.
 If we run our model several times, we will get a slightly different posterior mean every time.
 This is due to the inherent probabilistic nature of the Bayesian approach.
 
-MCSE quantifies how much the posterior mean typically varies and helps us deciding if we need more iterations to get reliable estimates.
+MCSE quantifies how much the posterior mean typically varies and helps us to decide if we need more iterations to get reliable estimates.
 In our case, mean MCSE of `Intercept` is `r round(mcse_mean(x$b_Intercept), 3)`.
 Now we compare this value to the standard deviation of `Intercept`, which is `r round(s$fixed["Est.Error"], 3)`.
 
@@ -509,8 +511,8 @@ $$
 $$
 
 That's good precision! 
-The MCMC error (or the simulation noise) contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainty.
-
+The MCMC error (or the simulation noise) contributes only `r (round(mcse_mean(x$b_Intercept) / s$fixed["Est.Error"], 3)) * 100`% of the total uncertainty.\
+**To Do: revise this section!** Good resource: [article from Aki Vehtari](https://users.aalto.fi/~ave/casestudies/Digits/digits.html)
 
 ### Trace Plots
 Now let's look at the trace plots of the four MCMC chains for both the posterior distribution of $\mathcal{beta}$ and the between-study heterogeneity $\mathcal{tau}$.
@@ -732,55 +734,3 @@ This is an advantage of the Bayesian approach, particularly when pooling a small
 The model is less sensitive to outliers than frequentist models.
 
 Coming back to the main objective of this project, we can now use the posterior distribution directly for our EBD assessment!
-
-# References
-
-<div style="padding-left: 2em; text-indent: -2.5em;">
-
-Bauer JA, Devick KL, Bobb JF, Coull BA, Bellinger D, Benedetti C, Cagna G, Fedrighi C, Guazzetti S, Oppini M, et al. Associations of a Metal Mixture Measured in Multiple Biomarkers with IQ: Evidence from Italian Adolescents Living near Ferroalloy Industry. Environmental Health Perspectives 2020, 128(9):097002.
-
-<!-- Cao Y, Chen A, Jones RL, Radcliffe J, Caldwell KL, Dietrich KN, Rogan WJ. Does background postnatal methyl mercury exposure in toddlers affect cognition and behavior? NeuroToxicology 2010, 31(1):1-9. -->
-
-<!-- Chen A, Dietrich KN, Ware JH, Radcliffe J, Rogan WJ. IQ and Blood Lead from 2 to 7 Years of Age: Are the Effects in Older Children the Residual of High Blood Lead Concentrations in 2-Year-Olds? Environmental Health Perspectives 2005, 113(5):597-601. -->
-
-Crump KS, Van Landingham C, Bowers TS, Cahoy D, Chandalia JK. A statistical reevaluation of the data used in the Lanphear et al. () pooled-analysis that related low levels of blood lead to intellectual deficits in children. Critical Reviews in Toxicology 2013, 43(9):785-99.
-
-Dantzer J, Ryan P, Yolton K, Parsons PJ, Palmer CD, Cecil K, Unrine JM. A comparison of blood and toenails as biomarkers of children’s exposure to lead and their correlation with cognitive function. Science of The Total Environment 2020, 700:134519.
-
-Desrochers-Couture M, Oulhote Y, Arbuckle TE, Fraser WD, Séguin JR, Ouellet E, Forget-Dubois N, Ayotte P, Boivin M, Lanphear BP, et al. Prenatal, concurrent, and sex-specific associations between blood lead concentrations and IQ in preschool Canadian children. Environment International 2018, 121:1235-42.
-
-Earl R, Burns N, Nettelbeck T, Baghurst P. Low‐level environmental lead exposure still negatively associated with children's cognitive abilities. Australian Journal of Psychology 2016, 68(2):98-106.
-
-<!-- Halabicky OM, Pinto-Martin JA, Compton P, Liu J. Low level lead exposure in early childhood and parental education on adolescent IQ and working memory: a cohort study. Journal of Exposure Science & Environmental Epidemiology 2023, 33(2):168-76. -->
-
-Harrer M, Cuijpers P, Furukawa TA, Ebert DD. Doing Meta-Analysis With R: A Hands-On Guide, 1st edn. Boca Raton, FL and London: Chapman & Hall/CRC Press; 2021.
-
-Hong S-B, Im M-H, Kim J-W, Park E-J, Shin M-S, Kim B-N, Yoo H-J, Cho I-H, Bhang S-Y, Hong Y-C, et al. Environmental Lead Exposure and Attention Deficit/Hyperactivity Disorder Symptom Domains in a Community Sample of South Korean School-Age Children. Environmental Health Perspectives 2015, 123(3):271-6.
-
-<!-- Hornung RW, Lanphear BP, Dietrich KN. Age of Greatest Susceptibility to Childhood Lead Exposure: A New Statistical Approach. Environmental Health Perspectives 2009, 117(8):1309-12. -->
-
-Iglesias V, Steenland K, Maisonet M, Pino P. Exposure to Lead from a Storage Site Associated with Intellectual Impairment in Chilean Children Living Nearby. International Journal of Occupational and Environmental Health 2011, 17(4):314-21.
-
-<!-- Lanphear BP, Hornung R, Khoury J, Yolton K, Baghurst P, Bellinger DC, Canfield RL, Dietrich KN, Bornschein R, Greene T, et al. Low-Level Environmental Lead Exposure and Children’s Intellectual Function: An International Pooled Analysis. Environmental Health Perspectives 2005, 113(7):894-9. -->
-
-Lee K-S, Kim K-N, Ahn YD, Choi Y-J, Cho J, Jang Y, Lim Y-H, Kim JI, Shin CH, Lee YA, et al. Prenatal and postnatal exposures to four metals mixture and IQ in 6-year-old children: A prospective cohort study in South Korea. Environment International 2021, 157:106798.
-
-Lucchini RG, Guazzetti S, Renzetti S, Conversano M, Cagna G, Fedrighi C, Giorgino A, Peli M, Placidi D, Zoni S, et al. Neurocognitive impact of metal exposure and social stressors among schoolchildren in Taranto, Italy. Environmental Health 2019, 18(1):67.
-
-Lucchini RG, Zoni S, Guazzetti S, Bontempi E, Micheletti S, Broberg K, Parrinello G, Smith DR. Inverse association of intellectual function with very low blood lead but not with manganese exposure in Italian adolescents. Environmental Research 2012, 118:65-71.
-
-Menezes-Filho JA, Carvalho CF, Rodrigues JLG, Araújo CFS, Dos Santos NR, Lima CS, Bandeira MJ, Marques BLdS, Anjos ALS, Bah HAF, et al. Environmental Co-Exposure to Lead and Manganese and Intellectual Deficit in School-Aged Children. International Journal of Environmental Research and Public Health 2018, 15(11):2418.
-
-Rodríguez-Barranco M, Tobías A, Redondo D, Molina-Portillo E, Sánchez MJ. Standardizing effect size from linear regression models with log-transformed variables for meta-analysis. BMC Medical Research Methodology 2017, 17(1):44.
-
-<!-- Min MO, Singer LT, Kirchner HL, Minnes S, Short E, Hussain Z, Nelson S. Cognitive development and low-level lead exposure in poly-drug exposed children. Neurotoxicology and Teratology 2009, 31(4):225-31. -->
-
-Roy A, Ettinger AS, Hu H, Bellinger D, Schwartz J, Modali R, Wright RO, Palaniappan K, Balakrishnan K. Effect modification by transferrin C2 polymorphism on lead exposure, hemoglobin levels, and IQ. NeuroToxicology 2013, 38:17-22.
-
-Schnaas L, Rothenberg Stephen J, Flores M-F, Martinez S, Hernandez C, Osorio E, Velasco Silvia R, Perroni E. Reduced Intellectual Development in Children with Prenatal Lead Exposure. Environmental Health Perspectives 2006, 114(5):791-7.
-
-Vogel N, Murawski A, Schmied-Tobies MIH, Rucic E, Doyle U, Kämpfe A, Höra C, Hildebrand J, Schäfer M, Drexler H, et al. Lead, cadmium, mercury, and chromium in urine and blood of children and adolescents in Germany - Human biomonitoring results of the German Environmental Survey 2014-2017 (GerES V). International Journal of Hygiene and Environmental Health 2021, 237:113822.
-
-<!-- Wang Y, Wang Y, Yan C. Gender differences in trace element exposures with cognitive abilities of school-aged children: a cohort study in Wujiang city, China. Environmental Science and Pollution Research 2022, 29(43):64807-21. -->
-
-</div>
