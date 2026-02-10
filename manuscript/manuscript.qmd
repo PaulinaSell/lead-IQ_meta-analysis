@@ -164,18 +164,14 @@ Studies that left BLL on the original (untransformed) linear scale were excluded
 
 ## Meta-Analysis Methodology
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
-In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison betwen the results.
-We estimated pooled beta estimates for the absolute loss of IQ points per unit increase in $\log_e$-transformed blood lead concentration (µg/dL).\
+In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison between the results.
+We estimated pooled effect estimates for the absolute loss of IQ points per unit increase in $\log_e$-transformed blood lead concentration (µg/dL).\
 Within studies, results from the most-adjusted models were chosen to enter the meta-analysis; unadjusted results were not considered. \
 R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical and Positron version 2026.01.0-147 were used for all computations.
 All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
-### Frequentist Meta-Analysis
-For the frequentist meta-analysis, we employed a random-effects model using the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
-The I² statistic was used as a quantitative indication of heterogeneity. 
-
 ### Bayesian Meta-Analysis
-To synthesize results across studies, we employed a Bayesian random-effects meta-analysis model with two hierarchical levels. 
+We employed a Bayesian random-effects meta-analysis model with two hierarchical levels. 
 At the first level, the observed effect size from each study $\hat{\theta}_{k}$ is modeled as an estimate of that study's true underlying effect $\theta_{k}$, with deviation from the true effect determined by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
 At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study heterogeneity $\tau$.
 
@@ -193,6 +189,10 @@ $\theta_{k}$ = True underlying effect for study $k$\
 $\mu$ = Overall pooled effect\
 $\tau$ = Between-study standard deviation (heterogeneity)\
 
+The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
+Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
+We ran four chains with 4,000 iterations each, of which 2,000 iterations were used as warmup, resulting in 8,000 total post-warmup draws.
+
 ### Priors
 * Parameters to be estimated: mu and tau (mu later called beta?)
 * choice based on previous evidence, e.g. @needleman1990LowLevelLeadExposure
@@ -204,6 +204,10 @@ $$
 \tau &\sim \mathcal{N}^+(0, 2)
 \end{split}
 $$
+
+### Frequentist Meta-Analysis
+For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
+The I² statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses.
@@ -264,6 +268,7 @@ Meaning <- c(
   "European Union", 
   "Intelligence quotient",
   "Large language model",
+  "Restricted maximum-likelihood",
   "Risk of Bias",
   "Standard error",
   "Uncertainty Interval",
@@ -275,6 +280,7 @@ Abbreviation <- c(
   "EU", 
   "IQ",
   "LLM",
+  "REML",
   "RoB",
   "SE",
   "UI",

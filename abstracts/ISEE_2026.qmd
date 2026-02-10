@@ -27,6 +27,8 @@ format:
         css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
         page-layout: full
         theme: yeti
+execute:
+  cache: false
 ---
 
 ## Information for Authors:
