@@ -102,3 +102,19 @@ draws_pooled_b_sd <- spread_draws(
 # change names before exporting again!
 # write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
 # write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
+
+# calculate I2 from tau
+
+# 1. Extract tau (between-study SD)
+posterior_summary(m.brm, variable = "sd_author_year__Intercept")
+# This gives you the posterior mean, SD, and credible intervals
+
+# 2. Get tau-squared from tau
+tau_samples <- as_draws_df(m.brm, variable = "sd_author_year__Intercept")
+tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
+
+# Posterior summary of tau-squared
+mean(tau_sq_samples) # Compare to 3.7946
+quantile(tau_sq_samples, c(0.025, 0.975)) # 95% CrI
+
+mean(tau_sq_samples) / (mean(tau_sq_samples) + (mean(data$se_beta_ln)^2))
