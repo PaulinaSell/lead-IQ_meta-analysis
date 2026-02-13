@@ -192,6 +192,7 @@ $\tau$ = Between-study standard deviation (heterogeneity)\
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
 Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were used as warmup, resulting in 8,000 total post-warmup draws.
+Convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and effective sample size.
 
 ### Priors
 * Parameters to be estimated: mu and tau (mu later called beta?)
@@ -201,13 +202,13 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were us
 $$
 \begin{split}
 \mu &\sim \mathcal{N}(-1, 2) \\
-\tau &\sim \mathcal{N}^+(0, 2)
+\tau &\sim \mathcal{N^+}(0, 2)
 \end{split}
 $$ {#eq-priors}
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
-The I² statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.
+The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses.

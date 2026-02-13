@@ -22,7 +22,7 @@ priors <- c(
 ) # between-study heterogeneity τ‚
 
 
-# main model (with weakly informative priors) and full dataset
+# Main model
 m.brm <- brm(
   beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
   data = data,

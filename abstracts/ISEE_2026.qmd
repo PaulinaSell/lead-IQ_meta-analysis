@@ -35,8 +35,8 @@ execute:
 * Deadline: February 27, 2026 (23:59 CET)
 * The submitting author is required to ensure that all co-authors are aware of the content of the abstract before submission
 * Use acronyms only when necessary and define all non-standard abbreviations and concepts in your abstract at first use
-* Abstract titles can contain a maximum of *20 words* (no abbreviations)
-* The abstract body should not exceed *300 words* and should consist of the four sections: Objective, Material and Methods, Results, Conclusion.
+* Abstract titles can contain a maximum of **20 words** (no abbreviations)
+* The abstract body should not exceed **300 words** and should consist of the four sections: Objective, Material and Methods, Results, Conclusion.
 * Phrases such as “results will be discussed” or “data will be presented” should not be used.
 * Please mention all sources of funding for the work described and other acknowledgements briefly at the end of the abstract text.
 
@@ -72,19 +72,16 @@ m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
 
 hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
-Bayes_lb <- round(as.numeric(hdi[2]), 2)
-Bayes_ub <- round(as.numeric(hdi[3]), 2)
-
-Bayes_ub
+Bayes_lb <- round(as.numeric(hdi[1]), 2)
+Bayes_ub <- round(as.numeric(hdi[2]), 2)
 ```
 
 ## Abstract
-### Title
-Understanding uncertainty: Comparative Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
+### Understanding uncertainty: Comparative Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
 
 ### Objective
 Evidence synthesis in epidemiology is often done by meta-analysis, primarily using a frequentist approach. 
-Bayesian meta-analysis provides a framework for uncertainty quantification that incorporates both within-study and between-study variability and provides posterior distributions of the parameter of interest, facilitating transparent communication of uncertainty. 
+Bayesian meta-analysis provides a framework for uncertainty quantification that incorporates both within-study and between-study variability and results in posterior distributions, facilitating transparent communication of uncertainty. 
 The aim of this study is to compare a frequentist to a Bayesian approach and investigate how these frameworks influence exposure-response estimates, uncertainty characterization, and applicability to further use of the results. 
 The use case is the association of blood lead levels and children’s neurodevelopment.
 
@@ -92,15 +89,24 @@ The use case is the association of blood lead levels and children’s neurodevel
 We conducted a systematic review searching PubMed and Scopus for studies on the association of blood lead levels (BLL) and children’s neurodevelopment (operationalized as IQ score). 
 Risk of bias (RoB) was assessed using the rapid RoB tool [@plate2024DevelopmentToolRapid]. 
 All regression coefficients were harmonized to the $\log_e$​ scale before pooling.
-The same estimates were included in both meta-analyses.
-For the frequentist approach, we employed a random-effects model using the restricted maximum-likelihood estimation. 
-For the Bayesian meta-analysis, we employed a hierarchical Bayesian random-effects model, with weakly-informative priors (main effect, mu: Normal(-1, 2), heterogeneity, tau: Normal+(0, 2)). 
-We conducted sensitivity analyses to examine the sensitivity of the results to (1) possibly biased study results (RoB) and (2) the choice of priors. 
+We assumed a multilevel structure in both models and included the same effect estimates.
+For the frequentist approach, we used a random-effects model and parameters were estimated via the restricted maximum-likelihood estimation.
+For the Bayesian meta-analysis, we employed a hierarchical Bayesian random-effects model with weakly-informative priors. 
+Posterior distributions of parameters were estimated using Markov Chain Monte Carlo (MCMC) sampling.
+We conducted additional analyses to examine the sensitivity of the results to (1) possibly biased study results (RoB) and (2) the choice of priors. 
 
 ### Results
 After title/abstract and full-text screening, we included 12 studies in the meta-analysis.
 The frequentist approach lead to a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (in µg/dL).
-The Bayesian model yielded a mean pooled effect of `r Bayes_mean` (95% high density interval (HDI): `r Bayes_lb`; `r Bayes_ub`). 
+The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% high density interval (HDI): `r Bayes_lb`; `r Bayes_ub`). 
+Results from the sensitivity analyses did not differ from the main analysis to a relevant extend, suggesting robustness of the results to RoB and the choice of priors in the Bayesian model.
+- Heterogeneity 
 
 ### Conclusion
+While the frequentist approach needed less computational power, the Bayesian approach was less sensitive to outlier studies that reported high effect estimates with wide confidence intervals, resulting in a lower pooled effect compared to the frequentist analysis. (good approach for small number of studies to pool)
+The posterior distribution of the Bayesian approach reflects uncertainty directly and thus can be interpreted intuitively in probability terms.
+This is especially useful for policy making, because a relevant threshold risk can be defined and the respective probability mass can be estimated. E.g.: comparing the health risk to that of another pollutant.
+- Posterior distribution can be interpreted intuitively, in probability terms.
+- Lead effect characterized: updated with new studies & posterior distribution can be used e.g. for burden of disease studies. 
+
 Funding
