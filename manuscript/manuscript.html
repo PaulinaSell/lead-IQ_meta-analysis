@@ -2417,7 +2417,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">10 February 2026</p>
+      <p class="date-modified">16 February 2026</p>
     </div>
   </div>
     
@@ -2523,7 +2523,7 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 <span class="math inline">\(\mu\)</span> = Overall pooled effect<br>
 <span class="math inline">\(\tau\)</span> = Between-study standard deviation (heterogeneity)<br>
 </p>
-<p>The Bayesian model was fit using the R package <code>brms</code> <span class="citation" data-cites="burkner2017BrmsPackageBayesian">(<a href="#ref-burkner2017BrmsPackageBayesian" role="doc-biblioref">38</a>)</span> version 2.22.0. Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm <span class="citation" data-cites="betancourt2017ConceptualIntroductionHamiltonian">(<a href="#ref-betancourt2017ConceptualIntroductionHamiltonian" role="doc-biblioref">39</a>)</span> and the No-U-Turn Sampler (NUTS) <span class="citation" data-cites="hoffman2011NoUTurnSamplerAdaptively">(<a href="#ref-hoffman2011NoUTurnSamplerAdaptively" role="doc-biblioref">40</a>)</span>. We ran four chains with 4,000 iterations each, of which 2,000 iterations were used as warmup, resulting in 8,000 total post-warmup draws.</p>
+<p>The Bayesian model was fit using the R package <code>brms</code> <span class="citation" data-cites="burkner2017BrmsPackageBayesian">(<a href="#ref-burkner2017BrmsPackageBayesian" role="doc-biblioref">38</a>)</span> version 2.22.0. Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm <span class="citation" data-cites="betancourt2017ConceptualIntroductionHamiltonian">(<a href="#ref-betancourt2017ConceptualIntroductionHamiltonian" role="doc-biblioref">39</a>)</span> and the No-U-Turn Sampler (NUTS) <span class="citation" data-cites="hoffman2011NoUTurnSamplerAdaptively">(<a href="#ref-hoffman2011NoUTurnSamplerAdaptively" role="doc-biblioref">40</a>)</span>. We ran four chains with 4,000 iterations each, of which 2,000 iterations were used as warmup, resulting in 8,000 total post-warmup draws. Convergence was assessed using the Gelman-Rubin statistic (<span class="math inline">\(\hat{R}\)</span>) and effective sample size.</p>
 </section>
 <section id="priors" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="priors"><span class="header-section-number">2.5.2</span> Priors</h3>
@@ -2535,13 +2535,13 @@ R version 4.4.2 (2024-10-31) <span class="citation" data-cites="rcoreteam2024Lan
 <p><span id="eq-priors"><span class="math display">\[
 \begin{split}
 \mu &amp;\sim \mathcal{N}(-1, 2) \\
-\tau &amp;\sim \mathcal{N}^+(0, 2)
+\tau &amp;\sim \mathcal{N^+}(0, 2)
 \end{split}
 \tag{3}\]</span></span></p>
 </section>
 <section id="frequentist-meta-analysis" class="level3" data-number="2.5.3">
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="frequentist-meta-analysis"><span class="header-section-number">2.5.3</span> Frequentist Meta-Analysis</h3>
-<p>For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model <a href="#eq-model" class="quarto-xref">Equation 2</a>. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="wolfgangviechtbauer2010ConductingMetaanalysesMetafor">(<a href="#ref-wolfgangviechtbauer2010ConductingMetaanalysesMetafor" role="doc-biblioref">41</a>)</span>. The I² statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.</p>
+<p>For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model <a href="#eq-model" class="quarto-xref">Equation 2</a>. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package <code>metafor</code> version 4.8-0 <span class="citation" data-cites="wolfgangviechtbauer2010ConductingMetaanalysesMetafor">(<a href="#ref-wolfgangviechtbauer2010ConductingMetaanalysesMetafor" role="doc-biblioref">41</a>)</span>. The <span class="math inline">\(I^2\)</span> statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.</p>
 </section>
 </section>
 <section id="sensitivity-analysis" class="level2" data-number="2.6">

@@ -117,4 +117,22 @@ tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
 mean(tau_sq_samples) # Compare to 3.7946
 quantile(tau_sq_samples, c(0.025, 0.975)) # 95% CrI
 
-mean(tau_sq_samples) / (mean(tau_sq_samples) + (mean(data$se_beta_ln)^2))
+# 3. Calculate I² for each study and each posterior draw
+n_studies <- nrow(data)
+n_samples <- length(tau_sq_samples)
+
+I2_by_study <- matrix(NA, nrow = n_samples, ncol = n_studies)
+
+data$vi <- data$se_beta_ln^2
+
+for (i in 1:n_studies) {
+  I2_by_study[, i] <- tau_sq_samples / (tau_sq_samples + data$vi[i])
+}
+
+# 4. Average I² across studies for each posterior draw
+I2_samples <- rowMeans(I2_by_study)
+
+# 5. Summarize the posterior distribution
+I2_posterior_mean <- mean(I2_samples)
+I2_posterior_median <- median(I2_samples)
+I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))

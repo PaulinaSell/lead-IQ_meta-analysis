@@ -20,7 +20,7 @@ csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manusc
 reference-section-title: "References"
 format:
     # html:
-    #     toc: true
+    #     toc: false
     #     title-block-banner: false
     #     number-sections: false
     #     embed-resources: true
@@ -34,19 +34,18 @@ execute:
 
 ## Information for Authors:
 * Deadline: February 27, 2026 (23:59 CET)
-* The submitting author is required to ensure that all co-authors are aware of the content of the abstract before submission
 * Use acronyms only when necessary and define all non-standard abbreviations and concepts in your abstract at first use
 * Abstract titles can contain a maximum of **20 words** (no abbreviations)
 * The abstract body should not exceed **300 words** and should consist of the four sections: Objective, Material and Methods, Results, Conclusion.
 * Phrases such as “results will be discussed” or “data will be presented” should not be used.
 * Please mention all sources of funding for the work described and other acknowledgements briefly at the end of the abstract text.
 
-* A main topic that is relevant for your abstract must be selected during the submission process. 
+* A **main topic** that is relevant for your abstract must be selected during the submission process. 
 The Scientific Organizing Committee reserves the right to change the topics during the abstract review process.
-* Please enter at least 2 to 5 keywords from the official keyword list
+* Please enter **2 to 5 keywords** from the official keyword list
 
-* Topic: A-10: Chemical exposures / A-18: Methods ?
-* Keywords: Chemical exposures, Environmental epidemiology, Heavy metals, Lead, International collaboration, Modeling
+* Topic: A-10: Chemical exposures / A-18: Methods (?)
+* Keywords: Chemical exposures, Environmental epidemiology, Heavy metals, Lead, International collaboration, Modeling (?)
 
 ```{r}
 #| label: read_model
@@ -79,68 +78,68 @@ hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
 Bayes_lb <- round(as.numeric(hdi[1]), 2)
 Bayes_ub <- round(as.numeric(hdi[2]), 2)
 
-# Get tau-squared from tau
+# calculate tau2 and I2 analogous to metafor
+# Extract posterior samples of tau
 tau_samples <- as_draws_df(m.brm, variable = "sd_author_year__Intercept")
 tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
 
-# Posterior summary of tau-squared
-tau_sq_mean <- mean(tau_sq_samples) # Compare to 3.7946
-tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975)) # 95% CrI
+# Get the SAME typical within-study variance that metafor used
+vt <- freq_model$vt
 
-# Calculate I² for each study and each posterior draw
-n_studies <- nrow(data)
-n_samples <- nrow(tau_samples) 
+# Calculate I² using metafor's approach for each posterior draw
+I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
-I2_by_study <- matrix(NA, nrow = n_samples, ncol = n_studies)
+# Summarize tau²
+tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_median <- median(tau_sq_samples)
+tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
-data$vi <- data$se_beta_ln^2
-
-for(i in 1:n_studies) {
-  I2_by_study[, i] <- tau_sq_samples / (tau_sq_samples + data$vi[i])
-}
-
-# Average I² across studies for each posterior draw
-I2_samples <- rowMeans(I2_by_study)
-
-# Summarize the posterior distribution
+# Summarize I²
 I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 
+
 ```
 
 ## Abstract
-### Understanding uncertainty: Comparative Bayesian and frequentist meta-analysis of epidemiological studies on lead exposure and IQ loss in children
+### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of lead exposure and children's neurodevelopment
 
 ### Objective
-Evidence synthesis in epidemiology is often done by meta-analysis, primarily using a frequentist approach. 
-Bayesian meta-analysis offers an alternative framework for uncertainty quantification, incorporating within-study and between-study variability and facilitating transparent communication of uncertainty.
-We compared frequentist and Bayesian frameworks to investigate how they differ in exposure-response estimates, uncertainty characterization, and applicability for risk assessment.
-We used the association of blood lead levels and children's neurodevelopment as a use-case.
+<!-- Meta-analyses are critical for evidence synthesis in epidemiology. 
+While they are primarily conducted in a frequentist framework, Bayesian meta-analysis offers improved uncertainty quantification, incorporating within-study and between-study variability and facilitating transparent communication of uncertainty.
+The aim of this study is to compare frequentist and Bayesian meta-analysis frameworks and investigate how they differ in exposure-response estimates, uncertainty characterization, and applicability for risk assessment.
+We used the association of blood lead levels and children's neurodevelopment as a use-case. -->
+
+Bayesian meta-analysis provides probabilistic uncertainty quantification valuable for risk assessment and policy-making.
+Yet, frequentist approaches dominate in environmental epidemiology. 
+We compared frequentist and Bayesian frameworks to evaluate differences in pooled effect estimates, uncertainty characterization, and applicability for risk assessment, using blood lead exposure and children's neurodevelopment as a case study.
 
 ### Material and Methods
-We systematically searched PubMed and Scopus for epidemiological studies on blood lead levels and IQ score in children. 
-Risk of bias (RoB) was assessed using a rapid RoB tool [@plate2024DevelopmentToolRapid] and regression coefficients were harmonized to the $\log_e$​ scale.
-We assumed a multilevel structure and used random-effects models.
-We included the same effect estimates for both approaches.
+We systematically searched PubMed and Scopus for epidemiological studies on lead exposure and IQ score in children. 
+Risk of bias (RoB) was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
+In both meta-analyses, we assumed a multilevel structure, used random-effects models and included identical effect estimates.
 The frequentist approach used restricted maximum-likelihood estimation.
-The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors. 
-Posterior distributions of parameters were obtained using Markov Chain Monte Carlo.
+The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and prior specification.
-$I^2$ was calculated as a measure of between-study heterogeneity in the frequentist approach and directly modelled in the Bayesian approach.
+$I^2$ was estimated as a measure of between-study heterogeneity.
 
 ### Results
 Twelve studies were included after screening.
-The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (in µg/dL).
-The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% high density interval (HDI): `r Bayes_lb`; `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% credible interval (CrI): `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
+The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
 The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
-Sensitivity analyses showed robustness to RoB assessment and prior choice.
-The Bayesian approach was less sensitive to outlier studies that reported wide confidence intervals, resulting in a lower pooled effect compared to the frequentist analysis.
+Sensitivity analyses showed robustness to RoB and prior specification.
+The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 ### Conclusion
 In this study, we provide updated pooled estimates for lead's effect on children's neurodevelopment.  
-The Bayesian approach offered distinct advantages for uncertainty quantification as the posterior distributions enable direct probability statements.
-This is especially useful for risk assessments and policy making, as it allows defining relevant risk thresholds and calculating the probability of exceeding them, enabling comparative risk evaluation across pollutants.
+The Bayesian approach enables direct probability statements through posterior distributions.
+For risk assessment and policy making, this allows defining risk thresholds and calculating exceedance probabilities, enabling comparative assessments across pollutants.
 
-Funding
+Funded under EU Horizon (Grant Agreement No 101057014).
+
+
+<!-- [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`]
+[95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%] -->
