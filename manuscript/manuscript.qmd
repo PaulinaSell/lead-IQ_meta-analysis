@@ -26,10 +26,7 @@ format:
     embed-resources: true
     css: custom.scss
     page-layout: full
-    # theme: lumen
-    # theme: materia
     theme: yeti
-    # theme: cosmo
   # docx:
   #   reference-doc: ../manuscript/ref.docx
   #   number-sections: true
@@ -59,11 +56,6 @@ p {
 \newpage
 
 # Background
-
--   [x] Intro: Lead, health effects, burden of disease
--   [x] Currently used ERFs
--   [x] Rationale for methodological comparison (BMA - FMA)
--   [x] Aim of this study\
 
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
 Although concentrations have declined globally in past decades following the phase-out of leaded gasoline, lead remains present in the environment and human blood [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
@@ -116,7 +108,8 @@ The checklist can be found in the supplementary files.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting]. \
 
 We conducted a literature review to identify recent studies investigating associations between prenatal or postnatal exposure to Pb and IQ loss in children.
-This study was conducted wothin the EU-funded project Partnership for the Assessment of Risks from Chemicals ([PARC](https://www.eu-parc.eu)), and the literature review was conducted as the basis for multiple studies, including one on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes.
+This study was conducted within the EU-funded project Partnership for the Assessment of Risks from Chemicals ([PARC](https://www.eu-parc.eu)). 
+The literature review was conducted as the basis for multiple studies, including one on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes.
 Here, we will only report results for the literature we identified on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material documenting the literature review does contain parts of the search for other associations and exposure timeframes. \
 We searched for articles published between January 2005 and July 2023. 
 We only considered studies published after 2005, as the previously-used ERFs in the literature were published before 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at finding updated studies on the association.
@@ -130,7 +123,7 @@ Full text was then assessed by one reviewer.
 Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 and , pregnant women and women of childbearing age), Exposure (biological measures of Pb, MeHg or Hg from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ or similar indicator), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
 We excluded reviews and background articles that inventoried the literature with no new results. 
 We also excluded references written in languages other than English. \
-From the publications considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (2015). 
+From the publications considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (citation). 
 
 ## Data Extraction
 For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.
@@ -290,6 +283,15 @@ table_abbr <- data.frame(Abbreviation, Meaning)
 
 knitr::kable(table_abbr)
 ```
+# Acknowledgements {.unnumbered}
+The authors thank 
+Rafiqa Benchrih (Department of Epidemiology and Public Health, Sciensano, Belgium), 
+Jurgen Buekers (Flemish Institute for Technological Research, VITO, Belgium),
+Carla Martins (National School of Public Health, NOVA University of Lisbon, Portugal),
+Emily Mc Vey (Institute for Public Health and the Environment, RIVM, The Netherlands),
+Anthony Purece (Flemish Institute for Technological Research, VITO, Belgium) and
+Sofie Thomsen (Technical University of Denmark, DTU, Denmark)
+for their help in the screening process.
 
 # Funding {.unnumbered}
 
@@ -297,20 +299,3 @@ This work was carried out in the framework of the European Partnership for the A
 Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
 Neither the European Union nor the granting authority can be held responsible for them.
 
-```{r}
-#| label: test_ref
-#| include: false
-
-
-#m.brm <- readRDS("../models/main/m.brm_full.rds")
-#fitPrior <- readRDS("../models/main/fitPrior_full.rds")
-```
-
-```{r}
-#| label: test
-#| echo: false
-#| include: false
-
-
-#summary(m.brm)
-```
