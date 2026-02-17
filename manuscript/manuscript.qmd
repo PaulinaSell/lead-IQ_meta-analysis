@@ -107,13 +107,13 @@ This review adheres to the Preferred Reporting Items for Systematic reviews and 
 The checklist can be found in the supplementary files.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting]. \
 
-We conducted a literature review to identify recent studies investigating associations between prenatal or postnatal exposure to Pb and IQ loss in children.
-This study was conducted within the EU-funded project Partnership for the Assessment of Risks from Chemicals ([PARC](https://www.eu-parc.eu)). 
-The literature review was conducted as the basis for multiple studies, including one on the association of (methyl)mercury and lead on IQ loss for different exposure timeframes.
-Here, we will only report results for the literature we identified on concurrent lead exposure and IQ loss, but the flowcharts and supplementary material documenting the literature review does contain parts of the search for other associations and exposure timeframes. \
-We searched for articles published between January 2005 and July 2023. 
-We only considered studies published after 2005, as the previously-used ERFs in the literature were published before 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at finding updated studies on the association.
-Also, as described in the backround section, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
+We conducted a literature review to identify published studies investigating the association between postnatal (concurrent) exposure to Pb and IQ loss in children.
+This study was conducted within the EU-funded project *Partnership for the Assessment of Risks from Chemicals ([PARC](https://www.eu-parc.eu))*. 
+The literature review presented here was used in multiple studies within PARC, including one on the association of (methyl)mercury and lead on IQ loss for multiple exposure timeframes.
+Here, we will only report results for concurrent lead exposure and IQ loss, but the figures and tables documenting the literature review do contain parts of the search for other associations and exposure timeframes. \
+We searched for articles published between January 2005 and July 2023.
+The year 2005 was chosen because, as described in the background section, burden of disease studies predominantely used a study published in 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at updating the evidence base with recently published studies.
+Also, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
 Search queries in Pubmed and Scopus included the following terms: 
 substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). 
 We prioritized references naming the substance in the title in order to decrease the volume of results. \
@@ -124,6 +124,7 @@ Publications were considered relevant according to predefined PECOTS – Populat
 We excluded reviews and background articles that inventoried the literature with no new results. 
 We also excluded references written in languages other than English. \
 From the publications considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (citation). 
+
 
 ## Data Extraction
 For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.
