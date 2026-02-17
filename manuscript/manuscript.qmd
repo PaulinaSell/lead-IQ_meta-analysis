@@ -76,7 +76,7 @@ Children are especially vulnerable to lead's neurotoxic effects due to their dev
 Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy.
 
 Contemporary blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL ([HBM4EU Dashboard](https://hbm.vito.be/eu-hbm-dashboard)), well below the concentrations examined in many earlier studies (<10 µg/dL).
-Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead; @schwartz1994LowLevelLeadExposurea].
+Importantly, there is no evidence for a threshold concentration below which the effects of lead on the IQ can be assumed to be negligible [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead; @schwartz1994LowLevelLeadExposure].
 There is evidence for a supralinear exposure-response relationship with steeper IQ decrements per unit increase in BLL at low concentrations compared to higher concentration ranges [@canfield2003IntellectualImpairmentChildren; @lanphear2005LowLevelEnvironmentalLead].
 These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating recent data to inform risk assessment at currently relevant exposure levels.
 
@@ -96,11 +96,11 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 # Methods
 
 -   [x] Overview: systematic review and meta-analysis, comparing a frequentist to a Bayesian approach
--   [ ] Inclusion & exclusion criteria, databases, search strategy, screening process
+-   [x] Inclusion & exclusion criteria, databases, search strategy, screening process
 -   [x] Risk of bias analysis method
 -   [x] Description & rationale of harmonization of reported effect measures
--   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification
--   [ ] Sensitivity analysis\
+-   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, **heterogeneity** identification, prior choice
+-   [x] Sensitivity analysis\
 
 ## Literature Review
 This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement].
@@ -116,24 +116,21 @@ The year 2005 was chosen because, as described in the background section, burden
 Also, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
 Search queries in Pubmed and Scopus included the following terms: 
 substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). 
-We prioritized references naming the substance in the title in order to decrease the volume of results. \
+<!-- We prioritized references naming the substance in the title in order to decrease the volume of results. -> does this mean that you only included studies that mentioned the substance in the title?\ -->
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
-Full text was then assessed by one reviewer. 
-Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 and , pregnant women and women of childbearing age), Exposure (biological measures of Pb, MeHg or Hg from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ or similar indicator), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
+Full text was then assessed by one reviewer.
+Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11), Exposure (biological measures of Pb from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
 We excluded reviews and background articles that inventoried the literature with no new results. 
 We also excluded references written in languages other than English. \
-From the publications considered relevant after the two-round screening, we collected several descriptive key data from these papers using a grid based on the one proposed by NTP OHAT (citation). 
-
-
-## Data Extraction
-For all studies, adjusted effect estimates were extracted and the set of confounders adjused for recorded.
+After full text screening, we collected descriptive key data using a grid based on the one proposed by NTP OHAT @ntpohat2019HandbookConductingLiteratureBased. 
+For all included studies, effect estimates from the most-adjusted model were extracted and the set of confounders adjused for recorded.
 
 ## Risk of Bias Assessment
 To assess study quality, we conducted a Risk of Bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
 Each included publication was assessed for RoB in the domains selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
-In total, 15 items were evaluated for each study.‚
-The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics of the RoB tool (for more information, see @plate2024DevelopmentToolRapid).
+In total, 15 items were evaluated for each study.
+The overall RoB for each individual study was then categorized by one researcher as either low, moderate or high, following two different summary metrics provided by the RoB tool (for more information, see @plate2024DevelopmentToolRapid).
 Each publication was first assessed by one researcher.
 Subsequently, consensus with a large language model (LLM) was sought. 
 This was done by uploading the list of all raRoB items along with the respective publication.
@@ -141,8 +138,8 @@ Then, the LLM was promted to assess the study, using the raRoB items and possibl
 If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher and they made the final decision.
 
 ## Harmonization of Effect Estimates
-Studies investigating the association between lead exposure and childhood IQ have made different assumptions regarding the shape of the exposure-response relationship. 
-While some studies assume a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], this assumption may only be valid at very low concentration ranges [@crump2013StatisticalReevaluationData].
+Studies investigating the association between lead exposure and IQ in children have made different assumptions regarding the shape of the exposure-response relationship. 
+While some studies assume a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], this assumption may only be valid at very low concentrations [@crump2013StatisticalReevaluationData].
 Studies that tested multiple shapes of the exposure-response function have concluded that a log-linear relationship, where BLL are logarithmically transformed, provides a more appropriate model [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
 
 The general form of regression model used for a log-linear association is:
@@ -151,21 +148,21 @@ y = \alpha + \beta \cdot {log_{b}}(X) + \varepsilon
 $$ {#eq-regression-model}
 Where $y$ represents the IQ score, $\alpha$ is the intercept, $\beta$ is the regression coefficient (slope), $X$ denotes BLL, $b$ is the logarithmic base, and $\varepsilon$ is the error term.
 
-Studies have used different logarithmic bases: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
+In the literature, different logarithmic bases are used to transform BLL: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
 To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to the natural logarithm scale ($\log_e$).
-The calculations are fully documented in suppl. file x \
-Studies that left BLL on the original (untransformed) linear scale were excluded from the meta-analysis, as transformation from linear to log-linear effect estimates could not be justified based on visual inspection (supplement: plots?).
+The calculations are documented in suppl. file 1 (Screening documentation excel) \
+In some publications, the BLL scale was left untransformed, so on a linear scale.
+These were excluded from the meta-analysis, as transformation of effect estimates for linear BLL to log-linear could not be justified based on visual inspection (supplement: plots?).
 
 ## Meta-Analysis Methodology
-In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and their IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
-In both approaches, the same studies and effect estimates were included and analogous models were chosen to enable comparison between the results.
-We estimated pooled effect estimates for the absolute loss of IQ points per unit increase in $\log_e$-transformed blood lead concentration (µg/dL).\
-Within studies, results from the most-adjusted models were chosen to enter the meta-analysis; unadjusted results were not considered. \
-R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical and Positron version 2026.01.0-147 were used for all computations.
-All of the computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
+In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and IQ, we conducted a meta-analysis of the results, comparing a Bayesian to a frequentist approach.\
+In both approaches, the same effect estimates from the identified publications were included and analogous models were chosen to enable comparison between the results.
+We estimated pooled effect estimates for the loss of IQ points per continuous unit increase in $\log_e$-transformed blood lead concentration (µg/dL).\
+R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical was used for all computations.
+All computational code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Bayesian Meta-Analysis
-We employed a Bayesian random-effects meta-analysis model with two hierarchical levels. 
+For the Bayesian approach, we employed a random-effects meta-analysis model with two hierarchical levels. 
 At the first level, the observed effect size from each study $\hat{\theta}_{k}$ is modeled as an estimate of that study's true underlying effect $\theta_{k}$, with deviation from the true effect determined by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
 At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study heterogeneity $\tau$.
 
@@ -185,13 +182,34 @@ $\tau$ = Between-study standard deviation (heterogeneity)\
 
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
 Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
-We ran four chains with 4,000 iterations each, of which 2,000 iterations were used as warmup, resulting in 8,000 total post-warmup draws.
-Convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and effective sample size.
+We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
+Convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and effective sample size (ESS).
+* Heterogeneity: modelled directly as parameter, I^2 analogous to that calculated in the frequentist model
 
 ### Priors
-* Parameters to be estimated: mu and tau (mu later called beta?)
-* choice based on previous evidence, e.g. @needleman1990LowLevelLeadExposure
-* explain scale (log, µg/dL)
+In Bayesian statistics, prior knowledge or assumptions from previously published studies, domain knowledge or beliefs are updated by the newly observed data and together result in a posterior distrbution.
+Prior distributions must be chosen for all parameters to be estimated in the analysis, which in this case are the overall pooled effect estimate $\mu$ and between-study heterogeneity $\tau$.
+For both parameters, weakly-informative / conservative priors were chosen so that the posterior distributions are softly being bounded to a realistic range.
+Because the unit scale of the included effect estimates was harmonized to IQ shift per unit increase in $\log_e$-transformed blood lead concentration (µg/dL), the priors will be specified on the same scale.
+
+```{r}
+#| label: prior_assumption
+#| echo: false
+
+prob_prior_mu <- 0.95
+prior_mean <- -1
+prior_sd <- 2
+
+lb_prior <- qnorm(((1 - prob_prior_mu) / 2), prior_mean, prior_sd)
+ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
+```
+
+For the overall pooled effect $\mu$, a normally distributed prior centered at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
+This translates to the assumption that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with about `r prob_prior_mu * 100`% probability.
+The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established in the scientific literature @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead. \
+Since between-study heterogeneity $\tau$ must by definition be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
+This translates to the assumption that the between-study heterogeneity is small, but due to its wide SD, the prior is still vague and thus weakly-informative.
+In summary, the following priors were specified for the Bayesian model:
 
 $$
 \begin{split}
@@ -200,9 +218,12 @@ $$
 \end{split}
 $$ {#eq-priors}
 
+<!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
+Prior and posterior predictive simulations were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian.
+
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
-The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity.
+The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity $\tau^2$.
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses.
@@ -210,7 +231,7 @@ To examine the sensitivity of the results to possibly biased study results, we r
 
 To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect ($μ$) and heterogeneity ($τ$).
 The first set of priors was more informative (more narrow) than the main priors, with $μ \sim \mathcal{N}(-1, 1)$ and $τ \sim \mathcal{N}^+(0, 1)$.
-The second set of priors was less informative (or broader) with $μ \sim \mathcal{N}(0, 6)$ and $τ \sim \mathcal{N}^+(0, 6)$. 
+The second set of priors was less informative (or broader) with $μ \sim \mathcal{N}(0, 6)$ and $τ \sim \mathcal{N}^+(0, 6)$.
 Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
 More informative priors (more narrow):
@@ -265,6 +286,7 @@ Meaning <- c(
   "Large language model",
   "Restricted maximum-likelihood",
   "Risk of Bias",
+  "Standard deviation",
   "Standard error",
   "Uncertainty Interval",
   "Disability-adjusted Life Year")
@@ -277,6 +299,7 @@ Abbreviation <- c(
   "LLM",
   "REML",
   "RoB",
+  "SD",
   "SE",
   "UI",
   "DALY")
