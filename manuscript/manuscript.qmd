@@ -2,31 +2,49 @@
 title: "Lead exposure and IQ loss in children: a Bayesian and frequentist meta-analysis of recent epidemiological studies"
 author:
   - name: Paulina Sell
-    affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    affiliations: 
+      - ref: uba
+    corresponding: true
+    email: paulina.sell@uba.de
     orcid: 0009-0007-7419-2956
   - name: Margaux Sanchez
-    affiliation: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
+    affiliations: 
+      - ref: anses
     orcid: 
   - name: Philippe Palmont
-    affiliation: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
+    affiliations: 
+      - ref: anses
     orcid: 
   - name: Dietrich Plass
-    affiliation: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    affiliations:
+      - ref: uba
     orcid: 0000-0002-8058-1399
+
+affiliations:
+  - id: uba
+    name: Environmental Hygiene, German Environment Agency, Berlin, Germany
+  - id: anses
+    name: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
+
 date-modified: last-modified
 date-format: "D MMMM YYYY"
+
+filters:
+ - authors-block
+ 
 bibliography: references.bib
 csl: vancouver.csl
 reference-section-title: "References"
+
 format:
-  html:
-    toc: true
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
+  # html:
+  #   toc: true
+  #   title-block-banner: false
+  #   number-sections: true
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
   # docx:
   #   reference-doc: ../manuscript/ref.docx
   #   number-sections: true
@@ -35,8 +53,8 @@ format:
   #   fig-height: 3.5
   #   fig-dpi: 600
   #   out-width: "40%"
-    # pdf:
-    #   toc: true
+    pdf:
+      toc: true
 ---
 
 ```{css echo = FALSE}
@@ -63,7 +81,7 @@ In Europe, primary exposure sources include dietary products, drinking water, an
 The most recent Global Burden of Disease Study estimated that in 2023, 3.4 million	(95% Uncertainty Interval (UI): 2.7; 4.0 million) Disability-Adjusted Life Years (DALYs) were attributable to lead exposure in the European Union (EU) @brauer2024GlobalBurdenStrength.
 This highlights the continued public health significance even of low-level exposure.
 
-Lead exposure is associated with multiple adverse health outcomes across the human life course, including
+Exposure to lead is associated with multiple adverse health outcomes across the human life course, including
 decreased kidney function @harari2018BloodLeadLevels, 
 liver disease @wan2022ChronicLeadExposure, 
 coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary,
@@ -99,7 +117,7 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 -   [x] Inclusion & exclusion criteria, databases, search strategy, screening process
 -   [x] Risk of bias analysis method
 -   [x] Description & rationale of harmonization of reported effect measures
--   [ ] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, **heterogeneity** identification, prior choice
+-   [x] Description of meta-analysis methodology (frequentist & Bayesian), models and software used, heterogeneity identification, prior choice
 -   [x] Sensitivity analysis\
 
 ## Literature Review
@@ -123,7 +141,10 @@ Full text was then assessed by one reviewer.
 Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11), Exposure (biological measures of Pb from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ), Timing of exposure (no restriction) and Setting (no restriction) (Table 2). 
 We excluded reviews and background articles that inventoried the literature with no new results. 
 We also excluded references written in languages other than English. \
-After full text screening, we collected descriptive key data using a grid based on the one proposed by NTP OHAT @ntpohat2019HandbookConductingLiteratureBased. 
+As described above, the literature review was conducted with as the basis for multiple studies and thus had a larger scope.
+For this study, only studies that used a continuous, log-transformed BLL scale were included, so that effect estimates could be harmonized.
+The exposure timeframe for this study was restricted to concurrent, meaning that IQ and BLL measurement must be conducted at the same time.
+Descriptive study data was extracted using a grid based on the one proposed by NTP OHAT @ntpohat2019HandbookConductingLiteratureBased. 
 For all included studies, effect estimates from the most-adjusted model were extracted and the set of confounders adjused for recorded.
 
 ## Risk of Bias Assessment
@@ -164,7 +185,7 @@ All computational code for this study is publicly available on [GitHub](https://
 ### Bayesian Meta-Analysis
 For the Bayesian approach, we employed a random-effects meta-analysis model with two hierarchical levels. 
 At the first level, the observed effect size from each study $\hat{\theta}_{k}$ is modeled as an estimate of that study's true underlying effect $\theta_{k}$, with deviation from the true effect determined by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
-At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study heterogeneity $\tau$.
+At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
 
 $$
 \begin{split}
@@ -180,15 +201,16 @@ $\theta_{k}$ = True underlying effect for study $k$\
 $\mu$ = Overall pooled effect\
 $\tau$ = Between-study standard deviation (heterogeneity)\
 
+<!-- is it okay that I swapped tau^2 for tau in my analysis? Claude says its the right call -->
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
 Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
 Convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and effective sample size (ESS).
-* Heterogeneity: modelled directly as parameter, I^2 analogous to that calculated in the frequentist model
+As shown in @eq-model, heterogeneity $\tau$ was modelled as a parameter directly and $I^2$ was calculated using the typical within-study variance that is used in the frequentist approach so that it is comparable.
 
 ### Priors
-In Bayesian statistics, prior knowledge or assumptions from previously published studies, domain knowledge or beliefs are updated by the newly observed data and together result in a posterior distrbution.
-Prior distributions must be chosen for all parameters to be estimated in the analysis, which in this case are the overall pooled effect estimate $\mu$ and between-study heterogeneity $\tau$.
+In Bayesian statistics, prior knowledge or assumptions from previously published studies, domain knowledge or beliefs are updated by the newly observed data and together result in a posterior distribution.
+Prior distributions must be chosen for all parameters to be estimated in the analysis, which in this case are the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
 For both parameters, weakly-informative / conservative priors were chosen so that the posterior distributions are softly being bounded to a realistic range.
 Because the unit scale of the included effect estimates was harmonized to IQ shift per unit increase in $\log_e$-transformed blood lead concentration (µg/dL), the priors will be specified on the same scale.
 
@@ -207,8 +229,8 @@ ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
 For the overall pooled effect $\mu$, a normally distributed prior centered at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
 This translates to the assumption that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with about `r prob_prior_mu * 100`% probability.
 The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established in the scientific literature @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead. \
-Since between-study heterogeneity $\tau$ must by definition be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
-This translates to the assumption that the between-study heterogeneity is small, but due to its wide SD, the prior is still vague and thus weakly-informative.
+Since between-study standard deviation (heterogeneity) $\tau$ must by definition be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
+This translates to the assumption that $\tau$ is small, but due to its wide SD, the prior is still vague and thus weakly-informative.
 In summary, the following priors were specified for the Bayesian model:
 
 $$
@@ -222,19 +244,20 @@ $$ {#eq-priors}
 Prior and posterior predictive simulations were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian.
 
 ### Frequentist Meta-Analysis
-For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
+For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. 
+Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity $\tau^2$.
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses.
-To examine the sensitivity of the results to possibly biased study results, we ran both the frequentist and Bayesian models again, excluding (1) studies with a high RoB and (2) with a high or medium RoB.
+To examine the sensitivity of the results to possibly biased study estimates, we ran both the frequentist and Bayesian models again twice, excluding (1) studies with a high RoB and (2) with a high or medium RoB.
 
 To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect ($μ$) and heterogeneity ($τ$).
-The first set of priors was more informative (more narrow) than the main priors, with $μ \sim \mathcal{N}(-1, 1)$ and $τ \sim \mathcal{N}^+(0, 1)$.
-The second set of priors was less informative (or broader) with $μ \sim \mathcal{N}(0, 6)$ and $τ \sim \mathcal{N}^+(0, 6)$.
+The first set of priors was more informative (more narrow) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
+The second set of priors was less informative (or broader) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Notice that for the main effect, we centered the broader prior around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
-More informative priors (more narrow):
+More informative priors (less conservative):
 $$
 \begin{split}
 \mu &\sim \mathcal{N}(-1, 1) \\
@@ -242,7 +265,7 @@ $$
 \end{split}
 $$ {#eq-prior-sensitivity1}
 
-Less informative priors (more broad):
+Less informative priors (more conservative):
 $$
 \begin{split}
 \mu &\sim \mathcal{N}(0, 6) \\
@@ -251,8 +274,25 @@ $$
 $$ {#eq-prior-sensitivity2}
 
 # Results
+## Literature Review
+As described in the methods section, the systematic review was conducted with a larger scope, because it was used as a basis for multiple studies which is why it includes another substance (mercury, Hg).
+The systematic search in PubMed and Scopus yielded 1,073 records for lead.
+After duplicate removal, 974 records were abstract and title-screened (Pb & Hg), which lead to 149 records to be screened in fulltext (Pb & Hg).
+After full text screening, 36 records remained for Pb.
+These were then assessed for their eligibility for this study. 
+Twelve studies were excluded because they either transformed the BLL variable into categories or left it on a linear (untransformed) scale.
+Four studies were excluded because they exclusively assessed the effects of prenatal lead exposure.
+Four studies were excluded because the cohorts included in the study were already included in another study and would have been duplicate.
+Four additional studies were excluded because they either solely reported effects of chemical mixtures, because they used non-linear models or failed to report essential statistics.
+Finally, twelve studies were included in the meta-analysis.
+In Figure X (PRISMA), the full screenind process is shown.
+A file containing all extracted study data as well as detailed exclusion reasons can be found in suppl. file X (systeamtic review process excel).
 
--   [ ] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why
+## Risk of Bias
+## Meta Analysis Results
+## Sensitivity Analysis Results
+
+-   [x] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why (no citation)
 -   [ ] Study characteristics (table), including original and harmonized effect measures
 -   [ ] Flow diagram, description of (full text) screening results
 -   [ ] RoB results for each included study
