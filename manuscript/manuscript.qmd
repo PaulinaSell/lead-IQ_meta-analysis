@@ -45,16 +45,16 @@ format:
   #   css: custom.scss
   #   page-layout: full
   #   theme: yeti
-  # docx:
-  #   reference-doc: ../manuscript/ref.docx
-  #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
-    pdf:
-      toc: true
+  docx:
+    reference-doc: ../manuscript/ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
+    # pdf:
+    #   toc: true
 ---
 
 ```{css echo = FALSE}
@@ -275,27 +275,83 @@ $$ {#eq-prior-sensitivity2}
 
 # Results
 ## Literature Review
-As described in the methods section, the systematic review was conducted with a larger scope, because it was used as a basis for multiple studies which is why it includes another substance (mercury, Hg).
+As described in the methods, the systematic review was conducted with a larger scope, because it was used as a basis for multiple studies, which is why it includes another substance (mercury, Hg).
 The systematic search in PubMed and Scopus yielded 1,073 records for lead.
-After duplicate removal, 974 records were abstract and title-screened (Pb & Hg), which lead to 149 records to be screened in fulltext (Pb & Hg).
-After full text screening, 36 records remained for Pb.
-These were then assessed for their eligibility for this study. 
+After duplicate removal, 974 records (Pb & Hg) were screened in abstract and title, which lead to 149 records (Pb & Hg) to be screened in fulltext.
+After fulltext-screening, 36 records remained for Pb.
+These were then assessed for their eligibility for the meta-analysis. 
 Twelve studies were excluded because they either transformed the BLL variable into categories or left it on a linear (untransformed) scale.
 Four studies were excluded because they exclusively assessed the effects of prenatal lead exposure.
-Four studies were excluded because the cohorts included in the study were already included in another study and would have been duplicate.
+Furthermore, four studies were excluded because the cohorts included in the study were already included in another study and would have been a duplicate.
 Four additional studies were excluded because they either solely reported effects of chemical mixtures, because they used non-linear models or failed to report essential statistics.
 Finally, twelve studies were included in the meta-analysis.
-In Figure X (PRISMA), the full screenind process is shown.
-A file containing all extracted study data as well as detailed exclusion reasons can be found in suppl. file X (systeamtic review process excel).
+Study characteristics and regression coefficients are shown in table 1.
+
+```{r}
+#| label: Table_1
+#| echo: false
+#| message: false
+#| warning: false
+
+library(gt)
+library(readr)
+
+Table1 <- read_csv("study_characteristics.csv")
+
+Table1 |>
+  gt() |>
+  tab_header(
+    title = md("Table 1: Study Characteristics")) |>
+  cols_width(
+    `Geographical area` ~ px(300),
+    `Adjustment set` ~ px(300),
+    everything() ~ px(120)
+  ) |>
+ opt_interactive(
+    use_pagination = FALSE
+  )
+```
+
+A PRISMA flow diagram summarizing the review process is shown as in figure 1 @page2021PRISMA2020Statement.
+A file containing detailed information on the screening process and exclusion reasons can be found in suppl. file X (systeamtic review process excel).
+
+![Figure 1: PRISMA flow diagram](PRISMA_flow_diagram.png){width=50% fig-align="left"}
+
 
 ## Risk of Bias
+The rapid RoB assessment resulted in eight studies with a low risk, two with a moderate risk [@lucchini2012InverseAssociationIntellectual, @lucchini2019NeurocognitiveImpactMetal] and two studies with a high RoB [@crump2013StatisticalReevaluationData, @earl2016LowlevelEnvironmentalLead].
+Domains with a higher RoB were *non-response rate* (Selection), where many of the studies did not report the non-response rate or did not discuss wether non-responding individuals might systematically differ from participants in the studies, leading to selection bias.
+Another domain with overall higher RoB in the included studies was *accounting for confounding* (Confounding), where important confounders like maternal IQ were left out or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach is preferable [@smith2018StepAwayStepwise].
+Finally, in the domain *handling of missing values* (Analysis), some of the studies gave no information on how they handeled missing values and others handeled them inadequately.
+Results from the RoB assessment is presented in table 2.
+
+```{r}
+#| label: Table_2
+#| echo: false
+#| message: false
+#| warning: false
+
+
+Table2 <- read_csv("RoB.csv")
+
+Table2 |>
+  gt() |>
+  tab_header(
+    title = md("Table 2: Risk of Bias Assessment")) |>
+ opt_interactive(
+    use_pagination = FALSE
+  )
+```
+
 ## Meta Analysis Results
+
+
 ## Sensitivity Analysis Results
 
--   [x] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why (no citation)
--   [ ] Study characteristics (table), including original and harmonized effect measures
--   [ ] Flow diagram, description of (full text) screening results
--   [ ] RoB results for each included study
+-   [x] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why (no citation so far)
+-   [x] Study characteristics (table), including original and harmonized effect measures
+-   [x] Flow diagram, description of (full text) screening results
+-   [x] RoB results for each included study
 -   [ ] Forest plots
 -   [ ] Sensitivity analysis results
 
