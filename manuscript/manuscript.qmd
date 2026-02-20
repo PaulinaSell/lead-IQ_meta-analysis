@@ -48,11 +48,11 @@ format:
   docx:
     reference-doc: ../manuscript/ref.docx
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    # fig-align: "center"
+    # fig-width: 6.5
+    # fig-height: 3.5
+    # fig-dpi: 600
+    # out-width: "40%"
     # pdf:
     #   toc: true
 ---
@@ -72,6 +72,11 @@ p {
 # Abstract {.unnumbered}
 
 \newpage
+
+```{r}
+library(gt)
+gt(mtcars)
+```
 
 # Background
 
@@ -306,10 +311,11 @@ Table1 |>
     `Geographical area` ~ px(300),
     `Adjustment set` ~ px(300),
     everything() ~ px(120)
-  ) |>
- opt_interactive(
-    use_pagination = FALSE
-  )
+  ) 
+#   |>
+#  opt_interactive(
+#     use_pagination = FALSE
+#   )
 ```
 
 A PRISMA flow diagram summarizing the review process is shown as in figure 1 @page2021PRISMA2020Statement.
@@ -319,7 +325,9 @@ A file containing detailed information on the screening process and exclusion re
 
 
 ## Risk of Bias
-The rapid RoB assessment resulted in eight studies with a low risk, two with a moderate risk [@lucchini2012InverseAssociationIntellectual, @lucchini2019NeurocognitiveImpactMetal] and two studies with a high RoB [@crump2013StatisticalReevaluationData, @earl2016LowlevelEnvironmentalLead].
+The rapid RoB assessment resulted in eight studies with a low risk [@bauer2020AssociationsMetalMixture, @dantzer2020ComparisonBloodToenails, @desrochers-couture2018PrenatalConcurrentSexspecific, @hong2015EnvironmentalLeadExposure, @lee2021PrenatalPostnatalExposures, @menezes-filho2018EnvironmentalCoExposureLead, @roy2013EffectModificationTransferrin, @schnaas2006ReducedIntellectualDevelopment],
+two with a moderate risk [@lucchini2012InverseAssociationIntellectual, @lucchini2019NeurocognitiveImpactMetal] 
+and two studies with a high RoB [@crump2013StatisticalReevaluationData, @earl2016LowlevelEnvironmentalLead].\
 Domains with a higher RoB were *non-response rate* (Selection), where many of the studies did not report the non-response rate or did not discuss wether non-responding individuals might systematically differ from participants in the studies, leading to selection bias.
 Another domain with overall higher RoB in the included studies was *accounting for confounding* (Confounding), where important confounders like maternal IQ were left out or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach is preferable [@smith2018StepAwayStepwise].
 Finally, in the domain *handling of missing values* (Analysis), some of the studies gave no information on how they handeled missing values and others handeled them inadequately.
@@ -338,13 +346,99 @@ Table2 |>
   gt() |>
   tab_header(
     title = md("Table 2: Risk of Bias Assessment")) |>
- opt_interactive(
-    use_pagination = FALSE
+  # opt_interactive(
+  #   use_pagination = FALSE
+  # ) |>
+  tab_spanner(
+    label = "Selection",
+    columns = 2:5
+  ) |>
+  tab_spanner(
+    label = "Exposure",
+    columns = 6:7
+  ) |>
+  tab_spanner(
+    label = "Outcome",
+    columns = 8:9
+  )|>
+  tab_spanner(
+    label = "Confounding",
+    columns = 10:11
+  ) |>
+  tab_spanner(
+    label = "Follow-up",
+    columns = 12:13
+  ) |>
+  tab_spanner(
+    label = "Analysis",
+    columns = 14:15
+  ) |>
+  tab_spanner(
+    label = "Selective Reporting",
+    columns = 16
+  ) |>
+     tab_spanner(
+    label = "Overall Risk of Bias",
+    columns = 17
   )
+
 ```
 
 ## Meta Analysis Results
+```{r}
+#| label: read_models
+#| echo: false
 
+m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
+fitPrior <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds")
+freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+```
+
+```{r}
+#| label: extract_results
+#| echo: false
+#| message: false
+
+library(posterior)
+library(HDInterval)
+library(brms)
+
+freq_mean <- round(as.numeric(freq_model$beta), 2)
+freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
+freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+
+m.brm_samples <- as_draws_df(m.brm)
+Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
+
+hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+Bayes_lb <- round(as.numeric(hdi[1]), 2)
+Bayes_ub <- round(as.numeric(hdi[2]), 2)
+
+# calculate tau2 and I2 analogous to metafor
+# Extract posterior samples of tau
+tau_samples <- as_draws_df(m.brm, variable = "sd_author_year__Intercept")
+tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
+
+# Get the SAME typical within-study variance that metafor used
+vt <- freq_model$vt
+
+# Calculate I² using metafor's approach for each posterior draw
+I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
+
+# Summarize tau²
+tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_median <- median(tau_sq_samples)
+tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
+
+# Summarize I²
+I2_posterior_mean <- mean(I2_samples)
+I2_posterior_median <- median(I2_samples)
+I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
+```
+
+The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
+Between-study heterogeneity was substantial in both approaches (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
 
 ## Sensitivity Analysis Results
 
@@ -375,7 +469,8 @@ Table2 |>
 
 Meaning <- c(
   "Blood lead levels", 
-  "Confidence interval", 
+  "Confidence interval",
+  "Credible interval",
   "Environmental Burden of Disease", 
   "European Union", 
   "Intelligence quotient",
@@ -388,7 +483,8 @@ Meaning <- c(
   "Disability-adjusted Life Year")
 Abbreviation <- c(
   "BLL", 
-  "CI", 
+  "CI",
+  "CrI",
   "EBD", 
   "EU", 
   "IQ",
