@@ -114,8 +114,6 @@ tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
-
-
 ```
 
 ## Abstract
@@ -126,10 +124,9 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 While they are primarily conducted in a frequentist framework, Bayesian meta-analysis offers improved uncertainty quantification, incorporating within-study and between-study variability and facilitating transparent communication of uncertainty.
 The aim of this study is to compare frequentist and Bayesian meta-analysis frameworks and investigate how they differ in exposure-response estimates, uncertainty characterization, and applicability for risk assessment.
 We used the association of blood lead levels and children's neurodevelopment as a use-case. -->
-
-Bayesian meta-analysis provides probabilistic uncertainty quantification valuable for risk assessment and policy-making.
-However, frequentist approaches currently dominate environmental epidemiology.
-We compared frequentist and Bayesian frameworks to evaluate differences in pooled effect estimates, uncertainty characterization, and applicability for risk assessment, using lead exposure and children's intelligence quotient (IQ) as a case study.
+Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
+Bayesian meta-analysis provides probabilistic uncertainty quantification.
+To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
 
 ### Material and Methods
 We systematically searched PubMed and Scopus for epidemiological studies on blood lead exposure and IQ score in children. 
@@ -138,7 +135,7 @@ In both meta-analyses, we assumed a multilevel structure, used random-effects mo
 The frequentist approach used restricted maximum-likelihood estimation.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and prior specification.
-$I^2$ was estimated as a measure of between-study heterogeneity.
+$\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 ### Results
 Twelve studies were included after screening.
@@ -150,7 +147,7 @@ Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 ### Conclusion
-In this study, we provide updated pooled estimates for the effect of lead exposure on children's IQ.  
+We provide updated pooled estimates for the effect of lead exposure on children's IQ.  
 The Bayesian approach enables direct probability statements through posterior distributions.
 For risk assessment and policy making, this allows probabilistic burden of disease assessments as well as defining risk thresholds and calculating exceedance probabilities, enabling comparative assessments across pollutants.
 
