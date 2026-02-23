@@ -7,6 +7,7 @@
 .DS_Store
 documentation/documentation_meta-analysis_lead-IQloss_cache/
 documentation/documentation_meta-analysis_lead-IQloss_word_cache/
+manuscript/tables_figures/
 *_cache/
 *_files/
 .vscode/

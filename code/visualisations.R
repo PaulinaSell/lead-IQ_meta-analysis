@@ -128,6 +128,9 @@ ggplot() +
 #        height = 10,
 #        units = "cm")
 
+# Prior predictive checks
+pp_check(fitPrior_full)
+
 # Traceplot incl. warmup (no loop) ----
 posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
 names(posterior_samples_warm)[

@@ -37,17 +37,17 @@ csl: vancouver.csl
 reference-section-title: "References"
 
 format:
-  # html:
-  #   toc: true
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    title-block-banner: false
     number-sections: true
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
     # fig-align: "center"
     # fig-width: 6.5
     # fig-height: 3.5
@@ -72,11 +72,6 @@ p {
 # Abstract {.unnumbered}
 
 \newpage
-
-```{r}
-library(gt)
-gt(mtcars)
-```
 
 # Background
 
@@ -138,7 +133,26 @@ We searched for articles published between January 2005 and July 2023.
 The year 2005 was chosen because, as described in the background section, burden of disease studies predominantely used a study published in 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at updating the evidence base with recently published studies.
 Also, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
 Search queries in Pubmed and Scopus included the following terms: 
-substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1). 
+substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1).
+
+```{r}
+#| label: table_1_searchterms
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(gt)
+library(readr)
+
+Table1 <- read_csv("tables_figures/main/table1.csv")
+
+Table1 |>
+  gt() |>
+  tab_header(
+    title = md("Table 1: Search queries in Pubmed and Scopus")) |> 
+  tab_options(table.font.size=11)
+```
 <!-- We prioritized references naming the substance in the title in order to decrease the volume of results. -> does this mean that you only included studies that mentioned the substance in the title?\ -->
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
@@ -208,9 +222,9 @@ $\tau$ = Between-study standard deviation (heterogeneity)\
 
 <!-- is it okay that I swapped tau^2 for tau in my analysis? Claude says its the right call -->
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
-Posterior draws were sampled using the Hamiltonian Monte Carlo algorithm @betancourt2017ConceptualIntroductionHamiltonian and the No-U-Turn Sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
+Posterior draws were sampled using Markov chain Monte Carlo (MCMC) and the No-U-Turn sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
-Convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and effective sample size (ESS).
+MCMC convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and chain resolution was assessed using the effective sample size (ESS).
 As shown in @eq-model, heterogeneity $\tau$ was modelled as a parameter directly and $I^2$ was calculated using the typical within-study variance that is used in the frequentist approach so that it is comparable.
 
 ### Priors
@@ -290,38 +304,32 @@ Four studies were excluded because they exclusively assessed the effects of pren
 Furthermore, four studies were excluded because the cohorts included in the study were already included in another study and would have been a duplicate.
 Four additional studies were excluded because they either solely reported effects of chemical mixtures, because they used non-linear models or failed to report essential statistics.
 Finally, twelve studies were included in the meta-analysis.
-Study characteristics and regression coefficients are shown in table 1.
+Study characteristics and regression coefficients are shown in table 2.
 
 ```{r}
-#| label: Table_1
+#| label: table_2_study-char
 #| echo: false
 #| message: false
 #| warning: false
 
-library(gt)
-library(readr)
+Table2 <- read_csv("tables_figures/main/table2.csv")
 
-Table1 <- read_csv("study_characteristics.csv")
-
-Table1 |>
+Table2 |>
   gt() |>
   tab_header(
-    title = md("Table 1: Study Characteristics")) |>
+    title = md("Table 2: Study Characteristics")) |>
   cols_width(
     `Geographical area` ~ px(300),
-    `Adjustment set` ~ px(300),
-    everything() ~ px(120)
-  ) 
-#   |>
-#  opt_interactive(
-#     use_pagination = FALSE
-#   )
+    `Adjustment set` ~ px(500),
+    everything() ~ px(70)
+  ) |> 
+  tab_options(table.font.size=12)
 ```
 
 A PRISMA flow diagram summarizing the review process is shown as in figure 1 @page2021PRISMA2020Statement.
-A file containing detailed information on the screening process and exclusion reasons can be found in suppl. file X (systeamtic review process excel).
+A file containing detailed information on the screening process and exclusion reasons can be found in suppl. table 1.
 
-![Figure 1: PRISMA flow diagram](PRISMA_flow_diagram.png){width=50% fig-align="left"}
+![Figure 1: PRISMA flow diagram](tables_figures/main/figure1.png){width=50% fig-align="left"}
 
 
 ## Risk of Bias
@@ -331,21 +339,30 @@ and two studies with a high RoB [@crump2013StatisticalReevaluationData, @earl201
 Domains with a higher RoB were *non-response rate* (Selection), where many of the studies did not report the non-response rate or did not discuss wether non-responding individuals might systematically differ from participants in the studies, leading to selection bias.
 Another domain with overall higher RoB in the included studies was *accounting for confounding* (Confounding), where important confounders like maternal IQ were left out or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach is preferable [@smith2018StepAwayStepwise].
 Finally, in the domain *handling of missing values* (Analysis), some of the studies gave no information on how they handeled missing values and others handeled them inadequately.
-Results from the RoB assessment is presented in table 2.
+Results from the RoB assessment is presented in table 3.
 
 ```{r}
-#| label: Table_2
+#| label: table_3_RoB
 #| echo: false
 #| message: false
 #| warning: false
 
 
-Table2 <- read_csv("RoB.csv")
+Table3 <- read_csv("tables_figures/main/table3.csv")
 
-Table2 |>
+Table3 |>
   gt() |>
   tab_header(
-    title = md("Table 2: Risk of Bias Assessment")) |>
+    title = md("Table 3: Risk of Bias Assessment")) |>
+  tab_options(table.font.size=12) |>
+  cols_align(
+    align = "center",
+    columns = everything()
+  ) |>
+  cols_align(
+    align = "left",
+    columns = "Study, year"
+  ) |>
   # opt_interactive(
   #   use_pagination = FALSE
   # ) |>
@@ -402,10 +419,23 @@ freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_I
 library(posterior)
 library(HDInterval)
 library(brms)
+library(metafor)
 
 freq_mean <- round(as.numeric(freq_model$beta), 2)
 freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
 freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+
+# tau2 for frequentist model
+freq_confint <- confint(freq_model)
+freq_confint <- freq_confint$random
+freq_tau2_mean <- freq_confint[1,1]
+freq_tau2_lb <- freq_confint[1,2]
+freq_tau2_ub <- freq_confint[1,3]
+
+# I2 for freq model
+freq_I2_mean <- freq_confint[3,1]
+freq_I2_lb <- freq_confint[3,2]
+freq_I2_ub <- freq_confint[3,3]
 
 m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
@@ -427,18 +457,24 @@ I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
 # Summarize tau²
 tau_sq_mean <- mean(tau_sq_samples)
-tau_sq_median <- median(tau_sq_samples)
 tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
 # Summarize I²
 I2_posterior_mean <- mean(I2_samples)
-I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
+
+# summary for Rhat
+s_brm <- summary(m.brm)
 ```
+
+The prior predictive check indicated that the specified priors are appropriate (suppl. figure 1).
+$\hat{R}$ values indicate well converged MCMC chains (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
+ESS for the "bulk" of the posterior distribution for $\mu$ is `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")` and `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")` for the tails of the distribution.
+This corresponds to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 4)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 4)*100`% of total samples respectively.
 
 The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
-Between-study heterogeneity was substantial in both approaches (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
+Between-study heterogeneity was substantial in both approaches (frequentist: $\tau^2$ = `r round(freq_tau2_mean, 2)` (95% CI: `r round(freq_tau2_lb, 2)`; `r round(freq_tau2_mean, 2)`), $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 2)`; `r round(freq_I2_ub, 2)`%); Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
 
 ## Sensitivity Analysis Results
 
