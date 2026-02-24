@@ -52,17 +52,17 @@ ggplot(
       ),
       x = 3.5
     ),
-    hjust = -0.03
+    hjust = 0.2
   ) +
   labs(
-    title = "Random Effects Meta-Analysis",
+    title = "Bayesian Random Effects Meta-Analysis",
     x = "Observed Outcome",
     y = element_blank()
   ) +
   scale_x_continuous(
     limits = c(-15, 5),
     breaks = seq(-15, 5, by = 5), # explicit tick marks
-    expand = expansion(add = c(0, 3)) # 0 padding left, 2 units right
+    expand = expansion(add = c(0, 4)) # 0 padding left, 2 units right
   ) +
   guides(x = guide_axis(cap = "both")) + # cap both ends
   theme_minimal() +
@@ -71,10 +71,16 @@ ggplot(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
-    plot.margin = margin(t = 20, r = 20, b = 20, l = 20), # increase top margin
+    plot.margin = margin(t = 40, r = 10, b = 40, l = 20), # increase top margin
     plot.title = element_text(hjust = 0.5, face = "bold"),
-    axis.text.y = element_text(hjust = 0, margin = margin(r = -60)), # negative right margin pulls text right
+    axis.text.y = element_text(hjust = 0, margin = margin(r = -70)), # negative right margin pulls text right
     axis.line.x = element_line(linewidth = 0.5), # draw the x axis line
     axis.ticks.x = element_line(linewidth = 0.5), # draw tick marks
-    axis.ticks.length.x = unit(0.2, "cm"),
+    axis.ticks.length.x = unit(0.3, "cm"),
   )
+
+forest(
+  freq_model,
+  slab = freq_model$data$author_year,
+  main = "Frequentist Random Effects Meta-Analysis"
+)

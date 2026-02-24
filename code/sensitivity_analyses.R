@@ -69,8 +69,8 @@ for (data_subset in names(models_data)) {
   )
 
   # store models in list (env)
-  m.brm_models$main[[data_subset]] <- m.brm
-  m.brm_models$prior[[data_subset]] <- fitPrior
+  m.brm_models$rob$main[[data_subset]] <- m.brm
+  m.brm_models$rob$prior[[data_subset]] <- fitPrior
 
   # save models for later use
   saveRDS(
@@ -91,6 +91,7 @@ for (data_subset in names(models_data)) {
     row.names = F
   )
 }
+
 
 # 1.2 Frequentist MA ----
 
@@ -172,8 +173,8 @@ for (prior_set in names(priors_list)) {
   )
 
   # store models in list (env)
-  m.brm_models$main[[prior_set]] <- m.brm
-  m.brm_models$prior[[prior_set]] <- fitPrior
+  m.brm_models$prior$main[[prior_set]] <- m.brm
+  m.brm_models$prior$prior[[prior_set]] <- fitPrior
 
   # save models for later use
   saveRDS(
@@ -187,39 +188,124 @@ for (prior_set in names(priors_list)) {
   saveRDS(
     m.brm_models,
     file = "models/sensitivity/priors/m.brm_models_list.rds"
-  ) # save whole list
+  )
 }
 
+# read models
+# m.brm_models <- readRDS("models/sensitivity/priors/m.brm_models_list.rds")
 
 # 2.1 Checking Results ----
-results_priors <- list(
-  m.brm_main = m.brm_models$main$main,
-  m.brm_wide = m.brm_models$main$wide,
-  m.brm_narrow = m.brm_models$main$narrow,
-  fitPrior_main = m.brm_models$prior$main,
-  fitPrior_wide = m.brm_models$prior$wide,
-  fitPrior_narrow = m.brm_models$prior$narrow
+# results_priors <- list(
+#   m.brm_main = m.brm_models$main$main,
+#   m.brm_wide = m.brm_models$main$wide,
+#   m.brm_narrow = m.brm_models$main$narrow,
+#   fitPrior_main = m.brm_models$prior$main,
+#   fitPrior_wide = m.brm_models$prior$wide,
+#   fitPrior_narrow = m.brm_models$prior$narrow
+# )
+
+# for (result_name in names(results_priors)) {
+#   result = results_priors[[result_name]]
+
+#   pp_check_priors <- pp_check(result, ndraws = 20) +
+#     ggtitle(paste("PP Check:", result_name))
+#   print(pp_check_priors)
+
+#   plot_chains <- plot(
+#     result,
+#     variable = c("b_Intercept", "sd_author_year__Intercept")
+#   )
+
+#   # print model summaries
+#   cat(
+#     "\n======================================================================================\n"
+#   )
+#   cat("Sensitivity analysis with alternative priors. Model:", result_name, "\n")
+#   cat(
+#     "======================================================================================\n"
+#   )
+#   print(summary(result))
+# }
+
+# Table for publication
+m.brm_models <- readRDS("models/sensitivity/priors/m.brm_models_list.rds") # both priors and RoB sensi analysis results in here
+freq_models <- list(
+  full = readRDS("models/sensitivity/RoB/fitPrior_full.rds"),
+  low_medium = readRDS("models/sensitivity/RoB/fitPrior_low_medium.rds"),
+  low = readRDS("models/sensitivity/RoB/fitPrior_low.rds")
 )
 
-for (result_name in names(results_priors)) {
-  result = results_priors[[result_name]]
+library(purrr)
 
-  pp_check_priors <- pp_check(result, ndraws = 20) +
-    ggtitle(paste("PP Check:", result_name))
-  print(pp_check_priors)
+extract_brms <- function(fit, coeff = "Intercept") {
+  fe <- fixef(fit)
 
-  plot_chains <- plot(
-    result,
-    variable = c("b_Intercept", "sd_author_year__Intercept")
+  tibble(
+    bayes_mean = fe[coeff, "Estimate"],
+    bayes_lb = fe[coeff, "Q2.5"],
+    bayes_ub = fe[coeff, "Q97.5"]
   )
-
-  # print model summaries
-  cat(
-    "\n======================================================================================\n"
-  )
-  cat("Sensitivity analysis with alternative priors. Model:", result_name, "\n")
-  cat(
-    "======================================================================================\n"
-  )
-  print(summary(result))
 }
+
+extract_rma <- function(fit) {
+  tibble(
+    mean = as.numeric(coef(fit)),
+    lb = fit$ci.lb,
+    ub = fit$ci.ub
+  )
+}
+
+table_sensi <- imap_dfr(
+  m.brm_models,
+  function(sensitivity_group, group_name) {
+    posterior_models <- sensitivity_group$main # excluding sample_prior = "only" model fits
+
+    imap_dfr(
+      posterior_models,
+      function(fit, variant) {
+        extract_brms(fit) %>%
+          mutate(
+            sensitivity_group = group_name,
+            sensitivity_variant = variant
+          )
+      }
+    )
+  }
+)
+
+
+tab_rob <- imap_dfr(
+  m.brm_models$rob$main,
+  ~ extract_brms(.x) %>%
+    mutate(
+      sensitivity = "RoB",
+      variant = .y
+    )
+)
+
+tab_prior <- imap_dfr(
+  m.brm_models$prior$main,
+  ~ extract_brms(.x) %>%
+    mutate(
+      sensitivity = "Priors",
+      variant = .y
+    )
+)
+
+table_sensi <- bind_rows(tab_rob, tab_prior)
+
+table_pub <- table_sensi %>%
+  mutate(
+    Estimate = sprintf(
+      "%.2f (%.2f; %.2f)",
+      bayes_mean,
+      bayes_lb,
+      bayes_ub
+    )
+  ) %>%
+  select(sensitivity, variant, Estimate)
+
+knitr::kable(
+  table_pub,
+  caption = "Bayesian sensitivity analyses: RoB exclusion and prior specification"
+)

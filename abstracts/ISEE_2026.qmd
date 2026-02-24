@@ -149,7 +149,7 @@ The Bayesian approach was less sensitive to outlier studies, resulting in a lowe
 ### Conclusion
 We provide updated pooled estimates for the effect of lead exposure on children's IQ.  
 The Bayesian approach enables direct probability statements through posterior distributions.
-For risk assessment and policy making, this allows probabilistic burden of disease assessments as well as defining risk thresholds and calculating exceedance probabilities, enabling comparative assessments across pollutants.
+For risk assessment and policy making, this allows probabilistic approaches as well as defining risk thresholds and calculating exceedance probabilities, enabling comparative assessments across pollutants.
 
 Funded under EU Horizon (Grant Agreement No 101057014).
 
