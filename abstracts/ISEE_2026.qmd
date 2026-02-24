@@ -23,7 +23,7 @@ affiliations:
   - id: uba
     name: Environmental Hygiene, German Environment Agency, Berlin, Germany
   - id: anses
-    name: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
+    name: French National Agency for Food, Environmental and Occupational Health & Safety, Maisons-Alfort, France
 
 date-modified: last-modified
 date-format: "D MMMM YYYY"

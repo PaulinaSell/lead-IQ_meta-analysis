@@ -27,7 +27,7 @@ ggplot(
 ) +
   geom_vline(xintercept = 0, linewidth = 0.6, linetype = 2) +
   geom_density_ridges(
-    fill = "steelblue3",
+    fill = "grey",
     rel_min_height = 0.01,
     col = NA,
     scale = 1,
@@ -46,20 +46,35 @@ ggplot(
       round,
       2
     ),
-    aes(label = glue("{format(b_Intercept, nsmall = 2)} [{format(.lower, nsmall = 2)}, {format(.upper, nsmall = 2)}]"), x = 3.5)
-    hjust = 0.5
+    aes(
+      label = glue(
+        "{format(b_Intercept, nsmall = 2)} [{format(.lower, nsmall = 2)}, {format(.upper, nsmall = 2)}]"
+      ),
+      x = 3.5
+    ),
+    hjust = -0.03
   ) +
   labs(
     title = "Random Effects Meta-Analysis",
     x = "Observed Outcome",
     y = element_blank()
   ) +
-  xlim(-15, 5) +
+  scale_x_continuous(
+    limits = c(-15, 5),
+    breaks = seq(-15, 5, by = 5), # explicit tick marks
+    expand = expansion(add = c(0, 3)) # 0 padding left, 2 units right
+  ) +
+  guides(x = guide_axis(cap = "both")) + # cap both ends
   theme_minimal() +
   theme(
     panel.border = element_blank(),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
-    axis.text.y = element_text(hjust = 0)
+    plot.margin = margin(t = 20, r = 20, b = 20, l = 20), # increase top margin
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.text.y = element_text(hjust = 0, margin = margin(r = -60)), # negative right margin pulls text right
+    axis.line.x = element_line(linewidth = 0.5), # draw the x axis line
+    axis.ticks.x = element_line(linewidth = 0.5), # draw tick marks
+    axis.ticks.length.x = unit(0.2, "cm"),
   )

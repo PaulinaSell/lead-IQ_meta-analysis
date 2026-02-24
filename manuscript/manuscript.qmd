@@ -24,7 +24,7 @@ affiliations:
   - id: uba
     name: Environmental Hygiene, German Environment Agency, Berlin, Germany
   - id: anses
-    name: Agence nationale de sécurité sanitaire, Maisons-Alfort, France
+    name: French National Agency for Food, Environmental and Occupational Health & Safety, Maisons-Alfort, France
 
 date-modified: last-modified
 date-format: "D MMMM YYYY"
@@ -220,7 +220,6 @@ $\theta_{k}$ = True underlying effect for study $k$\
 $\mu$ = Overall pooled effect\
 $\tau$ = Between-study standard deviation (heterogeneity)\
 
-<!-- is it okay that I swapped tau^2 for tau in my analysis? Claude says its the right call -->
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
 Posterior draws were sampled using Markov chain Monte Carlo (MCMC) and the No-U-Turn sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
@@ -260,7 +259,8 @@ $$
 $$ {#eq-priors}
 
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
-Prior and posterior predictive simulations were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian.
+Prior and posterior predictive checks were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian to assess the appropriateness of the specified priors.
+Additionally, a sensitivity analysis with alternatice priors was conduced, as described below. 
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model @eq-model. 
@@ -293,6 +293,13 @@ $$
 $$ {#eq-prior-sensitivity2}
 
 # Results
+-   [x] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why (no citation so far)
+-   [x] Study characteristics (table), including original and harmonized effect measures
+-   [x] Flow diagram, description of (full text) screening results
+-   [x] RoB results for each included study
+-   [ ] Forest plots
+-   [ ] Sensitivity analysis results
+
 ## Literature Review
 As described in the methods, the systematic review was conducted with a larger scope, because it was used as a basis for multiple studies, which is why it includes another substance (mercury, Hg).
 The systematic search in PubMed and Scopus yielded 1,073 records for lead.
@@ -467,29 +474,121 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 s_brm <- summary(m.brm)
 ```
 
-The prior predictive check indicated that the specified priors are appropriate (suppl. figure 1).
+The prior predictive check indicated that the specified priors are appropriate (suppl. figure 1). 
+The posterior predictive check suggested appropriate model specification (suppl. figure 2).
 $\hat{R}$ values indicate well converged MCMC chains (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
-ESS for the "bulk" of the posterior distribution for $\mu$ is `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")` and `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")` for the tails of the distribution.
-This corresponds to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 4)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 4)*100`% of total samples respectively.
+ESS for the central part of the posterior distribution for $\mu$ is `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")` and `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")` for the tails of the distribution.
+Both values exceed 1,000, indicating efficiently sampled posterior distribution of $\mu$ across both its central tendency and tail regions, and that central point estimates and credible intervals can be interpreted with confidence.
+<!-- This corresponds to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively. -->
 
-The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
-The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
-Between-study heterogeneity was substantial in both approaches (frequentist: $\tau^2$ = `r round(freq_tau2_mean, 2)` (95% CI: `r round(freq_tau2_lb, 2)`; `r round(freq_tau2_mean, 2)`), $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 2)`; `r round(freq_I2_ub, 2)`%); Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
+The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`).
+Substantial between-study heterogeneity was observed under both frameworks.
+In the Bayesian model, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%].
+Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 2)` (95% CI: `r round(freq_tau2_lb, 2)`; `r round(freq_tau2_mean, 2)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 2)`; `r round(freq_I2_ub, 2)`%).
 
+Forest plots of both approaches are shown in figure 2:
+
+```{r}
+#| label: figure_2_forestplots
+#| echo: false
+#| message: false
+#| layout: [[50,50]]  # 45% | 10% gap | 45%
+#| fig-height: 7
+
+library(tidyverse)
+library(tidybayes)
+library(ggridges)
+library(glue)
+
+study.draws <- spread_draws(
+  m.brm,
+  r_author_year[author_year, ],
+  b_Intercept
+) %>%
+  mutate(b_Intercept = r_author_year + b_Intercept)
+
+# Generate distribution of the pooled effect
+pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>%
+  mutate(author_year = "Random-Effects Model")
+
+forest.data <- bind_rows(study.draws, pooled.effect.draws) %>%
+  ungroup() %>%
+  mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
+  mutate(author_year = fct_rev(factor(author_year)))
+
+forest.data.summary <- group_by(forest.data, author_year) %>%
+  mean_qi(b_Intercept)
+
+ggplot(
+  aes(b_Intercept, relevel(author_year, "Random-Effects Model", after = Inf)),
+  data = forest.data
+) +
+  geom_vline(xintercept = 0, linewidth = 0.6, linetype = 2) +
+  geom_density_ridges(
+    fill = "grey",
+    rel_min_height = 0.01,
+    col = NA,
+    scale = 1,
+    alpha = 0.8
+  ) +
+  geom_pointinterval(
+    data = forest.data.summary,
+    aes(xmin = .lower, xmax = .upper),
+    fatten_point = 1.5,
+    linewidth = 0.8
+  ) +
+  geom_text(
+    data = mutate_if(
+      forest.data.summary,
+      is.numeric,
+      round,
+      2
+    ),
+    aes(
+      label = glue(
+        "{format(b_Intercept, nsmall = 2)} [{format(.lower, nsmall = 2)}, {format(.upper, nsmall = 2)}]"
+      ),
+      x = 3.5
+    ),
+    hjust = -0.03
+  ) +
+  labs(
+    title = "Random Effects Meta-Analysis",
+    x = "Observed Outcome",
+    y = element_blank()
+  ) +
+  scale_x_continuous(
+    limits = c(-15, 5),
+    breaks = seq(-15, 5, by = 5), # explicit tick marks
+    expand = expansion(add = c(0, 3)) # 0 padding left, 2 units right
+  ) +
+  guides(x = guide_axis(cap = "both")) + # cap both ends
+  theme_minimal() +
+  theme(
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+    plot.margin = margin(t = 20, r = 20, b = 20, l = 20), # increase top margin
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.text.y = element_text(hjust = 0, margin = margin(r = -60)), # negative right margin pulls text right
+    axis.line.x = element_line(linewidth = 0.5), # draw the x axis line
+    axis.ticks.x = element_line(linewidth = 0.5), # draw tick marks
+    axis.ticks.length.x = unit(0.2, "cm"),
+  )
+
+forest(freq_model, slab = freq_model$data$author_year, main = "Random Effects Meta-Analysis")
+```
 ## Sensitivity Analysis Results
-
--   [x] Cite studies that might appear to meet inclusion criteria, but were excluded & explain why (no citation so far)
--   [x] Study characteristics (table), including original and harmonized effect measures
--   [x] Flow diagram, description of (full text) screening results
--   [x] RoB results for each included study
--   [ ] Forest plots
--   [ ] Sensitivity analysis results
 
 # Discussion
 
 -   [ ] General interpretation of results in light of evidence in literature
 -   [ ] Discuss differences, similarities, strengths and weaknesses of freq vs. Bayesian approach
 -   [ ] Study limitations & strengths
+
+- modelled heterogeneity can be used to predict theoretical future studies 
 
 # Conclusions
 

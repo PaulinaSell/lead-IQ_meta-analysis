@@ -130,6 +130,7 @@ ggplot() +
 
 # Prior predictive checks
 pp_check(fitPrior_full)
+pp_check(m.brm_full)
 
 # Traceplot incl. warmup (no loop) ----
 posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
