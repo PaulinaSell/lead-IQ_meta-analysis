@@ -22,7 +22,7 @@ author:
 
 affiliations:
   - id: uba
-    name: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    name: German Environment Agency, Environmental Hygiene, Berlin, Germany
   - id: anses
     name: French National Agency for Food, Environmental and Occupational Health & Safety, Maisons-Alfort, France
 
@@ -122,7 +122,7 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 
 ## Literature Review
 This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement].
-The checklist can be found in the supplementary files.
+The checklist can be found in the supplementary file 1.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting]. \
 
 We conducted a literature review to identify published studies investigating the association between postnatal (concurrent) exposure to Pb and IQ loss in children.
@@ -190,7 +190,7 @@ Where $y$ represents the IQ score, $\alpha$ is the intercept, $\beta$ is the reg
 
 In the literature, different logarithmic bases are used to transform BLL: the natural logarithm ($\log_e$​ where $e \approx 2.71828$), base 2, and base 10.
 To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to the natural logarithm scale ($\log_e$).
-The calculations are documented in suppl. file 1 (Screening documentation excel) \
+The calculations are documented in suppl. file 2 (Screening documentation excel) \
 In some publications, the BLL scale was left untransformed, so on a linear scale.
 These were excluded from the meta-analysis, as transformation of effect estimates for linear BLL to log-linear could not be justified based on visual inspection (supplement: plots?).
 
@@ -334,7 +334,7 @@ Table2 |>
 ```
 
 A PRISMA flow diagram summarizing the review process is shown as in figure 1 @page2021PRISMA2020Statement.
-A file containing detailed information on the screening process and exclusion reasons can be found in suppl. table 1.
+A file containing detailed information on the screening process and exclusion reasons can be found in suppl. file 2.
 
 ![Figure 1: PRISMA flow diagram](tables_figures/main/figure1.png){width=50% fig-align="left"}
 
@@ -474,8 +474,8 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 s_brm <- summary(m.brm)
 ```
 
-The prior predictive check indicated that the specified priors are appropriate (suppl. figure 1). 
-The posterior predictive check suggested appropriate model specification (suppl. figure 2).
+The prior predictive check indicated that the specified priors are appropriate (suppl. file 3). 
+The posterior predictive check suggested appropriate model specification (suppl. file 4).
 $\hat{R}$ values indicate well converged MCMC chains (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
 ESS for the central part of the posterior distribution for $\mu$ is `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")` and `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")` for the tails of the distribution.
 Both values exceed 1,000, indicating efficiently sampled posterior distribution of $\mu$ across both its central tendency and tail regions, and that central point estimates and credible intervals can be interpreted with confidence.
@@ -577,7 +577,7 @@ ggplot(
     axis.text.y = element_text(hjust = 0, margin = margin(r = -70)), # negative right margin pulls text right
     axis.line.x = element_line(linewidth = 0.5), # draw the x axis line
     axis.ticks.x = element_line(linewidth = 0.5), # draw tick marks
-    axis.ticks.length.x = unit(0.3, "cm"),
+    axis.ticks.length.x = unit(0.3, "cm")
   )
 
 forest(freq_model, slab = freq_model$data$author_year, main = "Frequentist Random Effects Meta-Analysis")
@@ -587,6 +587,18 @@ The study estimates depicted in figure 2 are not the same in both approaches bec
 This leads to a shrinkage of the mean coefficients towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.
 
 ## Sensitivity Analysis Results
+We conducted two sets of sensitivity analyses, the results are shown in table 4.
+First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB and (2) with high or medium RoB.
+For both the frequentist and Bayesian models, the strength of the mean effect decreased after removing studies with high risk of bias and slightly increased again after removing high and medium RoB studies.
+Because the margin of shift in effects are small and the effects shifted in both directions, we concluded that the results are generally robust to possible individual-study RoB.
+
+The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to prior specification.
+With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$),the posterior mean $\mu$ decreases.
+This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.  
+When using less informative (broader) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean $\mu$ increases slightly.
+In this case, more "trust" is given to studies reporting high effects with large uncertainty ranges.
+The results of the prior sensitivity analysis strengthens the priors specified for the main analysis.
+Suppl. file 5 shows prior, observed data and posterior distributions of all three prior specifications.
 
 ```{r}
 #| label: table_4_sensi
@@ -610,13 +622,32 @@ knitr::kable(
 )
 ```
 
+
 # Discussion
 
--   [ ] General interpretation of results in light of evidence in literature
--   [ ] Discuss differences, similarities, strengths and weaknesses of freq vs. Bayesian approach
--   [ ] Study limitations & strengths
+- General interpretation of results in light of evidence in literature (tied to background section)
+  - updated pooled estimates (including recently published studies) confirm negative effects of lead exposure on IQ
+  - heterogeneity in included studies: why? 
+  - RoB assessment suggests high RoB for study that is used / cited in multiple (EBD) studies
+  - lead - IQ loss good use-case to examine differences and similarities of both approaches
+- Discuss differences, similarities, strengths and weaknesses of freq vs. Bayesian approach
+  - similar pooled estimates (mu and tau) 
+  - full posterior distributions for mu and tau in Bayesian approach can be used for:
+    - prediction of theoretical future studies (simulation)
+    - flexible credible intervals
+    - calculating exceedance probabilities of threshold values
+    - comparative risk assessment
+    - (prior in future studies (continuous updating of evidence base))
+  - inverse-variance weighting vs. shrinkage / posterior for individual studies (causes difference in sensitivity to outliers -> link to beginning of section)
+  - Bayes: makes researchers consider modelling choices more consciously (like multilevel structure, has to be specified in Bayes approach but is "hidden" in freq approach)
+  - freq: many "out of the box" software solutions, requires less programming skills
+- Study limitations & strengths
+  - limitations: 
+  - strengths: 
+    - first (?) direct comparison of Bayesian & frequentist meta-analysis in environmental epi
+    - all data & code available to public
+- Outlook: possible use-cases of probabilistic meta-analysis (risk assessment, EBD)
 
-- modelled heterogeneity can be used to predict theoretical future studies 
 
 # Conclusions
 

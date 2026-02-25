@@ -515,7 +515,7 @@ for (model_name in names(result_models)) {
 
   ggsave(
     filename = paste0(
-      "results/meeting_06-01//Bayes_curve_",
+      "results/sensitivity/ERF_curves/Bayes_curve_",
       model_name,
       ".png"
     ),
@@ -560,7 +560,7 @@ for (freq_model_name in names(freq_result_models)) {
 
   ggsave(
     filename = paste0(
-      "results/meeting_06-01/freq_curve_",
+      "results/sensitivity/ERF_curves/freq_curve_",
       freq_model_name,
       ".png"
     ),

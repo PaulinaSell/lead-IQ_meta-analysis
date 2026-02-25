@@ -278,12 +278,11 @@ table_sensi <- imap_dfr(
 
 tab_bayes_rob <- imap_dfr(
   m.brm_models$rob$main,
-  function(x, y) {
-    x %>%
-      extract_brms() %>%
+  function(fit, variant) {
+    extract_brms(fit) %>%
       mutate(
         sensitivity = "RoB",
-        variant = y,
+        variant = variant,
         model_type = "Bayesian"
       )
   }
