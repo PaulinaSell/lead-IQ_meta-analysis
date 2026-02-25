@@ -230,9 +230,9 @@ for (prior_set in names(priors_list)) {
 # Table for publication
 m.brm_models <- readRDS("models/sensitivity/priors/m.brm_models_list.rds") # both priors and RoB sensi analysis results in here
 freq_models <- list(
-  full = readRDS("models/sensitivity/RoB/fitPrior_full.rds"),
-  low_medium = readRDS("models/sensitivity/RoB/fitPrior_low_medium.rds"),
-  low = readRDS("models/sensitivity/RoB/fitPrior_low.rds")
+  full = readRDS("models/sensitivity/RoB/freq_full.rds"),
+  low_medium = readRDS("models/sensitivity/RoB/freq_low_medium.rds"),
+  low = readRDS("models/sensitivity/RoB/freq_low.rds")
 )
 
 library(purrr)
@@ -248,13 +248,16 @@ extract_brms <- function(fit, coeff = "Intercept") {
 }
 
 extract_rma <- function(fit) {
+  stopifnot(inherits(fit, "rma"))
+
   tibble(
-    mean = as.numeric(coef(fit)),
-    lb = fit$ci.lb,
-    ub = fit$ci.ub
+    mean = as.numeric(fit$b[1, 1]),
+    lb = fit$ci.lb[1],
+    ub = fit$ci.ub[1]
   )
 }
 
+# Bayes sensitivity analysis table
 table_sensi <- imap_dfr(
   m.brm_models,
   function(sensitivity_group, group_name) {
@@ -273,39 +276,76 @@ table_sensi <- imap_dfr(
   }
 )
 
-
-tab_rob <- imap_dfr(
+tab_bayes_rob <- imap_dfr(
   m.brm_models$rob$main,
-  ~ extract_brms(.x) %>%
-    mutate(
-      sensitivity = "RoB",
-      variant = .y
-    )
+  function(x, y) {
+    x %>%
+      extract_brms() %>%
+      mutate(
+        sensitivity = "RoB",
+        variant = y,
+        model_type = "Bayesian"
+      )
+  }
 )
 
-tab_prior <- imap_dfr(
+tab_bayes_prior <- imap_dfr(
   m.brm_models$prior$main,
   ~ extract_brms(.x) %>%
     mutate(
       sensitivity = "Priors",
-      variant = .y
+      variant = .y,
+      model_type = "Bayesian"
     )
 )
 
-table_sensi <- bind_rows(tab_rob, tab_prior)
+tab_bayes <- bind_rows(tab_bayes_rob, tab_bayes_prior)
 
-table_pub <- table_sensi %>%
+# Freq sensitivity analysis table
+tab_freq_rob <- map_dfr(
+  names(freq_models),
+  function(variant) {
+    fit <- freq_models[[variant]]
+
+    extract_rma(fit) %>%
+      mutate(
+        sensitivity = "RoB",
+        variant = variant,
+        model_type = "Frequentist"
+      )
+  }
+)
+
+
+table_all <- bind_rows(
+  tab_bayes %>%
+    transmute(
+      sensitivity,
+      variant,
+      model_type,
+      mean = bayes_mean,
+      lb = bayes_lb,
+      ub = bayes_ub
+    ),
+  tab_freq_rob
+)
+
+saveRDS(
+  table_all,
+  file = "manuscript/tables_figures/main/table_sensi.rds"
+)
+
+table_pub <- table_all %>%
   mutate(
-    Estimate = sprintf(
-      "%.2f (%.2f; %.2f)",
-      bayes_mean,
-      bayes_lb,
-      bayes_ub
-    )
+    Sensitivity = factor(sensitivity, levels = c("Priors", "RoB")),
+    Variant = variant,
+    "Model type" = factor(model_type, levels = c("Bayesian", "Frequentist")),
+    Estimate = sprintf("%.2f (%.2f; %.2f)", mean, lb, ub)
   ) %>%
-  select(sensitivity, variant, Estimate)
+  arrange(Sensitivity, Variant, "Model type") %>%
+  select("Model type", Sensitivity, Variant, Estimate)
 
 knitr::kable(
   table_pub,
-  caption = "Bayesian sensitivity analyses: RoB exclusion and prior specification"
+  caption = "Sensitivity analyses by modeling framework (Bayesian vs Frequentist)"
 )

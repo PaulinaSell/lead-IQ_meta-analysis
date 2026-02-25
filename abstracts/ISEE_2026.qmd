@@ -21,7 +21,7 @@ author:
 
 affiliations:
   - id: uba
-    name: Environmental Hygiene, German Environment Agency, Berlin, Germany
+    name: German Environment Agency, Environmental Hygiene, Berlin, Germany
   - id: anses
     name: French National Agency for Food, Environmental and Occupational Health & Safety, Maisons-Alfort, France
 
@@ -120,16 +120,12 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children's intelligence quotient
 
 ### Objective
-<!-- Meta-analyses are critical for evidence synthesis in epidemiology. 
-While they are primarily conducted in a frequentist framework, Bayesian meta-analysis offers improved uncertainty quantification, incorporating within-study and between-study variability and facilitating transparent communication of uncertainty.
-The aim of this study is to compare frequentist and Bayesian meta-analysis frameworks and investigate how they differ in exposure-response estimates, uncertainty characterization, and applicability for risk assessment.
-We used the association of blood lead levels and children's neurodevelopment as a use-case. -->
 Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
+To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's intelligence quotient (IQ) as a case study.
 
 ### Material and Methods
-We systematically searched PubMed and Scopus for epidemiological studies on blood lead exposure and IQ score in children. 
+We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
 In both meta-analyses, we assumed a multilevel structure, used random-effects models and included the same effect estimates.
 The frequentist approach used restricted maximum-likelihood estimation.
@@ -141,18 +137,18 @@ $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 Twelve studies were included after screening.
 The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)` [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`], $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`% [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%]).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
 The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 ### Conclusion
-We provide updated pooled estimates for the effect of lead exposure on children's IQ.  
-The Bayesian approach enables direct probability statements through posterior distributions.
-For risk assessment and policy making, this allows probabilistic approaches as well as defining risk thresholds and calculating exceedance probabilities, enabling comparative assessments across pollutants.
+We provide updated pooled estimates for the effect of lead exposure on children's IQ.
+The Bayesian approach provides posterior distributions, enabling direct probability statements, for example about exceeding risk thresholds, and comparative assessments across pollutants.
+These features are of particular value regarding risk assessment and policy-making.
 
 Funded under EU Horizon (Grant Agreement No 101057014).
 
 
-<!-- [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`]
-[95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%] -->
+<!-- [95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%] -->
+<!-- [95% CrI: `r round(tau_sq_ci[1], 2)`; `r round(tau_sq_ci[2], 2)`] -->
