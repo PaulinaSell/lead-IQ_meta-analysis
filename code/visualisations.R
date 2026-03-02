@@ -141,12 +141,43 @@ names(posterior_samples_warm)[
   names(posterior_samples_warm) == "sd_author_year__Intercept"
 ] = "tau"
 
-mcmc_trace(
+p <- mcmc_trace(
   posterior_samples_warm,
   pars = c("beta", "tau"),
-  facet_args = list(ncol = 1)
+  facet_args = list(
+    ncol = 1,
+    labeller = labeller(
+      .default = c(
+        beta = "Main effect, mu",
+        tau = "Tau"
+      )
+    )
+  )
 ) +
-  vline_at(2000, color = "red", linetype = 2, size = 0.5) # mark end of warmup
+  geom_vline(
+    aes(xintercept = 2000, linetype = "End of warm-up"),
+    colour = "red",
+    linewidth = 0.5
+  ) +
+  scale_linetype_manual(
+    name = NULL,
+    values = c("End of warm-up" = "dashed")
+  ) +
+  theme(
+    strip.text.x = element_text(
+      hjust = 0,
+      family = "sans",
+      face = "bold"
+    )
+  )
+
+ggsave(
+  filename = "manuscript/tables_figures/main/figure2.png",
+  plot = p,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
 
 
 # Posterior: beta & tau ----
