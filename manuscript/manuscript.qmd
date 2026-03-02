@@ -1,5 +1,5 @@
 ---
-title: "Lead exposure and IQ loss in children: a Bayesian and frequentist meta-analysis of recent epidemiological studies"
+title: "A methodological comparison of Bayesian and frequentist meta-analyses of epidemiological studies on lead exposure and children's intelligence quotient"
 author:
   - name: Paulina Sell
     affiliations: 
@@ -67,10 +67,94 @@ p {
 # Notes {.unnumbered}
 
 -   Journal: [Population Health Metrics, BMC](https://link.springer.com/journal/12963/submission-guidelines#aimsAndScope)
--   Using [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
--   Using [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
+-   [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
+-   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7)
+-   [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment
 
 # Abstract {.unnumbered}
+
+```{r}
+#| label: read_model
+#| echo: false
+
+m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
+fitPrior <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds")
+freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+```
+
+```{r}
+#| label: extract_results
+#| echo: false
+#| message: false
+
+
+library(posterior)
+library(HDInterval)
+library(brms)
+library(metafor)
+
+data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+
+freq_mean <- round(as.numeric(freq_model$beta), 2)
+freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
+freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+
+# tau2 for frequentist model
+freq_confint <- confint(freq_model)
+freq_confint <- freq_confint$random
+
+m.brm_samples <- as_draws_df(m.brm)
+Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
+
+hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+Bayes_lb <- round(as.numeric(hdi[1]), 2)
+Bayes_ub <- round(as.numeric(hdi[2]), 2)
+
+# calculate tau2 and I2 analogous to metafor
+# Extract posterior samples of tau
+tau_samples <- as_draws_df(m.brm, variable = "sd_author_year__Intercept")
+tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
+
+# Get the SAME typical within-study variance that metafor used
+vt <- freq_model$vt
+
+# Calculate I² using metafor's approach for each posterior draw
+I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
+
+# Summarize tau²
+tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_median <- median(tau_sq_samples)
+tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
+
+# Summarize I²
+I2_posterior_mean <- mean(I2_samples)
+I2_posterior_median <- median(I2_samples)
+I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
+```
+
+**Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
+Bayesian meta-analysis provides probabilistic uncertainty quantification.
+To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's intelligence quotient (IQ) as a case study.
+
+**Material and Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
+Risk of bias (RoB) was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
+In both meta-analyses, we assumed a multilevel structure, used random-effects models and included the same effect estimates.
+The frequentist approach used restricted maximum-likelihood estimation.
+The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
+Sensitivity analyses examined robustness to RoB and prior specification.
+$\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
+
+**Results**: Twelve studies were included after screening.
+The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
+The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
+Sensitivity analyses showed robustness to RoB and prior specification.
+The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
+
+**Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
+The Bayesian approach provides posterior distributions, enabling direct probability statements, for example about exceeding risk thresholds, and comparative assessments across pollutants.
+These features are of particular value regarding risk assessment and policy-making.
 
 \newpage
 
@@ -421,28 +505,9 @@ Table3 |>
 
 ## Meta Analysis Results
 ```{r}
-#| label: read_models
-#| echo: false
-
-
-m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
-fitPrior <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds")
-freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
-```
-
-```{r}
-#| label: extract_results
+#| label: extract_results2
 #| echo: false
 #| message: false
-
-library(posterior)
-library(HDInterval)
-library(brms)
-library(metafor)
-
-freq_mean <- round(as.numeric(freq_model$beta), 2)
-freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
-freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
 
 # tau2 for frequentist model
 freq_confint <- confint(freq_model)
@@ -648,17 +713,16 @@ For example, in previous studies, the effect of lead has been estimated for incr
 Also, different coefficients like partial r @needleman1990LowLevelLeadExposure or standardized differences in mean @heidari2022EffectLeadExposurea have been estimated in previous meta-analyses. 
 
 We observed substantial heterogeneity in the studies included in this meta-analysis.
-We identified no single obvious source of heterogeneity.
-Instead, multiple differences in study population (size, location, age, exposure range) and statistical methods, especially the covariates included in the statistical models (adjustment set) might have caused heterogeneity between the studies (see table 2).
-For example, one of the included studies that reported a very low effect has been conducted within a relatively low-exposed population [@desrochers-couture2018PrenatalConcurrentSexspecific].
-Missing variation in exposure in the sample limits the detectability of an effect.\
+Multiple differences in study population (size, location, age, exposure range) and statistical methods, especially the covariates included in the statistical models (adjustment set) might have caused heterogeneity between the studies (see table 2).
+For example, two of the studies that reported a very low effect has been conducted within a relatively low-exposed population [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture].
+Missing variation in exposure variable limits the detectability of an effect and might result in a very low reported effect.\
+The included studies are based on population samples from multiple different regions (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations have been sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
+This limits the generalizability of our findings and may be another explanation for the observed heterogeneity. \
 Using an IQ test that has not been culturally adapted to the population it is used in, the IQ score results may be an underestimate of the true IQ.
-This might be the case in @menezes-filho2018EnvironmentalCoExposureLead.
-Studies that reported a larger standard error of the regression coefficient also tended to reported larger effects.
+This might be the case in @menezes-filho2018EnvironmentalCoExposureLead. \
+Furthermore, studies that reported a larger standard error of the regression coefficient also tended to reported larger effects.
 This might indicate publication bias and is one explanation for the substantial heterogeneity in this meta-analysis.\
-By incorporating prior knowledge and thus laying less "trust" on such studies, Bayesian models are less sensitive to such outliers, especially when pooling a small number of studies.\
-As mentioned above, the included studies are based on population samples from multiple different regions (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations have been sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
-This limits the generalizability of our findings.
+By specifying conservative priors and thus weighing such studies down, Bayesian models are less sensitive to such outliers, especially when pooling a small number of studies.\
 
 The RoB sensitivity analysis suggested that the results are generally robust to possible individual-study bias.
 Importantly, the study published by Crump et al. (2013) @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by Lanphear et al (2005) @lanphear2005LowLevelEnvironmentalLead received a high RoB rating in our assessment. 
@@ -685,30 +749,36 @@ by requiring researchers to state their assumptions explicitly rather than accep
     - ~~comparative risk assessment~~
     - ~~calculating exceedance probabilities of threshold values~~
     - ~~flexible credible intervals~~
-    - prediction of theoretical future studies (simulation)
-  - possible use-cases of probabilistic meta-analysis (risk assessment, EBD)
-    - probabilistic EBD (give examples of deterministic approach?)
+    - (prediction of theoretical future studies (simulation))
+  - ~~possible use-cases of probabilistic meta-analysis (risk assessment, EBD)~~
+    - ~~probabilistic EBD (give examples of deterministic approach?)~~
 
-The results of Bayesian models always are distributional, which is a central difference to point estimates (central estimate, CI) produced by frequentist models.
-Distributional results offer distinct advantages, especially for risk assessment and policy-making.
-First, credible intervals are not limited to 95% and any interval can be estimated from the posterior distribution.
-These can then be interpreted in terms of probability, which confidence intervals, even though often misinterpreted as that, can't be.
-Whenever multiple health risks are to be compared, probability distributions make it possible to calculate the probability of one health risk being greater than the other.
-In case there are meaningful thresholds of effect strength / health risk to be evaluated, exceedance probabilities can be calculated from the posterior distribution.\
-Posterior distributions of meta-analyses together with the specified statistical model can be used to either predict theoretical future epidemiological studies, which (why interesting?) or the theoretical population health impact of the exposure in another population.
-This second approach is known as environmental Burden of Disease.
+The results of Bayesian models are inherently distributional, which is an important difference to point estimates (central estimate, CI) produced by frequentist models.
+These distributional results offer distinct advantages, particularly for risk assessment and policy-making.
+First, any credible interval can be derived from the posterior distribution according to the needs of researchers, decision-makers, or other stakeholders.
+These allow direct probability statements about parameter values, unlike confidence intervals which are frequently but incorrectly interpreted probabilistically.\
+Second, posterior distributions enable probabilistic comparisons across multiple health risks, such as calculating the probability that one risk exceeds another.
+When meaningful thresholds of effect size or health risk are defined, exceedance probabilities can be directly obtained from the posterior distribution, providing an intuitive and policy-relevant summary of uncertainty.\
+Posterior distributions of meta-analyses together with the specified statistical model can be used to predict theoretical future epidemiological studies.
+This offers an additional way of representing between-study heterogeneity.
+Also, the population-level health impact of an exposure under specified conditions can be estimated using the posterior distribution.
+The latter application is known as Environmental Burden of Disease (EBD).\
+In EBD studies, the health impacts of an exposure on a defined population are quantified and summarized using metrics such as disability-adjusted life years (DALYs).
+These estimates enable comparisons of the impact of multiple health determinants within a population, as well as comparisons of the same determinant across populations or countries.
+EBD integrates both population exposure and the associated exposure–response relationship (e.g. relative risk, beta coefficient etc.) @pruss-ustun2003AssessingEnvironmentalBurden.
+The distributional results of this study enable probabilistic EBD assessments using Monte Carlo simulations without additional assumptions on uncertainty distributions on the exposure-response function. 
 
 ## Study limitations & strengths
 This study has several limitations and strengths that should be taken into consideration when interpreting the results.
 The included studies are heterogenous and have for example adjusted for varying sets of covariates.
 Also, as mentioned above, the locations of cohorts in the included studies vary.
 Both of these limit the generalizability of the results or their applicability to a specific population.
+Also, there may be publication bias present that could lead to an overestimation of the pooled effect.
 
 While there are publications that compare Bayesian and frequentist approaches to meta-analysis, they either have a focus on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist].
 While these publications certainly provide valuable insights into the choice of meta-analytic methods, they come with different methodological challenges than only partially overlap with those covered in this study.
 To our knowledge, this is the first study to compare Bayesian and frequentist approaches to meta-analysis in the field of environmental epidemiology.
 All of the data and computational code used in this study are available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis) which makes it fully reproducible.
-
 
 
 # Conclusions
@@ -727,6 +797,7 @@ Meaning <- c(
   "Blood lead levels", 
   "Confidence interval",
   "Credible interval",
+  "Disability-adjusted life years",
   "Environmental Burden of Disease", 
   "European Union", 
   "Intelligence quotient",
@@ -741,6 +812,7 @@ Abbreviation <- c(
   "BLL", 
   "CI",
   "CrI",
+  "DALY",
   "EBD", 
   "EU", 
   "IQ",

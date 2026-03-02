@@ -30,3 +30,5 @@ plot(rma_model)
 # Leave-One-Out Analysis
 loo_results <- leave1out(rma_model)
 print(loo_results)
+
+forest(rma_model)

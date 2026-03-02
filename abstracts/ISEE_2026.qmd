@@ -80,12 +80,17 @@ freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_I
 library(posterior)
 library(HDInterval)
 library(brms)
+library(metafor)
 
 data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
 
 freq_mean <- round(as.numeric(freq_model$beta), 2)
 freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
 freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+
+# tau2 for frequentist model
+freq_confint <- confint(freq_model)
+freq_confint <- freq_confint$random
 
 m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
@@ -137,7 +142,7 @@ $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 Twelve studies were included after screening.
 The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.79, $\text{I}^2$ = 98.5%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
 The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.

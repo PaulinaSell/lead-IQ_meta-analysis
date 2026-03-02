@@ -43,8 +43,8 @@ fitPrior <- brm(
 )
 
 # save models for later use
-saveRDS(m.brm, "models/main/m.brm_full.rds")
-saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
+# saveRDS(m.brm, "models/main/m.brm_full.rds")
+# saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
 
 # read models
 m.brm <- readRDS("models/main/m.brm_full.rds")
@@ -75,17 +75,9 @@ pp_check(fitPrior, ndraws = 20)
 pp_check(m.brm, ndraws = 20)
 
 # investigate model fit
-loo(m.brm, moment_match = TRUE, reloo = TRUE) # Leave-One-Out Cross-Validation (LOO-CV)
-# reloo = T because 1 approximation was still bad, suggested by output:
-# We recommend to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible.
-# This will refit the model 1 times to compute the ELPDs for the problematic observations directly.
+loo(m.brm, moment_match = TRUE, reloo = TRUE)
 
 # Check ESS & MCSE ----
-
-# ESS (bulk) = effective sample size for the bulk of the posterior (i.e. central mass).
-# It answers: “How many independent draws are these autocorrelated MCMC samples worth for estimating central summaries like the mean/median?”
-# ESS (tail) = effective sample size for the tails of the posterior (useful for accurate extreme quantiles, credible intervals, tail probabilities).
-
 draws <- as_draws(m.brm)
 summarise_draws(draws, "ess_bulk", "ess_tail") # bulk ESS ~1,000 and tail ESS ~2,000 indicate well-mixed chains and reasonably precise estimates
 summarise_draws(draws, "mcse_mean", "mcse_sd") # relative MCSE: MCSE / posterior SD = 0.0159/1.91 = 0.0083 -> relative MCSE < 0.01 → excellent (very high precision)
@@ -100,39 +92,38 @@ draws_pooled_b_sd <- spread_draws(
 )
 
 # change names before exporting again!
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
-# write.csv(draws_pooled_b_sd, "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL_12studies.csv", row.names = F)
+write.csv(
+  draws_pooled_b_sd,
+  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL.csv",
+  row.names = F
+)
+write.csv(
+  draws_pooled_b_sd,
+  "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL.csv",
+  row.names = F
+)
 
 # calculate I2 from tau
-
-# 1. Extract tau (between-study SD)
-posterior_summary(m.brm, variable = "sd_author_year__Intercept")
-# This gives you the posterior mean, SD, and credible intervals
-
-# 2. Get tau-squared from tau
+# Extract posterior samples of tau
 tau_samples <- as_draws_df(m.brm, variable = "sd_author_year__Intercept")
 tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
 
-# Posterior summary of tau-squared
-mean(tau_sq_samples) # Compare to 3.7946
-quantile(tau_sq_samples, c(0.025, 0.975)) # 95% CrI
+# Get the SAME typical within-study variance that metafor used
+freq_model <- readRDS(
+  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds"
+)
+vt <- freq_model$vt
 
-# 3. Calculate I² for each study and each posterior draw
-n_studies <- nrow(data)
-n_samples <- length(tau_sq_samples)
+# Calculate I² using metafor's approach for each posterior draw
+I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
-I2_by_study <- matrix(NA, nrow = n_samples, ncol = n_studies)
+# Summarize tau²
+tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
-data$vi <- data$se_beta_ln^2
-
-for (i in 1:n_studies) {
-  I2_by_study[, i] <- tau_sq_samples / (tau_sq_samples + data$vi[i])
-}
-
-# 4. Average I² across studies for each posterior draw
-I2_samples <- rowMeans(I2_by_study)
-
-# 5. Summarize the posterior distribution
+# Summarize I²
 I2_posterior_mean <- mean(I2_samples)
-I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
+
+# summary for Rhat
+s_brm <- summary(m.brm)
