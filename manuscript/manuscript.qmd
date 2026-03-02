@@ -650,8 +650,8 @@ Also, different coefficients like partial r @needleman1990LowLevelLeadExposure o
 We observed substantial heterogeneity in the studies included in this meta-analysis.
 We identified no single obvious source of heterogeneity.
 Instead, multiple differences in study population (size, location, age, exposure range) and statistical methods, especially the covariates included in the statistical models (adjustment set) might have caused heterogeneity between the studies (see table 2).
-For example, one of the included studies that reported a very low effect has been conducted within populations that lived in an exposure hotspot (highly industrial area)[@lucchini2019NeurocognitiveImpactMetal].
-If there is little variation in exposure in the sample, a strong effect cannot be detected.\
+For example, one of the included studies that reported a very low effect has been conducted within a relatively low-exposed population [@desrochers-couture2018PrenatalConcurrentSexspecific].
+Missing variation in exposure in the sample limits the detectability of an effect.\
 Using an IQ test that has not been culturally adapted to the population it is used in, the IQ score results may be an underestimate of the true IQ.
 This might be the case in @menezes-filho2018EnvironmentalCoExposureLead.
 Studies that reported a larger standard error of the regression coefficient also tended to reported larger effects.
