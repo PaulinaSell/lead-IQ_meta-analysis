@@ -211,7 +211,7 @@ We searched for articles published between January 2005 and July 2023.
 The year 2005 was chosen because, as described in the background section, burden of disease studies predominantely used a study published in 2005 @lanphear2005LowLevelEnvironmentalLead and we aimed at updating the evidence base with recently published studies.
 Also, lead concentrations have decreased significantly in the past decades and we aimed at identifying epidemiological studies conducted in populations with currently relevant exposure levels. \
 Search queries in Pubmed and Scopus included the following terms: 
-substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Table 1).
+substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Tab. 1).
 
 ```{r}
 #| label: table_1_searchterms
@@ -371,7 +371,7 @@ Four studies were excluded because they exclusively assessed the effects of pren
 Furthermore, four studies were excluded because the cohorts included in the study were already included in another study and would have been duplicates.
 Four additional studies were excluded because they either solely reported effects of chemical mixtures, because they used non-linear models or failed to report essential statistics.
 Finally, twelve studies were included in the meta-analysis.
-Study characteristics and regression coefficients are shown in table 2.
+Study characteristics and regression coefficients are shown in Tab. 2.
 
 <!-- mention Roy & that she confirmed decimal point missing! -->
 
@@ -686,7 +686,7 @@ table_pub <- table_all %>%
 
 knitr::kable(
   table_pub,
-  caption = "Table 4: Sensitivity analyses by modeling framework (Bayesian vs Frequentist)"
+  caption = "Tab. 4: Sensitivity analyses by modeling framework (Bayesian vs Frequentist)"
 )
 #  write.csv(table_pub, "tables_figures/main/table4.csv")
 ```
