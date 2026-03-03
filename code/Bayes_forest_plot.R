@@ -19,7 +19,7 @@ forest.data <- bind_rows(study.draws, pooled.effect.draws) %>%
 forest.data.summary <- group_by(forest.data, author_year) %>%
   mean_qi(b_Intercept)
 
-# ### CHANGE 1: compute how many levels the y-axis has, needed for annotation positioning ###
+# Compute how many levels the y-axis has, needed for annotation positioning
 n_studies <- nlevels(forest.data$author_year) # includes "Pooled Estimate"
 
 
@@ -55,12 +55,13 @@ ggplot(
       ),
       x = 3.5
     ),
-    hjust = 0.2
+    hjust = 0.2,
+    size = 3.5
   ) +
-  # ### CHANGE 2: subtitle-style column headers drawn as plot annotations ###
+  # Subtitle column headers
   annotate(
     "text",
-    x = -15,
+    x = -18.5,
     y = n_studies + 1, # left-aligned, just above the top horizontal line
     label = "Study",
     hjust = 0,
@@ -72,42 +73,43 @@ ggplot(
     x = 3.5,
     y = n_studies + 1, # right side, matching the estimates column
     label = "Estimate [95% CrI]",
-    hjust = 0.2,
+    hjust = 0.25,
     fontface = "bold",
     size = 3.5
   ) +
-  # ### CHANGE 3: horizontal lines mimicking metafor style ###
-  # Line below the column headers / above the first study row
+  # Horizontal lines mimicking metafor style
+  # Line below the column headers / above the first study row & above pooled estimate
   annotate(
     "segment",
-    x = -15,
-    xend = 5,
+    x = -18.5,
+    xend = 8.3,
     y = n_studies + 0.5,
-    yend = n_studies + 0.5,
-    linewidth = 0.5
+    yend = n_studies + 0.5
   ) +
-  # Line above the pooled estimate row
   annotate(
     "segment",
-    x = -15,
-    xend = 5,
+    x = -18.5,
+    xend = 8.3,
     y = 1.5,
-    yend = 1.5,
-    linewidth = 0.5
+    yend = 1.5
   ) +
   labs(
     title = "Bayesian Random Effects Meta-Analysis",
     x = "IQ shift per log-unit increase in BLL (µg/dL)",
     y = element_blank()
   ) +
-  scale_x_continuous(
-    limits = c(-15, 5),
-    breaks = seq(-15, 5, by = 5), # explicit tick marks
-    expand = expansion(add = c(0, 4)) # 0 padding left, 2 units right
-  ) +
-  # ### CHANGE 4: y-axis expanded upward to give room for the header annotations ###
+  # y-axis expanded upward to give room for the header annotations
   scale_y_discrete(
     expand = expansion(add = c(0.5, 2)) # 0.5 padding bottom, 2 units top
+  ) +
+  scale_x_continuous(
+    # ### CHANGED: remove limits here — let coord_cartesian control clipping instead ###
+    breaks = seq(-15, 5, by = 5),
+    expand = expansion(add = c(0, 4))
+  ) +
+  coord_cartesian(
+    xlim = c(-15, 5),
+    clip = "off" # allows segments/annotations to extend into the margin
   ) +
   guides(x = guide_axis(cap = "both")) + # cap both ends
   theme_minimal() +
@@ -117,8 +119,10 @@ ggplot(
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
     plot.margin = margin(t = 40, r = 10, b = 40, l = 20), # increase top margin
-    plot.title = element_text(hjust = 0.5, face = "bold"),
-    axis.text.y = element_text(hjust = 0, margin = margin(r = -70)), # negative right margin pulls text right
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 12), # increased title font size
+    axis.text.y = element_text(hjust = 0, margin = margin(r = -70), size = 10), # increased y-axis label size
+    axis.text.x = element_text(size = 10), # increased x-axis tick label size
+    axis.title.x = element_text(size = 10),
     axis.line.x = element_line(linewidth = 0.5), # draw the x axis line
     axis.ticks.x = element_line(linewidth = 0.5), # draw tick marks
     axis.ticks.length.x = unit(0.3, "cm"),
