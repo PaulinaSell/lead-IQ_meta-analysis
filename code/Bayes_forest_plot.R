@@ -56,7 +56,7 @@ ggplot(
   ) +
   labs(
     title = "Bayesian Random Effects Meta-Analysis",
-    x = "Observed Outcome",
+    x = "IQ shift per log-unit increase in BLL (µg/dL)",
     y = element_blank()
   ) +
   scale_x_continuous(
@@ -82,5 +82,6 @@ ggplot(
 forest(
   freq_model,
   slab = freq_model$data$author_year,
+  xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
   main = "Frequentist Random Effects Meta-Analysis"
 )

@@ -129,8 +129,29 @@ ggplot() +
 #        units = "cm")
 
 # Prior predictive checks
+png(
+  paste0("manuscript/tables_figures/supplement/file4.png"),
+  width = 20,
+  height = 15,
+  units = "cm",
+  res = 300
+)
+
 pp_check(fitPrior_full)
+
+dev.off()
+
+png(
+  paste0("manuscript/tables_figures/supplement/file5.png"),
+  width = 20,
+  height = 15,
+  units = "cm",
+  res = 300
+)
+
 pp_check(m.brm_full)
+
+dev.off()
 
 # Traceplot incl. warmup (no loop) ----
 posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
@@ -397,12 +418,25 @@ for (freq_model_name in names(freq_result_models)) {
   forest(
     model,
     slab = model$data$author_year,
+    xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
     main = "Random Effects Meta-Analysis"
   )
 
   dev.off()
 }
 
+# Funnel plot
+png(
+  paste0("manuscript/tables_figures/supplement/funnel.png"),
+  width = 20,
+  height = 15,
+  units = "cm",
+  res = 300
+)
+
+funnel(freq_full, xlab = "IQ shift per log-unit increase in BLL (µg/dL)")
+
+dev.off()
 
 # Bayesian MA forest plot looping ----
 
@@ -492,7 +526,10 @@ for (model_name in names(result_models)) {
       ),
       hjust = "inward"
     ) + #aligns text inward from the edge
-    labs(x = "beta", y = element_blank()) +
+    labs(
+      x = "IQ shift per log-unit increase in BLL (µg/dL)",
+      y = element_blank()
+    ) +
     theme_light() +
     theme(panel.border = element_blank())
 
