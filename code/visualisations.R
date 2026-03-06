@@ -416,10 +416,11 @@ for (freq_model_name in names(freq_result_models)) {
   )
 
   forest(
-    model,
-    slab = model$data$author_year,
+    freq_model,
+    slab = freq_model$data$author_year,
+    mlab = "Pooled Estimate",
     xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
-    main = "Random Effects Meta-Analysis"
+    main = "Frequentist Random Effects Meta-Analysis"
   )
 
   dev.off()
