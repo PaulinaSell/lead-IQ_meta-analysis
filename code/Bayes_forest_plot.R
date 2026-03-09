@@ -42,10 +42,42 @@ forest.data.summary <- group_by(forest.data, author_year) %>%
 # Compute how many levels the y-axis has, needed for annotation positioning
 n_studies <- nlevels(forest.data$author_year) # includes "Pooled Estimate"
 
+# Build an explicit factor level order that inserts two blank "spacer" levels
+# This replicates the one-line visual gap seen in metafor forest plots
+# We derive the study levels from the fct_rev order so their sequence is preserved
+study_levels <- setdiff(levels(forest.data$author_year), "Pooled Estimate")
+
+new_levels <- c(
+  "Pooled Estimate", # y = 1  (bottom)
+  "spacer_bottom", # y = 2  (blank gap)
+  study_levels, # y = 3 … n_studies + 1
+  "spacer_top" # y = n_studies + 2  (blank gap, just below header)
+)
+
+# Apply the new level order to both data frames
+forest.data <- forest.data %>%
+  mutate(author_year = factor(author_year, levels = new_levels))
+
+forest.data.summary <- forest.data.summary %>%
+  mutate(author_year = factor(as.character(author_year), levels = new_levels))
+
+# Append two spacer rows (all-NA estimates) to the summary data.
+# geom_pointinterval and geom_text will be filtered to skip these rows, so nothing is drawn at the spacer positions
+spacer_rows <- tibble(
+  author_year = factor(c("spacer_bottom", "spacer_top"), levels = new_levels),
+  b_Intercept = NA_real_,
+  .lower = NA_real_,
+  .upper = NA_real_
+)
+forest.data.summary <- bind_rows(forest.data.summary, spacer_rows)
+
+# Total number of discrete y levels (original studies + 2 spacers).
+# Use this instead of n_studies for all annotation y-positions below.
+n_levels_total <- n_studies + 2
 
 # let's plot!
 Bayes_forest_plot <- ggplot(
-  aes(b_Intercept, relevel(author_year, "Pooled Estimate", after = Inf)),
+  aes(b_Intercept, author_year),
   data = forest.data
 ) +
   annotate(
@@ -53,11 +85,10 @@ Bayes_forest_plot <- ggplot(
     x = 0,
     xend = 0,
     y = 0,
-    yend = n_studies + 0.5,
+    yend = n_levels_total,
     linewidth = 0.25,
     linetype = "dashed"
   ) +
-  # geom_vline(xintercept = 0, linewidth = 0.25, linetype = "dashed") +
   geom_density_ridges(
     fill = "grey",
     rel_min_height = 0.01,
@@ -65,7 +96,7 @@ Bayes_forest_plot <- ggplot(
     scale = 1
   ) +
   geom_pointinterval(
-    data = forest.data.summary,
+    data = forest.data.summary %>% filter(!is.na(b_Intercept)),
     aes(xmin = .lower, xmax = .upper),
     shape = 22,
     point_fill = "black",
@@ -74,7 +105,7 @@ Bayes_forest_plot <- ggplot(
   ) +
   geom_text(
     data = mutate_if(
-      forest.data.summary,
+      forest.data.summary %>% filter(!is.na(b_Intercept)),
       is.numeric,
       round,
       2
@@ -88,11 +119,11 @@ Bayes_forest_plot <- ggplot(
     hjust = 0.2,
     size = 4
   ) +
-  # Subtitle column headers
+  # Column headers ("subtitle")
   annotate(
     "text",
     x = -17.4,
-    y = n_studies + 1, # left-aligned, just above the top horizontal line
+    y = n_levels_total + 1,
     label = "Study",
     hjust = 0.6,
     fontface = "bold",
@@ -101,28 +132,26 @@ Bayes_forest_plot <- ggplot(
   annotate(
     "text",
     x = 3.5,
-    y = n_studies + 1, # right side, matching the estimates column
+    y = n_levels_total + 1,
     label = "Estimate [95% CrI]",
     hjust = 0.27,
     fontface = "bold",
     size = 4.1
   ) +
-  # Horizontal lines mimicking metafor style
-  # Line below the column headers / above the first study row & above pooled estimate
   annotate(
     "segment",
     x = -18.5,
     xend = 7.5,
-    y = n_studies + 0.5,
-    yend = n_studies + 0.5,
+    y = n_levels_total,
+    yend = n_levels_total,
     linewidth = 0.25
   ) +
   annotate(
     "segment",
     x = -18.5,
     xend = 7.5,
-    y = 1.5,
-    yend = 1.5,
+    y = 2,
+    yend = 2,
     linewidth = 0.25
   ) +
   labs(
@@ -132,10 +161,11 @@ Bayes_forest_plot <- ggplot(
   ) +
   # y-axis expanded upward to give room for the header annotations
   scale_y_discrete(
-    expand = expansion(add = c(0.5, 2.4)) # 0.5 padding bottom, 2 units top
+    expand = expansion(add = c(0.5, 2.4)), # 0.5 padding bottom, 2 units top
+    labels = function(x) ifelse(x %in% c("spacer_bottom", "spacer_top"), "", x),
+    drop = FALSE
   ) +
   scale_x_continuous(
-    # remove limits here — let coord_cartesian control clipping instead
     breaks = seq(-15, 5, by = 5),
     expand = expansion(add = c(0, 4))
   ) +
@@ -156,7 +186,7 @@ Bayes_forest_plot <- ggplot(
       hjust = 0,
       margin = margin(r = -70),
       size = 11.5
-    ), # increased y-axis label size
+    ),
     axis.text.x = element_text(vjust = -1, size = 12), # increased x-axis tick label size
     axis.title.x = element_text(vjust = -2.7, size = 11.5),
     axis.line.x = element_line(linewidth = 0.25), # draw the x axis line
