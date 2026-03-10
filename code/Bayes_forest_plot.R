@@ -185,7 +185,8 @@ Bayes_forest_plot <- ggplot(
     axis.text.y = element_text(
       hjust = 0,
       margin = margin(r = -70),
-      size = 11.5
+      size = 11.5,
+      colour = "black"
     ),
     axis.text.x = element_text(vjust = -1, size = 12), # increased x-axis tick label size
     axis.title.x = element_text(vjust = -2.7, size = 11.5),
@@ -207,7 +208,8 @@ png(
   width = 20,
   height = 15,
   units = "cm",
-  res = 300
+  res = 300,
+  bg = "transparent"
 )
 
 forest(
@@ -219,3 +221,16 @@ forest(
 )
 
 dev.off()
+
+# combine both forest plots (side by side)
+library(magick)
+
+img1 <- image_read("manuscript/tables_figures/main/Bayes_forest_plot.png")
+img2 <- image_read("manuscript/tables_figures/main/freq_forestplot.png")
+
+combined <- image_append(c(img1, img2), stack = FALSE) # FALSE = side by side
+
+image_write(
+  combined,
+  "manuscript/tables_figures/main/combined_forest_plots.png"
+)
