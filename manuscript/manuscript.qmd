@@ -37,23 +37,23 @@ csl: vancouver.csl
 reference-section-title: "References"
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ../manuscript/ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ../manuscript/ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -68,6 +68,10 @@ p {
 
 -   Journal:
 1. [Environment International, Elsevir](https://www.sciencedirect.com/journal/environment-international)
+- "Method papers should be concise presentations of an advancement in methodology applied to the type of evidence syntheses Environment International publishes. 
+- These include tools for assessing the validity of research, surveys and **analyses of current research practices**, methods for locating literature, support for conduct of individual steps of the **evidence synthesis process**, **statistical methods**, **computational approaches to evidence synthesis**, etc. While there is no formal word limit, most manuscripts would be expected to be **2500-4000 words** in length depending on the methodology and its validation, with **2-5 figures** and an appropriate number of citations. In case of doubts, prospective authors are invited to contact the Editors."\
+- "The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author." (https://www.sciencedirect.com/journal/environment-international/publish/guide-for-authors)
+- 2,500 - 4,000 words approximately. 4,500 words atm
 2. [International Journal of Hygiene and Environmental Health, Elsevir](https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health)
 3. [Environmental Research, Elsevir](https://www.sciencedirect.com/journal/environmental-research)
 -   [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
@@ -134,6 +138,7 @@ I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
+(250 words limit in Environment International)
 
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
@@ -544,6 +549,7 @@ Forest plots of both approaches are shown in Fig. 2:
 
 ::: {custom-style="Image Caption"}
 ![Fig. 2: Forest plots](/tables_figures/main/combined_forest_plots.png)
+:::
 
 The single study estimates depicted in Fig. 2 are not the same in both approaches because the Bayesian model estimates a posterior distribution for every individual study, which is displayed in the forest plot.
 The posterior distributions are influenced by all other included studies as well as the specified priors.
