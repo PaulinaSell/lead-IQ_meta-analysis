@@ -72,8 +72,12 @@ p {
 - These include tools for assessing the validity of research, surveys and **analyses of current research practices**, methods for locating literature, support for conduct of individual steps of the **evidence synthesis process**, **statistical methods**, **computational approaches to evidence synthesis**, etc. While there is no formal word limit, most manuscripts would be expected to be **2500-4000 words** in length depending on the methodology and its validation, with **2-5 figures** and an appropriate number of citations. In case of doubts, prospective authors are invited to contact the Editors."\
 - "The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author." (https://www.sciencedirect.com/journal/environment-international/publish/guide-for-authors)
 - 2,500 - 4,000 words approximately. 4,500 words atm
-2. [International Journal of Hygiene and Environmental Health, Elsevir](https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health)
-3. [Environmental Research, Elsevir](https://www.sciencedirect.com/journal/environmental-research)
+2. [Environmental Health, BMC](https://link.springer.com/journal/12940)
+- Has Review, Methodology (only accepts *new* methodology) and original Research article types
+3. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) lower IF (3.3) but open to methodological papers
+4. [International Journal of Hygiene and Environmental Health, Elsevir](https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health) scope doesn't fit methods character
+5. [Environmental Research, Elsevir](https://www.sciencedirect.com/journal/environmental-research) scope doesn't fit methods character
+- Environmental Health Perspectives is not open-access (Horizon funding requires this)
 -   [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
 -   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7) for reporting Bayesian model
 -   [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment

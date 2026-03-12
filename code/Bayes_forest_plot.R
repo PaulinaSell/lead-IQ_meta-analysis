@@ -19,7 +19,7 @@ freq_model <- readRDS(
   "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds"
 )
 
-
+# Get draws from brms model
 study.draws <- spread_draws(
   m.brm,
   r_author_year[author_year, ],
@@ -43,15 +43,15 @@ forest.data.summary <- group_by(forest.data, author_year) %>%
 n_studies <- nlevels(forest.data$author_year) # includes "Pooled Estimate"
 
 # Build an explicit factor level order that inserts two blank "spacer" levels
-# This replicates the one-line visual gap seen in metafor forest plots
-# We derive the study levels from the fct_rev order so their sequence is preserved
+# Replicates one-line visual gap in metafor forest plots
+# Derive the study levels from the fct_rev order so their sequence is preserved
 study_levels <- setdiff(levels(forest.data$author_year), "Pooled Estimate")
 
 new_levels <- c(
-  "Pooled Estimate", # y = 1  (bottom)
-  "spacer_bottom", # y = 2  (blank gap)
-  study_levels, # y = 3 … n_studies + 1
-  "spacer_top" # y = n_studies + 2  (blank gap, just below header)
+  "Pooled Estimate",
+  "spacer_bottom",
+  study_levels,
+  "spacer_top"
 )
 
 # Apply the new level order to both data frames
@@ -72,10 +72,9 @@ spacer_rows <- tibble(
 forest.data.summary <- bind_rows(forest.data.summary, spacer_rows)
 
 # Total number of discrete y levels (original studies + 2 spacers).
-# Use this instead of n_studies for all annotation y-positions below.
 n_levels_total <- n_studies + 2
 
-# let's plot!
+# Bayesian forest plot (ggplot) ####
 Bayes_forest_plot <- ggplot(
   aes(b_Intercept, author_year),
   data = forest.data
@@ -203,6 +202,7 @@ ggsave(
   units = "cm"
 )
 
+# Freqentist model forest plot (metafor) ####
 png(
   "manuscript/tables_figures/main/freq_forestplot.png",
   width = 20,
@@ -222,7 +222,7 @@ forest(
 
 dev.off()
 
-# combine both forest plots (side by side)
+# Combine both forest plots ####
 library(magick)
 
 img1 <- image_read("manuscript/tables_figures/main/Bayes_forest_plot.png")
