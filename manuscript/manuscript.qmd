@@ -37,23 +37,23 @@ csl: vancouver.csl
 reference-section-title: "References"
 
 format:
-  # html:
-  #   toc: true
-  #   toc-location: left
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    toc-location: left
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -66,17 +66,18 @@ p {
 
 # Notes {.unnumbered}
 
--   Journal:
+## Journal: {.unnumbered}
 1. [Environment International, Elsevir](https://www.sciencedirect.com/journal/environment-international)
-- "Method papers should be concise presentations of an advancement in methodology applied to the type of evidence syntheses Environment International publishes. 
-- These include tools for assessing the validity of research, surveys and **analyses of current research practices**, methods for locating literature, support for conduct of individual steps of the **evidence synthesis process**, **statistical methods**, **computational approaches to evidence synthesis**, etc. While there is no formal word limit, most manuscripts would be expected to be **2500-4000 words** in length depending on the methodology and its validation, with **2-5 figures** and an appropriate number of citations. In case of doubts, prospective authors are invited to contact the Editors."\
-- "The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author." (https://www.sciencedirect.com/journal/environment-international/publish/guide-for-authors)
-- 2,500 - 4,000 words approximately. 4,500 words atm
+  - "Method papers should be concise presentations of an advancement in methodology applied to the type of evidence syntheses Environment International publishes." 
+  - These include tools for assessing the validity of research, surveys and **analyses of current research practices**, methods for locating literature, support for conduct of individual steps of the **evidence synthesis process**, **statistical methods**, **computational approaches to evidence synthesis**, etc."\
+  - "The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author."
+  - 2,500 - 4,000 words approximately, no formal word limit (4,500 words atm), with 2-5 figures
 2. [Environmental Health, BMC](https://link.springer.com/journal/12940)
-- Has Review, Methodology (only accepts *new* methodology) and original Research article types
+  - Has Review, Methodology (only accepts *new* methodology) and original Research article types
 3. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) lower IF (3.3) but open to methodological papers
-4. [International Journal of Hygiene and Environmental Health, Elsevir](https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health) scope doesn't fit methods character
-5. [Environmental Research, Elsevir](https://www.sciencedirect.com/journal/environmental-research) scope doesn't fit methods character
+4. [Environmental Research, Elsevir](https://www.sciencedirect.com/journal/environmental-research) scope doesn't fit methods character
+5. [International Journal of Hygiene and Environmental Health, Elsevir](https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health) scope doesn't fit methods character
+
 - Environmental Health Perspectives is not open-access (Horizon funding requires this)
 -   [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
 -   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7) for reporting Bayesian model
@@ -633,7 +634,7 @@ Slightly lower mean pooled effects were estimated by the Bayesian model.
 The prior sensitivity analyses shows that this is caused by posterior shrinkage of the study-level estimates, comparable to inverse-variance weighting in frequentist meta-analysis, together with the regularizing effect of the specified priors.
 Importantly, this difference does not materially affect the overall interpretation of the association between lead exposure and IQ.
 However, it illustrates that Bayesian meta-analysis can be less sensitive to outlier studies reporting large effects with substantial uncertainty, if priors (more specifically the prior for heterogeneity) reflecting plausible domain knowledge or expectations are specified. 
-In contrast, frequentist meta-analytic models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers @gelman2013BayesianDataAnalysis.\
+In contrast, frequentist meta-analytic models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers @gelman2013Chapter4Asymptotics.\
 Conducting a Bayesian meta-analysis can be laborious compared to frequentist approaches, as it requires more statistical knowledge, explicit consideration of modelling assumptions, and in practice often more programming effort @gelman2020BayesianWorkflow.
 While these might initially appear as disadvantages, they can equally be understood as methodological safeguards: 
 by requiring researchers to state their assumptions explicitly rather than accepting defaults embedded in software, the Bayesian approach encourages engagement with the data and the modelling assumptions being made.

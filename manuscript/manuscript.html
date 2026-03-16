@@ -2335,7 +2335,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#journal" id="toc-journal" class="nav-link" data-scroll-target="#journal">Journal:</a></li>
+  </ul></li>
   <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">2</span> Methods</a>
@@ -2356,7 +2359,13 @@ window.Quarto = {
   <li><a href="#literature-review-1" id="toc-literature-review-1" class="nav-link" data-scroll-target="#literature-review-1"><span class="header-section-number">3.1</span> Literature Review</a></li>
   <li><a href="#risk-of-bias" id="toc-risk-of-bias" class="nav-link" data-scroll-target="#risk-of-bias"><span class="header-section-number">3.2</span> Risk of Bias</a></li>
   <li><a href="#meta-analysis-results" id="toc-meta-analysis-results" class="nav-link" data-scroll-target="#meta-analysis-results"><span class="header-section-number">3.3</span> Meta Analysis Results</a></li>
+  <li><a href="#sensitivity-analysis-results" id="toc-sensitivity-analysis-results" class="nav-link" data-scroll-target="#sensitivity-analysis-results"><span class="header-section-number">3.4</span> Sensitivity Analysis Results</a></li>
   </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">4</span> Discussion</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">5</span> Conclusions</a></li>
+  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations">List of Abbreviations</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#funding" id="toc-funding" class="nav-link" data-scroll-target="#funding">Funding</a></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul>
 </nav>
@@ -2416,7 +2425,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">11 March 2026</p>
+      <p class="date-modified">16 March 2026</p>
     </div>
   </div>
     
@@ -2439,22 +2448,40 @@ text-align: justify
 </div>
 <section id="notes" class="level1 unnumbered">
 <h1 class="unnumbered">Notes</h1>
-<ul>
-<li>Journal:</li>
-</ul>
+<section id="journal" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="journal">Journal:</h2>
 <ol type="1">
 <li><a href="https://www.sciencedirect.com/journal/environment-international">Environment International, Elsevir</a></li>
-<li><a href="https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health">International Journal of Hygiene and Environmental Health, Elsevir</a></li>
-<li><a href="https://www.sciencedirect.com/journal/environmental-research">Environmental Research, Elsevir</a></li>
 </ol>
 <ul>
+<li>“Method papers should be concise presentations of an advancement in methodology applied to the type of evidence syntheses Environment International publishes.”</li>
+<li>These include tools for assessing the validity of research, surveys and <strong>analyses of current research practices</strong>, methods for locating literature, support for conduct of individual steps of the <strong>evidence synthesis process</strong>, <strong>statistical methods</strong>, <strong>computational approaches to evidence synthesis</strong>, etc.”<br>
+</li>
+<li>“The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author.”</li>
+<li>2,500 - 4,000 words approximately, no formal word limit (4,500 words atm), with 2-5 figures</li>
+</ul>
+<ol start="2" type="1">
+<li><a href="https://link.springer.com/journal/12940">Environmental Health, BMC</a></li>
+</ol>
+<ul>
+<li>Has Review, Methodology (only accepts <em>new</em> methodology) and original Research article types</li>
+</ul>
+<ol start="3" type="1">
+<li><a href="https://edmgr.ovid.com/ee/accounts/ifauth.htm">Environmental Epidemiology, ISEE</a> lower IF (3.3) but open to methodological papers</li>
+<li><a href="https://www.sciencedirect.com/journal/environmental-research">Environmental Research, Elsevir</a> scope doesn’t fit methods character</li>
+<li><a href="https://www.sciencedirect.com/journal/international-journal-of-hygiene-and-environmental-health">International Journal of Hygiene and Environmental Health, Elsevir</a> scope doesn’t fit methods character</li>
+</ol>
+<ul>
+<li>Environmental Health Perspectives is not open-access (Horizon funding requires this)</li>
 <li><a href="https://www.prisma-statement.org/prisma-2020">PRISMA 2020 checklist</a> for structure</li>
 <li><a href="https://doi.org/10.1038/s41562-021-01177-7">Bayesian Analysis Reporting Guidelines, BARG</a> for reporting Bayesian model</li>
 <li><a href="https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925">raRoB tool</a> for Risk of Bias Assessment</li>
 </ul>
 </section>
+</section>
 <section id="abstract" class="level1 unnumbered">
 <h1 class="unnumbered">Abstract</h1>
+<p>(250 words limit in Environment International)</p>
 <p><strong>Objective</strong>: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard. Bayesian meta-analysis provides probabilistic uncertainty quantification. To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children’s intelligence quotient (IQ) as a case study.</p>
 <p><strong>Methods</strong>: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. Risk of bias (RoB) was assessed and regression coefficients were harmonized to the <span class="math inline">\(\log_e\)</span>​ scale. In both meta-analyses, we assumed a multilevel structure, used random-effects models and included the same effect estimates. The frequentist approach used restricted maximum-likelihood estimation. The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors. Sensitivity analyses examined robustness to RoB and prior specification. <span class="math inline">\(\tau^2\)</span> and <span class="math inline">\(I^2\)</span> were estimated as measures of between-study heterogeneity.</p>
 <p><strong>Results</strong>: Twelve studies were included after screening. The frequentist approach yielded a pooled estimate of -2.45 (95% confidence interval (CI): -3.7; -1.2) IQ points per unit increase in <span class="math inline">\(\log_e\)</span>-transformed BLL (µg/dL). The Bayesian model yielded a mean pooled estimate of -2.28 (95% credible interval (CrI): -3.56; -1.06). Between-study heterogeneity was substantial (frequentist: <span class="math inline">\(\tau^2\)</span> = 3.3, <span class="math inline">\(\text{I}^2\)</span> = 85%; Bayesian: <span class="math inline">\(\tau^2\)</span> = 3.8, <span class="math inline">\(\text{I}^2\)</span> = 83.3%). The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. Sensitivity analyses showed robustness to RoB and prior specification. The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.</p>
@@ -2480,20 +2507,20 @@ We searched for articles published between January 2005 and July 2023. The year 
 Search queries in Pubmed and Scopus included the following terms: substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, ERF) (Tab. 1).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="uvargzaqvs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uvargzaqvs table {
+<div id="eoukiqoxjt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#eoukiqoxjt table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#uvargzaqvs thead, #uvargzaqvs tbody, #uvargzaqvs tfoot, #uvargzaqvs tr, #uvargzaqvs td, #uvargzaqvs th {
+#eoukiqoxjt thead, #eoukiqoxjt tbody, #eoukiqoxjt tfoot, #eoukiqoxjt tr, #eoukiqoxjt td, #eoukiqoxjt th {
 border-style: none;
 }
-#uvargzaqvs p {
+#eoukiqoxjt p {
 margin: 0;
 padding: 0;
 }
-#uvargzaqvs .gt_table {
+#eoukiqoxjt .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -2518,11 +2545,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#uvargzaqvs .gt_caption {
+#eoukiqoxjt .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#uvargzaqvs .gt_title {
+#eoukiqoxjt .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2533,7 +2560,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#uvargzaqvs .gt_subtitle {
+#eoukiqoxjt .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2544,7 +2571,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#uvargzaqvs .gt_heading {
+#eoukiqoxjt .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -2555,12 +2582,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#uvargzaqvs .gt_bottom_border {
+#eoukiqoxjt .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#uvargzaqvs .gt_col_headings {
+#eoukiqoxjt .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2574,7 +2601,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#uvargzaqvs .gt_col_heading {
+#eoukiqoxjt .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2593,7 +2620,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#uvargzaqvs .gt_column_spanner_outer {
+#eoukiqoxjt .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2604,13 +2631,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#uvargzaqvs .gt_column_spanner_outer:first-child {
+#eoukiqoxjt .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#uvargzaqvs .gt_column_spanner_outer:last-child {
+#eoukiqoxjt .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#uvargzaqvs .gt_column_spanner {
+#eoukiqoxjt .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -2621,10 +2648,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#uvargzaqvs .gt_spanner_row {
+#eoukiqoxjt .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#uvargzaqvs .gt_group_heading {
+#eoukiqoxjt .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2649,7 +2676,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#uvargzaqvs .gt_empty_group_heading {
+#eoukiqoxjt .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -2663,13 +2690,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#uvargzaqvs .gt_from_md > :first-child {
+#eoukiqoxjt .gt_from_md > :first-child {
 margin-top: 0;
 }
-#uvargzaqvs .gt_from_md > :last-child {
+#eoukiqoxjt .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#uvargzaqvs .gt_row {
+#eoukiqoxjt .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2687,7 +2714,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#uvargzaqvs .gt_stub {
+#eoukiqoxjt .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2699,7 +2726,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#uvargzaqvs .gt_stub_row_group {
+#eoukiqoxjt .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2712,13 +2739,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#uvargzaqvs .gt_row_group_first td {
+#eoukiqoxjt .gt_row_group_first td {
 border-top-width: 2px;
 }
-#uvargzaqvs .gt_row_group_first th {
+#eoukiqoxjt .gt_row_group_first th {
 border-top-width: 2px;
 }
-#uvargzaqvs .gt_summary_row {
+#eoukiqoxjt .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2727,14 +2754,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#uvargzaqvs .gt_first_summary_row {
+#eoukiqoxjt .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#uvargzaqvs .gt_first_summary_row.thick {
+#eoukiqoxjt .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#uvargzaqvs .gt_last_summary_row {
+#eoukiqoxjt .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2743,7 +2770,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#uvargzaqvs .gt_grand_summary_row {
+#eoukiqoxjt .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2752,7 +2779,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#uvargzaqvs .gt_first_grand_summary_row {
+#eoukiqoxjt .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2761,7 +2788,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#uvargzaqvs .gt_last_grand_summary_row_top {
+#eoukiqoxjt .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2770,10 +2797,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#uvargzaqvs .gt_striped {
+#eoukiqoxjt .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#uvargzaqvs .gt_table_body {
+#eoukiqoxjt .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2781,7 +2808,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#uvargzaqvs .gt_footnotes {
+#eoukiqoxjt .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2794,7 +2821,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#uvargzaqvs .gt_footnote {
+#eoukiqoxjt .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -2802,7 +2829,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#uvargzaqvs .gt_sourcenotes {
+#eoukiqoxjt .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2815,64 +2842,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#uvargzaqvs .gt_sourcenote {
+#eoukiqoxjt .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#uvargzaqvs .gt_left {
+#eoukiqoxjt .gt_left {
 text-align: left;
 }
-#uvargzaqvs .gt_center {
+#eoukiqoxjt .gt_center {
 text-align: center;
 }
-#uvargzaqvs .gt_right {
+#eoukiqoxjt .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#uvargzaqvs .gt_font_normal {
+#eoukiqoxjt .gt_font_normal {
 font-weight: normal;
 }
-#uvargzaqvs .gt_font_bold {
+#eoukiqoxjt .gt_font_bold {
 font-weight: bold;
 }
-#uvargzaqvs .gt_font_italic {
+#eoukiqoxjt .gt_font_italic {
 font-style: italic;
 }
-#uvargzaqvs .gt_super {
+#eoukiqoxjt .gt_super {
 font-size: 65%;
 }
-#uvargzaqvs .gt_footnote_marks {
+#eoukiqoxjt .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#uvargzaqvs .gt_asterisk {
+#eoukiqoxjt .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#uvargzaqvs .gt_indent_1 {
+#eoukiqoxjt .gt_indent_1 {
 text-indent: 5px;
 }
-#uvargzaqvs .gt_indent_2 {
+#eoukiqoxjt .gt_indent_2 {
 text-indent: 10px;
 }
-#uvargzaqvs .gt_indent_3 {
+#eoukiqoxjt .gt_indent_3 {
 text-indent: 15px;
 }
-#uvargzaqvs .gt_indent_4 {
+#eoukiqoxjt .gt_indent_4 {
 text-indent: 20px;
 }
-#uvargzaqvs .gt_indent_5 {
+#eoukiqoxjt .gt_indent_5 {
 text-indent: 25px;
 }
-#uvargzaqvs .katex-display {
+#eoukiqoxjt .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#uvargzaqvs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#eoukiqoxjt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -2894,7 +2921,7 @@ height: 0px !important;
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="...1">Pubmed</td>
-<td class="gt_row gt_left" headers="Concepts">Substance incl. Mesh IQ, neurodev, disability Association, ERF Population</td>
+<td class="gt_row gt_left" headers="Concepts">Substance incl. Mesh  IQ, neurodev, disability  Association, ERF  Population</td>
 <td class="gt_row gt_left" headers="Detailed queries">((Pb[Title/Abstract]) OR (lead[MeSH Terms])) AND ((IQ[Title/Abstract]) OR (FSIQ[Title/Abstract]) OR (&quot;intelligence quotient&quot;[Title/Abstract]) OR (&quot;mental retardation&quot;[Title/Abstract]) OR (&quot;intellectual disability&quot;[Title/Abstract]) OR (neurodev*[Title/Abstract]) OR (&quot;neuro-dev*&quot;[Title/Abstract])) AND ((associat*[Title/Abstract]) OR (relation*[Title/Abstract]) OR (&quot;dose-resp*&quot;[Title/Abstract]) OR (&quot;dose-effect&quot;[Title/Abstract]) OR (&quot;expos*&quot;[Title/Abstract])) AND ((child*[Title/Abstract]) OR (infant*[Title/Abstract]) OR (teenag*[Title/Abstract]) OR (adolescen*[Title/Abstract]) OR (&quot;pre-school*&quot;[Title/Abstract]) OR (preschool*[Title/Abstract]))</td>
 <td class="gt_row gt_left" headers="Results">467  (360 published after 2005)</td>
 <td class="gt_row gt_left" headers="...5">450 references without duplicates published after 2005</td>
@@ -2902,7 +2929,7 @@ height: 0px !important;
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="...1">Pubmed</td>
-<td class="gt_row gt_left" headers="Concepts">Substance + title only IQ, neurodev, disability Association, ERF Population</td>
+<td class="gt_row gt_left" headers="Concepts">Substance + title only  IQ, neurodev, disability  Association, ERF  Population</td>
 <td class="gt_row gt_left" headers="Detailed queries">((Pb[Title/Abstract]) OR (lead[Title/Abstract])) AND ((Pb[Title]) OR (lead[Title]) OR (subst*[Title]) OR (metal*[Title]) OR (chemical*[Title]) OR (element*[Title]) OR (meta*[Title]) OR (pool*[Title]) ) AND ((IQ[Title/Abstract]) OR (FSIQ[Title/Abstract]) OR (&quot;intelligence quotient&quot;[Title/Abstract]) OR (&quot;mental retardation&quot;[Title/Abstract]) OR (&quot;intellectual disability&quot;[Title/Abstract]) OR (neurodev*[Title/Abstract]) OR (&quot;neuro-dev*&quot;[Title/Abstract])) AND ((associat*[Title/Abstract]) OR (relation*[Title/Abstract]) OR (&quot;dose-resp*&quot;[Title/Abstract]) OR (&quot;dose-effect&quot;[Title/Abstract]) OR (&quot;expos*&quot;[Title/Abstract])) AND ((child*[Title/Abstract]) OR (infant*[Title/Abstract]) OR (teenag*[Title/Abstract]) OR (adolescen*[Title/Abstract]) OR (&quot;pre-school*&quot;[Title/Abstract]) OR (preschool*[Title/Abstract]))</td>
 <td class="gt_row gt_left" headers="Results">534  (406 published after 2005)</td>
 <td class="gt_row gt_left" headers="...5">NA</td>
@@ -2910,7 +2937,7 @@ height: 0px !important;
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="...1">Scopus</td>
-<td class="gt_row gt_left" headers="Concepts">Substance incl. Mesh IQ, neurodev, disability Association, ERF Population</td>
+<td class="gt_row gt_left" headers="Concepts">Substance incl. Mesh  IQ, neurodev, disability  Association, ERF  Population</td>
 <td class="gt_row gt_left" headers="Detailed queries">(TITLE-ABS(&quot;Pb&quot;) OR CHEMNAME(&quot;lead&quot;)) AND ( TITLE-ABS(&quot;IQ&quot;) OR TITLE-ABS(&quot;FSIQ&quot;) OR TITLE-ABS(&quot;intelligence quotient&quot;) OR TITLE-ABS(&quot;mental retardation&quot;) OR TITLE-ABS(&quot;intellectual disability&quot;) OR TITLE-ABS(&quot;neurodev*&quot;) OR TITLE-ABS(&quot;neuro-dev*&quot;)) AND ( TITLE-ABS(&quot;associat*&quot;) OR TITLE-ABS(&quot;relation*&quot;) OR TITLE-ABS(&quot;dose-effect&quot;) OR TITLE-ABS(&quot;dose-resp*&quot;) OR TITLE-ABS(&quot;expos*&quot;) ) AND ( TITLE-ABS(&quot;child*&quot;) OR TITLE-ABS(&quot;infant*&quot;) OR TITLE-ABS(&quot;teenag*&quot;) OR TITLE-ABS(&quot;adolescen*&quot;) OR TITLE-ABS(&quot;pre-school*&quot;) OR TITLE-ABS(&quot;preschool*&quot;) )</td>
 <td class="gt_row gt_left" headers="Results">638  (483 published after 2005)</td>
 <td class="gt_row gt_left" headers="...5">623 references without duplicates published after 2005</td>
@@ -2918,7 +2945,7 @@ height: 0px !important;
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="...1">Scopus</td>
-<td class="gt_row gt_left" headers="Concepts">Substance + title only IQ, neurodev, disability Association, ERF Population</td>
+<td class="gt_row gt_left" headers="Concepts">Substance + title only  IQ, neurodev, disability  Association, ERF  Population</td>
 <td class="gt_row gt_left" headers="Detailed queries">(TITLE-ABS(&quot;Pb&quot;) OR TITLE-ABS(&quot;lead&quot;)) AND (TITLE(&quot;Pb&quot;) OR TITLE(&quot;lead&quot;) OR TITLE(&quot;subst*&quot;) OR TITLE(&quot;metal*&quot;) OR TITLE(&quot;chemical*&quot;) OR TITLE(&quot;element*&quot;) OR TITLE(&quot;meta*&quot;) OR TITLE(&quot;pool*&quot;)) AND ( TITLE-ABS(&quot;IQ&quot;) OR TITLE-ABS(&quot;FSIQ&quot;) OR TITLE-ABS(&quot;intelligence quotient&quot;) OR TITLE-ABS(&quot;mental retardation&quot;) OR TITLE-ABS(&quot;intellectual disability&quot;) OR TITLE-ABS(&quot;neurodev*&quot;) OR TITLE-ABS(&quot;neuro-dev*&quot;)) AND ( TITLE-ABS(&quot;associat*&quot;) OR TITLE-ABS(&quot;relation*&quot;) OR TITLE-ABS(&quot;dose-effect&quot;) OR TITLE-ABS(&quot;dose-resp*&quot;) OR TITLE-ABS(&quot;expos*&quot;) ) AND ( TITLE-ABS(&quot;child*&quot;) OR TITLE-ABS(&quot;infant*&quot;) OR TITLE-ABS(&quot;teenag*&quot;) OR TITLE-ABS(&quot;adolescen*&quot;) OR TITLE-ABS(&quot;pre-school*&quot;) OR TITLE-ABS(&quot;preschool*&quot;) )</td>
 <td class="gt_row gt_left" headers="Results">663  (501 published after 2005)</td>
 <td class="gt_row gt_left" headers="...5">NA</td>
@@ -3005,20 +3032,20 @@ To examine the sensitivity of the results to possibly biased study estimates, we
 <!-- mention Roy & that she confirmed decimal point missing! -->
 <div class="cell">
 <div class="cell-output-display">
-<div id="qhbgsmqldc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qhbgsmqldc table {
+<div id="mvnrpacpac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mvnrpacpac table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#qhbgsmqldc thead, #qhbgsmqldc tbody, #qhbgsmqldc tfoot, #qhbgsmqldc tr, #qhbgsmqldc td, #qhbgsmqldc th {
+#mvnrpacpac thead, #mvnrpacpac tbody, #mvnrpacpac tfoot, #mvnrpacpac tr, #mvnrpacpac td, #mvnrpacpac th {
 border-style: none;
 }
-#qhbgsmqldc p {
+#mvnrpacpac p {
 margin: 0;
 padding: 0;
 }
-#qhbgsmqldc .gt_table {
+#mvnrpacpac .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3043,11 +3070,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_caption {
+#mvnrpacpac .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#qhbgsmqldc .gt_title {
+#mvnrpacpac .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3058,7 +3085,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#qhbgsmqldc .gt_subtitle {
+#mvnrpacpac .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3069,7 +3096,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#qhbgsmqldc .gt_heading {
+#mvnrpacpac .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3080,12 +3107,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_bottom_border {
+#mvnrpacpac .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_col_headings {
+#mvnrpacpac .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3099,7 +3126,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_col_heading {
+#mvnrpacpac .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3118,7 +3145,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#qhbgsmqldc .gt_column_spanner_outer {
+#mvnrpacpac .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3129,13 +3156,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#qhbgsmqldc .gt_column_spanner_outer:first-child {
+#mvnrpacpac .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#qhbgsmqldc .gt_column_spanner_outer:last-child {
+#mvnrpacpac .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#qhbgsmqldc .gt_column_spanner {
+#mvnrpacpac .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3146,10 +3173,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#qhbgsmqldc .gt_spanner_row {
+#mvnrpacpac .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#qhbgsmqldc .gt_group_heading {
+#mvnrpacpac .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3174,7 +3201,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#qhbgsmqldc .gt_empty_group_heading {
+#mvnrpacpac .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3188,13 +3215,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#qhbgsmqldc .gt_from_md > :first-child {
+#mvnrpacpac .gt_from_md > :first-child {
 margin-top: 0;
 }
-#qhbgsmqldc .gt_from_md > :last-child {
+#mvnrpacpac .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#qhbgsmqldc .gt_row {
+#mvnrpacpac .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3212,7 +3239,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#qhbgsmqldc .gt_stub {
+#mvnrpacpac .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3224,7 +3251,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#qhbgsmqldc .gt_stub_row_group {
+#mvnrpacpac .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3237,13 +3264,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#qhbgsmqldc .gt_row_group_first td {
+#mvnrpacpac .gt_row_group_first td {
 border-top-width: 2px;
 }
-#qhbgsmqldc .gt_row_group_first th {
+#mvnrpacpac .gt_row_group_first th {
 border-top-width: 2px;
 }
-#qhbgsmqldc .gt_summary_row {
+#mvnrpacpac .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3252,14 +3279,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#qhbgsmqldc .gt_first_summary_row {
+#mvnrpacpac .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_first_summary_row.thick {
+#mvnrpacpac .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#qhbgsmqldc .gt_last_summary_row {
+#mvnrpacpac .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3268,7 +3295,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_grand_summary_row {
+#mvnrpacpac .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3277,7 +3304,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#qhbgsmqldc .gt_first_grand_summary_row {
+#mvnrpacpac .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3286,7 +3313,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_last_grand_summary_row_top {
+#mvnrpacpac .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3295,10 +3322,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_striped {
+#mvnrpacpac .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#qhbgsmqldc .gt_table_body {
+#mvnrpacpac .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3306,7 +3333,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_footnotes {
+#mvnrpacpac .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3319,7 +3346,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_footnote {
+#mvnrpacpac .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3327,7 +3354,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#qhbgsmqldc .gt_sourcenotes {
+#mvnrpacpac .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3340,64 +3367,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#qhbgsmqldc .gt_sourcenote {
+#mvnrpacpac .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#qhbgsmqldc .gt_left {
+#mvnrpacpac .gt_left {
 text-align: left;
 }
-#qhbgsmqldc .gt_center {
+#mvnrpacpac .gt_center {
 text-align: center;
 }
-#qhbgsmqldc .gt_right {
+#mvnrpacpac .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#qhbgsmqldc .gt_font_normal {
+#mvnrpacpac .gt_font_normal {
 font-weight: normal;
 }
-#qhbgsmqldc .gt_font_bold {
+#mvnrpacpac .gt_font_bold {
 font-weight: bold;
 }
-#qhbgsmqldc .gt_font_italic {
+#mvnrpacpac .gt_font_italic {
 font-style: italic;
 }
-#qhbgsmqldc .gt_super {
+#mvnrpacpac .gt_super {
 font-size: 65%;
 }
-#qhbgsmqldc .gt_footnote_marks {
+#mvnrpacpac .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#qhbgsmqldc .gt_asterisk {
+#mvnrpacpac .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#qhbgsmqldc .gt_indent_1 {
+#mvnrpacpac .gt_indent_1 {
 text-indent: 5px;
 }
-#qhbgsmqldc .gt_indent_2 {
+#mvnrpacpac .gt_indent_2 {
 text-indent: 10px;
 }
-#qhbgsmqldc .gt_indent_3 {
+#mvnrpacpac .gt_indent_3 {
 text-indent: 15px;
 }
-#qhbgsmqldc .gt_indent_4 {
+#mvnrpacpac .gt_indent_4 {
 text-indent: 20px;
 }
-#qhbgsmqldc .gt_indent_5 {
+#mvnrpacpac .gt_indent_5 {
 text-indent: 25px;
 }
-#qhbgsmqldc .katex-display {
+#mvnrpacpac .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#qhbgsmqldc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mvnrpacpac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -3637,20 +3664,20 @@ height: 0px !important;
 Domains with a higher overall RoB in the included studies were <em>non-response rate</em> (Selection), where many of the studies did not report the non-response rate or did not discuss wether non-responding individuals might systematically differ from participants in the studies, leading to selection bias. Another domain with overall higher RoB was <em>accounting for confounding</em> (Confounding), where important confounders like maternal IQ were left out or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach is preferable <span class="citation" data-cites="smith2018StepAwayStepwise">(<a href="#ref-smith2018StepAwayStepwise" role="doc-biblioref">51</a>)</span>. Finally, in the domain <em>handling of missing values</em> (Analysis), some of the studies gave no information on how they handeled missing values and others handeled them inadequately. Results from the RoB assessment is presented in Tab. 3.</p>
 <div class="cell fig-cap-location-top">
 <div class="cell-output-display">
-<div id="xxgdhhqrtn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xxgdhhqrtn table {
+<div id="cinmdcswke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cinmdcswke table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#xxgdhhqrtn thead, #xxgdhhqrtn tbody, #xxgdhhqrtn tfoot, #xxgdhhqrtn tr, #xxgdhhqrtn td, #xxgdhhqrtn th {
+#cinmdcswke thead, #cinmdcswke tbody, #cinmdcswke tfoot, #cinmdcswke tr, #cinmdcswke td, #cinmdcswke th {
 border-style: none;
 }
-#xxgdhhqrtn p {
+#cinmdcswke p {
 margin: 0;
 padding: 0;
 }
-#xxgdhhqrtn .gt_table {
+#cinmdcswke .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -3675,11 +3702,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_caption {
+#cinmdcswke .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#xxgdhhqrtn .gt_title {
+#cinmdcswke .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -3690,7 +3717,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#xxgdhhqrtn .gt_subtitle {
+#cinmdcswke .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -3701,7 +3728,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#xxgdhhqrtn .gt_heading {
+#cinmdcswke .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -3712,12 +3739,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_bottom_border {
+#cinmdcswke .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_col_headings {
+#cinmdcswke .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3731,7 +3758,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_col_heading {
+#cinmdcswke .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3750,7 +3777,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#xxgdhhqrtn .gt_column_spanner_outer {
+#cinmdcswke .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3761,13 +3788,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#xxgdhhqrtn .gt_column_spanner_outer:first-child {
+#cinmdcswke .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#xxgdhhqrtn .gt_column_spanner_outer:last-child {
+#cinmdcswke .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#xxgdhhqrtn .gt_column_spanner {
+#cinmdcswke .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3778,10 +3805,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#xxgdhhqrtn .gt_spanner_row {
+#cinmdcswke .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#xxgdhhqrtn .gt_group_heading {
+#cinmdcswke .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3806,7 +3833,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#xxgdhhqrtn .gt_empty_group_heading {
+#cinmdcswke .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3820,13 +3847,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#xxgdhhqrtn .gt_from_md > :first-child {
+#cinmdcswke .gt_from_md > :first-child {
 margin-top: 0;
 }
-#xxgdhhqrtn .gt_from_md > :last-child {
+#cinmdcswke .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#xxgdhhqrtn .gt_row {
+#cinmdcswke .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3844,7 +3871,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#xxgdhhqrtn .gt_stub {
+#cinmdcswke .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3856,7 +3883,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xxgdhhqrtn .gt_stub_row_group {
+#cinmdcswke .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3869,13 +3896,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#xxgdhhqrtn .gt_row_group_first td {
+#cinmdcswke .gt_row_group_first td {
 border-top-width: 2px;
 }
-#xxgdhhqrtn .gt_row_group_first th {
+#cinmdcswke .gt_row_group_first th {
 border-top-width: 2px;
 }
-#xxgdhhqrtn .gt_summary_row {
+#cinmdcswke .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3884,14 +3911,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xxgdhhqrtn .gt_first_summary_row {
+#cinmdcswke .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_first_summary_row.thick {
+#cinmdcswke .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#xxgdhhqrtn .gt_last_summary_row {
+#cinmdcswke .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3900,7 +3927,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_grand_summary_row {
+#cinmdcswke .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3909,7 +3936,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xxgdhhqrtn .gt_first_grand_summary_row {
+#cinmdcswke .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3918,7 +3945,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_last_grand_summary_row_top {
+#cinmdcswke .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3927,10 +3954,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_striped {
+#cinmdcswke .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#xxgdhhqrtn .gt_table_body {
+#cinmdcswke .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3938,7 +3965,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_footnotes {
+#cinmdcswke .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3951,7 +3978,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_footnote {
+#cinmdcswke .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3959,7 +3986,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xxgdhhqrtn .gt_sourcenotes {
+#cinmdcswke .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3972,64 +3999,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#xxgdhhqrtn .gt_sourcenote {
+#cinmdcswke .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xxgdhhqrtn .gt_left {
+#cinmdcswke .gt_left {
 text-align: left;
 }
-#xxgdhhqrtn .gt_center {
+#cinmdcswke .gt_center {
 text-align: center;
 }
-#xxgdhhqrtn .gt_right {
+#cinmdcswke .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#xxgdhhqrtn .gt_font_normal {
+#cinmdcswke .gt_font_normal {
 font-weight: normal;
 }
-#xxgdhhqrtn .gt_font_bold {
+#cinmdcswke .gt_font_bold {
 font-weight: bold;
 }
-#xxgdhhqrtn .gt_font_italic {
+#cinmdcswke .gt_font_italic {
 font-style: italic;
 }
-#xxgdhhqrtn .gt_super {
+#cinmdcswke .gt_super {
 font-size: 65%;
 }
-#xxgdhhqrtn .gt_footnote_marks {
+#cinmdcswke .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#xxgdhhqrtn .gt_asterisk {
+#cinmdcswke .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#xxgdhhqrtn .gt_indent_1 {
+#cinmdcswke .gt_indent_1 {
 text-indent: 5px;
 }
-#xxgdhhqrtn .gt_indent_2 {
+#cinmdcswke .gt_indent_2 {
 text-indent: 10px;
 }
-#xxgdhhqrtn .gt_indent_3 {
+#cinmdcswke .gt_indent_3 {
 text-indent: 15px;
 }
-#xxgdhhqrtn .gt_indent_4 {
+#cinmdcswke .gt_indent_4 {
 text-indent: 20px;
 }
-#xxgdhhqrtn .gt_indent_5 {
+#cinmdcswke .gt_indent_5 {
 text-indent: 25px;
 }
-#xxgdhhqrtn .katex-display {
+#cinmdcswke .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#xxgdhhqrtn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cinmdcswke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -4519,13 +4546,18 @@ Substantial between-study heterogeneity was observed under both frameworks. In t
 <figcaption>Fig. 2: Forest plots</figcaption>
 </figure>
 </div>
+</div>
 <p>The single study estimates depicted in Fig. 2 are not the same in both approaches because the Bayesian model estimates a posterior distribution for every individual study, which is displayed in the forest plot. The posterior distributions are influenced by all other included studies as well as the specified priors. This leads to a shrinkage of the posterior means towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.</p>
+</section>
 <section id="sensitivity-analysis-results" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="sensitivity-analysis-results"><span class="header-section-number">3.4</span> Sensitivity Analysis Results</h2>
 <p>We conducted two sets of sensitivity analyses, which the results are shown for in Tab. 4. First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB and (2) with high or medium RoB. For both the frequentist and Bayesian models, the strength of the mean effect decreased after removing studies with high risk of bias and slightly increased again after removing high and medium RoB studies. Because the margin of shift in effects are small and the effects shifted in both directions, we concluded that the results are generally robust to possible individual-study bias.</p>
 <p>The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to prior specification. With more informative (narrower) priors (<span class="math inline">\(\mu \sim \mathcal{N}(-1, 1)\)</span>, <span class="math inline">\(\tau \sim \mathcal{N}^+(0, 1)\)</span>), the posterior mean of <span class="math inline">\(\mu\)</span> decreases. This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.<br>
 When using less informative (broader) priors (<span class="math inline">\(\mu \sim \mathcal{N}(0, 6)\)</span>, <span class="math inline">\(\tau \sim \mathcal{N}^+(0, 6)\)</span>), the posterior mean of <span class="math inline">\(\mu\)</span> increases slightly compared to the main model. Using this set of priors, more weight is given to studies reporting high effects with large uncertainty ranges. The results of the prior sensitivity analysis support the specified set of priors in the main analysis. Suppl. file 6 shows prior, observed data and posterior distributions of all three prior specifications.</p>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 4.4.3</code></pre>
+</div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Tab. 4: Sensitivity analyses by modeling framework (Bayesian vs Frequentist)</caption>
@@ -4597,6 +4629,7 @@ When using less informative (broader) priors (<span class="math inline">\(\mu \s
 </div>
 </div>
 </section>
+</section>
 <section id="discussion" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Discussion</h1>
 <p>In this study, we provide updated pooled effect estimates for the association of children’s lead exposure on their IQ. Our results are in line with previous toxicological and epidemiological studies <span class="citation" data-cites="baghurst1992EnvironmentalExposureLead bellinger1992LowLevelLeadExposure lanphear2005LowLevelEnvironmentalLead efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead">(<a href="#ref-baghurst1992EnvironmentalExposureLead" role="doc-biblioref">13</a>,<a href="#ref-bellinger1992LowLevelLeadExposure" role="doc-biblioref">15</a>,<a href="#ref-lanphear2005LowLevelEnvironmentalLead" role="doc-biblioref">16</a>,<a href="#ref-efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead" role="doc-biblioref">19</a>)</span> and previous meta-analyses. However, because of methodological differences, the magnitude of the pooled effect cannot be directly compared to previous meta-analyses. For example, in previous studies, the effect of lead has been estimated for increases in exposure categories <span class="citation" data-cites="goodman2023SexDifferencePre schwartz1994LowLevelLeadExposure pocock1994EnvironmentalLeadChildrens">(<a href="#ref-schwartz1994LowLevelLeadExposure" role="doc-biblioref">20</a>,<a href="#ref-goodman2023SexDifferencePre" role="doc-biblioref">52</a>,<a href="#ref-pocock1994EnvironmentalLeadChildrens" role="doc-biblioref">53</a>)</span>. Also, different coefficients like partial <span class="math inline">\(\text{r}\)</span> <span class="citation" data-cites="needleman1990LowLevelLeadExposure">(<a href="#ref-needleman1990LowLevelLeadExposure" role="doc-biblioref">14</a>)</span> or standardized differences in mean <span class="citation" data-cites="heidari2022EffectLeadExposurea">(<a href="#ref-heidari2022EffectLeadExposurea" role="doc-biblioref">54</a>)</span> have been estimated in previous meta-analyses on the association of lead exposure on children’s IQ.</p>
@@ -4607,7 +4640,7 @@ Furthermore, studies that reported a larger standard error of the regression coe
 By specifying conservative priors and thus weighing such studies down, Bayesian models are less sensitive to such outliers, especially when pooling a small number of studies.<br>
 </p>
 <p>The RoB sensitivity analysis suggested that the results are generally robust to possible individual-study bias. Importantly, the study published by Crump et al. (2013) <span class="citation" data-cites="crump2013StatisticalReevaluationData">(<a href="#ref-crump2013StatisticalReevaluationData" role="doc-biblioref">25</a>)</span>, which is a re-analysis of the landmark study by Lanphear et al (2005) <span class="citation" data-cites="lanphear2005LowLevelEnvironmentalLead">(<a href="#ref-lanphear2005LowLevelEnvironmentalLead" role="doc-biblioref">16</a>)</span> received a high RoB rating in our assessment. The results of this study have been used in multiple down-stream analyses, including in the most recent Global Burden of Disease study <span class="citation" data-cites="brauer2024GlobalBurdenStrength">(<a href="#ref-brauer2024GlobalBurdenStrength" role="doc-biblioref">5</a>)</span>, that estimated the burden of disease in 204 countries and for several health risks, including lead exposure. The main driver for the high RoB identified in the analysis of Crump et al. is the stepwise backward-elimination regression approach, which is central to their findings and has received substantial criticism <span class="citation" data-cites="thompson1995StepwiseRegressionStepwise harrell2015RegressionModelingStrategies smith2018StepAwayStepwise">(<a href="#ref-smith2018StepAwayStepwise" role="doc-biblioref">51</a>,<a href="#ref-thompson1995StepwiseRegressionStepwise" role="doc-biblioref">55</a>,<a href="#ref-harrell2015RegressionModelingStrategies" role="doc-biblioref">56</a>)</span>. This highlights the need for an updated evidence synthesis which we provide in this study.</p>
-<p>We do not only provide an updated effect measure for the association of lead and IQ, but additionally compare a more conventional, frequentist approach to meta-analysis to a Bayesian approach that is less used in the field of environmental epidemiology to date. Pooled effects and measures of heterogeneity were largely consistent in both approaches. Slightly lower mean pooled effects were estimated by the Bayesian model. The prior sensitivity analyses shows that this is caused by posterior shrinkage of the study-level estimates, comparable to inverse-variance weighting in frequentist meta-analysis, together with the regularizing effect of the specified priors. Importantly, this difference does not materially affect the overall interpretation of the association between lead exposure and IQ. However, it illustrates that Bayesian meta-analysis can be less sensitive to outlier studies reporting large effects with substantial uncertainty, if priors (more specifically the prior for heterogeneity) reflecting plausible domain knowledge or expectations are specified. In contrast, frequentist meta-analytic models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers <span class="citation" data-cites="gelman2013BayesianDataAnalysis">(<a href="#ref-gelman2013BayesianDataAnalysis" role="doc-biblioref">57</a>)</span>.<br>
+<p>We do not only provide an updated effect measure for the association of lead and IQ, but additionally compare a more conventional, frequentist approach to meta-analysis to a Bayesian approach that is less used in the field of environmental epidemiology to date. Pooled effects and measures of heterogeneity were largely consistent in both approaches. Slightly lower mean pooled effects were estimated by the Bayesian model. The prior sensitivity analyses shows that this is caused by posterior shrinkage of the study-level estimates, comparable to inverse-variance weighting in frequentist meta-analysis, together with the regularizing effect of the specified priors. Importantly, this difference does not materially affect the overall interpretation of the association between lead exposure and IQ. However, it illustrates that Bayesian meta-analysis can be less sensitive to outlier studies reporting large effects with substantial uncertainty, if priors (more specifically the prior for heterogeneity) reflecting plausible domain knowledge or expectations are specified. In contrast, frequentist meta-analytic models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers <span class="citation" data-cites="gelman2013Chapter4Asymptotics">(<a href="#ref-gelman2013Chapter4Asymptotics" role="doc-biblioref">57</a>)</span>.<br>
 Conducting a Bayesian meta-analysis can be laborious compared to frequentist approaches, as it requires more statistical knowledge, explicit consideration of modelling assumptions, and in practice often more programming effort <span class="citation" data-cites="gelman2020BayesianWorkflow">(<a href="#ref-gelman2020BayesianWorkflow" role="doc-biblioref">58</a>)</span>. While these might initially appear as disadvantages, they can equally be understood as methodological safeguards: by requiring researchers to state their assumptions explicitly rather than accepting defaults embedded in software, the Bayesian approach encourages engagement with the data and the modelling assumptions being made.</p>
 <p>The results of Bayesian models are inherently distributional, which is an important difference to point estimates (central estimate, CI) produced by frequentist models. These distributional results offer distinct advantages, particularly for risk assessment and policy-making. First, any credible interval can be derived from the posterior distribution according to the needs of researchers, decision-makers, or other stakeholders. These allow direct probability statements about parameter values, unlike confidence intervals which are frequently but incorrectly interpreted probabilistically.<br>
 Second, posterior distributions enable probabilistic comparisons across multiple health risks, such as calculating the probability that one risk exceeds another. When meaningful thresholds of effect size or health risk are defined, exceedance probabilities can be directly obtained from the posterior distribution, providing an intuitive and policy-relevant summary of uncertainty.<br>
@@ -4701,9 +4734,6 @@ Comparing both frameworks showed that the Bayesian approach offers distinct adva
 <section id="funding" class="level1 unnumbered">
 <h1 class="unnumbered">Funding</h1>
 <p>This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.</p>
-</section>
-</div>
-</section>
 </section>
 <section id="bibliography" class="level1 unnumbered">
 
@@ -4879,8 +4909,8 @@ Comparing both frameworks showed that the Bayesian approach offers distinct adva
 <div id="ref-harrell2015RegressionModelingStrategies" class="csl-entry" role="listitem">
 <div class="csl-left-margin">56. </div><div class="csl-right-inline">Harrell FE. <a href="https://doi.org/10.1007/978-3-319-19425-7">Regression <span>Modeling Strategies</span>: <span>With Applications</span> to <span>Linear Models</span>, <span>Logistic</span> and <span>Ordinal Regression</span>, and <span>Survival Analysis</span></a>. Cham: Springer International Publishing; 2015. (Springer <span>Series</span> in <span>Statistics</span>). </div>
 </div>
-<div id="ref-gelman2013BayesianDataAnalysis" class="csl-entry" role="listitem">
-<div class="csl-left-margin">57. </div><div class="csl-right-inline">Gelman A, Carlin JB, Stern HS, Dunson DB, Vehtari A, Rubin DB. <a href="https://doi.org/10.1201/b16018">Bayesian <span>Data Analysis</span></a>. 0th ed. <span>Chapman and Hall/CRC</span>; 2013. </div>
+<div id="ref-gelman2013Chapter4Asymptotics" class="csl-entry" role="listitem">
+<div class="csl-left-margin">57. </div><div class="csl-right-inline">Gelman A, Carlin JB, Stern HS, David B. Dunson, Vehtari A, Rubin DB. <a href="https://doi.org/10.1201/b16018">Chapter 4 - <span>Asymptotics</span> and connections to non-<span>Bayesian</span> approaches</a>. In: Bayesian <span>Data Analysis</span>. 3rd ed. <span>Chapman and Hall/CRC</span>; 2013. </div>
 </div>
 <div id="ref-gelman2020BayesianWorkflow" class="csl-entry" role="listitem">
 <div class="csl-left-margin">58. </div><div class="csl-right-inline">Gelman A, Vehtari A, Simpson D, Margossian CC, Carpenter B, Yao Y, et al. <a href="https://doi.org/10.48550/ARXIV.2011.01808">Bayesian <span>Workflow</span></a>. arXiv; 2020. </div>

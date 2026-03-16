@@ -34,17 +34,18 @@ pooled.effect.draws <- spread_draws(m.brm, b_Intercept) %>%
 forest.data <- bind_rows(study.draws, pooled.effect.draws) %>%
   ungroup() %>%
   mutate(author_year = str_replace_all(author_year, "[.]", " ")) %>%
-  mutate(author_year = fct_rev(factor(author_year)))
+  mutate(
+    author_year = factor(
+      author_year,
+      levels = c(rev(freq_model$data$author_year), "Pooled Estimate")
+    )
+  )
 
 forest.data.summary <- group_by(forest.data, author_year) %>%
   mean_qi(b_Intercept)
 
-# Compute how many levels the y-axis has, needed for annotation positioning
 n_studies <- nlevels(forest.data$author_year) # includes "Pooled Estimate"
 
-# Build an explicit factor level order that inserts two blank "spacer" levels
-# Replicates one-line visual gap in metafor forest plots
-# Derive the study levels from the fct_rev order so their sequence is preserved
 study_levels <- setdiff(levels(forest.data$author_year), "Pooled Estimate")
 
 new_levels <- c(
@@ -74,6 +75,12 @@ forest.data.summary <- bind_rows(forest.data.summary, spacer_rows)
 # Total number of discrete y levels (original studies + 2 spacers).
 n_levels_total <- n_studies + 2
 
+# controll text size
+linewidth <- 0.35
+base_size_theme <- 12 # used in theme() — units are pts
+base_size_geom <- base_size_theme * 0.352 # used in geom_text() / annotate() — different unit scale
+title_size <- 14 # slightly larger for the title, in pts
+
 # Bayesian forest plot (ggplot) ####
 Bayes_forest_plot <- ggplot(
   aes(b_Intercept, author_year),
@@ -85,7 +92,7 @@ Bayes_forest_plot <- ggplot(
     xend = 0,
     y = 0,
     yend = n_levels_total,
-    linewidth = 0.25,
+    linewidth = linewidth,
     linetype = "dashed"
   ) +
   geom_density_ridges(
@@ -116,7 +123,7 @@ Bayes_forest_plot <- ggplot(
       x = 3.5
     ),
     hjust = 0.2,
-    size = 4
+    size = base_size_geom
   ) +
   # Column headers ("subtitle")
   annotate(
@@ -126,7 +133,7 @@ Bayes_forest_plot <- ggplot(
     label = "Study",
     hjust = 0.6,
     fontface = "bold",
-    size = 4.1
+    size = base_size_geom
   ) +
   annotate(
     "text",
@@ -135,28 +142,28 @@ Bayes_forest_plot <- ggplot(
     label = "Estimate [95% CrI]",
     hjust = 0.27,
     fontface = "bold",
-    size = 4.1
+    size = base_size_geom
   ) +
   annotate(
     "segment",
-    x = -18.5,
-    xend = 7.5,
+    x = -19.5,
+    xend = 9,
     y = n_levels_total,
     yend = n_levels_total,
-    linewidth = 0.25
+    linewidth = linewidth
   ) +
   annotate(
     "segment",
-    x = -18.5,
-    xend = 7.5,
+    x = -19.5,
+    xend = 9,
     y = 2,
     yend = 2,
-    linewidth = 0.25
+    linewidth = linewidth
   ) +
   labs(
     title = "Bayesian Random Effects Meta-Analysis",
     x = "IQ shift per log-unit increase in BLL (µg/dL)",
-    y = element_blank()
+    y = NULL
   ) +
   # y-axis expanded upward to give room for the header annotations
   scale_y_discrete(
@@ -179,18 +186,19 @@ Bayes_forest_plot <- ggplot(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
-    plot.margin = margin(t = 20, r = 10, b = 40, l = 20), # increase top margin
-    plot.title = element_text(hjust = 0.3, face = "bold", size = 13), # increased title font size
+    plot.margin = margin(t = 18.5, r = 10, b = 35, l = 20), # increase top margin
+    plot.title = element_text(hjust = 0.3, face = "bold", size = title_size), # title font size
+    plot.background = element_rect(fill = "transparent", colour = NA),
     axis.text.y = element_text(
       hjust = 0,
-      margin = margin(r = -70),
-      size = 11.5,
+      margin = margin(r = -10),
+      size = base_size_theme,
       colour = "black"
     ),
-    axis.text.x = element_text(vjust = -1, size = 12), # increased x-axis tick label size
-    axis.title.x = element_text(vjust = -2.7, size = 11.5),
-    axis.line.x = element_line(linewidth = 0.25), # draw the x axis line
-    axis.ticks.x = element_line(linewidth = 0.25), # draw tick marks
+    axis.text.x = element_text(vjust = -1, size = base_size_theme), # increased x-axis tick label size
+    axis.title.x = element_text(vjust = -2.7, size = base_size_theme),
+    axis.line.x = element_line(linewidth = linewidth), # draw the x axis line
+    axis.ticks.x = element_line(linewidth = linewidth), # draw tick marks
     axis.ticks.length.x = unit(0.3, "cm"),
   )
 
@@ -199,7 +207,8 @@ ggsave(
   Bayes_forest_plot,
   width = 20,
   height = 15,
-  units = "cm"
+  units = "cm",
+  bg = "transparent"
 )
 
 # Freqentist model forest plot (metafor) ####
@@ -214,7 +223,7 @@ png(
 
 forest(
   freq_model,
-  slab = freq_model$data$author_year,
+  slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
   mlab = "Pooled Estimate",
   xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
   main = "Frequentist Random Effects Meta-Analysis"
