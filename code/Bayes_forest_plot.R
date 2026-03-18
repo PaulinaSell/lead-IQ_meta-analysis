@@ -131,7 +131,7 @@ Bayes_forest_plot <- ggplot(
     x = -17.4,
     y = n_levels_total + 1,
     label = "Study",
-    hjust = 0.6,
+    hjust = 1.05,
     fontface = "bold",
     size = base_size_geom
   ) +
@@ -173,10 +173,10 @@ Bayes_forest_plot <- ggplot(
   ) +
   scale_x_continuous(
     breaks = seq(-15, 5, by = 5),
-    expand = expansion(add = c(0, 4))
+    expand = expansion(add = c(2, 4))
   ) +
   coord_cartesian(
-    xlim = c(-15, 5),
+    xlim = c(-9.7, 5),
     clip = "off" # allows segments/annotations to extend into the margin
   ) +
   guides(x = guide_axis(cap = "both")) + # cap both ends
@@ -186,8 +186,8 @@ Bayes_forest_plot <- ggplot(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_blank(),
-    plot.margin = margin(t = 18.5, r = 10, b = 35, l = 20), # increase top margin
-    plot.title = element_text(hjust = 0.3, face = "bold", size = title_size), # title font size
+    plot.margin = margin(t = 18.5, r = 10, b = 35, l = 20), # increase margin around plot
+    plot.title = element_text(hjust = 0, face = "bold", size = title_size), # title font size
     plot.background = element_rect(fill = "transparent", colour = NA),
     axis.text.y = element_text(
       hjust = 0,
