@@ -43,24 +43,24 @@ csl: elsevier-vancouver-no-et-al.csl
 reference-section-title: "References"
 
 format:
-  # html:
-  #   toc: true
-  #   toc-location: left
-  #   tbl-cap-location: bottom
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    toc-location: left
+    tbl-cap-location: bottom
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -260,10 +260,8 @@ Table1 <- read_csv("tables_figures/main/table1.csv")
 
 Table1 |>
   gt() |>
-  tab_header(
-    title = md("Table 1: Search queries in PubMed and Scopus")) |> 
   tab_options(table.font.size=11) |>
-  tab_caption("ERF, exposure-response function; FSIQ, full scale IQ")
+  tab_caption("Table 1: Search queries in PubMed and Scopus. ERF, exposure-response function; FSIQ, full scale IQ")
 ```
 
 <!-- We prioritized references naming the substance in the title in order to decrease the volume of results. -> does this mean that you only included studies that mentioned the substance in the title?\ -->
@@ -284,10 +282,8 @@ Table2 <- read_csv("tables_figures/main/table2.csv")
 
 Table2 |>
   gt() |>
-  tab_header(
-    title = md("Table 2: PECOTS criteria")) |> 
   tab_options(table.font.size=11) |>
-  tab_caption("HBM, human biomonitoring")
+  tab_caption("Tab. 2: PECOTS criteria. HBM, human biomonitoring")
 ```
 
 We excluded reviews and background articles that inventoried the literature with no new results. 
@@ -360,9 +356,6 @@ MCMC convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and c
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
 $I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist approach) so that both $I^2$ results are comparable.
 
-### Priors 
-<!-- wil be merged with ### Bayesian Meta-Analysis -->
-<!-- continue with comments from here! -->
 In Bayesian statistics, prior knowledge or assumptions from previously published studies, domain knowledge or beliefs are updated by the newly observed data and together result in a posterior distribution.
 Prior distributions are specified for all parameters to be estimated, which in this study are the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
 For both parameters, weakly-informative (conservative) priors were chosen so that the posterior distributions are softly being bounded to realistic ranges of results.
@@ -439,14 +432,12 @@ Table3 <- read_csv("tables_figures/main/table3.csv")
 
 Table3 |>
   gt() |>
-  tab_header(
-    title = md("Table 3: Study Characteristics")) |>
   cols_width(
     `Geographical area` ~ px(300),
-    `Adjustment set` ~ px(500),
+    `Adjustment set (confounder)` ~ px(500),
     everything() ~ px(70)
   ) |> 
-  tab_caption("Abbreviations: ") |>
+  tab_caption("Tab. 3: Study Characteristics. ADHD-RS, Attention Deficit Hyperactivity Disorder Rating Scale; BMI, Body Mass Index; CPT, Continuous Performance Test; ERF, exposure-response function; FSIQ, full scale IQ; HOME, Home Observation for Measurement of the Environment; SE, standard error; SES, socioeconomic status; WASI, Wechsler Abbreviated Scale of Intelligence, WISC, Wechsler Intelligence Scale for Children; WPPSI, Wechsler Preschool and Primary Scale of Intelligence") |>
   tab_options(
     table.font.size=12)
 ```
@@ -455,7 +446,7 @@ Table3 |>
 A PRISMA flow diagram @page2021PRISMA2020Statement summarizing the review process is shown in Fig. 1.
 Detailed information on the screening process and exclusion reasons can be found in supplementary file 2.
 
-![Fig. 1: PRISMA flow diagram](tables_figures/main/figure1.png){width=60% fig-align="center"}
+![Fig. 1: PRISMA flow diagram. BLL, blood lead level; Pb, lead; Hg, mercury](tables_figures/main/figure1.png){width=60% fig-align="center"}
 
 The size of the study population in included studies ranges from 127 [@earl2016LowlevelEnvironmentalLead] to 1,355 [@crump2013StatisticalReevaluationData].
 Study designs are cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @schnaas2006ReducedIntellectualDevelopment] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @earl2016LowlevelEnvironmentalLead; @lee2021PrenatalPostnatalExposures].
@@ -606,7 +597,7 @@ The posterior distributions are influenced by all other included studies as well
 This leads to a shrinkage of the posterior means towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.
 
 ## Sensitivity Analysis Results
-We conducted two sets of sensitivity analyses, results are shown in Tab. 4.
+We conducted two sets of sensitivity analyses, results are shown in Tab. 5.
 First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
 For both the frequentist and Bayesian models, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
 Because the margins of shifts in effects are small and the effects shifted in both directions, the results can be considered generally robust to possible individual-study bias.
@@ -682,7 +673,7 @@ In EBD studies, health impacts are quantified using metrics such as disability-a
 Such assessments integrate both population exposure and the exposure–response relationship @pruss-ustun2003AssessingEnvironmentalBurden.
 The distributional results of the present study enable probabilistic EBD assessments via Monte Carlo simulations without requiring additional assumptions about the uncertainty distribution of the exposure–response function.
 
-Our results are consistent with previous toxicological and epidemiological evidence[@baghurst1992EnvironmentalExposureLead; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead; @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead] as well as prior meta-analyses on the effects of lead on IQ.
+Our results are consistent with previous toxicological and epidemiological evidence [@baghurst1992EnvironmentalExposureLead; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead; @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead] as well as prior meta-analyses on the effects of lead on IQ.
 Direct comparison of effect magnitudes is, however, limited by methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ @needleman1990LowLevelLeadExposure or standardized mean differences @heidari2022EffectLeadExposurea.
 
 The RoB sensitivity analysis indicated that results are generally robust to individual-study bias.
@@ -720,7 +711,7 @@ We therefore want to encourage researchers to consider Bayesian methods where ca
 #| classes: plain
 
 Meaning <- c(
-  "Blood lead levels", 
+  "Blood lead level", 
   "Confidence interval",
   "Credible interval",
   "Disability-adjusted life years",
