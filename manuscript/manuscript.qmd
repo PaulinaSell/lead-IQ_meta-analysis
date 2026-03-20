@@ -176,8 +176,8 @@ Sensitivity analyses examined robustness to RoB and prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 **Results**: Twelve studies were included after screening.
-The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
-The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`).
+The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`).
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
 The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
@@ -196,7 +196,7 @@ Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic 
 Although concentrations have declined globally in past decades following the phase-out of leaded gasoline, lead remains present in the environment and is detected in human blood samples [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
 In Europe, primary exposure sources include dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
 <!-- change ; in CI to , ? -->
-The most recent Global Burden of Disease study estimated that in 2023, 3.4 million Disability-Adjusted Life Years	(DALYs, 95% uncertainty interval (UI): 2.7; 4.0 million) were attributable to lead exposure in the European Union (EU) @brauer2024GlobalBurdenStrength.
+The most recent Global Burden of Disease study estimated that in 2023, 3.4 million Disability-Adjusted Life Years	(DALYs, 95% uncertainty interval (UI): 2.7 to 4.0 million) were attributable to lead exposure in the European Union (EU) @brauer2024GlobalBurdenStrength.
 This underscores the continued public health significance even of low-level exposure.
 
 Exposure to lead is associated with multiple adverse health outcomes across the human life course, including
@@ -349,24 +349,19 @@ $$
 \end{split}
 $$ {#eq-model}
 
-Where:\
-$\hat{\theta}_{k}$ = Observed effect size for study $k$\
-$\sigma_{k}$ = Within-study sampling standard deviation for study $k$\
-$\theta_{k}$ = True underlying effect for study $k$\
-$\mu$ = Overall pooled effect\
-$\tau$ = Between-study standard deviation (heterogeneity)\
-
+Where $\hat{\theta}_{k}$ is the observed effect size for study $k$, $\sigma_{k}$ is the within-study sampling standard deviation for study $k$, $\theta_{k}$ is the true underlying effect for study $k$, $\mu$ is the overall pooled effect and $\tau$ is the between-study standard deviation (heterogeneity).\
 The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
-Posterior draws were sampled using Markov chain Monte Carlo (MCMC) and the No-U-Turn sampler (NUTS) @hoffman2011NoUTurnSamplerAdaptively.
+Sampling was done using Markov chain Monte Carlo (MCMC).
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
-MCMC convergence was assessed using the Gelman-Rubin statistic ($\hat{R}$) and chain resolution was assessed using the effective sample size (ESS).\
+MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
+Chain resolution was assessed using the effective sample size (ESS).\
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist approach) so that both $I^2$ results are comparable.
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable.
 
-In Bayesian statistics, prior knowledge or assumptions from previously published studies, domain knowledge or beliefs are updated by the newly observed data and together result in a posterior distribution.
-Prior distributions are specified for all parameters to be estimated, which in this study are the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
-For both parameters, weakly-informative (conservative) priors were chosen so that the posterior distributions are softly being bounded to realistic ranges of results.
-Because the unit scale of the included effect estimates was harmonized to IQ shift per unit increase in $\log_e$-transformed blood lead concentration (µg/dL), the priors will be specified on the same scale.
+In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
+Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
+For both parameters, weakly-informative priors were chosen so that the posterior distributions are softly being bounded to realistic ranges of results.
+The priors are specified on the same scale as the harmonized effect estimates (IQ shift per unit increase in $\log_e$-transformed BLL).
 
 ```{r}
 #| label: prior_assumption
@@ -381,10 +376,10 @@ ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
 ```
 
 For the overall pooled effect $\mu$, a normally distributed prior centered at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
-This translates to the assumption that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with $\sim$`r prob_prior_mu * 100`% probability.
+This reflects the prior belief that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
 The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead. \
-Since between-study standard deviation (heterogeneity) $\tau$ must be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
-This translates to the assumption that $\tau$ is small, but due to its wide SD, the prior is still vague and thus weakly-informative.
+Since variance terms, such as the between study heterogeneity $\tau$, must be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
+This reflects the prior belief that heterogeneity $\tau$ is small to moderate, but does not exclude large heterogeneity if this is present in the included studies.
 In summary, the following priors were specified for the Bayesian model:
 
 $$
@@ -395,7 +390,9 @@ $$
 $$ {#eq-priors}
 
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
-Prior and posterior predictive checks were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian to assess the appropriateness of the specified priors.
+Prior predictive checks were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian to assess the appropriateness of the specified priors.
+Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well.
+<!-- sentence above needs polishing -->
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below. 
 
 ### Frequentist Meta-Analysis
@@ -407,23 +404,23 @@ The $I^2$ statistic was calculated as a measure of heterogeneity, representing t
 We conducted two sets of sensitivity analyses.\
 To examine the sensitivity of the results to possibly biased study estimates, we ran both the frequentist and Bayesian models again twice, excluding (1) studies with a high RoB rating and (2) with a high or moderate RoB.
 
-To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again twice, with alternative priors for both the main effect ($μ$) and heterogeneity ($τ$).
+To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors.
 The first set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
 The second set of priors was less informative (wider) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
-Notice that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
+Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
 # Results
 
 ## Literature Review
-As described in the methods, the systematic review was conducted with a larger scope and was used as a basis for multiple case studies within the PARC project, which is why it includes another substance (mercury, Hg).
+The systematic review was conducted with a larger scope and was used as a basis for multiple case studies within the PARC project, which is why it includes another substance (mercury, Hg).
 The systematic search in PubMed and Scopus yielded 1,073 records for lead.
 After duplicate removal, title and abstract of 974 records (Pb & Hg) was screened, which left 149 records (Pb & Hg) for full text screening.
 After this last screening, 36 records remained for Pb.\
 These were then assessed for their eligibility for the meta-analysis. 
 Twelve studies were excluded because they either transformed the BLL variable into categories or left it on a linear (untransformed) scale.
 Four studies were excluded because they exclusively assessed the effects of prenatal lead exposure.
-Furthermore, four studies were excluded because the cohorts overlapped with another study and would led to duplicates.
-Four additional studies were excluded because they either solely reported effects of chemical mixtures, because they used non-linear models (including the use of splines) or because they failed to report essential statistics.
+Furthermore, four studies were excluded because the cohorts overlapped with another study and would lead to duplicates.
+Four additional studies were excluded because they either solely reported effects of chemical mixtures, used non-linear models (including the use of splines) or failed to report essential statistics.
 Finally, twelve studies were included in the meta-analysis.
 Study characteristics and regression coefficients (effect estimates) are shown in Tab. 3.
 
@@ -455,9 +452,9 @@ Detailed information on the screening process and exclusion reasons can be found
 
 ![Fig. 1: PRISMA flow diagram. BLL, blood lead level; Pb, lead; Hg, mercury](tables_figures/main/figure1.png){width=60% fig-align="center"}
 
-The size of the study population in included studies ranges from 127 [@earl2016LowlevelEnvironmentalLead] to 1,355 [@crump2013StatisticalReevaluationData].
-Study designs are cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @schnaas2006ReducedIntellectualDevelopment] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @earl2016LowlevelEnvironmentalLead; @lee2021PrenatalPostnatalExposures].
-The included studies have been conducted in multiple different regions of the world (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations have been sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
+The size of the study population in included studies ranged from 127 [@earl2016LowlevelEnvironmentalLead] to 1,355 [@crump2013StatisticalReevaluationData].
+Study designs included cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @schnaas2006ReducedIntellectualDevelopment] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @earl2016LowlevelEnvironmentalLead; @lee2021PrenatalPostnatalExposures].
+The included studies were conducted in multiple different regions of the world (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations were sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
 The study by Roy et al. [@roy2013EffectModificationTransferrin] reported implausibly large effect sizes.
 We contacted the corresponding author, who confirmed that decimal points were missing in the publication.
 
@@ -581,27 +578,26 @@ s_brm <- summary(m.brm)
 ```
 
 The prior predictive check indicates that the specified priors are appropriate (supplementary file 3). 
-The posterior predictive check suggested appropriate model specification (supplementary file 4).
-$\hat{R}$ values indicate well converged MCMC chains (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
-MCMC trace plots suggest well-mixed chains and good convergence (supplementary file  5).
-ESS for the central part of the posterior distribution for $\mu$ is `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")` and `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")` for the tails of the distribution.
-This corresponds to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively, indicating efficiently sampled posterior distribution of $\mu$ across both its central tendency and tail regions, and that central point estimates and credible intervals can be interpreted with confidence.
+The posterior predictive check showed that the model correctly captures important patterns in the data (supplementary file 4).
+$\hat{R}$ values indicate that all MCMC chains coverged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
+MCMC trace plots showed well-mixed chains and convergence (supplementary file 5).
+ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively).
 
-The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb`; `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL).
-The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb`; `r freq_ub`).\
+The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
+The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).\
 Substantial between-study heterogeneity was observed under both frameworks.
-In the Bayesian model, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 1)` (95% CrI: `r round(tau_sq_ci[1], 1)`; `r round(tau_sq_ci[2], 1)`), corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% (95% CrI: `r round(I2_credible_interval[1], 3) * 100`%; `r round(I2_credible_interval[2], 3) * 100`%).
-Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)`; `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)`; `r round(freq_I2_ub, 1)`%).
-
-Forest plots of both approaches are shown in Fig. 2:
+In the Bayesian framework, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 1)` (95% CrI: `r round(tau_sq_ci[1], 1)` to `r round(tau_sq_ci[2], 1)`), corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% (95% CrI: `r round(I2_credible_interval[1], 3) * 100`% to `r round(I2_credible_interval[2], 3) * 100`%).
+Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)` to `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)` to `r round(freq_I2_ub, 1)`%).
 
 ::: {custom-style="Image Caption"}
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](/tables_figures/main/combined_forest_plots.png)
 :::
 
-The single study estimates depicted in Fig. 2 are not the same in both approaches because the Bayesian model estimates a posterior distribution for every individual study, which is displayed in the forest plot.
+The single study estimates depicted in Fig. 2 differ in both approaches because the Bayesian model estimates a posterior distribution for every individual study, which is displayed in the forest plot.
 The posterior distributions are influenced by all other included studies as well as the specified priors.
 This leads to a shrinkage of the posterior means towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.
+
+<!-- continue from here -->
 
 ## Sensitivity Analysis Results
 We conducted two sets of sensitivity analyses, results are shown in Tab. 5.
