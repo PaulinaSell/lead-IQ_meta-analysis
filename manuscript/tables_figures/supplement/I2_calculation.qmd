@@ -1,0 +1,67 @@
+---
+title: "Calculation of $I^2$ in the Bayesian Framework"
+format: 
+    docx:
+        reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+---
+```{r}
+#| label: get_vt
+#| echo: false
+#| message: false
+freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+vt <- freq_model$vt
+```
+
+This supplementary file describes how $I^2$ was calculated for the Bayesian meta-analysis.
+
+Higgins & Thompson (2002) define $I^2$ as the proportion of total variance in observed effect sizes that is attributable to between-study heterogeneity:
+
+$$
+I^2 = \frac{\tau^2}{\tau^2 + v_t}
+$$
+
+where $\tau^2$ is the between-study variance and $v_t$ is a measure of typical within-study variance across $k$ included studies. 
+
+$v_t$ is a weighted summary of all within-study sampling variances $\sigma_k^2$, computed by `metafor` (Viechtbauer 2010) as:
+
+$$
+v_t = \frac{(k-1)\sum_k w_k}{\left(\sum_k w_k\right)^2 - \sum_k w_k^2}
+$$
+
+where $w_k = 1/\sigma_k^2$ are the inverse-variance weights.
+
+The Bayesian meta-analysis produces a full posterior distribution of $\tau$ and does not yield a single point estimate of $v_t$. 
+To ensure that $I^2$ is computed on the same scale and with the same denominator in both frameworks, $v_t$ is held fixed at the value obtained from `metafor` ($v_t =$ `r round(vt, 2)`).
+This is a deliberate methodological choice: $v_t$ depends only on the within-study sampling variances $\sigma_k^2$, which are treated as known constants in both models (see model specification in 2.4 Methods). 
+Reusing $v_t$ therefore introduces no additional assumption, and it ensures that any difference between the two $I^2$ estimates reflects only the difference in the estimated $\tau^2$, not a difference in the denominator.
+
+Let $\tau^{(s)}$, for $s = 1, \dots, S$, denote the posterior draws of the between-study standard deviation obtained from the fitted Bayesian model. 
+The between-study variance for each draw is:
+
+$$
+\tau^{2(s)} = \left(\tau^{(s)}\right)^2
+$$
+
+Substituting into the standard formula with the fixed $v_t$, $I^2$ is computed for each posterior draw as:
+
+$$
+I^{2(s)} = \frac{\tau^{2(s)}}{\tau^{2(s)} + v_t}
+$$
+
+This yields a posterior distribution $\{I^{2(s)}\}_{s=1}^{S}$ for $I^2$. 
+The posterior mean is:
+
+$$
+\mathbb{E}[I^2 \mid \text{data}] \approx \frac{1}{S} \sum_{s=1}^{S} I^{2(s)}
+$$
+
+and a 95% credible interval is obtained from the 2.5th and 97.5th quantiles of this same set of draws:
+
+$$
+\text{95\% CrI} = \left[Q_{0.025}\!\left(\{I^{2(s)}\}\right),\; 
+Q_{0.975}\!\left(\{I^{2(s)}\}\right)\right]
+$$
+
+# References 
+Higgins, J. P., & Thompson, S. G. Quantifying heterogeneity in a meta-analysis. Statistics in medicine, 2002;21:1539–1558. https://doi.org/10.1002/sim.1186.
+Wolfgang Viechtbauer. Conducting meta-analyses in with the metafor package. Journal of Statistical Software 2010;36:1–48. https://doi.org/10.18637/jss.v036.i03.

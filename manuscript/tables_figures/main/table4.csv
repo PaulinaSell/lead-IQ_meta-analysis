@@ -1,0 +1,10 @@
+,Model type,Sensitivity,Variant,Estimate
+1,Bayesian,Priors,main,"-2.31 (-3.63, -1.08)"
+2,Bayesian,Priors,narrow,"-1.98 (-2.94, -1.03)"
+3,Bayesian,Priors,wide,"-2.46 (-4.03, -1.11)"
+4,Bayesian,RoB,full,"-2.26 (-3.56, -1.04)"
+5,Frequentist,RoB,full,"-2.45 (-3.70, -1.20)"
+6,Bayesian,RoB,low,"-1.94 (-3.59, -0.39)"
+7,Frequentist,RoB,low,"-2.23 (-3.91, -0.55)"
+8,Bayesian,RoB,low_medium,"-1.94 (-3.32, -0.67)"
+9,Frequentist,RoB,low_medium,"-2.14 (-3.50, -0.78)"
