@@ -147,7 +147,7 @@ Bayes_forest_plot <- ggplot(
   annotate(
     "segment",
     x = -19.5,
-    xend = 9,
+    xend = 8,
     y = n_levels_total,
     yend = n_levels_total,
     linewidth = linewidth
@@ -155,7 +155,7 @@ Bayes_forest_plot <- ggplot(
   annotate(
     "segment",
     x = -19.5,
-    xend = 9,
+    xend = 8,
     y = 2,
     yend = 2,
     linewidth = linewidth
@@ -241,5 +241,5 @@ combined <- image_append(c(img1, img2), stack = FALSE) # FALSE = side by side
 
 image_write(
   combined,
-  "manuscript/tables_figures/main/combined_forest_plots.png"
+  "manuscript/tables_figures/main/figure2.png"
 )

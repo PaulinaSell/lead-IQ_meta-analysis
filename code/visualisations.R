@@ -170,7 +170,7 @@ p <- mcmc_trace(
     labeller = labeller(
       .default = c(
         beta = "Main effect, mu",
-        tau = "Tau"
+        tau = "Heterogeneity, tau"
       )
     )
   )
@@ -184,16 +184,21 @@ p <- mcmc_trace(
     name = NULL,
     values = c("End of warm-up" = "dashed")
   ) +
+  theme_minimal() +
   theme(
     strip.text.x = element_text(
       hjust = 0,
       family = "sans",
       face = "bold"
-    )
+    ),
+    strip.background = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank()
   )
 
 ggsave(
-  filename = "manuscript/tables_figures/main/figure2.png",
+  filename = "manuscript/tables_figures/supplement/file6.png",
   plot = p,
   width = 8,
   height = 6,
