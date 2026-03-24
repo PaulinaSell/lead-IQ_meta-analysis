@@ -81,12 +81,11 @@ Quantifying uncertainty: A comparison of Bayesian and frequentist meta-analytic 
 
 # Keywords {.unnumbered}
 <!-- 1 to 7 -->
-Meta-analysis\
-Bayesian framework\
+Uncertainty quantification\
+Bayesian meta-analysis\
 Methods\
 Lead exposure\
 Children's IQ\
-Uncertainty quantification\
 Environmental epidemiology\
 
 # Highlights {.unnumbered}
@@ -178,11 +177,14 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's intelligence quotient (IQ) as a case study.
+<!-- To evaluate differences in uncertainty quantification and applicability for risk assessment, -->
+We compared frequentist and Bayesian frameworks, using lead exposure and children's intelligence quotient (IQ) as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
-In both meta-analyses, we assumed a multilevel structure, used random-effects models and included the same effect estimates.
+In both meta-analyses, we 
+<!-- assumed a multilevel structure,  -->
+used random-effects models and included the same effect estimates.
 The frequentist approach used restricted maximum-likelihood estimation.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and prior specification.
@@ -191,24 +193,22 @@ $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 **Results**: Twelve studies were included after screening.
 The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1])`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 2) * 100`%).
 The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
-The Bayesian approach provides posterior distributions, enabling direct probability statements, for example about exceeding risk thresholds, and comparative assessments across pollutants.
+The Bayesian approach provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments across pollutants.
 These features are of particular value regarding risk assessment and policy-making.
 
 \newpage
 
 
 # Background
-
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
 Although concentrations have declined globally in past decades following the phase-out of leaded gasoline, lead remains present in the environment and is detected in human blood samples [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
 In Europe, primary exposure sources include dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
-<!-- change ; in CI to , ? -->
 The most recent Global Burden of Disease study estimated that in 2023, 3.4 million Disability-Adjusted Life Years	(DALYs, 95% uncertainty interval (UI): 2.7 to 4.0 million) were attributable to lead exposure in the European Union (EU) @brauer2024GlobalBurdenStrength.
 This underscores the continued public health significance even of low-level exposure.
 
@@ -242,9 +242,7 @@ By comparing frequentist and Bayesian approaches, we explore how the analytical 
 
 The aim of this study is twofold: first, to synthesize and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing how these analytical frameworks impact exposure-response estimates and uncertainty quantification.
 
-
 # Methods
-
 ## Literature Review
 This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement].
 The checklist can be found in the supplementary file 1.
@@ -271,17 +269,21 @@ Publications were considered relevant according to predefined PECOTS – Populat
 #| echo: false
 #| message: false
 #| warning: false
+#| classes: plain
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 
 library(readr)
 library(gt)
 
-Table1 <- read_csv("tables_figures/main/table2.csv")
+Table1 <- read_csv("tables_figures/main/table1.csv")
 
 Table1 |>
   gt() |>
-  tab_options(table.font.size=11) |>
+  tab_options(
+    table.font.size=11,
+    table.width = "50%"
+    ) |>
   tab_caption("Tab. 1: PECOTS criteria. HBM, human biomonitoring")
 ```
 
@@ -303,7 +305,6 @@ Subsequently, consensus with the large language model (LLM) Claude Sonnet 4.6 (A
 This was done by uploading the list of all RoB items along with the respective publication.
 Then, the LLM was prompted to assess the study, using the RoB items. 
 If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher who made the final decision.
-<!-- more detail here? How often did we disagree? -->
 
 ## Harmonization of Effect Estimates
 Studies investigating the association between lead exposure and IQ in children have made different assumptions regarding the shape of the exposure-response relationship. 
@@ -351,7 +352,7 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were di
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
 Chain resolution was assessed using the effective sample size (ESS).\
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable.
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (supplementary file x).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
@@ -405,7 +406,6 @@ The second set of priors was less informative (wider) with $\mu \sim \mathcal{N}
 Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
 # Results
-
 ## Literature Review
 The systematic review was conducted with a larger scope and was used as a basis for multiple case studies within the PARC project, which is why it includes another substance (mercury, Hg).
 The systematic search in PubMed and Scopus yielded 1,073 records for lead.
@@ -424,6 +424,7 @@ Study characteristics and regression coefficients (effect estimates) are shown i
 #| echo: false
 #| message: false
 #| warning: false
+#| classes: plain
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 
@@ -431,16 +432,19 @@ Table2 <- read_csv("tables_figures/main/table2.csv")
 
 Table2 |>
   gt() |>
-  cols_width(
-    `Geographical area` ~ px(300),
-    `Adjustment set (confounder)` ~ px(500),
-    everything() ~ px(70)
-  ) |> 
+  opt_css("
+    .gt_table th:nth-child(3){
+      min-width: 200px !important
+    }
+    .gt_table td:nth-child(9) {
+      min-width: 250px !important
+    }
+  ") |>
   tab_caption("Tab. 2: Study Characteristics. ADHD-RS, Attention Deficit Hyperactivity Disorder Rating Scale; BMI, Body Mass Index; CPT, Continuous Performance Test; ERF, exposure-response function; FSIQ, full scale IQ; HOME, Home Observation for Measurement of the Environment; SE, standard error; SES, socioeconomic status; WASI, Wechsler Abbreviated Scale of Intelligence, WISC, Wechsler Intelligence Scale for Children; WPPSI, Wechsler Preschool and Primary Scale of Intelligence") |>
   tab_options(
-    table.font.size=12)
+    table.font.size = 12,
+    table.width = "100%")
 ```
-
 
 A PRISMA flow diagram @page2021PRISMA2020Statement summarizing the review process is shown in Fig. 1.
 Detailed information on the screening process and exclusion reasons can be found in supplementary file 3.
@@ -462,66 +466,63 @@ Another item with overall high RoB was *accounting for confounding* (2x high RoB
 Finally, in the item *handling of missing values*, some of the studies contain no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
 Results from the RoB assessment are presented in Tab. 3.
 
+<!-- colourblind accessibility checked: https://www.farbsehschwaeche.de/en/color-blindness-simulator -->
 ```{r}
 #| label: table_3_RoB
 #| echo: false
 #| message: false
 #| warning: false
 #| fig-cap-location: top
+#| classes: plain
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 
 
 Table3 <- read_csv("tables_figures/main/table3.csv")
 
-Table3 |>
+rob_cols <- 2:17
+
+rob_colors <- list(
+  "+"    = "#A8DBFC",
+  "low"  = "#A8DBFC",
+  "+/-"  = "#EBDE93",
+  "moderate" = "#EBDE93",
+  "-"    = "#E08D6D",
+  "high" = "#E08D6D",
+  "?"    = "#E08D6D",
+  "n.a." = "#FFFFFF"
+)
+
+gt_table <- Table3 |>
   gt() |>
-tab_caption("Tab. 3: Risk of Bias Assessment. RoB, risk of bias; (-), high RoB; (+/-), some concerns / moderate; (+), low RoB; (?), no information; (n.a.), not applicable") |>
-  tab_options(
-    table.font.size=12) |>
-  cols_align(
-    align = "center",
-    columns = everything()
-  ) |>
-  cols_align(
-    align = "left",
-    columns = "Study, year"
-  ) |>
-  # opt_interactive(
-  #   use_pagination = FALSE
-  # ) |>
-  tab_spanner(
-    label = "Selection",
-    columns = 2:5
-  ) |>
-  tab_spanner(
-    label = "Exposure",
-    columns = 6:7
-  ) |>
-  tab_spanner(
-    label = "Outcome",
-    columns = 8:9
-  )|>
-  tab_spanner(
-    label = "Confounding",
-    columns = 10:11
-  ) |>
-  tab_spanner(
-    label = "Follow-up",
-    columns = 12:13
-  ) |>
-  tab_spanner(
-    label = "Analysis",
-    columns = 14:15
-  ) |>
-  tab_spanner(
-    label = "Selective Reporting",
-    columns = 16
-  ) |>
-     tab_spanner(
-    label = "Overall Risk of Bias",
-    columns = 17
-  )
+  tab_caption("Tab. 3: Risk of Bias Assessment. RoB, risk of bias; (-), high RoB; (+/-), some concerns / moderate; (+), low RoB; (?), no information; (n.a.), not applicable") |>
+  tab_options(table.font.size = 12) |>
+  cols_align(align = "center", columns = everything()) |>
+  cols_align(align = "left", columns = "Study, year") |>
+  tab_spanner(label = "Selection",            columns = 2:5)  |>
+  tab_spanner(label = "Exposure",             columns = 6:7)  |>
+  tab_spanner(label = "Outcome",              columns = 8:9)  |>
+  tab_spanner(label = "Confounding",          columns = 10:11)|>
+  tab_spanner(label = "Follow-up",            columns = 12:13)|>
+  tab_spanner(label = "Analysis",             columns = 14:15)|>
+  tab_spanner(label = "Selective Reporting",  columns = 16)   |>
+  tab_spanner(label = "Overall Risk of Bias", columns = 17)
+
+# Apply cell-level coloring per column and per value
+for (col in names(Table3)[rob_cols]) {
+  for (val in names(rob_colors)) {
+    gt_table <- gt_table |>
+      tab_style(
+        style     = cell_fill(color = rob_colors[[val]]),
+        locations = cells_body(
+          columns = all_of(col),
+          rows    = .data[[col]] == val
+        )
+      )
+  }
+}
+
+gt_table
 ```
 
 ## Meta Analysis
@@ -593,8 +594,6 @@ The single study estimates depicted in Fig. 2 differ in both approaches because 
 The posterior distributions are influenced by all other included studies as well as the specified priors.
 This leads to a shrinkage of the posterior means towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.
 
-<!-- continue from here -->
-
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses, results are shown in Tab. 4.
 First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
@@ -612,6 +611,7 @@ Supplementary file 7 shows prior, observed data and posterior distributions of a
 ```{r}
 #| label: table_4_sensi
 #| echo: false
+#| classes: plain
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 #| message: false
@@ -679,12 +679,15 @@ table4_gt %>%
   ) %>%
   tab_caption(
     caption = "Tab. 4: Results of sensitivity analyses by framework. RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)."
-  )
+  ) %>%
+  tab_options(
+  table.width = "50%"
+)
 ```
 
 # Discussion
 In this study, we provide an updated pooled effect estimate for the association between children's lead exposure and IQ, and compare a conventional, frequentist meta-analysis to a Bayesian meta-analysis – a framework that is less used in the field of environmental epidemiology to date.
-<!-- add specific contribution of this study -->
+<!-- Margaux: add specific contribution of this study -->
 
 While previous publications have compared both frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 
@@ -733,12 +736,17 @@ Differences in study location may also contribute: IQ tests not adapted to the t
 Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias. 
 The Bayesian approach was less sensitive to such outliers, as regularizing priors downweigh extreme estimates, which is a particular advantage when pooling a small number of studies.
 
-This study has several limitations.
+This study has several limitations and strengths.
 The included studies are heterogeneous in terms of covariate adjustment and cohort location, which limits the generalizability of the pooled estimate to any specific population.
 Publication bias was assessed only through visual inspection; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may lead to overestimation of the pooled effect.
 Furthermore, effect estimates from studies that did not transform BLL to the logarithmic scale were excluded, reducing the number of studies available for pooling. 
-Although this represents an additional limitation, the exclusion is necessary, since pooling effect estimates expressed on different scales would make the combined estimate uninterpretable.
+Although this represents an additional limitation, the exclusion is necessary, since pooling effect estimates expressed on different scales would make the combined estimate uninterpretable.\
+Strengths: 
+* Parallel approach allows for direct comparison of results from both frameworks
+* Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
+* First study of this kind within field of environmental epidemiology
+* Publicly available data & code (including manuscript)-> transparency, reproducibility, researchers can adjust code an use for their own analyses  
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and a methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
