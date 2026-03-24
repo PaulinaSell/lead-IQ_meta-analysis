@@ -41,7 +41,7 @@ filters:
  
 bibliography: references.bib
 reference-section-title: "References"
-csl: elsevier-vancouver-short-author-list.csl
+csl: elsevier-harvard.csl
 
 format:
   html:
@@ -209,22 +209,22 @@ These features are of particular value regarding risk assessment and policy-maki
 Lead (Pb) is a pervasive environmental pollutant originating from anthropogenic and natural sources. 
 Although concentrations have declined globally in past decades following the phase-out of leaded gasoline, lead remains present in the environment and is detected in human blood samples [@salamanca-fernandez2025SociodemographicDeterminantsTemporal; @lacerda2023GlobalDecreaseBlood].
 In Europe, primary exposure sources include dietary products, drinking water, and indoor dust [@europeanfoodsafetyauthority2012LeadDietaryExposure; @sy2024AssessmentLongTermExposure].
-The most recent Global Burden of Disease study estimated that in 2023, 3.4 million Disability-Adjusted Life Years	(DALYs, 95% uncertainty interval (UI): 2.7 to 4.0 million) were attributable to lead exposure in the European Union (EU) @brauer2024GlobalBurdenStrength.
+The most recent Global Burden of Disease study estimated that in 2023, 3.4 million Disability-Adjusted Life Years	(DALYs, 95% uncertainty interval (UI): 2.7 to 4.0 million) were attributable to lead exposure in the European Union (EU) [@brauer2024GlobalBurdenStrength].
 This underscores the continued public health significance even of low-level exposure.
 
 Exposure to lead is associated with multiple adverse health outcomes across the human life course, including
-decreased kidney function @harari2018BloodLeadLevels, 
-liver disease @wan2022ChronicLeadExposure, 
-coronary artery atherosclerosis @rosengren2025ExposureLeadCoronary,
-cardiovascular mortality @lanphear2018LowlevelLeadExposure,
-infertility in women @chang2006LowBloodLead, 
-attention-deficit/hyperactivity disorder in children @dimitrov2024SystematicReviewMetaanalysis, and 
-antisocial behavior @shaffer2025LeadExposureAntisocial.
-Among these endpoints, impaired cognitive development in children — observable as reduced IQ scores — [@baghurst1992EnvironmentalExposureLead; @needleman1990LowLevelLeadExposure; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead] represents a particularly critical endpoint with high public health relevance.
+decreased kidney function [@harari2018BloodLeadLevels], 
+liver disease [@wan2022ChronicLeadExposure], 
+coronary artery atherosclerosis [@rosengren2025ExposureLeadCoronary],
+cardiovascular mortality [@lanphear2018LowlevelLeadExposure],
+infertility in women [@chang2006LowBloodLead], 
+attention-deficit/hyperactivity disorder in children [@dimitrov2024SystematicReviewMetaanalysis], and 
+antisocial behavior [@shaffer2025LeadExposureAntisocial].
+Among these endpoints, impaired cognitive development in children — observable as reduced IQ scores — represents a particularly critical endpoint with high public health relevance [@baghurst1992EnvironmentalExposureLead; @needleman1990LowLevelLeadExposure; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead].
 Children are especially vulnerable to the neurotoxic effects of lead due to their developing nervous systems and relatively high exposure per body mass.
-Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs @larsen2023GlobalHealthBurden, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy.
+Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy [@larsen2023GlobalHealthBurden].
 
-Blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL @europeanhumanbiomonitoringinitiativeLead, well below the concentrations examined in many earlier studies (<10 µg/dL).
+Blood lead levels (BLL) in the EU have declined markedly and now predominantly fall below 5 µg/dL, well below the concentrations examined in many earlier studies (<10 µg/dL) [@tamasszigeti2022SubstanceReportLead].
 Importantly, there is no evidence for a threshold concentration below which the effects of lead on IQ can be assumed to be negligible [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead; @schwartz1994LowLevelLeadExposure].
 There is evidence for a supralinear exposure-response relationship with steeper IQ decrements per unit increase in BLL at low concentrations compared to higher concentration ranges [@canfield2003IntellectualImpairmentChildren; @lanphear2005LowLevelEnvironmentalLead].
 These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating recent data to inform risk assessment at currently relevant exposure levels.
@@ -235,8 +235,8 @@ These include the use of performance IQ instead of full-scale IQ and an erroneou
 These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for an updated evidence synthesis, but also for methodologically robust approaches that can provide reliable exposure-response estimates for burden of disease and risk assessments.
 
 Methodological advances in meta-analysis offer an opportunity to enhance the utility of synthesized estimates for burden of disease and risk assessment applications. 
-While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that inherently incorporate both within-study and between-study variability @grant2025BayesianMetaAnalysisPractical.
-Unlike frequentist confidence intervals, which are often misinterpreted as probabilistic @hoekstra2014RobustMisinterpretationConfidence, Bayesian credible intervals directly represent the probability distribution of the parameter of interest, facilitating transparent communication of uncertainty.
+While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that inherently incorporate both within-study and between-study variability [@grant2025BayesianMetaAnalysisPractical].
+Unlike frequentist confidence intervals, which are often misinterpreted as probabilistic [@hoekstra2014RobustMisinterpretationConfidence], Bayesian credible intervals directly represent the probability distribution of the parameter of interest, facilitating transparent communication of uncertainty.
 Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease and risk assessments, providing seamless integration with probabilistic frameworks in public health decision-making.
 By comparing frequentist and Bayesian approaches, we explore how the analytical framework and its approach to uncertainty quantification influence exposure-response estimates and their application.
 
@@ -253,7 +253,7 @@ This study was conducted within the EU-funded project *"Partnership for the Asse
 The literature review presented here was used in multiple case studies within PARC, including one on the health burden of (methyl)mercury and lead on IQ loss.
 Here, we will only report results for concurrent lead exposure and IQ loss, but the figures and tables documenting the literature review contain parts of the search for other associations and exposure timeframes. \
 We searched for articles published between January 2005 and July 2023.
-The year 2005 was chosen because burden of disease studies have predominantly relied on a landmark paper published in 2005 @lanphear2005LowLevelEnvironmentalLead and an update of the evidence base is therefore warranted, particularly given that lead exposure concentrations have decreased substantially since then.
+The year 2005 was chosen because burden of disease studies have predominantly relied on a landmark paper published in that year [@lanphear2005LowLevelEnvironmentalLead] and an update of the evidence base is therefore warranted, particularly given that lead exposure concentrations have decreased substantially since then.
 
 Search queries in PubMed and Scopus included the following terms: 
 substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, exposure-response function) (supplementary file 2).
@@ -291,11 +291,11 @@ We excluded reviews and background articles that inventoried the literature with
 We also excluded references written in languages other than English. \
 For this present study, only studies that used a continuous, log-transformed BLL scale were included, so that effect estimates could be harmonized
 The exposure timeframe for this study was restricted to concurrent, i.e. IQ and BLL measurements must have been conducted at the same time.
-Descriptive study data was extracted using a grid based on the one proposed by the Office of Health Assessment and Translation within the US National Toxicology Program (NTP OHAT) @ntpohat2019HandbookConductingLiteratureBased. 
+Descriptive study data was extracted using a grid based on the one proposed by the Office of Health Assessment and Translation within the US National Toxicology Program (NTP OHAT) [@ntpohat2019HandbookConductingLiteratureBased.] 
 For all included studies, effect estimates from the most-adjusted model were extracted and the adjustment set was recorded.
 
 ## Risk of Bias Assessment
-To assess study quality, we conducted a risk of bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies @plate2024DevelopmentToolRapid. 
+To assess study quality, we conducted a risk of bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies [@plate2024DevelopmentToolRapid]. 
 Each included publication was assessed for RoB in the following domains: selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
 In total, each study was evaluated using 15 items and scored as either high RoB (-), some concerns (+/-), low RoB (+) or no information(?). 
 If an item was not applicable to the study type (e.g. follow-up in cross-sectional studies), they were marked as "n.a.".
@@ -328,8 +328,8 @@ These were excluded from the meta-analysis, as transformation of effect estimate
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and IQ, we conducted separate meta-analyses in the Bayesian and frequentist analytical framework, and compared their results. \
 To make the results of both approaches comparable, both included the same effect estimates from the identified publications, and featured analogous model structure.
 We estimated pooled effect estimates for the loss of IQ points per continuous unit increase in $\log_e$-transformed BLL (µg/dL).\
-R version 4.4.2 (2024-10-31) @rcoreteam2024LanguageEnvironmentStatistical was used for all computations.
-All code for this study is publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis): https://github.com/PaulinaSell/lead-IQ_meta-analysis.
+R version 4.4.2 (2024-10-31) was used for all computations [@rcoreteam2024LanguageEnvironmentStatistical].
+All code for this study is publicly available on GitHub: [github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 ### Bayesian Meta-Analysis
 In the Bayesian framework, we employed a random-effects meta-analysis model.
@@ -346,7 +346,7 @@ $$
 $$ {#eq-model}
 
 Where $\hat{\theta}_{k}$ is the observed effect size for study $k$, $\sigma_{k}$ is the within-study sampling standard deviation for study $k$, $\theta_{k}$ is the true underlying effect for study $k$, $\mu$ is the overall pooled effect and $\tau$ is the between-study standard deviation (heterogeneity).\
-The Bayesian model was fit using the R package `brms` @burkner2017BrmsPackageBayesian version 2.22.0.
+The Bayesian model was fit using the R package `brms` version 2.22.0 [@burkner2017BrmsPackageBayesian].
 Sampling was done using Markov chain Monte Carlo (MCMC).
 We ran four chains with 4,000 iterations each, of which 2,000 iterations were discarded as warmup, resulting in 8,000 total post-warmup draws.
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
@@ -373,7 +373,7 @@ ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
 
 For the overall pooled effect $\mu$, a normally distributed prior centered at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
 This reflects the prior belief that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
-The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead. \
+The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead]. \
 Since variance terms, such as the between study heterogeneity $\tau$, must be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
 This reflects the prior belief that heterogeneity $\tau$ is small to moderate, but does not exclude large heterogeneity if this is present in the included studies.
 In summary, the following priors were specified for the Bayesian model:
@@ -386,7 +386,7 @@ $$
 $$ {#eq-priors}
 
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
-Prior predictive checks were conducted using the `bayesplot` package @gabryjmahrt2025BayesplotPlottingBayesian to assess the appropriateness of the specified priors.
+Prior predictive checks were conducted using the `bayesplot` package [@gabryjmahrt2025BayesplotPlottingBayesian] to assess the appropriateness of the specified priors.
 Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well.
 <!-- sentence above needs polishing -->
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below. 
@@ -446,7 +446,7 @@ Table2 |>
     table.width = "100%")
 ```
 
-A PRISMA flow diagram @page2021PRISMA2020Statement summarizing the review process is shown in Fig. 1.
+A PRISMA flow diagram summarizing the review process is shown in Fig. 1 [@page2021PRISMA2020Statement].
 Detailed information on the screening process and exclusion reasons can be found in supplementary file 3.
 
 ![Fig. 1: PRISMA flow diagram. BLL, blood lead level; Pb, lead; Hg, mercury](tables_figures/main/figure1.png){width=60% fig-align="center"}
@@ -454,7 +454,7 @@ Detailed information on the screening process and exclusion reasons can be found
 The size of the study population in included studies ranged from 127 [@earl2016LowlevelEnvironmentalLead] to 1,355 [@crump2013StatisticalReevaluationData].
 Study designs included cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @schnaas2006ReducedIntellectualDevelopment] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @earl2016LowlevelEnvironmentalLead; @lee2021PrenatalPostnatalExposures].
 The included studies were conducted in multiple different regions of the world (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations were sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
-The study by Roy et al. [@roy2013EffectModificationTransferrin] reported implausibly large effect sizes.
+The study by @roy2013EffectModificationTransferrin reported implausibly large effect sizes.
 We contacted the corresponding author, who confirmed that decimal points were missing in the publication.
 
 ## Risk of Bias
@@ -701,7 +701,7 @@ Importantly, this difference does not relevantly affect the overall interpretati
 The two frameworks differ in how they treat outier studies reporting extreme effects with with substantial uncertainty.
 Bayesian meta analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
 <!-- However, it illustrates that Bayesian meta-analysis can be less sensitive to outlier studies reporting extreme effects with substantial uncertainty, provided that priors (more specifically the prior for heterogeneity) reflecting plausible domain knowledge are specified. -->
-In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers @gelman2013Chapter4Asymptotics.
+In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers [@gelman2013Chapter4Asymptotics].
 
 Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort @gelman2020BayesianWorkflow.
 While these demands may initially appear as disadvantages, they can equally be understood as methodological safeguards: 
@@ -718,14 +718,14 @@ Posterior distributions together with the specified statistical model can be use
 They also enable researchers to estimate the population-level health impact of an exposure under specified conditions.
 This is known as Environmental Burden of Disease (EBD).
 In EBD studies, health impacts are quantified using metrics such as disability-adjusted life years (DALYs), allowing comparisons across health determinants within and across populations, countries, and time periods.
-Such assessments integrate both population exposure and the exposure–response relationship @pruss-ustun2003AssessingEnvironmentalBurden.
+Such assessments integrate both population exposure and the exposure–response relationship [@pruss-ustun2003AssessingEnvironmentalBurden].
 The distributional results of the present study enable probabilistic EBD assessments via Monte Carlo simulations without requiring additional assumptions about the uncertainty distribution of the exposure–response function.
 
 Our results are consistent with previous toxicological and epidemiological evidence [@baghurst1992EnvironmentalExposureLead; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead; @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead] as well as prior meta-analyses on the effects of lead on IQ.
-Direct comparison of effect magnitudes is, however, limited by methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ @needleman1990LowLevelLeadExposure or standardized mean differences @heidari2022EffectLeadExposurea.
+Direct comparison of effect magnitudes is, however, limited by methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ [@needleman1990LowLevelLeadExposure] or standardized mean differences [@heidari2022EffectLeadExposurea].
 
 The RoB sensitivity analysis indicated that results are generally robust to individual-study bias.
-Notably, the study published by Crump et al. (2013) @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by Lanphear et al. (2005) @lanphear2005LowLevelEnvironmentalLead received a high RoB rating in our assessment. 
+Notably, the study published by @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by @lanphear2005LowLevelEnvironmentalLead received a high RoB rating in our assessment. 
 Given that this re-analysis has informed multiple downstream analyses, including EBD assessments, its potential to introduce bias is a concern. 
 The primary driver of the high RoB rating was the use of stepwise backward-elimination regression, a method that has been extensively criticized [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise] and is central to the findings of Crump et al.
 This underscores the value of the updated evidence synthesis provided here.
@@ -742,11 +742,12 @@ Publication bias was assessed only through visual inspection; formal statistical
 The visual assessment suggested the presence of publication bias, which may lead to overestimation of the pooled effect.
 Furthermore, effect estimates from studies that did not transform BLL to the logarithmic scale were excluded, reducing the number of studies available for pooling. 
 Although this represents an additional limitation, the exclusion is necessary, since pooling effect estimates expressed on different scales would make the combined estimate uninterpretable.\
-Strengths: 
+Strengths:
+
 * Parallel approach allows for direct comparison of results from both frameworks
 * Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
 * First study of this kind within field of environmental epidemiology
-* Publicly available data & code (including manuscript)-> transparency, reproducibility, researchers can adjust code an use for their own analyses  
+* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses  
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and a methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
@@ -798,13 +799,13 @@ table_abbr <- data.frame(Abbreviation, Meaning)
 knitr::kable(table_abbr)
 ```
 
-# Author contributions {.unnumbered}
+# CRediT authorship contribution statement {.unnumbered}
 <!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
-Paulina Sell: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft.
-Margaux Sanchez: Data curation, Writing - review and editing. 
-Philippe Palmont: Data curation, Writing - review and editing.
-Simon Steiger: Methodology, Writing – review and editing.
-Dietrich Plass: Supervision, Writing – review and editing.
+**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft.
+**Margaux Sanchez**: Data curation, Writing - review and editing. 
+**Philippe Palmont**: Data curation, Writing - review and editing.
+**Simon Steiger**: Methodology, Writing – review and editing.
+**Dietrich Plass**: Supervision, Writing – review and editing.
 
 # Acknowledgements {.unnumbered}
 The authors thank 
