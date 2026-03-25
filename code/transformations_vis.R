@@ -1,5 +1,7 @@
-# Compare Log vs Linear Exposure-Response Functions ----
+# Compare log vs linear Exposure-Response Functions ----
 # (both are beta from Crump et al. 2013, original is fpr ln(BLL), beta_lin was transformed to linear)
+
+library(ggplot2)
 
 beta_log <- -2.650
 beta_linear <- -0.277
@@ -25,12 +27,11 @@ ggplot(plot_data, aes(x = blood_lead)) +
   ) +
   theme_minimal()
 
-# transformation is not valid!
-# trying to transform everything to ln(BLL)
+# transformation to linear appears to be invalid
 
-# visually check transormations
+# visually check transformations to ln(BLL) as an alternative
 # case 1: from log10(BLL) to ln(BLL): Dantzer et al. 2020
-Dantzerbeta_log10 <- -13.150
+Dantzerbeta_log10 <- -13.15
 Dantzerbeta_ln <- -5.711
 
 blood_lead <- seq(0, 30, by = 0.1)
@@ -53,7 +54,7 @@ ggplot(Dantzerplot_data, aes(x = blood_lead)) +
     y = "IQ Loss (points)"
   ) +
   theme_minimal()
-# almost exactly the same!
+# very similar
 
 # case 2: from log2(BLL) to ln(BLL): Desrochers-Couture et al. 2018
 Desrochersbeta_log2 <- 0.014
@@ -79,8 +80,7 @@ ggplot(Desrochersplot_data, aes(x = blood_lead)) +
     y = "IQ Loss (points)"
   ) +
   theme_minimal()
-
-# almost exactly the same!
+# very similar
 
 # case 3: from linear to ln(BLL): Iglesias et al. 2011, reference BLL 2.2 µg/dL
 Iglesiasbeta_linear <- -0.940
@@ -106,8 +106,8 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead)) +
     y = "IQ Loss (points)"
   ) +
   theme_minimal()
+# does not appear to be a valid approximation in high concentration, lets zoom in on lower concentration
 
-# looks not very good in higher concentrations, lets focus on lower concentrations!
 blood_lead_low <- seq(0, 5, by = 0.1)
 
 IQ_loss_linear <- Iglesiasbeta_linear * blood_lead_low
@@ -128,5 +128,4 @@ ggplot(Iglesiasplot_data, aes(x = blood_lead_low)) +
     y = "IQ Loss (points)"
   ) +
   theme_minimal()
-
-# does not look like a perfect approximation
+# does not appear to be a valid approximation in lower concentration
