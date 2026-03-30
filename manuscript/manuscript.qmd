@@ -44,24 +44,24 @@ reference-section-title: "References"
 csl: elsevier-harvard.csl
 
 format:
-  # html:
-  #   toc: true
-  #   toc-location: left
-  #   tbl-cap-location: bottom
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ../manuscript/ref.docx
+  html:
+    toc: true
+    toc-location: left
+    tbl-cap-location: bottom
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ../manuscript/ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -81,9 +81,10 @@ Quantifying uncertainty: A comparison of Bayesian and frequentist meta-analytic 
 
 # Keywords {.unnumbered}
 <!-- 1 to 7 -->
-Uncertainty quantification\
-Bayesian meta-analysis\
+Meta-analysis\
 Evidence synthesis\
+Bayesian modeling\
+Uncertainty quantification\
 Lead exposure\
 Children's IQ\
 Environmental epidemiology\
@@ -91,9 +92,9 @@ Environmental epidemiology\
 # Highlights {.unnumbered}
 <!-- 3 to 5, must be provided as a Word document— select "Highlights" from the drop-down list when uploading files. Include "highlights" in the file name. Max 85 characters, incl spaces-->
 * Bayesian and frequentist meta-analyses yield similar estimates for lead's effect on IQ
-* Parallel approach allows for direct comparison of both frameworks
+<!-- * Parallel approach allows for direct comparison of both frameworks -->
 * Bayesian model yields full probability distributions, not just point estimates
-* Bayesian results support direct probability statements for risk assessment
+<!-- * Bayesian results support direct probability statements for risk assessment -->
 * Results underscore health risk of lead exposure, even in low concentration
 
 <!-- ## Journal: {.unnumbered}
@@ -174,7 +175,6 @@ I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
-(250 words limit in Environment International)
 
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
@@ -203,7 +203,7 @@ The Bayesian approach was less sensitive to outlier studies, resulting in a lowe
 
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian approach provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments across pollutants.
-These features are particularly valueable regarding risk assessment and policy-making.
+These features are particularly valuable regarding risk assessment and policy-making.
 
 \newpage
 
@@ -592,24 +592,22 @@ Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](/tables_figures/main/figure2.png)
 :::
 
-<!-- discuss section with Simon -->
-The single study estimates depicted in Fig. 2 differ in both approaches because the Bayesian model estimates a posterior distribution for every individual study, which is displayed in the forest plot.
-The posterior distributions are influenced by all other included studies as well as the specified priors.
-This leads to a shrinkage of the posterior means towards the pooled effect and is comparable to the inverse-variance weighting in frequentist meta-analyses.
+The single study estimates depicted in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
+In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework.
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses, results are shown in Tab. 4.
 First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
 For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
-The results can be considered robust to possible individual-study bias, because the margins of shifts in effects are small and the effects shifted in both directions.
+These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
 
 The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to prior specification.
 With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases.
 This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.  
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
-Using this set of priors, more weight is given to studies reporting high effects with large uncertainty ranges.
-The results of the prior sensitivity analysis support the specified set of priors in the main analysis.
+This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 Supplementary file 7 shows prior, observed data and posterior distributions of all three prior specifications.
+This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion.
 
 ```{r}
 #| label: table_4_sensi
@@ -697,16 +695,14 @@ To our knowledge, this is the first study to compare Bayesian and frequentist me
 All data and code are publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-<!-- discuss sentence below with Simon -->
-Prior sensitivity analyses indicate that this is attributable to posterior shrinkage of study-level estimates, comparable to inverse-variance weighting in frequentist meta-analysis, combined with the regularizing effect of the specified priors. 
+This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the wide priors used prior sensitivity analyses. 
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 
-The two frameworks differ in how they treat outier studies reporting extreme effects with with substantial uncertainty.
+The two frameworks differ in how they treat outier studies reporting substantial uncertainty.
 Bayesian meta analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
-<!-- However, it illustrates that Bayesian meta-analysis can be less sensitive to outlier studies reporting extreme effects with substantial uncertainty, provided that priors (more specifically the prior for heterogeneity) reflecting plausible domain knowledge are specified. -->
-In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to outliers [@gelman2013Chapter4Asymptotics].
+In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to studies reporting large uncertainty [@gelman2013Chapter4Asymptotics].
 
-Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow.]
+Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow].
 While these demands may initially appear as disadvantages, they can equally be understood as methodological safeguards: 
 by requiring researchers to state assumptions explicitly rather than accepting software defaults, the Bayesian approach encourages deeper engagement with the data and statistical model.
 
@@ -737,7 +733,7 @@ Substantial heterogeneity was observed in this meta-analysis, likely driven by d
 Two studies reporting null effects were conducted in relatively low-exposed populations [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture], where limited exposure variation reduces the detectability of an effect. 
 Differences in study location may also contribute: IQ tests not adapted to the target population can result in underestimated scores, which may apply to the study by Menezes-Filho et al. [@menezes-filho2018EnvironmentalCoExposureLead]. 
 Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias. 
-The Bayesian approach was less sensitive to such outliers, as regularizing priors downweigh extreme estimates, which is a particular advantage when pooling a small number of studies.
+The Bayesian approach was less sensitive to estimates from such studies, as the results of individual studies with large uncertainty are shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations and strengths.
 The included studies are heterogeneous in terms of covariate adjustment and cohort location, which limits the generalizability of the pooled estimate to any specific population.
@@ -745,12 +741,15 @@ Publication bias was assessed only through visual inspection; formal statistical
 The visual assessment suggested the presence of publication bias, which may lead to overestimation of the pooled effect.
 Furthermore, effect estimates from studies that did not transform BLL to the logarithmic scale were excluded, reducing the number of studies available for pooling. 
 Although this represents an additional limitation, the exclusion is necessary, since pooling effect estimates expressed on different scales would make the combined estimate uninterpretable.\
+
 Strengths:
 
 * Parallel approach allows for direct comparison of results from both frameworks
 * Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
 * First study of this kind within field of environmental epidemiology
-* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses  
+* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses
+* Adhered to BARG, PRISMA guidelines
+* 
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and a methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
@@ -761,7 +760,6 @@ While the Bayesian framework currently demands greater statistical knowledge and
 We believe that the benefits gained outweigh the investments made and therefore want to encourage researchers to consider Bayesian methods.
 
 # List of Abbreviations {.unnumbered}
-
 ```{r}
 #| label: table_abbreviations
 #| echo: false
