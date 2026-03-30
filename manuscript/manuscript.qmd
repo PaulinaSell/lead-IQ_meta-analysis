@@ -396,7 +396,7 @@ Additionally, a sensitivity analysis with alternative priors was conducted, as d
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis, we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model (@eq-model). 
-Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
+Parameters were estimated via the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity $\tau^2$.
 
 ## Sensitivity Analysis
@@ -716,7 +716,7 @@ When meaningful effect size or risk thresholds are defined, exceedance probabili
 Posterior distributions together with the specified statistical model can be used to generate predictions for theoretical future studies, offering an additional way to characterize between-study heterogeneity.
 They also enable researchers to estimate the population-level health impact of an exposure under specified conditions.
 This is known as Environmental Burden of Disease (EBD).
-In EBD studies, health impacts are quantified using metrics such as disability-adjusted life years (DALYs), allowing comparisons across health determinants within and across populations, countries, and time periods.
+In EBD studies, health impacts are quantified using metrics such as DALYs, allowing comparisons across health determinants within and across populations, countries, and time periods.
 Such assessments integrate both population exposure and the exposure–response relationship [@pruss-ustun2003AssessingEnvironmentalBurden].
 The distributional results of the present study enable probabilistic EBD assessments via Monte Carlo simulations without requiring additional assumptions about the uncertainty distribution of the exposure–response function.
 
@@ -748,7 +748,7 @@ Strengths:
 * Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
 * First study of this kind within field of environmental epidemiology
 * Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses
-* Adhered to BARG, PRISMA guidelines
+* Adhered to BARG, PRISMA guidelines & used raRoB tool
 * 
 
 # Conclusions
@@ -774,12 +774,10 @@ Meaning <- c(
   "European Union", 
   "Intelligence quotient",
   "Large language model",
-  "Restricted maximum-likelihood",
   "Risk of bias",
   "Standard deviation",
   "Standard error",
-  "Uncertainty interval",
-  "Disability-adjusted Life Year")
+  "Uncertainty interval")
 Abbreviation <- c(
   "BLL", 
   "CI",
@@ -789,12 +787,10 @@ Abbreviation <- c(
   "EU", 
   "IQ",
   "LLM",
-  "REML",
   "RoB",
   "SD",
   "SE",
-  "UI",
-  "DALY")
+  "UI")
 table_abbr <- data.frame(Abbreviation, Meaning)
 
 knitr::kable(table_abbr)
@@ -802,7 +798,7 @@ knitr::kable(table_abbr)
 
 # CRediT authorship contribution statement {.unnumbered}
 <!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
-**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft.
+**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft, Writing – review and editing.
 **Margaux Sanchez**: Data curation, Writing - review and editing. 
 **Philippe Palmont**: Data curation, Writing - review and editing.
 **Simon Steiger**: Methodology, Writing – review and editing.
