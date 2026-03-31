@@ -211,6 +211,16 @@ ggsave(
   bg = "transparent"
 )
 
+# svg
+ggsave(
+  "manuscript/tables_figures/main/Bayes_forest_plot.svg",
+  Bayes_forest_plot,
+  width = 20,
+  height = 15,
+  units = "cm",
+  bg = "transparent"
+)
+
 # Freqentist model forest plot (metafor) ####
 png(
   "manuscript/tables_figures/main/freq_forestplot.png",
@@ -220,6 +230,37 @@ png(
   res = 300,
   bg = "transparent"
 )
+
+forest(
+  freq_model,
+  slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
+  mlab = "Pooled Estimate",
+  xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
+  main = "Frequentist Random Effects Meta-Analysis"
+)
+
+dev.off()
+
+#svg
+svglite::svglite(
+  "manuscript/tables_figures/main/freq_forestplot.svg",
+  width = 20 / 2.54,
+  height = 15 / 2.54,
+  par(xpd = NA)
+)
+
+forest(
+  freq_model,
+  slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
+  mlab = "Pooled Estimate",
+  xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
+  main = "Frequentist Random Effects Meta-Analysis"
+)
+
+dev.off()
+
+# pdf
+pdf("freq_forestplot.pdf", width = 20 / 2.54, height = 15 / 2.54)
 
 forest(
   freq_model,

@@ -223,7 +223,7 @@ cardiovascular mortality [@lanphear2018LowlevelLeadExposure],
 infertility in women [@chang2006LowBloodLead], 
 attention-deficit/hyperactivity disorder in children [@dimitrov2024SystematicReviewMetaanalysis], and 
 antisocial behavior [@shaffer2025LeadExposureAntisocial].
-Among these endpoints, impaired cognitive development in children — observable as reduced IQ scores — represents a particularly critical endpoint with high public health relevance [@baghurst1992EnvironmentalExposureLead; @needleman1990LowLevelLeadExposure; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead].
+Among these endpoints, impaired cognitive development in children — observable as reduced intelligence quotient (IQ) scores — represents a particularly critical endpoint with high public health relevance [@baghurst1992EnvironmentalExposureLead; @needleman1990LowLevelLeadExposure; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead].
 Children are especially vulnerable to the neurotoxic effects of lead due to their developing nervous systems and relatively high exposure per body mass.
 Because lead-associated IQ decrements are irreversible and persist throughout life, they lead to substantial and enduring societal costs, making continued efforts to accurately characterize the exposure-response relationship important for evidence-based policy [@larsen2023GlobalHealthBurden].
 
@@ -258,10 +258,9 @@ Here, we will only report results for concurrent lead exposure and IQ loss, but 
 We searched for articles published between January 2005 and July 2023.
 The year 2005 was chosen because burden of disease studies have predominantly relied on a landmark paper published in that year [@lanphear2005LowLevelEnvironmentalLead] and an update of the evidence base is therefore warranted, particularly given that lead exposure concentrations have decreased substantially since then.
 
-Search queries in PubMed and Scopus included the following terms: 
-substance (Pb - including Mesh terms), outcome (IQ and neurodevelopment), population (children) and results (association, exposure-response function) (supplementary file 2).
+Search queries in PubMed (MEDLINE) and Scopus included the following terms: 
+substance (Pb - including Medical Subject Headings [MeSH] terms), outcome (IQ and neurodevelopment), population (children) and results (association, exposure-response function [ERF]) (supplementary file 2).
 
-<!-- We prioritized references naming the substance in the title in order to decrease the volume of results. -> does this mean that you only included studies that mentioned the substance in the title?\ -->
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
 Full texts were then assessed by one reviewer.
@@ -310,9 +309,9 @@ Then, the LLM was prompted to assess the study, using the RoB items.
 If there were any deviations in the judgement of the researcher and the LLM, the respective item was revisited by the researcher who made the final decision.
 
 ## Harmonization of Effect Estimates
-Studies investigating the association between lead exposure and IQ in children have made different assumptions regarding the shape of the exposure-response relationship. 
+Studies investigating the association between lead exposure and IQ in children have made different assumptions regarding the shape of the ERF. 
 While some studies assume a linear relationship [@halabicky2023LowLevelLead; @chen2005IQBloodLead], this assumption may only be valid within very narrow concentration ranges [@crump2013StatisticalReevaluationData].
-Studies that tested multiple shapes of the exposure-response function have concluded that a log-linear relationship, where BLL are logarithmically transformed, represents a more appropriate statistical model [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
+Studies that tested multiple shapes of the ERF have concluded that a log-linear relationship, where BLL are logarithmically transformed, represents a more appropriate statistical model [@schnaas2006ReducedIntellectualDevelopment; @crump2013StatisticalReevaluationData].
 
 The general form of regression model used for a log-linear association is:
 $$
@@ -325,7 +324,7 @@ In the literature, different logarithmic bases are used to transform BLL, includ
 To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to increments on the natural logarithm scale ($\log_e$).
 The calculations are documented in supplementary file 3. \
 In some publications, BLL was not on a logarithmic but on an untransformed, linear scale.
-These were excluded from the meta-analysis, as transformation of effect estimates for linear BLL to log-linear could not be justified based on visual inspection (include plots in supplement?).
+These were excluded from the meta-analysis, as transformation of effect estimates for linear BLL to log-linear could not be justified.
 
 ## Meta-Analysis
 In order to quantitatively synthesize the available epidemiological literature on the association of children's blood lead levels and IQ, we conducted separate meta-analyses in the Bayesian and frequentist analytical framework, and compared their results. \
@@ -355,7 +354,7 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were di
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
 Chain resolution was assessed using the effective sample size (ESS).\
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (supplementary file x).
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (supplementary file 4).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
@@ -576,10 +575,10 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 s_brm <- summary(m.brm)
 ```
 
-The prior predictive check indicates that the specified priors are appropriate (supplementary file 4). 
-The posterior predictive check showed that the model correctly captures important patterns in the data (supplementary file 5).
+The prior predictive check indicates that the specified priors are appropriate (supplementary file 5a). 
+The posterior predictive check showed that the model correctly captures important patterns in the data (supplementary file 5b).
 $\hat{R}$ values indicate that all MCMC chains coverged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
-MCMC trace plots showed well-mixed chains and convergence (supplementary file 6).
+MCMC trace plots showed well-mixed chains and convergence (supplementary file 5c).
 ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively).
 
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
@@ -606,7 +605,7 @@ With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \s
 This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.  
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
-Supplementary file 7 shows prior, observed data and posterior distributions of all three prior specifications.
+Supplementary file 5d shows prior, observed data and posterior distributions of all three prior specifications.
 This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion.
 
 ```{r}
@@ -692,7 +691,6 @@ In this study, we provide an updated pooled effect estimate for the association 
 
 While previous publications have compared both frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 
-All data and code are publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
 This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the wide priors used prior sensitivity analyses. 
@@ -732,7 +730,7 @@ This underscores the value of the updated evidence synthesis provided here.
 Substantial heterogeneity was observed in this meta-analysis, likely driven by differences in study populations (size, location, age, and exposure range) and statistical methods, particularly the covariate adjustment sets used.
 Two studies reporting null effects were conducted in relatively low-exposed populations [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture], where limited exposure variation reduces the detectability of an effect. 
 Differences in study location may also contribute: IQ tests not adapted to the target population can result in underestimated scores, which may apply to the study by Menezes-Filho et al. [@menezes-filho2018EnvironmentalCoExposureLead]. 
-Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias. 
+Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (supplementary file 5e).
 The Bayesian approach was less sensitive to estimates from such studies, as the results of individual studies with large uncertainty are shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations and strengths.
@@ -747,9 +745,8 @@ Strengths:
 * Parallel approach allows for direct comparison of results from both frameworks
 * Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
 * First study of this kind within field of environmental epidemiology
-* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses
+* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses. All data and code are publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 * Adhered to BARG, PRISMA guidelines & used raRoB tool
-* 
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and a methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
@@ -770,7 +767,8 @@ Meaning <- c(
   "Confidence interval",
   "Credible interval",
   "Disability-adjusted life years",
-  "Environmental Burden of Disease", 
+  "Environmental Burden of Disease",
+  "Exposure-response function",
   "European Union", 
   "Intelligence quotient",
   "Large language model",
@@ -783,7 +781,8 @@ Abbreviation <- c(
   "CI",
   "CrI",
   "DALY",
-  "EBD", 
+  "EBD",
+  "ERF",
   "EU", 
   "IQ",
   "LLM",
