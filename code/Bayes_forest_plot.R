@@ -221,6 +221,15 @@ ggsave(
   bg = "transparent"
 )
 
+# pdf
+ggsave(
+  "manuscript/tables_figures/main/Bayes_forest_plot.pdf",
+  Bayes_forest_plot,
+  width = 20,
+  height = 15,
+  units = "cm"
+)
+
 # Freqentist model forest plot (metafor) ####
 png(
   "manuscript/tables_figures/main/freq_forestplot.png",
@@ -260,7 +269,11 @@ forest(
 dev.off()
 
 # pdf
-pdf("freq_forestplot.pdf", width = 20 / 2.54, height = 15 / 2.54)
+pdf(
+  "manuscript/tables_figures/main/freq_forestplot.pdf",
+  width = 20 / 2.54,
+  height = 15 / 2.54
+)
 
 forest(
   freq_model,

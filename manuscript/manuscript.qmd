@@ -693,9 +693,8 @@ While previous publications have compared both frameworks, they focus either on 
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the wide priors used prior sensitivity analyses. 
+This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the sensitivity analyses using wide priors. 
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
-
 The two frameworks differ in how they treat outier studies reporting substantial uncertainty.
 Bayesian meta analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
 In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to studies reporting large uncertainty [@gelman2013Chapter4Asymptotics].
