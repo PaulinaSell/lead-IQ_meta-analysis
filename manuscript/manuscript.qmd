@@ -194,15 +194,15 @@ Sensitivity analyses examined robustness to RoB and priors.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 **Results**: Twelve studies were included.
-The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1])`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 2) * 100`%).
-The Bayesian approach provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
+The Bayesian framework provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
-The Bayesian approach was less sensitive to outlier studies, resulting in a lower pooled effect.
+The Bayesian framework was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
-The Bayesian approach provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments across pollutants.
+The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments across pollutants.
 These features are particularly valuable regarding risk assessment and policy-making.
 
 \newpage
