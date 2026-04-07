@@ -732,20 +732,19 @@ Differences in study location may also contribute: IQ tests not adapted to the t
 Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (supplementary file 5e).
 The Bayesian approach was less sensitive to estimates from such studies, as the results of individual studies with large uncertainty are shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
-This study has several limitations and strengths.
-The included studies are heterogeneous in terms of covariate adjustment and cohort location, which limits the generalizability of the pooled estimate to any specific population.
-Publication bias was assessed only through visual inspection; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
-The visual assessment suggested the presence of publication bias, which may lead to overestimation of the pooled effect.
-Furthermore, effect estimates from studies that did not transform BLL to the logarithmic scale were excluded, reducing the number of studies available for pooling. 
-Although this represents an additional limitation, the exclusion is necessary, since pooling effect estimates expressed on different scales would make the combined estimate uninterpretable.\
+This study has several limitations that should be considered when interpreting the results.
+First, the included studies were heterogeneous with respect to covariate adjustment and cohort characteristics, which limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
+Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
+The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
+Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
+While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 
-Strengths:
-
-* Parallel approach allows for direct comparison of results from both frameworks
-* Rigorous literature review provides updated evidence synthesis on effects of lead exposure on children's IQ
-* First study of this kind within field of environmental epidemiology
-* Publicly available data & code (including manuscript) -> transparency, reproducibility, researchers can adjust code an use for their own analyses. All data and code are publicly available on [GitHub](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
-* Adhered to BARG, PRISMA guidelines & used raRoB tool
+Despite these limitations, this study also has several important strengths.
+By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and I² as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks.
+To our knowledge, this is the first study to formally conduct such a comparison in the field of environmental epidemiology.
+Beyond this methodological contribution, we provide an updated evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
+All data and code, including the code used to produce this manuscript, are publicly available, enabling other researchers to verify and build on our analyses.
+Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use of the raRoB tool for risk of bias assessment, ensuring consistency and rigor in study selection, data extraction, study quality appraisal, and statistical analysis.
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and a methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
@@ -762,6 +761,7 @@ We believe that the benefits gained outweigh the investments made and therefore 
 #| classes: plain
 
 Meaning <- c(
+  "Bayesian Analysis Reporting Guidelines",
   "Blood lead level", 
   "Confidence interval",
   "Credible interval",
@@ -771,11 +771,13 @@ Meaning <- c(
   "European Union", 
   "Intelligence quotient",
   "Large language model",
+  "Preferred Reporting Items for Systematic reviews and Meta-Analyses",
   "Risk of bias",
   "Standard deviation",
   "Standard error",
   "Uncertainty interval")
 Abbreviation <- c(
+  "BARG",
   "BLL", 
   "CI",
   "CrI",
@@ -785,6 +787,7 @@ Abbreviation <- c(
   "EU", 
   "IQ",
   "LLM",
+  "PRISMA",
   "RoB",
   "SD",
   "SE",
