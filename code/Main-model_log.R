@@ -42,7 +42,7 @@ fitPrior <- brm(
   iter = 4000
 )
 
-# save models for later use
+# save models
 # saveRDS(m.brm, "models/main/m.brm_full.rds")
 # saveRDS(fitPrior, file = "models/main/fitPrior_full.rds")
 

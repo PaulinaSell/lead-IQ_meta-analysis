@@ -1,8 +1,13 @@
 ---
 title: "Calculation of $I^2$ in the Bayesian Framework"
 format: 
-    docx:
-        reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+    # docx:
+    #     reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+    pdf:
+        documentclass: scrartcl
+        fontsize: 11pt
+        colorlinks: true
+        highlight-style: github
 ---
 ```{r}
 #| label: get_vt
@@ -12,8 +17,8 @@ freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_I
 vt <- freq_model$vt
 ```
 
-This supplementary file describes how $I^2$ was calculated for the Bayesian meta-analysis.
-
+This supplementary file describes how $I^2$ was calculated for the Bayesian meta-analysis.\
+\
 Higgins & Thompson (2002) define $I^2$ as the proportion of total variance in observed effect sizes that is attributable to between-study heterogeneity:
 
 $$
@@ -62,6 +67,8 @@ $$
 Q_{0.975}\!\left(\{I^{2(s)}\}\right)\right]
 $$
 
+
 # References 
-Higgins, J. P., & Thompson, S. G. Quantifying heterogeneity in a meta-analysis. Statistics in medicine, 2002;21:1539–1558. https://doi.org/10.1002/sim.1186.
+Higgins, J. P., & Thompson, S. G. Quantifying heterogeneity in a meta-analysis. Statistics in medicine, 2002;21:1539–1558. https://doi.org/10.1002/sim.1186.\
+
 Wolfgang Viechtbauer. Conducting meta-analyses in with the metafor package. Journal of Statistical Software 2010;36:1–48. https://doi.org/10.18637/jss.v036.i03.

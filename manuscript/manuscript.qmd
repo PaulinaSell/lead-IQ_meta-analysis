@@ -588,6 +588,8 @@ The frequentist approach produced a comparable pooled estimate of `r freq_mean` 
 Substantial between-study heterogeneity was observed under both frameworks.
 In the Bayesian framework, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 1)` (95% CrI: `r round(tau_sq_ci[1], 1)` to `r round(tau_sq_ci[2], 1)`), corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% (95% CrI: `r round(I2_credible_interval[1], 3) * 100`% to `r round(I2_credible_interval[2], 3) * 100`%).
 Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)` to `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)` to `r round(freq_I2_ub, 1)`%).
+Supplementary file 6 contains the full model code and output for both frameworks.
+The results of both frameworks are shown as forest plots in Figure 2.
 
 ::: {custom-style="Image Caption"}
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](/tables_figures/main/figure2.png){.lightbox}
