@@ -1,0 +1,110 @@
+---
+title: "Full model output for frequentist and Bayesian meta-analysis"
+format: 
+    # docx:
+    #     reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+    pdf:
+        documentclass: scrartcl
+        fontsize: 10pt
+        colorlinks: true
+        highlight-style: github
+execute:
+  warning: false
+  message: false
+---
+This supplementary file contains the model code and output for both meta-analysis frameworks.
+
+```{r}
+#| label: read_model
+#| echo: false
+#| output: false
+
+library(metafor)
+library(brms) 
+
+m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
+fitPrior <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds")
+freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+```
+
+# Frequentist meta-analysis, using `{metafor}`
+## Model code
+```{r}
+#| label: Freq_model
+#| eval: false
+#| output: false
+
+rma_model <- rma(
+  yi = beta_ln,
+  sei = se_beta_ln,
+  data = data_full,
+  method = "REML"
+)
+```
+
+## Output
+```{r}
+#| label: Freq_model_output
+#| echo: false
+
+summary(freq_model)
+```
+
+
+# Bayesian meta-analysis, using `{brms}`
+## Setting priors
+```{r}
+#| label: Bayes_model_1
+#| eval: false
+
+priors <- c(
+  prior(normal(-1, 2), class = Intercept),
+  prior(normal(0, 2), class = sd, lb = 0)
+)
+```
+
+## Model code
+```{r}
+#| label: Bayes_model_2
+#| eval: false
+
+m.brm <- brm(
+  beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
+  data = data,
+  prior = priors,
+  save_pars = save_pars(all = TRUE),
+  chains = 4,
+  iter = 4000
+)
+```
+
+## Model code: prior only (for prior predictive checks)
+```{r}
+#| label: Bayes_model_3
+#| eval: false
+
+fitPrior <- brm(
+  beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
+  data = data,
+  prior = priors,
+  sample_prior = "only",
+  chains = 4,
+  iter = 4000
+)
+```
+
+## Output main model
+```{r}
+#| label: Bayes_model_output_1
+#| echo: false
+
+summary(m.brm)
+```
+
+## Output prior only sampling
+```{r}
+#| label: Bayes_model_output_2
+#| echo: false
+
+summary(fitPrior)
+```
