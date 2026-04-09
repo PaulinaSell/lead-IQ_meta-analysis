@@ -44,24 +44,24 @@ reference-section-title: "References"
 csl: elsevier-harvard.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ../manuscript/ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ../manuscript/ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -115,8 +115,10 @@ Environmental epidemiology\
 # Graphical abstract {.unnumbered}
 <!-- https://www.elsevier.com/researcher/author/tools-and-resources/graphical-abstract -->
 
-# Abstract {.unnumbered}
+![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
 
+
+# Abstract {.unnumbered}
 ```{r}
 #| label: read_model
 #| echo: false
@@ -588,7 +590,7 @@ In the Bayesian framework, between-study heterogeneity was estimated as $\tau^2$
 Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)` to `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)` to `r round(freq_I2_ub, 1)`%).
 
 ::: {custom-style="Image Caption"}
-![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](/tables_figures/main/figure2.png)
+![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](/tables_figures/main/figure2.png){.lightbox}
 :::
 
 The single study estimates depicted in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
@@ -740,7 +742,7 @@ Third, we excluded studies that did not report effect estimates on the logarithm
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 
 Despite these limitations, this study also has several important strengths.
-By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and I² as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks.
+By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks.
 To our knowledge, this is the first study to formally conduct such a comparison in the field of environmental epidemiology.
 Beyond this methodological contribution, we provide an updated evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
 All data and code, including the code used to produce this manuscript, are publicly available, enabling other researchers to verify and build on our analyses.
