@@ -10,13 +10,13 @@ library(ggridges)
 library(glue)
 
 m.brm <- readRDS(
-  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds"
+  "models/main/m.brm_full.rds"
 )
 fitPrior <- readRDS(
-  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds"
+  "models/main/fitPrior_full.rds"
 )
 freq_model <- readRDS(
-  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds"
+  "models/main/freq_full.rds"
 )
 
 # Get draws from brms model

@@ -32,7 +32,7 @@ affiliations:
 
 date-modified: last-modified
 date-format: "D MMMM YYYY"
-bibliography: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/references.bib
+bibliography: ../manuscript/references.bib
 csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/vancouver.csl
 reference-section-title: "References"
 
@@ -40,15 +40,15 @@ filters:
  - authors-block
 
 format:
-    # html:
-    #     toc: false
-    #     title-block-banner: false
-    #     number-sections: false
-    #     embed-resources: true
-    #     css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
-    #     page-layout: full
-    #     theme: yeti
-    docx: default
+    html:
+        toc: false
+        title-block-banner: false
+        number-sections: false
+        embed-resources: true
+        css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
+        page-layout: full
+        theme: yeti
+    # docx: default
 execute:
   cache: false
 ---
@@ -141,8 +141,8 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ## Abstract
 ### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children's intelligence quotient
 
-**Introduction**: Quantifying uncertainty in the context of evidence synthesis is crucial for risk assessment and policy-making, but current meta-analytic frameworks fall short in this regard.
-Bayesian meta-analysis provides probabilistic uncertainty quantification.
+**Introduction**: Uncertainty quantification in evidence synthesis is crucial for risk assessment and policy-making, but current meta-analysis approaches often fall short in this regard.
+The Bayesian framework provides probabilistic uncertainty quantification.
 We compared frequentist and Bayesian meta-analytic frameworks, using lead exposure and IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
@@ -164,3 +164,5 @@ The Bayesian framework was less sensitive to outlier studies, resulting in a low
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, for example about exceeding risk thresholds, and comparative assessments across pollutants.
 These features are of particular value regarding risk assessment and policy-making.
+
+![Fig. 1: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](../manuscript/tables_figures/main/figure2.png)

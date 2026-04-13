@@ -28,7 +28,7 @@ fig-height: 4
 #| label: loading-data
 #| echo: false
 
-rationale <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/Rationale_ex-inclusion.csv")
+rationale <- read.csv("../data/Rationale_ex-inclusion.csv")
 ```
 
 # Introduction
@@ -243,7 +243,7 @@ knitr::kable(
 
 
 # loading data
-data <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+data <- read.csv("../data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
 data_anaylsis1 <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009", "Earl 2016", "Roy 2013"), ]
@@ -396,7 +396,7 @@ Now including Earl 2016 and Roy 2013.
 
 
 # loading data
-data2 <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+data2 <- read.csv("../data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
 data_anaylsis2 <- data2[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]

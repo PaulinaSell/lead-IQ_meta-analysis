@@ -12,7 +12,7 @@ rma_model <- rma(
   method = "REML"
 ) # Restricted Maximum Likelihood
 
-saveRDS(rma_model, file = "models/main/freq_full.rds")
+# saveRDS(rma_model, file = "models/main/freq_full.rds")
 
 rma_model <- readRDS("models/main/freq_full.rds")
 

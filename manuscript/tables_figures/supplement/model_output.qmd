@@ -2,7 +2,7 @@
 title: "Full model output for frequentist and Bayesian meta-analysis"
 format: 
     # docx:
-    #     reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+    #     reference-doc: ../../../manuscript/tables_figures/supplement/ref.docx
     pdf:
         documentclass: scrartcl
         fontsize: 10pt
@@ -22,9 +22,9 @@ This supplementary file contains the model code and output for both meta-analysi
 library(metafor)
 library(brms) 
 
-m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
-fitPrior <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/fitPrior_full.rds")
-freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+m.brm <- readRDS("../../../models/main/m.brm_full.rds")
+fitPrior <- readRDS("../../../models/main/fitPrior_full.rds")
+freq_model <- readRDS("../../../models/main/freq_full.rds")
 ```
 
 # Frequentist meta-analysis, using `{metafor}`

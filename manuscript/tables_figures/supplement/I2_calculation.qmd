@@ -2,7 +2,7 @@
 title: "Calculation of $I^2$ in the Bayesian Framework"
 format: 
     # docx:
-    #     reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/tables_figures/supplement/ref.docx
+    #     reference-doc: ../../../manuscript/tables_figures/supplement/ref.docx
     pdf:
         documentclass: scrartcl
         fontsize: 11pt
@@ -13,7 +13,7 @@ format:
 #| label: get_vt
 #| echo: false
 #| message: false
-freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+freq_model <- readRDS("../../../models/main/freq_full.rds")
 vt <- freq_model$vt
 ```
 

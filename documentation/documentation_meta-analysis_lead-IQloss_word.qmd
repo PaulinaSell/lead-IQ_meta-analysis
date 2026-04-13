@@ -5,7 +5,7 @@ date: "25. August 2025"
 date-modified: "25. August 2025"
 format: 
   docx:
-    reference-doc: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/documentation/ref.docx
+    reference-doc: ref.docx
     toc: true
     fig-align: "center"
     fig-width: 6.5
@@ -20,7 +20,7 @@ execute:
 #| label: loading-data
 #| echo: false
 
-data_clean <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss_clean.csv")
+data_clean <- read.csv("../data/study_data_leadIQloss_clean.csv")
 ```
 
 {{< pagebreak >}}

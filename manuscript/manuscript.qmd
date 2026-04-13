@@ -804,8 +804,8 @@ knitr::kable(table_abbr)
 # CRediT authorship contribution statement {.unnumbered}
 <!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
 **Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft, Writing – review and editing.
-**Margaux Sanchez**: Data curation, Writing - review and editing. 
-**Philippe Palmont**: Data curation, Writing - review and editing.
+**Margaux Sanchez**: Data curation, Writing – review and editing. 
+**Philippe Palmont**: Data curation, Writing – review and editing.
 **Simon Steiger**: Methodology, Writing – review and editing.
 **Dietrich Plass**: Supervision, Writing – review and editing.
 
@@ -823,3 +823,7 @@ for their help in the literature screening process.
 This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. 
 Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
 Neither the European Union nor the granting authority can be held responsible for them.
+
+# Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
+During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
+After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.

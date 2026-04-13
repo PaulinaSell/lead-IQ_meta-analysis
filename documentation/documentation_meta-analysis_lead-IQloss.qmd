@@ -13,15 +13,15 @@ format:
     page-layout: full
 fig-align: center
 fig-height: 4
-bibliography: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/references.bib
-csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/vancouver.csl
+bibliography: ../manuscript/references.bib
+csl: ../manuscript/vancouver.csl
 ---
 
 ```{r}
 #| label: loading-data
 #| echo: false
 
-data_clean <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss_clean.csv")
+data_clean <- read.csv("../data/study_data_leadIQloss_clean.csv")
 ```
 
 # Introduction
@@ -281,7 +281,7 @@ library(HDInterval)
 library(posterior)
 
 # loading data
-data <- read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+data <- read.csv("../data/study_data_leadIQloss.csv")
 
 # excluding studies that were transformed from linear to log, since transformation may not be valid here
 data <- data[!data$author_year %in% c("Halabicky 2022", "Iglesias 2011", "Min 2009"), ]
