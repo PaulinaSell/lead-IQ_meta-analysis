@@ -1,8 +1,6 @@
 # Bayesian Meta Analysis Lead - IQ loss in Children
 # Hierarchical Model: Lvl 1: individual participants; Lvl 2: participants nested within studies
 
-rm(list = ls(all = T))
-
 library(brms)
 library(tidyverse)
 library(tidybayes)
@@ -19,7 +17,7 @@ data = read.csv("data/study_data_leadIQloss.csv")
 priors <- c(
   prior(normal(-1, 2), class = Intercept), # overall effect size µ
   prior(normal(0, 2), class = sd, lb = 0)
-) # between-study heterogeneity τ‚
+) # between-study heterogeneity τ
 
 
 # Main model
@@ -61,7 +59,7 @@ write.csv(
 # save draws in EBD folder for later use
 write.csv(
   draws,
-  "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_beta_tau.csv",
+  "data/draws_beta_tau.csv",
   row.names = F
 )
 
@@ -91,15 +89,10 @@ draws_pooled_b_sd <- spread_draws(
   sd_author_year__Intercept
 )
 
-# change names before exporting again!
+
 write.csv(
   draws_pooled_b_sd,
-  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/results/draws_pooled_b_sd_logBLL.csv",
-  row.names = F
-)
-write.csv(
-  draws_pooled_b_sd,
-  "/Users/paulinasell/Documents/UBA/PARC/R/EBD Lead - IQ loss/Project_lead-IQloss/data/draws_pooled_b_sd_logBLL.csv",
+  "results/draws_pooled_b_sd_logBLL.csv",
   row.names = F
 )
 
@@ -110,7 +103,7 @@ tau_sq_samples <- tau_samples$sd_author_year__Intercept^2
 
 # Get the SAME typical within-study variance that metafor used
 freq_model <- readRDS(
-  "/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds"
+  "models/main/freq_full.rds"
 )
 vt <- freq_model$vt
 

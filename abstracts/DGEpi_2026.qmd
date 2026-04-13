@@ -33,7 +33,7 @@ affiliations:
 date-modified: last-modified
 date-format: "D MMMM YYYY"
 bibliography: ../manuscript/references.bib
-csl: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/vancouver.csl
+csl: ../manuscript/vancouver.csl
 reference-section-title: "References"
 
 filters:
@@ -45,7 +45,7 @@ format:
         title-block-banner: false
         number-sections: false
         embed-resources: true
-        css: /Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/manuscript/custom.scss
+        css: ../manuscript/custom.scss
         page-layout: full
         theme: yeti
     # docx: default
@@ -84,8 +84,8 @@ Lead exposure\
 #| label: read_model
 #| echo: false
 
-m.brm <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/m.brm_full.rds")
-freq_model <- readRDS("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/models/main/freq_full.rds")
+m.brm <- readRDS("../models/main/m.brm_full.rds")
+freq_model <- readRDS("../models/main/freq_full.rds")
 ```
 
 ```{r}
@@ -99,7 +99,7 @@ library(HDInterval)
 library(brms)
 library(metafor)
 
-data = read.csv("/Users/paulinasell/Documents/UBA/PARC/Metaanalysis_lead_IQloss/RProj/data/study_data_leadIQloss.csv")
+data = read.csv("../data/study_data_leadIQloss.csv")
 
 freq_mean <- round(as.numeric(freq_model$beta), 2)
 freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
