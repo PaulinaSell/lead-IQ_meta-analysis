@@ -79,6 +79,8 @@ Quantifying uncertainty in the association between lead exposure and children's 
 Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children’s IQ \
 Quantifying uncertainty: A comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ -->
 
+\newpage
+
 # Keywords {.unnumbered}
 <!-- 1 to 7 -->
 Meta-analysis\
@@ -293,9 +295,9 @@ Table1 |>
 
 We excluded reviews and background articles that inventoried the literature without quantitatively summarizing the results. 
 We also excluded references written in languages other than English. \
-For this present study, only studies that used a continuous, log-transformed BLL scale were included, so that effect estimates could be harmonized
+For this present study, only studies that used a continuous, log-transformed BLL scale were included, so that effect estimates could be harmonized.
 The exposure timeframe for this study was restricted to concurrent, i.e. IQ and BLL measurements must have been conducted at the same time.
-Descriptive study data was extracted using a grid based on the one proposed by the Office of Health Assessment and Translation within the US National Toxicology Program (NTP OHAT) [@ntpohat2019HandbookConductingLiteratureBased.] 
+Descriptive study data was extracted using a grid based on the one proposed by the Office of Health Assessment and Translation within the US National Toxicology Program [@ntpohat2019HandbookConductingLiteratureBased]. 
 For all included studies, effect estimates from the most-adjusted model were extracted and the adjustment set was recorded.
 
 ## Risk of Bias Assessment
@@ -599,7 +601,7 @@ The single study estimates depicted in Fig. 2 differ in both approaches because 
 In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework.
 
 ## Sensitivity Analysis
-We conducted two sets of sensitivity analyses, results are shown in Tab. 4.
+We conducted two sets of sensitivity analyses; results are shown in Tab. 4.
 First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
 For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
 These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
@@ -699,8 +701,8 @@ To our knowledge, this is the first study to compare Bayesian and frequentist me
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
 This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the sensitivity analyses using wide priors. 
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
-The two frameworks differ in how they treat outier studies reporting substantial uncertainty.
-Bayesian meta analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
+The two frameworks differ in how they treat outlier studies reporting substantial uncertainty.
+Bayesian meta-analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
 In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to studies reporting large uncertainty [@gelman2013Chapter4Asymptotics].
 
 Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow].
@@ -825,5 +827,5 @@ Views and opinions expressed are however those of the author(s) only and do not 
 Neither the European Union nor the granting authority can be held responsible for them.
 
 # Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
-During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
+During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
 After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
