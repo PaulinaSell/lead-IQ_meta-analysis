@@ -194,7 +194,6 @@ used random-effects models and included the same effect estimates.
 <!-- The frequentist approach used restricted maximum-likelihood estimation. -->
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and priors.
- <!-- specification. -->
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 **Results**: Twelve studies were included.
@@ -340,9 +339,7 @@ All code for this study is publicly available on GitHub: [github.com/PaulinaSell
 ### Bayesian Meta-Analysis
 In the Bayesian framework, we employed a random-effects meta-analysis model.
 Each study's observed effect size $\hat{\theta}_{k}$ is modelled as a noisy reflection of the true underlying effect in that study’s sample $\theta_{k}$, with the noise represented by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
-<!-- At the first level, the observed effect size from each study $\hat{\theta}_{k}$ is modeled as an estimate of that study's true underlying effect $\theta_{k}$, with deviation from the true effect determined by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics). -->
 These study-specific true effects are themselves modelled as draws from an overarching normal distribution which describes the true average effect across studies $\mu$ and the between-study heterogeneity $\tau$.
-<!-- At the second level, these study-specific true effects are themselves assumed to vary across studies following a normal distribution, characterized by an overall pooled effect $\mu$ and between-study standard deviation (heterogeneity) $\tau$. -->
 
 $$
 \begin{split}
@@ -394,7 +391,6 @@ $$ {#eq-priors}
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
 Prior predictive checks were conducted using the `bayesplot` package [@gabryjmahrt2025BayesplotPlottingBayesian] to assess the appropriateness of the specified priors.
 Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well.
-<!-- sentence above needs polishing -->
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below. 
 
 ### Frequentist Meta-Analysis
@@ -693,7 +689,6 @@ table4_gt %>%
 
 # Discussion
 In this study, we provide an updated pooled effect estimate for the association between children's lead exposure and IQ, and compare a conventional, frequentist meta-analysis to a Bayesian meta-analysis – a framework that is less used in the field of environmental epidemiology to date.
-<!-- Margaux: add specific contribution of this study -->
 
 While previous publications have compared both frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 

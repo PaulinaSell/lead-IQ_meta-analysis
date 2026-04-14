@@ -40,22 +40,24 @@ filters:
  - authors-block
 
 format:
-    html:
-        toc: false
-        title-block-banner: false
-        number-sections: false
-        embed-resources: true
-        css: ../manuscript/custom.scss
-        page-layout: full
-        theme: yeti
-    # docx: default
+    # html:
+    #     toc: false
+    #     title-block-banner: false
+    #     number-sections: false
+    #     embed-resources: true
+    #     css: ../manuscript/custom.scss
+    #     page-layout: full
+    #     theme: yeti
+    docx: default
 execute:
   cache: false
 ---
 
+[Link to conference](https://2026.dgepi.de)
+
 ## Information for Authors
 
-* Abstract submission deadline: **April 15, 2026**
+* Abstract submission deadline: **April 22, 2026**
 * Submission as **oral** or **posters**
 * Abstracts have to be submitted in English.
 * The length of the abstract is limited to **2,000 characters** (including spaces), the length of the **title to 250 characters** (including spaces).
@@ -65,16 +67,18 @@ execute:
 * You can add up to **5 keywords** to your post.
 * When preparing your contribution, please make sure that the spelling, grammar, gender and diversity-sensitive language is correct. The contributions will be printed as submitted; there is no proofreading. After submission, contributions can be edited until the end of the abstract submission.
 * The posters will be presented as printed version on poster boards on site.
-* The decision on acceptance/rejection of an abstract and its classification in the program is made by the scientific committee based on the review results.
 * The authorship will be informed in June 2026. Organisational details will be communicated directly to the authors.
 * To present your paper, you must register for the congress for the fee and pay the registration fee in due time.
+
+\newpage
+
 
 ## Keywords
 Meta-analysis\
 Evidence synthesis\
 Bayesian modeling\
 Uncertainty quantification\
-Lead exposure\
+Lead exposure
 
 **Topic**: Environmental Epidemiology\
 **Method**: Evidence Synthesis and Triangulation
@@ -139,19 +143,18 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
 ## Abstract
-### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children's intelligence quotient
+### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ
 
-**Introduction**: Uncertainty quantification in evidence synthesis is crucial for risk assessment and policy-making, but current meta-analysis approaches often fall short in this regard.
-The Bayesian framework provides probabilistic uncertainty quantification.
+**Introduction**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but current meta-analytic approaches often fall short in this regard.
+Bayesian methods provide probabilistic uncertainty quantification.
 We compared frequentist and Bayesian meta-analytic frameworks, using lead exposure and IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized.
-In both meta-analyses, we used random-effects models and included the same effect estimates.
-<!-- The frequentist approach used restricted maximum-likelihood estimation. -->
+Both meta-analyses used random-effects models and included the same effect estimates.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and prior specification.
-$\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
+$\tau^2$ and $I^2$ were estimated as measures of heterogeneity.
 
 **Results**: Twelve studies were included after screening.
 The frequentist approach yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb`; `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
@@ -159,10 +162,12 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
 The Bayesian framework provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
-The Bayesian framework was less sensitive to outlier studies, resulting in a lower pooled effect.
+The Bayesian framework was less sensitive to studies with large uncertainty, resulting in a lower pooled effect.
 
-**Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
-The Bayesian framework provides posterior distributions, enabling direct probability statements, for example about exceeding risk thresholds, and comparative assessments across pollutants.
-These features are of particular value regarding risk assessment and policy-making.
+**Conclusion**: We present updated pooled estimates for the effect of lead exposure on children's IQ.
+By yielding posterior distributions, the Bayesian framework enables direct probability statements, for instance, on exceeding risk thresholds, and comparisons across pollutants.
+These capacities are especially valuable for risk assessment and evidence-based policy.
 
-![Fig. 1: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](../manuscript/tables_figures/main/figure2.png)
+![Fig. 1: Graphical abstract.](../manuscript/tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
+
+![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](../manuscript/tables_figures/main/figure2.png)
