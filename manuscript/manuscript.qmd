@@ -279,8 +279,8 @@ Publications were considered relevant according to predefined PECOTS – Populat
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 
-library(readr)
 library(gt)
+library(tidyverse)
 
 Table1 <- read_csv("tables_figures/main/table1.csv")
 
@@ -619,8 +619,6 @@ This shows that the results are robust to prior specification, because the shift
 #| include: !expr knitr::pandoc_to() != "docx"
 #| message: false
 #| warning: false
-
-library(tidyverse)
 
 table_all <- readRDS("tables_figures/main/table_sensi.rds")
 
