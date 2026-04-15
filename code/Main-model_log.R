@@ -2,14 +2,7 @@
 # Hierarchical Model: Lvl 1: individual participants; Lvl 2: participants nested within studies
 
 library(brms)
-library(tidyverse)
 library(tidybayes)
-library(ggridges)
-library(glue)
-library(bayesplot)
-library(HDInterval)
-library(bayestestR)
-library(posterior)
 
 data = read.csv("data/study_data_leadIQloss.csv")
 
