@@ -9,8 +9,7 @@
 *_cache/
 *_files/
 
-**/_extensions/andrewheiss/
-
+_extensions/
 documentation/
 results/sensitivity/
 manuscript/tables_figures/supplement/*.docx
