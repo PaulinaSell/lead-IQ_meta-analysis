@@ -1,17 +1,16 @@
 .Rproj.user
 .Rhistory
-.RData
-.Ruserdata
+.vscode/
 
+*.numbers
+*.pages
 
-.DS_Store
 documentation/documentation_meta-analysis_lead-IQloss_cache/
 documentation/documentation_meta-analysis_lead-IQloss_word_cache/
-manuscript/tables_figures/supplement/*.numbers
-manuscript/tables_figures/supplement/*.pages
+results/sensitivity/
 manuscript/tables_figures/supplement/*.docx
 manuscript/tables_figures/supplement/I2_calculation_files
 *_cache/
 *_files/
-.vscode/
-_extensions/
+
+**/_extensions/andrewheiss/

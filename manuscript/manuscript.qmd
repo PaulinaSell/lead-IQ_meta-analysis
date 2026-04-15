@@ -55,7 +55,7 @@ format:
   #   page-layout: full
   #   theme: yeti
   docx:
-    reference-doc: ../manuscript/ref.docx
+    reference-doc: ref.docx
     number-sections: true
     fig-align: "center"
     fig-width: 6.5
