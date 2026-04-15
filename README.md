@@ -19,8 +19,8 @@ The paper compares Bayesian and frequentist meta-analytic frameworks, using lead
 - `manuscript/` – Quarto files and more to reproduce the manuscript, containing rendered manuscript
 - `manuscript/tables_figures/main` – All tables and figures used in main article
 - `manuscript/tables_figures/supplement` – All tables and figures used in main supplementary files
-- `models/` – RDS files containing model fits for main and sensitivity analyses
-- `results/`– CSV files containing extracted draws from brms model fits
+- `models/` – .rds files containing model fits for main and sensitivity analyses
+- `results/`– .csv files containing extracted draws from brms model fits
 - `renv.lock` – R package versions for reproducibility
 - `.gitignore` – Files not tracked by git
 - `README.md` – This file
@@ -37,6 +37,8 @@ The paper compares Bayesian and frequentist meta-analytic frameworks, using lead
 install.packages("renv")
 renv::restore()
 ```
+> [!NOTE]
+> **Environment restore may take 15–30 minutes**. If you only want to browse the code or use the saved model fits (.rds files), you can skip `renv::restore()` and install packages manually as needed.
 
 ### Running the code to reproduce the manuscript
 Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**
