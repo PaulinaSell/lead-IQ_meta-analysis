@@ -8,6 +8,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 ![](manuscript/tables_figures/main/graphical_abstract.png)
 
+## About
 This repository contains all code and data needed to reproduce the analyses in the paper above.
 The paper compares Bayesian and frequentist meta-analytic frameworks, using lead exposure and children's IQ as a case study, in order to evaluate differences in uncertainty quantification and applicability for risk assessment
 
@@ -38,7 +39,7 @@ renv::restore()
 ```
 
 ### Running the code to reproduce the manuscript
-Open `manuscript/manuscript.qmd` in RStudio and click **Render**
+Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**
 
 ## Resources
 
