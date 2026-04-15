@@ -4,6 +4,7 @@
 
 *.numbers
 *.pages
+*.html
 *.DS_Store
 *.Rproj
 
