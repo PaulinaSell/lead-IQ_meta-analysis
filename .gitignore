@@ -5,6 +5,7 @@
 *.numbers
 *.pages
 *.DS_Store
+*.Rproj
 
 *_cache/
 *_files/
