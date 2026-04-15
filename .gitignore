@@ -6,11 +6,12 @@
 *.pages
 *.DS_Store
 
-documentation/
-results/sensitivity/
-manuscript/tables_figures/supplement/*.docx
-manuscript/tables_figures/supplement/I2_calculation_files
 *_cache/
 *_files/
 
 **/_extensions/andrewheiss/
+
+documentation/
+results/sensitivity/
+manuscript/tables_figures/supplement/*.docx
+manuscript/tables_figures/supplement/I2_calculation_files
