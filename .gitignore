@@ -4,9 +4,9 @@
 
 *.numbers
 *.pages
+*.DS_Store
 
-documentation/documentation_meta-analysis_lead-IQloss_cache/
-documentation/documentation_meta-analysis_lead-IQloss_word_cache/
+documentation/
 results/sensitivity/
 manuscript/tables_figures/supplement/*.docx
 manuscript/tables_figures/supplement/I2_calculation_files
