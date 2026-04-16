@@ -11,7 +11,7 @@ author:
   - name: Margaux Sanchez
     affiliations: 
       - ref: anses
-    orcid: 
+    orcid: 0000-0002-1923-6393
   - name: Philippe Palmont
     affiliations: 
       - ref: anses
@@ -45,15 +45,15 @@ csl: elsevier-harvard.csl
 
 format:
   # html:
-  #   toc: true
-  #   toc-location: left
-  #   tbl-cap-location: bottom
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
+    # toc: true
+    # toc-location: left
+    # tbl-cap-location: bottom
+    # title-block-banner: false
+    # number-sections: true
+    # embed-resources: true
+    # css: custom.scss
+    # page-layout: full
+    # theme: yeti
   docx:
     reference-doc: ref.docx
     number-sections: true

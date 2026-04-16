@@ -32,9 +32,6 @@ affiliations:
 
 date-modified: last-modified
 date-format: "D MMMM YYYY"
-bibliography: ../manuscript/references.bib
-csl: ../manuscript/vancouver.csl
-reference-section-title: "References"
 
 filters:
  - authors-block
@@ -143,7 +140,7 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
 ## Abstract
-### Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ
+### Uncertainty in evidence synthesis: A methodological comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ
 
 **Introduction**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but current meta-analytic approaches often fall short in this regard.
 Bayesian methods provide probabilistic uncertainty quantification.
@@ -152,6 +149,7 @@ We compared frequentist and Bayesian meta-analytic frameworks, using lead exposu
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized.
 Both meta-analyses used random-effects models and included the same effect estimates.
+The frequentist approach used restricted maximum-likelihood estimation.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of heterogeneity.
