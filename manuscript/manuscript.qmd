@@ -15,7 +15,7 @@ author:
   - name: Philippe Palmont
     affiliations: 
       - ref: anses
-    orcid: 
+    orcid: 0009-0005-5624-3460
   - name: Simon Steiger
     affiliations:
       - ref: ki
@@ -44,24 +44,24 @@ reference-section-title: "References"
 csl: elsevier-harvard.csl
 
 format:
-  # html:
-    # toc: true
-    # toc-location: left
-    # tbl-cap-location: bottom
-    # title-block-banner: false
-    # number-sections: true
-    # embed-resources: true
-    # css: custom.scss
-    # page-layout: full
-    # theme: yeti
-  docx:
-    reference-doc: ref.docx
+  html:
+    toc: true
+    toc-location: left
+    tbl-cap-location: bottom
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---

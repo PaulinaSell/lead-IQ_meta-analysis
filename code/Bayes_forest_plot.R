@@ -195,8 +195,12 @@ Bayes_forest_plot <- ggplot(
       size = base_size_theme,
       colour = "black"
     ),
-    axis.text.x = element_text(vjust = -1, size = base_size_theme), # increased x-axis tick label size
-    axis.title.x = element_text(vjust = -2.7, size = base_size_theme),
+    axis.text.x = element_text(vjust = -0.8, size = base_size_theme), # increased x-axis tick label size
+    axis.title.x = element_text(
+      vjust = -2.9,
+      hjust = 0.2,
+      size = base_size_theme
+    ),
     axis.line.x = element_line(linewidth = linewidth), # draw the x axis line
     axis.ticks.x = element_line(linewidth = linewidth), # draw tick marks
     axis.ticks.length.x = unit(0.3, "cm"),
@@ -212,23 +216,23 @@ ggsave(
 )
 
 # svg
-ggsave(
-  "manuscript/tables_figures/main/Bayes_forest_plot.svg",
-  Bayes_forest_plot,
-  width = 20,
-  height = 15,
-  units = "cm",
-  bg = "transparent"
-)
+# ggsave(
+#   "manuscript/tables_figures/main/Bayes_forest_plot.svg",
+#   Bayes_forest_plot,
+#   width = 20,
+#   height = 15,
+#   units = "cm",
+#   bg = "transparent"
+# )
 
-# pdf
-ggsave(
-  "manuscript/tables_figures/main/Bayes_forest_plot.pdf",
-  Bayes_forest_plot,
-  width = 20,
-  height = 15,
-  units = "cm"
-)
+# # pdf
+# ggsave(
+#   "manuscript/tables_figures/main/Bayes_forest_plot.pdf",
+#   Bayes_forest_plot,
+#   width = 20,
+#   height = 15,
+#   units = "cm"
+# )
 
 # Freqentist model forest plot (metafor) ####
 png(
@@ -251,39 +255,39 @@ forest(
 dev.off()
 
 #svg
-svglite::svglite(
-  "manuscript/tables_figures/main/freq_forestplot.svg",
-  width = 20 / 2.54,
-  height = 15 / 2.54,
-  par(xpd = NA)
-)
+# svglite::svglite(
+#   "manuscript/tables_figures/main/freq_forestplot.svg",
+#   width = 20 / 2.54,
+#   height = 15 / 2.54,
+#   par(xpd = NA)
+# )
 
-forest(
-  freq_model,
-  slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
-  mlab = "Pooled Estimate",
-  xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
-  main = "Frequentist Random Effects Meta-Analysis"
-)
+# forest(
+#   freq_model,
+#   slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
+#   mlab = "Pooled Estimate",
+#   xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
+#   main = "Frequentist Random Effects Meta-Analysis"
+# )
 
-dev.off()
+# dev.off()
 
-# pdf
-pdf(
-  "manuscript/tables_figures/main/freq_forestplot.pdf",
-  width = 20 / 2.54,
-  height = 15 / 2.54
-)
+# # pdf
+# pdf(
+#   "manuscript/tables_figures/main/freq_forestplot.pdf",
+#   width = 20 / 2.54,
+#   height = 15 / 2.54
+# )
 
-forest(
-  freq_model,
-  slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
-  mlab = "Pooled Estimate",
-  xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
-  main = "Frequentist Random Effects Meta-Analysis"
-)
+# forest(
+#   freq_model,
+#   slab = str_replace_all(freq_model$data$author_year, "[.]", " "),
+#   mlab = "Pooled Estimate",
+#   xlab = "IQ shift per log-unit increase in BLL (µg/dL)",
+#   main = "Frequentist Random Effects Meta-Analysis"
+# )
 
-dev.off()
+# dev.off()
 
 # Combine both forest plots ####
 library(magick)
