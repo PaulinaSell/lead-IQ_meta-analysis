@@ -738,6 +738,8 @@ Publication bias was assessed through visual inspection only; formal statistical
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
 Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
+<!-- Concurrent exposure measurement (at the time of IQ testing) may not fully capture the causal exposure window, as it assumes blood lead levels remained stable from the onset of exposure through outcome ascertainment. 
+We nonetheless prioritized this exposure timeframe because it enabled the inclusion of cross-sectional studies, thus increasing the number of eligible studies and yields pooled estimates directly applicable to environmental burden of disease assessments. -->
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks.
