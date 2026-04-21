@@ -162,10 +162,8 @@ The Bayesian framework provided a posterior distribution for heterogeneity, quan
 Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian framework was less sensitive to studies with large uncertainty, resulting in a lower pooled effect.
 
-**Conclusion**: We present updated pooled estimates for the effect of lead exposure on children's IQ.
+**Conclusion**: We present updated pooled estimates for the association between lead exposure and children's IQ.
 By yielding posterior distributions, the Bayesian framework enables direct probability statements, for instance, on exceeding risk thresholds, and comparisons across pollutants.
-These capacities are especially valuable for risk assessment and evidence-based policy.
+These capacities are especially valuable for risk assessment and evidence-based policy making.
 
 ![Fig. 1: Graphical abstract.](../manuscript/tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
-
-![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](../manuscript/tables_figures/main/figure2.png)
