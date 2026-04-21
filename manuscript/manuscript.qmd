@@ -360,7 +360,7 @@ $I^2$ was calculated using the typical within-study variance calculated with `me
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
-For both parameters, weakly-informative priors were chosen so that the posterior distributions are softly being bounded to realistic ranges of results.
+For both parameters, weakly-informative priors were chosen to softly constrain the posterior distributions to realistic ranges of results.
 The priors are specified on the same scale as the harmonized effect estimates (IQ shift per unit increase in $\log_e$-transformed BLL).
 
 ```{r}
@@ -390,7 +390,7 @@ $$
 $$ {#eq-priors}
 
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
-Prior predictive checks were conducted using the `bayesplot` package [@gabryjmahrt2025BayesplotPlottingBayesian] to assess the appropriateness of the specified priors.
+Prior predictive checks were conducted using the `bayesplot` package [@gabryjmahrt2025BayesplotPlottingBayesian] to verify that the specified priors were appropriate.
 Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well.
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below. 
 
@@ -594,7 +594,7 @@ The results of both frameworks are shown as forest plots in Figure 2.
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](tables_figures/main/figure2.png){.lightbox}
 :::
 
-The single study estimates depicted in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
+The single study estimates shown in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
 In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework.
 
 ## Sensitivity Analysis
