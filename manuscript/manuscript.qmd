@@ -44,24 +44,24 @@ reference-section-title: "References"
 csl: elsevier-harvard.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -93,11 +93,11 @@ Environmental epidemiology\
 
 # Highlights {.unnumbered}
 <!-- 3 to 5, must be provided as a Word document— select "Highlights" from the drop-down list when uploading files. Include "highlights" in the file name. Max 85 characters, incl spaces-->
+* Bayesian model yields full probability distributions, not just point estimates
 * Bayesian and frequentist meta-analyses yield similar estimates for lead's effect on IQ
 <!-- * Parallel approach allows for direct comparison of both frameworks -->
-* Bayesian model yields full probability distributions, not just point estimates
 <!-- * Bayesian results support direct probability statements for risk assessment -->
-* Results underscore health risk of lead exposure, even in low concentration
+* Results underscore the health risk of lead exposure, even at low concentrations
 
 <!-- ## Journal: {.unnumbered}
 1. [Environment International, Elsevier](https://www.sciencedirect.com/journal/environment-international)
@@ -184,15 +184,11 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
 <!-- To evaluate differences in uncertainty quantification and applicability for risk assessment, -->
-We compared frequentist and Bayesian frameworks, using lead exposure and IQ as a case study.
+We compared frequentist and Bayesian frameworks, using lead exposure and IQ loss as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and children's IQ score. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized. 
-<!-- to the $\log_e$​ scale. -->
-In both meta-analyses, we
-<!-- assumed a multilevel structure,  -->
-used random-effects models and included the same effect estimates.
-<!-- The frequentist approach used restricted maximum-likelihood estimation. -->
+In both meta-analyses, we used random-effects models and included the same effect estimates.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and priors.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
@@ -206,8 +202,8 @@ Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian framework was less sensitive to outlier studies, resulting in a lower pooled effect.
 
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
-The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments across pollutants.
-These features are particularly valuable regarding risk assessment and policy-making.
+The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
+These features are particularly valuable for risk assessment and policy-making.
 
 \newpage
 
@@ -237,9 +233,9 @@ There is evidence for a supralinear exposure-response relationship with steeper 
 These findings highlight the need for an updated quantitative synthesis that reflects both recent epidemiological evidence and the lower exposure range now predominant in European populations, incorporating recent data to inform risk assessment at currently relevant exposure levels.
 
 Existing burden of disease assessments at national and global scales [@hay2025Burden375Diseases; @carrington2019GlobalBurdenIntellectual; @figueroa2024LossCognitiveFunction; @larsen2023GlobalHealthBurden; @mcfarland2022HalfUSPopulation] have predominantly relied on the foundational study by Lanphear et al. (2005), a pooled analysis of seven cohort studies, or subsequent re-analyses of the same data [@lanphear2005LowLevelEnvironmentalLead; @crump2013StatisticalReevaluationData].
-While these landmark studies have substantially shaped research and policy on childhood lead exposure, methodological issues and errors have been raised.
+While these landmark studies have substantially shaped research and policy on childhood lead exposure, methodological issues and shortcomings have been raised.
 These include the use of performance IQ instead of full-scale IQ and an erroneous back-transformation of BLL in one cohort in the Lanphear et al. study [@lanphear2019ErratumLowLevelEnvironmental; @crump2013StatisticalReevaluationData].
-These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for an updated evidence synthesis, but also for methodologically robust approaches that can provide reliable exposure-response estimates for burden of disease and risk assessments.
+These limitations, combined with the availability of more recent epidemiological data, underscore the need not only for an updated evidence synthesis, but also for methodologically robust approaches that can provide reliable exposure-response estimates to be used in burden of disease and risk assessments.
 
 Methodological advances in meta-analysis offer an opportunity to enhance the utility of synthesized estimates for burden of disease and risk assessment applications. 
 While frequentist meta-analysis has been a conventional approach in environmental epidemiology, Bayesian meta-analysis provides a coherent framework for uncertainty quantification through posterior distributions that inherently incorporate both within-study and between-study variability [@grant2025BayesianMetaAnalysisPractical].
@@ -339,7 +335,7 @@ All code for this study is publicly available on GitHub: [github.com/PaulinaSell
 
 ### Bayesian Meta-Analysis
 In the Bayesian framework, we employed a random-effects meta-analysis model.
-Each study's observed effect size $\hat{\theta}_{k}$ is modelled as a noisy reflection of the true underlying effect in that study’s sample $\theta_{k}$, with the noise represented by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics).
+Each study's observed effect size $\hat{\theta}_{k}$ is modelled as a noisy reflection of the true underlying effect in that study’s sample $\theta_{k}$, with the noise represented by the within-study sampling error $\sigma_{k}$ ​(treated as known based on reported study statistics). 
 These study-specific true effects are themselves modelled as draws from an overarching normal distribution which describes the true average effect across studies $\mu$ and the between-study heterogeneity $\tau$.
 
 $$
@@ -391,7 +387,7 @@ $$ {#eq-priors}
 
 <!-- Note about non-informative / flat priors? They grant the unrealistic cases of effects of say -1000, 0 and 1000 the exact same probability, which we know from research and common sense is not realistic. Also, it might cause convergence issues in the MCMC sampling process. -->
 Prior predictive checks were conducted using the `bayesplot` package [@gabryjmahrt2025BayesplotPlottingBayesian] to verify that the specified priors were appropriate.
-Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well.
+Posterior predictive checks were carried out to assess if the model structure is able to capture the underlying data well. 
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below. 
 
 ### Frequentist Meta-Analysis
@@ -465,7 +461,7 @@ The rapid RoB assessment resulted in eight studies with a low RoB rating [@bauer
 two with a moderate RoB [@lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal] 
 and two studies with a high RoB rating [@crump2013StatisticalReevaluationData; @earl2016LowlevelEnvironmentalLead].
 Among the twelve included studies, items with a high overall RoB were *non-response rate* (7x high RoB, 5x some concerns), where some studies did not report the non-response rate or did not discuss whether non-responding individuals might systematically differ from included participants, leading to potential selection bias.
-Another item with overall high RoB was *accounting for confounding* (2x high RoB, 5x some concerns), where important confounders like maternal IQ were not included or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach is preferable [@smith2018StepAwayStepwise].
+Another item with overall high RoB was *accounting for confounding* (2x high RoB, 5x some concerns), where important confounders like maternal IQ were not included or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach was preferable [@smith2018StepAwayStepwise].
 Finally, in the item *handling of missing values*, some of the studies contain no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
 Results from the RoB assessment are presented in Tab. 3.
 
@@ -609,7 +605,7 @@ This is expected, because the narrow prior restricts the posterior distribution 
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 Supplementary file 5d shows prior, observed data and posterior distributions of all three prior specifications.
-This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion.
+This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
 
 ```{r}
 #| label: table_4_sensi
@@ -709,7 +705,7 @@ This offers distinct practical advantages, particularly for risk assessment and 
 First, any credible interval can be derived from the posterior distribution to meet the needs of researchers, decision-makers, or other stakeholders.
 These allow direct probability statements about parameter values, unlike confidence intervals which are often incorrectly interpreted as probability statements about parameters.
 Second, posterior distributions enable probabilistic comparisons across multiple health risks, such as calculating the probability that one risk exceeds another.
-When meaningful effect size or risk thresholds are defined, exceedance probabilities can be directly obtained from the posterior, providing an intuitive and policy-relevant summary of uncertainty.
+When meaningful effect sizes or risk thresholds are defined, exceedance probabilities can be directly obtained from the posterior, providing an intuitive and policy-relevant summary of uncertainty.
 Posterior distributions together with the specified statistical model can be used to generate predictions for theoretical future studies, offering an additional way to characterize between-study heterogeneity.
 They also enable researchers to estimate the population-level health impact of an exposure under specified conditions.
 This is known as Environmental Burden of Disease (EBD).
@@ -730,7 +726,7 @@ Substantial heterogeneity was observed in this meta-analysis, likely driven by d
 Two studies reporting null effects were conducted in relatively low-exposed populations [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture], where limited exposure variation reduces the detectability of an effect. 
 Differences in study location may also contribute: IQ tests not adapted to the target population can result in underestimated scores, which may apply to the study by Menezes-Filho et al. [@menezes-filho2018EnvironmentalCoExposureLead]. 
 Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (supplementary file 5e).
-The Bayesian approach was less sensitive to estimates from such studies, as the results of individual studies with large uncertainty are shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
+The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
 First, the included studies were heterogeneous with respect to covariate adjustment and cohort characteristics, which limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
@@ -738,8 +734,9 @@ Publication bias was assessed through visual inspection only; formal statistical
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
 Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
-<!-- Concurrent exposure measurement (at the time of IQ testing) may not fully capture the causal exposure window, as it assumes blood lead levels remained stable from the onset of exposure through outcome ascertainment. 
-We nonetheless prioritized this exposure timeframe because it enabled the inclusion of cross-sectional studies, thus increasing the number of eligible studies and yields pooled estimates directly applicable to environmental burden of disease assessments. -->
+<!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken. 
+Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
+We prioritized this exposure timeframe because it enabled the inclusion of cross-sectional studies and yields pooled estimates directly applicable to environmental burden of disease assessments. -->
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks.
