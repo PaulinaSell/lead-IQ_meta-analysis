@@ -64,4 +64,5 @@ Resources I found helpful while working on this project:
 
 ## License
 
-This repository is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You are free to share and adapt the material for any purpose, provided appropriate credit is given.
+This repository is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
+You are free to share and adapt the material for any purpose, provided appropriate credit is given.

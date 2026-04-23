@@ -114,11 +114,11 @@ Environmental epidemiology\
 -   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7) for reporting Bayesian model
 -   [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment -->
 
-# Graphical abstract {.unnumbered}
+
+<!-- # Graphical abstract {.unnumbered}
 <!-- https://www.elsevier.com/researcher/author/tools-and-resources/graphical-abstract -->
 
-![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
-
+<!-- ![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"} -->
 
 # Abstract {.unnumbered}
 ```{r}
