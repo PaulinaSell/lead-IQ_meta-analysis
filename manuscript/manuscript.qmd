@@ -184,7 +184,7 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
 <!-- To evaluate differences in uncertainty quantification and applicability for risk assessment, -->
-We compared frequentist and Bayesian frameworks, using lead exposure and IQ loss as a case study.
+We compared frequentist and Bayesian frameworks, using lead exposure and IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and children's IQ score. 
 Risk of bias (RoB) was assessed and regression coefficients were harmonized. 
@@ -299,7 +299,7 @@ For all included studies, effect estimates from the most-adjusted model were ext
 ## Risk of Bias Assessment
 To assess study quality, we conducted a risk of bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies [@plate2024DevelopmentToolRapid]. 
 Each included publication was assessed for RoB in the following domains: selection, exposure, outcome, confounding, follow-up, analysis, and selective reporting.
-In total, each study was evaluated using 15 items and scored as either high RoB (-), some concerns (+/-), low RoB (+) or no information(?). 
+In total, each study was evaluated using 15 items and scored as either high RoB (-), some concerns (+/-), low RoB (+) or no information (?). 
 If an item was not applicable to the study type (e.g. follow-up in cross-sectional studies), they were marked as "n.a.".
 The overall RoB for each individual study was then categorized as either low, moderate or high, following two different summary metrics provided by the RoB tool (for more details, please refer to @plate2024DevelopmentToolRapid).
 Each publication was first assessed by one researcher.
