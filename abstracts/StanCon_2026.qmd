@@ -123,6 +123,8 @@ I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
+\newpage
+
 ## Abstract
 **Quantifying uncertainty: a methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children's IQ**
 
@@ -136,7 +138,7 @@ We systematically searched PubMed and Scopus for epidemiological studies on bloo
 After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
 In both meta-analyses, we included the same effect estimates, assumed a multilevel structure and used random-effects models.
 In the frequentist approach, we used the R package `metafor` and restricted maximum-likelihood estimation.
-The Bayesian meta-analysis employed a hierarchical model using `brms` with weakly-informative priors.
+The Bayesian meta-analysis employed a hierarchical model implemented in `brms`, an R interface to `Stan`, with weakly-informative priors.
 Sensitivity analyses examined robustness to RoB and to prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
@@ -147,9 +149,8 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1], 1)`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 3) * 100`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
-The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effectcompared to the frequentist approach.
-This is due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
-This is a particular advantage when pooling a small number of studies.
+The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
 **Conclusion**:
 We provide updated pooled estimates for the effect of lead exposure on children's IQ.
