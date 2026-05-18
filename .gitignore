@@ -20,3 +20,4 @@ abstracts/*.docx
 abstracts/*.html
 /.quarto/
 **/*.quarto_ipynb
+/results/
