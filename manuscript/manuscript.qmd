@@ -39,9 +39,11 @@ date-format: "D MMMM YYYY"
 filters:
  - authors-block
  
-bibliography: references.bib
+bibliography:
+  - references.bib
+  - manual-refs.bib
 reference-section-title: "References"
-csl: elsevier-harvard.csl
+csl: springer-vancouver-brackets.csl
 
 format:
   html:
@@ -72,17 +74,10 @@ p {
 }
 ```
 
-<!-- # Notes {.unnumbered}
-Alternative titles:\
-A methodological comparison of Bayesian and frequentist meta-analyses of epidemiological studies on lead exposure and children's intelligence quotient (title so far)\
-Quantifying uncertainty in the association between lead exposure and children's IQ: a comparison of Bayesian and frequentist meta-analytic frameworks \
-Quantifying uncertainty: A methodological comparison of Bayesian and frequentist meta-analyses of studies on lead exposure and children’s IQ \
-Quantifying uncertainty: A comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ -->
-
 \newpage
 
 # Keywords {.unnumbered}
-<!-- 1 to 7 -->
+<!-- 3 to 10 keywords representing the main content of the article  -->
 Meta-analysis\
 Evidence synthesis\
 Bayesian modeling\
@@ -91,34 +86,34 @@ Lead exposure\
 <!-- Children's IQ\ -->
 Environmental epidemiology\
 
-# Highlights {.unnumbered}
-<!-- 3 to 5, must be provided as a Word document— select "Highlights" from the drop-down list when uploading files. Include "highlights" in the file name. Max 85 characters, incl spaces-->
+<!-- # Highlights {.unnumbered}
 * Bayesian model yields full probability distributions, not just point estimates
 * Bayesian and frequentist meta-analyses yield similar estimates for lead's effect on IQ
 <!-- * Parallel approach allows for direct comparison of both frameworks -->
 <!-- * Bayesian results support direct probability statements for risk assessment -->
-* Results underscore the health risk of lead exposure, even at low concentrations
+<!-- * Results underscore the health risk of lead exposure, even at low concentrations -->
 
-<!-- ## Journal: {.unnumbered}
-1. [Environment International, Elsevier](https://www.sciencedirect.com/journal/environment-international)
-  - "Method papers should be concise presentations of an advancement in methodology applied to the type of evidence syntheses Environment International publishes." 
-  - These include tools for assessing the validity of research, surveys and **analyses of current research practices**, methods for locating literature, support for conduct of individual steps of the **evidence synthesis process**, **statistical methods**, **computational approaches to evidence synthesis**, etc."\
-  - "The corresponding author of a review article must list, in the cover letter, at least 5 relevant research papers on which they also served as the corresponding author."
-  - 2,500 - 4,000 words approximately, no formal word limit (4,500 words atm), with 2-5 figures
-2. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) lower IF (3.3) but open to methodological papers
+## Journal: {.unnumbered}
+1. [BMC Medical Research Methodology](https://link.springer.com/journal/12874/submission-guidelines/research-article)
+  - publishing original research articles in methodological approaches to healthcare research. Articles on the methodology of epidemiological research, clinical trials and **meta-analysis/systematic review are particularly encouraged**, as are empirical studies of the associations between choice of methodology and study outcomes. Topics covered include: Study design, Data collection, quality, and reporting, Data analysis, **statistics, and modeling**
+  - IF: 3.4
+  - published multiple studies on comparing Bayesian and frequentist frameworks, e.g. comparason between frequentist and Bayesian meta-analysis [1](https://link.springer.com/article/10.1186/s12874-025-02664-5) and [2](https://link.springer.com/article/10.1186/s12874-024-02215-4) (!), [frequentist & Bayesian RCT](https://link.springer.com/article/10.1186/s12874-025-02537-x) 
+    - also includes environmental epi topics: [paper on systeamtic reviews & environmental pollution](https://link.springer.com/article/10.1186/s12874-026-02892-3)
+  - publishes graphical abstracts
+2. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) 
+  - lower IF (3.3) but open to methodological papers
 3. [Environmental Health, BMC](https://link.springer.com/journal/12940)
   - Has Review, Methodology (only accepts *new* methodology) and original Research article types
+<!-- Environmental Health Perspectives is not open-access (Horizon funding requires this) --> 
 
-- Environmental Health Perspectives is not open-access (Horizon funding requires this)
--   [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
+<!-- [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
 -   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7) for reporting Bayesian model
 -   [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment -->
 
+# Graphical abstract {.unnumbered}
+<!-- BMC Medical Research Methodology will consider visual abstracts -->
 
-<!-- # Graphical abstract {.unnumbered}
-<!-- https://www.elsevier.com/researcher/author/tools-and-resources/graphical-abstract -->
-
-<!-- ![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"} -->
+![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
 
 # Abstract {.unnumbered}
 ```{r}
@@ -181,6 +176,7 @@ I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
+<!-- max 350 words in BMC  -->
 **Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
 <!-- To evaluate differences in uncertainty quantification and applicability for risk assessment, -->
@@ -248,23 +244,23 @@ The aim of this study is twofold: first, to synthesize and quantitatively pool a
 # Methods
 ## Literature Review
 This review adheres to the Preferred Reporting Items for Systematic reviews and Meta-Analyses (PRISMA) guidelines [@page2021PRISMA2020Statement].
-The checklist can be found in the supplementary file 1.
+The checklist can be found in additional file 1.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting].
 
 We conducted a literature review to identify published studies investigating the association between postnatal (concurrent) exposure to Pb and IQ loss in children.
-This study was conducted within the EU-funded project *"Partnership for the Assessment of Risks from Chemicals" ([PARC](https://www.eu-parc.eu))*. 
+This study was conducted within the EU-funded project *"Partnership for the Assessment of Risks from Chemicals" (PARC)* @2026PartnershipAssessmentRisks. 
 The literature review presented here was used in multiple case studies within PARC, including one on the health burden of (methyl)mercury and lead on IQ loss.
 Here, we will only report results for concurrent lead exposure and IQ loss, but the figures and tables documenting the literature review contain parts of the search for other associations and exposure timeframes.
 We searched for articles published between January 2005 and July 2023.
 The year 2005 was chosen because burden of disease studies have predominantly relied on a landmark paper published in that year [@lanphear2005LowLevelEnvironmentalLead] and an update of the evidence base is therefore warranted, particularly given that lead exposure concentrations have decreased substantially since then.
 
 Search queries in PubMed (MEDLINE) and Scopus included the following terms: 
-substance (Pb - including Medical Subject Headings [MeSH] terms), outcome (IQ and neurodevelopment), population (children) and results (association, exposure-response function [ERF]) (supplementary file 2).
+substance (Pb - including Medical Subject Headings [MeSH] terms), outcome (IQ and neurodevelopment), population (children) and results (association, exposure-response function [ERF]) (additional file 2).
 
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
 Full texts were then assessed by one reviewer.
-Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 years), Exposure (biological measures of Pb from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ shift), Timing of exposure (no restriction) and Setting (no restriction) (Tab. 1).
+Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 years), Exposure (biological measures of Pb from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ shift), Timing of exposure (no restriction) and Setting (no restriction) (Table 1).
 
 ```{r}
 #| label: table_1_PECOTS
@@ -282,11 +278,17 @@ Table1 <- read_csv("tables_figures/main/table1.csv")
 
 Table1 |>
   gt() |>
+    tab_header(
+    title = "Table 1: PECOTS criteria"
+  ) |>
+  tab_source_note(
+    source_note = "HBM, human biomonitoring"
+  ) |>
   tab_options(
     table.font.size=11,
-    table.width = "50%"
-    ) |>
-  tab_caption("Tab. 1: PECOTS criteria. HBM, human biomonitoring")
+    table.width = "50%",
+        heading.align = "left"
+    ) 
 ```
 
 We excluded reviews and background articles that inventoried the literature without quantitatively summarizing the results. 
@@ -322,7 +324,7 @@ Where $\text{y}_{pred}$ represents the IQ score, $\alpha$ is the intercept, $\be
 
 In the literature, different logarithmic bases are used to transform BLL, including the natural logarithm ($\log_e$,​ where $e \approx 2.718$), base 2, and base 10.
 To enable pooling of the effect estimates, we harmonized all regression coefficients and their standard error (SE) to increments on the natural logarithm scale ($\log_e$).
-The calculations are documented in supplementary file 3.
+The calculations are documented in additional file 3.
 In some publications, BLL was not on a logarithmic but on an untransformed, linear scale.
 These were excluded from the meta-analysis, as transformation of effect estimates for linear BLL to log-linear could not be justified.
 
@@ -331,7 +333,7 @@ In order to quantitatively synthesize the available epidemiological literature o
 To make the results of both approaches comparable, both included the same effect estimates from the identified publications, and featured analogous model structure.
 We estimated pooled effect estimates for the loss of IQ points per continuous unit increase in $\log_e$-transformed BLL (µg/dL).
 R version 4.4.2 (2024-10-31) was used for all computations [@rcoreteam2024LanguageEnvironmentStatistical].
-All code for this study is publicly available on GitHub: [github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
+All code for this study is publicly available on GitHub @2026GitHub.
 
 ### Bayesian Meta-Analysis
 In the Bayesian framework, we employed a random-effects meta-analysis model.
@@ -352,7 +354,7 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were di
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
 Chain resolution was assessed using the effective sample size (ESS).
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (supplementary file 4).
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (additional file 4).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
@@ -416,7 +418,7 @@ Four studies were excluded because they exclusively assessed the effects of pren
 Furthermore, four studies were excluded because the cohorts overlapped with another study and would lead to duplicates.
 Four additional studies were excluded because they either solely reported effects of chemical mixtures, used non-linear models (including the use of splines) or failed to report essential statistics.
 Finally, twelve studies were included in the meta-analysis.
-Study characteristics and regression coefficients (effect estimates) are shown in Tab. 2.
+Study characteristics and regression coefficients (effect estimates) are shown in Table 2.
 
 ```{r}
 #| label: table_2_study-char
@@ -431,6 +433,12 @@ Table2 <- read_csv("tables_figures/main/table2.csv")
 
 Table2 |>
   gt() |>
+  tab_header(
+    title = "Table 2: Study Characteristics"
+  ) |>
+    tab_source_note(
+    source_note = "ADHD-RS, Attention Deficit Hyperactivity Disorder Rating Scale; BMI, Body Mass Index; CPT, Continuous Performance Test; ERF, exposure-response function; FSIQ, full scale IQ; HOME, Home Observation for Measurement of the Environment; SE, standard error; SES, socioeconomic status; WASI, Wechsler Abbreviated Scale of Intelligence, WISC, Wechsler Intelligence Scale for Children; WPPSI, Wechsler Preschool and Primary Scale of Intelligence"
+  ) |>
   opt_css("
     .gt_table th:nth-child(3){
       min-width: 200px !important
@@ -439,14 +447,14 @@ Table2 |>
       min-width: 250px !important
     }
   ") |>
-  tab_caption("Tab. 2: Study Characteristics. ADHD-RS, Attention Deficit Hyperactivity Disorder Rating Scale; BMI, Body Mass Index; CPT, Continuous Performance Test; ERF, exposure-response function; FSIQ, full scale IQ; HOME, Home Observation for Measurement of the Environment; SE, standard error; SES, socioeconomic status; WASI, Wechsler Abbreviated Scale of Intelligence, WISC, Wechsler Intelligence Scale for Children; WPPSI, Wechsler Preschool and Primary Scale of Intelligence") |>
   tab_options(
     table.font.size = 12,
-    table.width = "100%")
+    table.width = "100%",
+    heading.align = "left")
 ```
 
 A PRISMA flow diagram summarizing the review process is shown in Fig. 1 [@page2021PRISMA2020Statement].
-Detailed information on the screening process and exclusion reasons can be found in supplementary file 3.
+Detailed information on the screening process and exclusion reasons can be found in additional file 3.
 
 ![Fig. 1: PRISMA flow diagram. BLL, blood lead level; Pb, lead; Hg, mercury](tables_figures/main/figure1.png){width=60% fig-align="center"}
 
@@ -463,7 +471,7 @@ and two studies with a high RoB rating [@crump2013StatisticalReevaluationData; @
 Among the twelve included studies, items with a high overall RoB were *non-response rate* (7x high RoB, 5x some concerns), where some studies did not report the non-response rate or did not discuss whether non-responding individuals might systematically differ from included participants, leading to potential selection bias.
 Another item with overall high RoB was *accounting for confounding* (2x high RoB, 5x some concerns), where important confounders like maternal IQ were not included or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach was preferable [@smith2018StepAwayStepwise].
 Finally, in the item *handling of missing values*, some of the studies contain no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
-Results from the RoB assessment are presented in Tab. 3.
+Results from the RoB assessment are presented in Table 3.
 
 <!-- colourblind accessibility checked: https://www.farbsehschwaeche.de/en/color-blindness-simulator -->
 ```{r}
@@ -494,8 +502,16 @@ rob_colors <- list(
 
 gt_table <- Table3 |>
   gt() |>
-  tab_caption("Tab. 3: Risk of Bias Assessment. RoB, risk of bias; (-), high RoB; (+/-), some concerns / moderate; (+), low RoB; (?), no information; (n.a.), not applicable") |>
-  tab_options(table.font.size = 12) |>
+  tab_header(
+    title = "Table 3: Risk of Bias Assessment"
+  ) |>
+  tab_source_note(
+    source_note = "RoB, risk of bias; (-), high RoB; (+/-), some concerns / moderate; (+), low RoB; (?), no information; (n.a.), not applicable"
+  ) |>
+  tab_options(
+    table.font.size = 12,
+    heading.align = "left"
+    ) |>
   cols_align(align = "center", columns = everything()) |>
   cols_align(align = "left", columns = "Study, year") |>
   tab_spanner(label = "Selection",            columns = 2:5)  |>
@@ -572,10 +588,10 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 s_brm <- summary(m.brm)
 ```
 
-The prior predictive check indicates that the specified priors are appropriate (supplementary file 5a). 
-The posterior predictive check showed that the model correctly captures important patterns in the data (supplementary file 5b).
+The prior predictive check indicates that the specified priors are appropriate (additional file 5a). 
+The posterior predictive check showed that the model correctly captures important patterns in the data (additional file 5b).
 $\hat{R}$ values indicate that all MCMC chains coverged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
-MCMC trace plots showed well-mixed chains and convergence (supplementary file 5c).
+MCMC trace plots showed well-mixed chains and convergence (additional file 5c).
 ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively).
 
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
@@ -583,7 +599,7 @@ The frequentist approach produced a comparable pooled estimate of `r freq_mean` 
 Substantial between-study heterogeneity was observed under both frameworks.
 In the Bayesian framework, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 1)` (95% CrI: `r round(tau_sq_ci[1], 1)` to `r round(tau_sq_ci[2], 1)`), corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% (95% CrI: `r round(I2_credible_interval[1], 3) * 100`% to `r round(I2_credible_interval[2], 3) * 100`%).
 Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)` to `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)` to `r round(freq_I2_ub, 1)`%).
-Supplementary file 6 contains the full model code and output for both frameworks.
+Additional file 6 contains the full model code and output for both frameworks.
 The results of both frameworks are shown as forest plots in Figure 2.
 
 ::: {custom-style="Image Caption"}
@@ -594,7 +610,7 @@ The single study estimates shown in Fig. 2 differ in both approaches because ind
 In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework.
 
 ## Sensitivity Analysis
-We conducted two sets of sensitivity analyses; results are shown in Tab. 4.
+We conducted two sets of sensitivity analyses; results are shown in Table 4.
 First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
 For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
 These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
@@ -604,7 +620,7 @@ With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \s
 This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.  
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
-Supplementary file 5d shows prior, observed data and posterior distributions of all three prior specifications.
+Additional file 5d shows prior, observed data and posterior distributions of all three prior specifications.
 This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
 
 ```{r}
@@ -654,6 +670,12 @@ bold_rows <- which(table4_gt$is_bold)
 table4_gt %>%
   select(-is_bold) %>%
   gt(groupname_col = "sensitivity") %>%
+  tab_header(
+    title = "Table 4: Results of sensitivity analyses by framework"
+  ) %>%
+  tab_source_note(
+    source_note = "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)"
+  ) %>%
   opt_row_striping(row_striping = FALSE) %>%
   cols_label(
     model_display = "Framework",
@@ -674,11 +696,9 @@ table4_gt %>%
     table.font.size = px(13),
     column_labels.font.weight = "bold",
   ) %>%
-  tab_caption(
-    caption = "Tab. 4: Results of sensitivity analyses by framework. RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)."
-  ) %>%
   tab_options(
-  table.width = "50%"
+  table.width = "50%",
+  heading.align = "left"
 )
 ```
 
@@ -725,7 +745,7 @@ This underscores the value of the updated evidence synthesis provided here.
 Substantial heterogeneity was observed in this meta-analysis, likely driven by differences in study populations (size, location, age, and exposure range) and statistical methods, particularly the covariate adjustment sets used.
 Two studies reporting null effects were conducted in relatively low-exposed populations [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture], where limited exposure variation reduces the detectability of an effect. 
 Differences in study location may also contribute: IQ tests not adapted to the target population can result in underestimated scores, which may apply to the study by Menezes-Filho et al. [@menezes-filho2018EnvironmentalCoExposureLead]. 
-Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (supplementary file 5e).
+Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (additional file 5e).
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
@@ -797,15 +817,23 @@ table_abbr <- data.frame(Abbreviation, Meaning)
 knitr::kable(table_abbr)
 ```
 
-# CRediT authorship contribution statement {.unnumbered}
-<!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
-**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft, Writing – review and editing.
-**Margaux Sanchez**: Data curation, Writing – review and editing. 
-**Philippe Palmont**: Data curation, Writing – review and editing.
-**Simon Steiger**: Methodology, Writing – review and editing.
-**Dietrich Plass**: Supervision, Writing – review and editing.
+# Supplementary Information {.unnumbered}
 
-# Acknowledgements {.unnumbered}
+- Additional file 1; .docx; PRISMA 2020 checklist; Table containing all PRISMA 2020 items and the location where the items are reported 
+- Additional file 2; .xlsx; Search queries; Full search queries for the systematic review
+- Additional file 3; .xlsx; Literature review summary; Summary of the literature review process, incl. details on exclusion reasons and the effect estimate harmonization
+- Additional file 4; .pdf; Calculation of $I^2$ in the Bayesian Framework; Detailed rationale and description for the calculation of $I^2$ in the Bayesian meta-analysis
+- Additional file 5; .pdf; Supplementary file 5; Diagnostic plots for the Bayesian model and funnel plot
+- Additional file 6; .pdf; Model outputs; Full model output for frequentist and Bayesian meta-analysis
+
+File name (e.g. Additional file 1)
+File format including the correct file extension for example .pdf, .xls, .txt, .pptx (including name and a URL of an appropriate viewer if the format is unusual)
+Title of data
+Description of data
+
+# Declarations {.unnumbered}
+
+## Acknowledgements {.unnumbered}
 The authors thank 
 Rafiqa Benchrih (Department of Epidemiology and Public Health, Sciensano, Belgium), 
 Jurgen Buekers (Flemish Institute for Technological Research, VITO, Belgium),
@@ -815,11 +843,30 @@ Anthony Purece (Flemish Institute for Technological Research, VITO, Belgium) and
 Sofie Thomsen (Technical University of Denmark, DTU, Denmark)
 for their help in the literature screening process.
 
-# Funding {.unnumbered}
+## CRediT authorship contribution statement {.unnumbered}
+<!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
+**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft, Writing – review and editing.
+**Margaux Sanchez**: Data curation, Writing – review and editing. 
+**Philippe Palmont**: Data curation, Writing – review and editing.
+**Simon Steiger**: Methodology, Writing – review and editing.
+**Dietrich Plass**: Supervision, Writing – review and editing.
+
+## Funding {.unnumbered}
 This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. 
 Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
 Neither the European Union nor the granting authority can be held responsible for them.
 
-# Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
+## Data availability {.unnumbered}
+
+## Ethics approval and consent to participate {.unnumbered}
+Not applicable.
+
+## Consent for publication {.unnumbered}
+Not applicable.
+
+## Competing interests {.unnumbered}
+The authors declare no competing interests.
+
+<!-- ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
 During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
-After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. -->
