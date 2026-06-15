@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -83,8 +83,8 @@ Evidence synthesis\
 Bayesian modeling\
 Uncertainty quantification\
 Lead exposure\
-<!-- Children's IQ\ -->
 Environmental epidemiology\
+<!-- Children's IQ\ -->
 
 <!-- # Highlights {.unnumbered}
 * Bayesian model yields full probability distributions, not just point estimates
@@ -93,7 +93,7 @@ Environmental epidemiology\
 <!-- * Bayesian results support direct probability statements for risk assessment -->
 <!-- * Results underscore the health risk of lead exposure, even at low concentrations -->
 
-## Journal: {.unnumbered}
+<!-- ## Journal: {.unnumbered}
 1. [BMC Medical Research Methodology](https://link.springer.com/journal/12874/submission-guidelines/research-article)
   - publishing original research articles in methodological approaches to healthcare research. Articles on the methodology of epidemiological research, clinical trials and **meta-analysis/systematic review are particularly encouraged**, as are empirical studies of the associations between choice of methodology and study outcomes. Topics covered include: Study design, Data collection, quality, and reporting, Data analysis, **statistics, and modeling**
   - IF: 3.4
@@ -103,7 +103,7 @@ Environmental epidemiology\
 2. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) 
   - lower IF (3.3) but open to methodological papers
 3. [Environmental Health, BMC](https://link.springer.com/journal/12940)
-  - Has Review, Methodology (only accepts *new* methodology) and original Research article types
+  - Has Review, Methodology (only accepts *new* methodology) and original Research article types -->
 <!-- Environmental Health Perspectives is not open-access (Horizon funding requires this) --> 
 
 <!-- [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
@@ -177,25 +177,25 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
 <!-- max 350 words in BMC  -->
-**Objective**: Quantifying uncertainty is crucial for risk assessment and policy-making but current meta-analytic approaches fall short in this regard.
+**Objective**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
-<!-- To evaluate differences in uncertainty quantification and applicability for risk assessment, -->
-We compared frequentist and Bayesian frameworks, using lead exposure and IQ as a case study.
+To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
 
-**Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and children's IQ score. 
-Risk of bias (RoB) was assessed and regression coefficients were harmonized. 
-In both meta-analyses, we used random-effects models and included the same effect estimates.
+**Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children. 
+After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
+In both meta-analyses, we included the same effect estimates, assumed a multilevel structure and used random-effects models.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
-Sensitivity analyses examined robustness to RoB and priors.
+Sensitivity analyses examined robustness to RoB and to prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
-**Results**: Twelve studies were included.
+**Results**: Twelve studies were included in the meta-analysis.
 The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1])`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 2) * 100`%).
-The Bayesian framework provided a posterior distribution for heterogeneity, quantifying uncertainty from between-study variation. 
+The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed robustness to RoB and prior specification.
-The Bayesian framework was less sensitive to outlier studies, resulting in a lower pooled effect.
+The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
 **Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
@@ -490,13 +490,13 @@ Table3 <- read_csv("tables_figures/main/table3.csv")
 rob_cols <- 2:17
 
 rob_colors <- list(
-  "+"    = "#A8DBFC",
-  "low"  = "#A8DBFC",
-  "+/-"  = "#EBDE93",
-  "moderate" = "#EBDE93",
-  "-"    = "#E08D6D",
-  "high" = "#E08D6D",
-  "?"    = "#E08D6D",
+  "+"    = "#e2e2e2",
+  "low"  = "#e2e2e2",
+  "+/-"  = "#b0b0b0",
+  "moderate" = "#b0b0b0",
+  "-"    = "#818181",
+  "high" = "#818181",
+  "?"    = "#818181",
   "n.a." = "#FFFFFF"
 )
 
@@ -826,11 +826,6 @@ knitr::kable(table_abbr)
 - Additional file 5; .pdf; Supplementary file 5; Diagnostic plots for the Bayesian model and funnel plot
 - Additional file 6; .pdf; Model outputs; Full model output for frequentist and Bayesian meta-analysis
 
-File name (e.g. Additional file 1)
-File format including the correct file extension for example .pdf, .xls, .txt, .pptx (including name and a URL of an appropriate viewer if the format is unusual)
-Title of data
-Description of data
-
 # Declarations {.unnumbered}
 
 ## Acknowledgements {.unnumbered}
@@ -857,6 +852,7 @@ Views and opinions expressed are however those of the author(s) only and do not 
 Neither the European Union nor the granting authority can be held responsible for them.
 
 ## Data availability {.unnumbered}
+All data and code needed to reproduce the current study are publicly available on GitHub, [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis) [@2026GitHub].
 
 ## Ethics approval and consent to participate {.unnumbered}
 Not applicable.
