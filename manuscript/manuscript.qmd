@@ -473,7 +473,6 @@ Another item with overall high RoB was *accounting for confounding* (2x high RoB
 Finally, in the item *handling of missing values*, some of the studies contain no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
 Results from the RoB assessment are presented in Table 3.
 
-<!-- colourblind accessibility checked: https://www.farbsehschwaeche.de/en/color-blindness-simulator -->
 ```{r}
 #| label: table_3_RoB
 #| echo: false
@@ -590,7 +589,7 @@ s_brm <- summary(m.brm)
 
 The prior predictive check indicates that the specified priors are appropriate (additional file 5a). 
 The posterior predictive check showed that the model correctly captures important patterns in the data (additional file 5b).
-$\hat{R}$ values indicate that all MCMC chains coverged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
+$\hat{R}$ values indicate that all MCMC chains converged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
 MCMC trace plots showed well-mixed chains and convergence (additional file 5c).
 ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively).
 
@@ -828,6 +827,23 @@ knitr::kable(table_abbr)
 
 # Declarations {.unnumbered}
 
+## Ethics approval and consent to participate {.unnumbered}
+Not applicable.
+
+## Consent for publication {.unnumbered}
+Not applicable.
+
+## Availability of data and materials {.unnumbered}
+All data and code needed to reproduce the current study are publicly available on GitHub, [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis) [@2026GitHub].
+
+## Competing interests {.unnumbered}
+The authors declare no competing interests.
+
+## Funding {.unnumbered}
+This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. 
+Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
+Neither the European Union nor the granting authority can be held responsible for them.
+
 ## Acknowledgements {.unnumbered}
 The authors thank 
 Rafiqa Benchrih (Department of Epidemiology and Public Health, Sciensano, Belgium), 
@@ -838,30 +854,13 @@ Anthony Purece (Flemish Institute for Technological Research, VITO, Belgium) and
 Sofie Thomsen (Technical University of Denmark, DTU, Denmark)
 for their help in the literature screening process.
 
-## CRediT authorship contribution statement {.unnumbered}
+## Authors' contributions {.unnumbered}
 <!-- based on https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement -->
-**Paulina Sell**: Conceptualization, Data curation, Formal analysis, Methodology, Writing - original draft, Writing – review and editing.
-**Margaux Sanchez**: Data curation, Writing – review and editing. 
-**Philippe Palmont**: Data curation, Writing – review and editing.
-**Simon Steiger**: Methodology, Writing – review and editing.
-**Dietrich Plass**: Supervision, Writing – review and editing.
-
-## Funding {.unnumbered}
-This work was carried out in the framework of the European Partnership for the Assessment of Risks from Chemicals (PARC) and has received funding from the European Union’s Horizon Europe research and innovation programme under Grant Agreement No 101057014. 
-Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Health and Digital Executive Agency. 
-Neither the European Union nor the granting authority can be held responsible for them.
-
-## Data availability {.unnumbered}
-All data and code needed to reproduce the current study are publicly available on GitHub, [https://github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis) [@2026GitHub].
-
-## Ethics approval and consent to participate {.unnumbered}
-Not applicable.
-
-## Consent for publication {.unnumbered}
-Not applicable.
-
-## Competing interests {.unnumbered}
-The authors declare no competing interests.
+PS: Conceptualization, data curation, formal analysis, methodology, writing – original draft, writing – review and editing.
+MS and PP: Data curation, writing – review and editing.
+SS: Methodology, writing – review and editing.
+DP: Supervision, writing – review and editing.
+All authors read and approved the final manuscript.
 
 <!-- ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
 During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
