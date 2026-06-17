@@ -177,7 +177,7 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
 <!-- max 350 words in BMC  -->
-**Objective**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
+**Background**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
 To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
 
@@ -197,7 +197,7 @@ Sensitivity analyses showed robustness to RoB and prior specification.
 The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
-**Conclusion**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
+**Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
 These features are particularly valuable for risk assessment and policy-making.
 
@@ -248,7 +248,7 @@ The checklist can be found in additional file 1.
 The reporting of the Bayesian methods and their results was guided by the Bayesian Analysis Reporting Guidelines (BARG) [@kruschke2021BayesianAnalysisReporting].
 
 We conducted a literature review to identify published studies investigating the association between postnatal (concurrent) exposure to Pb and IQ loss in children.
-This study was conducted within the EU-funded project *"Partnership for the Assessment of Risks from Chemicals" (PARC)* @2026PartnershipAssessmentRisks. 
+This study was conducted within the EU-funded project *"Partnership for the Assessment of Risks from Chemicals" (PARC)* [@2026PartnershipAssessmentRisks]. 
 The literature review presented here was used in multiple case studies within PARC, including one on the health burden of (methyl)mercury and lead on IQ loss.
 Here, we will only report results for concurrent lead exposure and IQ loss, but the figures and tables documenting the literature review contain parts of the search for other associations and exposure timeframes.
 We searched for articles published between January 2005 and July 2023.
@@ -333,7 +333,7 @@ In order to quantitatively synthesize the available epidemiological literature o
 To make the results of both approaches comparable, both included the same effect estimates from the identified publications, and featured analogous model structure.
 We estimated pooled effect estimates for the loss of IQ points per continuous unit increase in $\log_e$-transformed BLL (µg/dL).
 R version 4.4.2 (2024-10-31) was used for all computations [@rcoreteam2024LanguageEnvironmentStatistical].
-All code for this study is publicly available on GitHub @2026GitHub.
+All code for this study is publicly available on GitHub [@2026GitHub].
 
 ### Bayesian Meta-Analysis
 In the Bayesian framework, we employed a random-effects meta-analysis model.
