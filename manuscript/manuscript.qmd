@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  # html:
-  #   toc: true
-  #   toc-location: left
-  #   tbl-cap-location: bottom
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ref.docx
+  html:
+    toc: true
+    toc-location: left
+    tbl-cap-location: bottom
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -93,25 +93,7 @@ Environmental epidemiology\
 <!-- * Bayesian results support direct probability statements for risk assessment -->
 <!-- * Results underscore the health risk of lead exposure, even at low concentrations -->
 
-<!-- ## Journal: {.unnumbered}
-1. [BMC Medical Research Methodology](https://link.springer.com/journal/12874/submission-guidelines/research-article)
-  - publishing original research articles in methodological approaches to healthcare research. Articles on the methodology of epidemiological research, clinical trials and **meta-analysis/systematic review are particularly encouraged**, as are empirical studies of the associations between choice of methodology and study outcomes. Topics covered include: Study design, Data collection, quality, and reporting, Data analysis, **statistics, and modeling**
-  - IF: 3.4
-  - published multiple studies on comparing Bayesian and frequentist frameworks, e.g. comparason between frequentist and Bayesian meta-analysis [1](https://link.springer.com/article/10.1186/s12874-025-02664-5) and [2](https://link.springer.com/article/10.1186/s12874-024-02215-4) (!), [frequentist & Bayesian RCT](https://link.springer.com/article/10.1186/s12874-025-02537-x) 
-    - also includes environmental epi topics: [paper on systeamtic reviews & environmental pollution](https://link.springer.com/article/10.1186/s12874-026-02892-3)
-  - publishes graphical abstracts
-2. [Environmental Epidemiology, ISEE](https://edmgr.ovid.com/ee/accounts/ifauth.htm) 
-  - lower IF (3.3) but open to methodological papers
-3. [Environmental Health, BMC](https://link.springer.com/journal/12940)
-  - Has Review, Methodology (only accepts *new* methodology) and original Research article types -->
-<!-- Environmental Health Perspectives is not open-access (Horizon funding requires this) --> 
-
-<!-- [PRISMA 2020 checklist](https://www.prisma-statement.org/prisma-2020) for structure
--   [Bayesian Analysis Reporting Guidelines, BARG](https://doi.org/10.1038/s41562-021-01177-7) for reporting Bayesian model
--   [raRoB tool](https://efsa.onlinelibrary.wiley.com/doi/10.2903/sp.efsa.2024.EN-8925) for Risk of Bias Assessment -->
-
 # Graphical abstract {.unnumbered}
-<!-- BMC Medical Research Methodology will consider visual abstracts -->
 
 ![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
 
@@ -131,13 +113,12 @@ freq_model <- readRDS("../models/main/freq_full.rds")
 #| message: false
 #| warning: false
 
-
 library(posterior)
 library(HDInterval)
 library(brms)
 library(metafor)
 
-data = read.csv("../data/study_data_leadIQloss.csv")
+data <- read.csv("../data/study_data_leadIQloss.csv")
 
 freq_mean <- round(as.numeric(freq_model$beta), 2)
 freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
@@ -193,7 +174,7 @@ The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confid
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1])`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 2) * 100`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation. 
-Sensitivity analyses showed robustness to RoB and prior specification.
+Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
 The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
@@ -278,17 +259,17 @@ Table1 <- read_csv("tables_figures/main/table1.csv")
 
 Table1 |>
   gt() |>
-    tab_header(
+  tab_header(
     title = "Table 1: PECOTS criteria"
   ) |>
   tab_source_note(
     source_note = "HBM, human biomonitoring"
   ) |>
   tab_options(
-    table.font.size=11,
+    table.font.size = 11,
     table.width = "50%",
-        heading.align = "left"
-    ) 
+    heading.align = "left"
+  )
 ```
 
 We excluded reviews and background articles that inventoried the literature without quantitatively summarizing the results. 
@@ -436,21 +417,24 @@ Table2 |>
   tab_header(
     title = "Table 2: Study Characteristics"
   ) |>
-    tab_source_note(
+  tab_source_note(
     source_note = "ADHD-RS, Attention Deficit Hyperactivity Disorder Rating Scale; BMI, Body Mass Index; CPT, Continuous Performance Test; ERF, exposure-response function; FSIQ, full scale IQ; HOME, Home Observation for Measurement of the Environment; SE, standard error; SES, socioeconomic status; WASI, Wechsler Abbreviated Scale of Intelligence, WISC, Wechsler Intelligence Scale for Children; WPPSI, Wechsler Preschool and Primary Scale of Intelligence"
   ) |>
-  opt_css("
+  opt_css(
+    "
     .gt_table th:nth-child(3){
       min-width: 200px !important
     }
     .gt_table td:nth-child(9) {
       min-width: 250px !important
     }
-  ") |>
+  "
+  ) |>
   tab_options(
     table.font.size = 12,
     table.width = "100%",
-    heading.align = "left")
+    heading.align = "left"
+  )
 ```
 
 A PRISMA flow diagram summarizing the review process is shown in Fig. 1 [@page2021PRISMA2020Statement].
@@ -483,19 +467,18 @@ Results from the RoB assessment are presented in Table 3.
 #| eval: !expr knitr::pandoc_to() != "docx"
 #| include: !expr knitr::pandoc_to() != "docx"
 
-
 Table3 <- read_csv("tables_figures/main/table3.csv")
 
 rob_cols <- 2:17
 
 rob_colors <- list(
-  "+"    = "#e2e2e2",
-  "low"  = "#e2e2e2",
-  "+/-"  = "#b0b0b0",
+  "+" = "#e2e2e2",
+  "low" = "#e2e2e2",
+  "+/-" = "#b0b0b0",
   "moderate" = "#b0b0b0",
-  "-"    = "#818181",
+  "-" = "#818181",
   "high" = "#818181",
-  "?"    = "#818181",
+  "?" = "#818181",
   "n.a." = "#FFFFFF"
 )
 
@@ -510,16 +493,16 @@ gt_table <- Table3 |>
   tab_options(
     table.font.size = 12,
     heading.align = "left"
-    ) |>
+  ) |>
   cols_align(align = "center", columns = everything()) |>
   cols_align(align = "left", columns = "Study, year") |>
-  tab_spanner(label = "Selection",            columns = 2:5)  |>
-  tab_spanner(label = "Exposure",             columns = 6:7)  |>
-  tab_spanner(label = "Outcome",              columns = 8:9)  |>
-  tab_spanner(label = "Confounding",          columns = 10:11)|>
-  tab_spanner(label = "Follow-up",            columns = 12:13)|>
-  tab_spanner(label = "Analysis",             columns = 14:15)|>
-  tab_spanner(label = "Selective Reporting",  columns = 16)   |>
+  tab_spanner(label = "Selection", columns = 2:5) |>
+  tab_spanner(label = "Exposure", columns = 6:7) |>
+  tab_spanner(label = "Outcome", columns = 8:9) |>
+  tab_spanner(label = "Confounding", columns = 10:11) |>
+  tab_spanner(label = "Follow-up", columns = 12:13) |>
+  tab_spanner(label = "Analysis", columns = 14:15) |>
+  tab_spanner(label = "Selective Reporting", columns = 16) |>
   tab_spanner(label = "Overall Risk of Bias", columns = 17)
 
 # Apply cell-level coloring per column and per value
@@ -527,10 +510,10 @@ for (col in names(Table3)[rob_cols]) {
   for (val in names(rob_colors)) {
     gt_table <- gt_table |>
       tab_style(
-        style     = cell_fill(color = rob_colors[[val]]),
+        style = cell_fill(color = rob_colors[[val]]),
         locations = cells_body(
           columns = all_of(col),
-          rows    = .data[[col]] == val
+          rows = .data[[col]] == val
         )
       )
   }
@@ -548,14 +531,14 @@ gt_table
 # tau2 for frequentist model
 freq_confint <- confint(freq_model)
 freq_confint <- freq_confint$random
-freq_tau2_mean <- freq_confint[1,1]
-freq_tau2_lb <- freq_confint[1,2]
-freq_tau2_ub <- freq_confint[1,3]
+freq_tau2_mean <- freq_confint[1, 1]
+freq_tau2_lb <- freq_confint[1, 2]
+freq_tau2_ub <- freq_confint[1, 3]
 
 # I2 for freq model
-freq_I2_mean <- freq_confint[3,1]
-freq_I2_lb <- freq_confint[3,2]
-freq_I2_ub <- freq_confint[3,3]
+freq_I2_mean <- freq_confint[3, 1]
+freq_I2_lb <- freq_confint[3, 2]
+freq_I2_ub <- freq_confint[3, 3]
 
 m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
@@ -633,38 +616,71 @@ This shows that the results are robust to prior specification, because the shift
 
 table_all <- readRDS("tables_figures/main/table_sensi.rds")
 
-variant_labels <- c(
-  main = "Main",
-  narrow = "Narrow priors",
-  wide = "Wide priors",
-  full = "Full sample",
-  low = "Low RoB only",
-  low_medium = "Low/Medium RoB"
-)
-
 table4_gt <- table_all %>%
   mutate(
-    sensitivity = factor(sensitivity, levels = c("RoB", "Priors")),
-    model_type = factor(model_type, levels = c("Bayesian", "Frequentist")),
-    variant_clean = variant_labels[variant],
+    sensitivity = factor(
+      sensitivity,
+      levels = c("RoB", "Study uncertainty", "Priors")
+    ),
+    model_type = factor(
+      model_type,
+      levels = c("Bayesian", "Frequentist")
+    ),
+    variant_clean = factor(
+      variant,
+      levels = c(
+        "full",
+        "Full sample",
+        "Excluding two most uncertain studies",
+        "low_medium",
+        "low",
+        "main",
+        "narrow",
+        "wide"
+      ),
+      labels = c(
+        "Full sample",
+        "Full sample",
+        "Excluding two most uncertain studies",
+        "Low/Medium RoB",
+        "Low RoB only",
+        "Main",
+        "Narrow priors",
+        "Wide priors"
+      )
+    ),
     Estimate = sprintf("%.2f (%.2f, %.2f)", mean, lb, ub),
     is_bold = (model_type == "Bayesian" &
       sensitivity == "RoB" &
       variant == "full") |
-      (model_type == "Frequentist" & sensitivity == "RoB" & variant == "full") |
-      (model_type == "Bayesian" & sensitivity == "Priors" & variant == "main")
+      (model_type == "Frequentist" &
+        sensitivity == "RoB" &
+        variant == "full") |
+      (model_type == "Bayesian" &
+        sensitivity == "Priors" &
+        variant == "main")
   ) %>%
-  arrange(sensitivity, model_type, variant) %>% # <-- key change
+  arrange(sensitivity, model_type, variant_clean) %>%
   group_by(sensitivity, model_type) %>%
   mutate(
-    model_display = ifelse(row_number() == 1, as.character(model_type), "")
+    model_display = ifelse(
+      row_number() == 1,
+      as.character(model_type),
+      ""
+    )
   ) %>%
   ungroup() %>%
-  select(sensitivity, model_display, variant_clean, Estimate, is_bold)
+  select(
+    sensitivity,
+    model_display,
+    variant_clean,
+    Estimate,
+    is_bold
+  )
 
 
-first_model_rows <- which(table4_gt$model_display != "")
 bold_rows <- which(table4_gt$is_bold)
+
 
 table4_gt %>%
   select(-is_bold) %>%
@@ -673,7 +689,11 @@ table4_gt %>%
     title = "Table 4: Results of sensitivity analyses by framework"
   ) %>%
   tab_source_note(
-    source_note = "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)"
+    source_note = paste(
+      "RoB, risk of bias; UI, uncertainty interval ",
+      "(credible interval for Bayesian and confidence interval ",
+      "for frequentist model results)"
+    )
   ) %>%
   opt_row_striping(row_striping = FALSE) %>%
   cols_label(
@@ -681,24 +701,28 @@ table4_gt %>%
     variant_clean = "Variant",
     Estimate = "Estimate (95% UI)"
   ) %>%
-  cols_align(align = "left", columns = c(model_display, variant_clean)) %>%
+  cols_align(
+    align = "left",
+    columns = c(model_display, variant_clean)
+  ) %>%
   tab_style(
     style = cell_text(weight = "bold"),
     locations = cells_row_groups()
   ) %>%
   tab_style(
     style = cell_text(weight = "bold"),
-    locations = cells_body(rows = bold_rows)
+    locations = cells_body(
+      columns = Estimate,
+      rows = bold_rows
+    )
   ) %>%
   tab_options(
-    table.width = pct(100),
-    table.font.size = px(13),
+    table.width = pct(70),
+    table.font.size = px(12),
+    data_row.padding = px(3),
     column_labels.font.weight = "bold",
-  ) %>%
-  tab_options(
-  table.width = "50%",
-  heading.align = "left"
-)
+    heading.align = "left"
+  )
 ```
 
 # Discussion
@@ -781,36 +805,38 @@ We believe that the benefits gained outweigh the investments made and therefore 
 
 Meaning <- c(
   "Bayesian Analysis Reporting Guidelines",
-  "Blood lead level", 
+  "Blood lead level",
   "Confidence interval",
   "Credible interval",
   "Disability-adjusted life years",
   "Environmental Burden of Disease",
   "Exposure-response function",
-  "European Union", 
+  "European Union",
   "Intelligence quotient",
   "Large language model",
   "Preferred Reporting Items for Systematic reviews and Meta-Analyses",
   "Risk of bias",
   "Standard deviation",
   "Standard error",
-  "Uncertainty interval")
+  "Uncertainty interval"
+)
 Abbreviation <- c(
   "BARG",
-  "BLL", 
+  "BLL",
   "CI",
   "CrI",
   "DALY",
   "EBD",
   "ERF",
-  "EU", 
+  "EU",
   "IQ",
   "LLM",
   "PRISMA",
   "RoB",
   "SD",
   "SE",
-  "UI")
+  "UI"
+)
 table_abbr <- data.frame(Abbreviation, Meaning)
 
 knitr::kable(table_abbr)

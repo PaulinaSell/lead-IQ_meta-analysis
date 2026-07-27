@@ -12,7 +12,8 @@ library(HDInterval)
 library(bayestestR)
 library(posterior)
 
-data_full = read.csv("data/study_data_leadIQloss.csv")
+data_full <- read.csv("data/study_data_leadIQloss.csv")
+
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
 data_low_medium <- data_full[
   !data_full$author_year %in% c("Crump 2013", "Earl 2016"),
@@ -151,7 +152,7 @@ priors_list <- list(
 
 # loop
 for (prior_set in names(priors_list)) {
-  priors = priors_list[[prior_set]]
+  priors <- priors_list[[prior_set]]
 
   m.brm <- brm(
     beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
@@ -190,6 +191,45 @@ for (prior_set in names(priors_list)) {
     file = "models/sensitivity/priors/m.brm_models_list.rds"
   )
 }
+
+# 3 High uncertainty studies ----
+
+# sensitivity to outlier studies
+
+m.brm_main <- readRDS("models/sensitivity/RoB/m.brm_full.rds")
+rma_main <- readRDS("models/sensitivity/RoB/freq_full.rds")
+
+# Only fit the new, outlier-excluded model
+data_excl_outliers <- data_full[
+  !data_full$author_year %in% c("Earl 2016", "Lee 2021"),
+]
+
+m.brm_excl <- brm(
+  beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
+  data = data_excl_outliers,
+  prior = priors,
+  save_pars = save_pars(all = TRUE),
+  chains = 4,
+  iter = 4000
+)
+
+# saveRDS(m.brm_excl, "models/sensitivity/outlier/m.brm_excl.rds")
+
+rma_excl <- rma(
+  yi = beta_ln,
+  sei = se_beta_ln,
+  data = data_excl_outliers,
+  method = "REML"
+)
+
+# saveRDS(rma_excl, "models/sensitivity/outlier/rma_excl.rds")
+
+fixef(m.brm_main)["Intercept", ] # est: -2.2621048, se: 0.6348459
+fixef(m.brm_excl)["Intercept", ] # est: -2.0439548, se:  0.6433767 -> diff: 0.21815
+
+rma_main # est: -2.4500, se: 0.6371
+rma_excl # est: -2.1800, se: 0.6603 -> diff: 0.27
+
 
 # read models
 # m.brm_models <- readRDS("models/sensitivity/priors/m.brm_models_list.rds")
@@ -298,6 +338,21 @@ tab_bayes_prior <- imap_dfr(
     )
 )
 
+tab_bayes_uncertainty <- bind_rows(
+  extract_brms(m.brm_models$rob$main$full) %>%
+    mutate(
+      sensitivity = "Study uncertainty",
+      variant = "Full sample",
+      model_type = "Bayesian"
+    ),
+  extract_brms(m.brm_excl) %>%
+    mutate(
+      sensitivity = "Study uncertainty",
+      variant = "Excluding two most uncertain studies",
+      model_type = "Bayesian"
+    )
+)
+
 tab_bayes <- bind_rows(tab_bayes_rob, tab_bayes_prior)
 
 # Freq sensitivity analysis table
@@ -315,6 +370,20 @@ tab_freq_rob <- map_dfr(
   }
 )
 
+tab_freq_uncertainty <- bind_rows(
+  extract_rma(freq_models$full) %>%
+    mutate(
+      sensitivity = "Study uncertainty",
+      variant = "Full sample",
+      model_type = "Frequentist"
+    ),
+  extract_rma(rma_excl) %>%
+    mutate(
+      sensitivity = "Study uncertainty",
+      variant = "Excluding two most uncertain studies",
+      model_type = "Frequentist"
+    )
+)
 
 table_all <- bind_rows(
   tab_bayes %>%
@@ -326,7 +395,17 @@ table_all <- bind_rows(
       lb = bayes_lb,
       ub = bayes_ub
     ),
-  tab_freq_rob
+  tab_bayes_uncertainty %>%
+    transmute(
+      sensitivity,
+      variant,
+      model_type,
+      mean = bayes_mean,
+      lb = bayes_lb,
+      ub = bayes_ub
+    ),
+  tab_freq_rob,
+  tab_freq_uncertainty
 )
 
 saveRDS(
@@ -336,7 +415,10 @@ saveRDS(
 
 table_pub <- table_all %>%
   mutate(
-    Sensitivity = factor(sensitivity, levels = c("Priors", "RoB")),
+    Sensitivity = factor(
+      sensitivity,
+      levels = c("RoB", "Study uncertainty", "Priors")
+    ),
     Variant = variant,
     "Model type" = factor(model_type, levels = c("Bayesian", "Frequentist")),
     Estimate = sprintf("%.2f (%.2f; %.2f)", mean, lb, ub)
