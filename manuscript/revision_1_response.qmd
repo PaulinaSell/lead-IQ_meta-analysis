@@ -104,7 +104,12 @@ In Section 3.4, the authors conclude: “This shows that the results are robust 
 Thank you for flagging this, we adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis.
 :::
 
+:::{.revision section="Methods -- Meta-Analysis -- Sensitivity Analysis"}
+"To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors that we consider to be extreme but still reasonable."
+:::
+
 ::: {.revision section="Results -- Sensitivity Analysis"}
+"The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable."\
 "This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis."
 :::
 
@@ -125,7 +130,7 @@ Thank you, we agree and have added that the difference in pooled estimates is al
 :::
 
 ::: {.revision section="Discussion"}
-"This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, driven by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors."
+"This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors."
 :::
 
 ### Minor comments
@@ -171,6 +176,7 @@ Although the coefficients were converted to the same logarithmic scale, the incl
 :::
 
 ::: {.reply}
+<!-- add more explicit warning about interpreting the results (line 743) -->
 :::
 
 ::: {.revision section=""}
@@ -181,6 +187,7 @@ The manuscript states that study estimates in both panels of Figure 2 are shrunk
 :::
 
 ::: {.reply}
+<!-- sightly change wording, but is already fixed in line 598 -->
 :::
 
 ::: {.revision section=""}

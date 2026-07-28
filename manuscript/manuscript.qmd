@@ -382,7 +382,7 @@ The $I^2$ statistic was calculated as a measure of heterogeneity, representing t
 We conducted two sets of sensitivity analyses.
 To examine the sensitivity of the results to possibly biased study estimates, we ran both the frequentist and Bayesian models again twice, excluding (1) studies with a high RoB rating and (2) with a high or moderate RoB.
 
-To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors.
+To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors that we consider to be extreme but still reasonable.
 The first set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
 The second set of priors was less informative (wider) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
@@ -605,7 +605,7 @@ First, in order to test the sensitivity of the results to possibly biased study 
 For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
 These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
 
-The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to prior specification.
+The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable.
 With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases.
 This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.  
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
@@ -632,6 +632,8 @@ variant_labels <- c(
   low = "Low RoB only",
   low_medium = "Low/Medium RoB"
 )
+
+table_all[4, 4:6] <- table_all[1, 4:6] # RoB full model equals Priors main model
 
 table4_gt <- table_all %>%
   mutate(
@@ -699,7 +701,7 @@ While previous publications have compared both frameworks, they focus either on 
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, driven by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors.
+This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors.
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 The two frameworks differ in how they treat outlier studies reporting substantial uncertainty.
 Bayesian meta-analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
@@ -740,8 +742,11 @@ The Bayesian approach was less sensitive to estimates from such studies, because
 
 This study has several limitations that should be considered when interpreting the results.
 First, the included studies were heterogeneous with respect to covariate adjustment and cohort characteristics, which limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
+<!-- needs more specific call for caution! -->
+
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
+
 Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 <!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken. 
