@@ -54,9 +54,11 @@ In the Background, the authors state: “Unlike frequentist confidence intervals
 :::
 
 ::: {.reply}
+Thank you for this comment, we changed the wording of this sentence to explain the difference between frequentist confidence intervals and Bayesian credible intervals more precisely.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Background"}
+"Unlike frequentist confidence intervals, which are often misinterpreted as having a 95% probability of containing the unknown parameter [...]"
 :::
 
 :::{.comment}
@@ -64,9 +66,19 @@ In Section 3.3, the manuscript reports that the Bayesian model gives a larger be
 :::
 
 ::: {.reply}
+Thank you for this comment.
+We have provided a detailed explanation for how we calculated the Bayesian I^2 estimate and added it as additional file 4 in our original submission.
+In case the additional files were not available for the reviewers, they can be obtained from the public GitHub repository directly: https://github.com/PaulinaSell/lead-IQ_meta-analysis/tree/main/manuscript/tables_figures/supplement.
+Regarding why a larger $\tau^2$ did not translate into a larger $I^2$: this follows from Jensen's inequality. 
+
+Because $I^2 = \dfrac{\tau^2}{\tau^2 + v_t}$ is a concave function of $\tau^2$ for fixed $v_t$, and the reported Bayesian $I^2$ is the posterior mean of this function evaluated across all posterior draws of $\tau^2$ — rather than the function evaluated at a single point estimate — the resulting value is necessarily smaller than would be obtained by substituting the posterior mean of $\tau^2$ directly into the formula.
+We have added a sentence to Section 3.3 clarifying this.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Results -- Meta Analysis"}
+"Despite the larger Bayesian posterior mean of $\tau^2$, the corresponding $I^2$ was smaller than the frequentist $I^2$.
+This is because the reported Bayesian $I^2$ was not obtained by evaluating $I^2 = \dfrac{\tau^2}{\tau^2 + v_t}$ at a single $\tau^2$ value, but by averaging this formula across all posterior draws, $I^{2(s)} = \dfrac{\tau^{2(s)}}{\tau^{2(s)} + v_t}$ (Additional File 4).
+Because $I^2$ is a concave function of $\tau^2$, this averaging yields a smaller value than would result from substituting the posterior mean of $\tau^2$ alone (Jensen's inequality [citation]), explaining why the larger Bayesian $\tau^2$ did not translate into a larger $I^2$."
 :::
 
 :::{.comment}
@@ -74,9 +86,14 @@ In Section 3.3, the authors state: “In the context of meta-analysis, shrinkage
 :::
 
 ::: {.reply}
+Thank you, we agree that this statement might be misleading and have revised the text to clarify that shrinkage affects individual study estimates, while inverse-variance weighting affects each study's contribution to the pooled estimate.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Results -- Meta Analysis & Discussion"}
+"The single study estimates shown in Fig. 2 differ between frameworks because Bayesian shrinkage pulls individual study estimates toward the pooled mean, borrowing information from the overall mean.
+This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting. 
+The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less)."\
+"This is attributable to posterior shrinkage, as illustrated by the sensitivity analyses using wide priors."
 :::
 
 :::{.comment}
