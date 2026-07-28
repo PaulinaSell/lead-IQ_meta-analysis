@@ -1,5 +1,5 @@
 ---
-title: "Leave-One-Out Analysis"
+title: "Leave-One-Out Sensitivity Analysis"
 format: 
     # docx:
     #     reference-doc: ../../../manuscript/tables_figures/supplement/ref.docx
@@ -34,7 +34,7 @@ freq_mean <- as.numeric(freq_model$beta)
 loo_freq_results <- data.frame(
   excluded_study = data_full$author_year,
   estimate = loo_freq_results$estimate,
-  se = loo_freq_results$se,
+  SE = loo_freq_results$se,
   difference_mean = loo_freq_results$estimate - freq_mean
   #   tau2 = loo_freq_results$tau2
 )
@@ -56,12 +56,15 @@ for (i in 1:n_studies) {
 loo_bayes_results <- data.frame(
   excluded_study = data_full$author_year,
   estimate = loo_bayes_original$estimate,
-  se = bayes_se,
+  SE = bayes_se,
   difference_mean = loo_bayes_original$estimate - Bayes_mean
 )
+
+mean_abs_dev_freq <- mean(abs(loo_freq_results$difference_mean))
+mean_abs_dev_bayes <- mean(abs(loo_bayes_results$difference_mean))
 ```
 
-This supplementary file shows the leave-one-study-out (loo) sensitivity analysis results for both the frequentist and the Bayesian models.\
+This supplementary file shows the leave-one-out (loo) sensitivity analysis results for both the frequentist and the Bayesian models.\
 
 # Method
 To assess the influence of individual studies on the pooled effect estimate, we performed a leave-one-study-out (loo) sensitivity analysis under both modeling frameworks.
@@ -140,7 +143,7 @@ for (i in 1:n_studies) {
 
 gt(loo_freq_results) |>
   tab_header(
-    title = "Tab. XX: Frequentist model"
+    title = "Tab. XX: Loo results frequentist model"
   ) |>
   tab_options(
     table.font.size = 12,
@@ -154,7 +157,7 @@ gt(loo_freq_results) |>
 
 gt(loo_bayes_results) |>
   tab_header(
-    title = "Tab. XX: Bayesian model"
+    title = "Tab. XX: Loo results Bayesian model"
   ) |>
   tab_options(
     table.font.size = 12,
@@ -162,6 +165,6 @@ gt(loo_bayes_results) |>
   )
 ```
 
-Excluding individual studies shifted the pooled estimate by up to 0.31 IQ points under the frequentist model and up to 0.29 IQ points under the Bayesian model.
+Excluding individual studies shifted the pooled estimate by up to 0.31 IQ points under the frequentist model and up to 0.29 IQ points under the Bayesian model (column "difference_mean").
 The most influential study under both frameworks was Desrochers-Couture 2018, whose exclusion produced the largest deviation from the full-data estimate; this study is notable not for high uncertainty but for very high precision (SE = 0.06), which gives it substantial weight in both models.
-Averaged across all twelve exclusions, the mean absolute deviation from the full-data estimate was modestly smaller under the Bayesian framework than under the frequentist framework, though this pattern did not hold for every individual study.
+Averaged across all twelve exclusions, the mean absolute deviation from the full-data estimate was modestly smaller under the Bayesian framework than under the frequentist framework (mean absolute deviation: `r round(mean_abs_dev_bayes, 2)` vs. `r round(mean_abs_dev_freq, 2)` IQ points per unit increase in $\log_e$-transformed BLL) though this pattern did not hold for every individual study.

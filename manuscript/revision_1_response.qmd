@@ -39,6 +39,11 @@ The manuscript states: “The Bayesian approach was less sensitive to outlier st
 :::
 
 ::: {.reply}
+Thank you for this comment.
+We agree that this statement needs an additional analysis to support it.
+We have conducted leave-one-out sensitivity analyses for both frequentist and Bayesian models and have included the results as an additional suppelementary file:
+<!-- add name of file -->
+
 :::
 
 ::: {.revision section=""}

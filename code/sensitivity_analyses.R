@@ -349,3 +349,63 @@ knitr::kable(
   table_pub,
   caption = "Sensitivity analyses by modeling framework (Bayesian vs Frequentist)"
 )
+
+# Leave-One-Out (loo) cross-validation ----
+
+# Frequentist model
+freq_model <- readRDS("models/main/freq_full.rds")
+loo_freq <- leave1out(freq_model)
+print(loo_freq)
+
+# Bayesian model - manual leave1out equivalent
+m.brm <- readRDS("models/main/m.brm_full.rds")
+
+priors <- c(
+  prior(normal(-1, 2), class = Intercept), # overall effect size µ
+  prior(normal(0, 2), class = sd, lb = 0)
+)
+
+n_studies <- nrow(data_full)
+
+loo_bayes_results <- data.frame(
+  excluded_study = character(n_studies),
+  estimate = numeric(n_studies),
+  lower_ci = numeric(n_studies),
+  upper_ci = numeric(n_studies)
+)
+
+for (i in 1:n_studies) {
+  # remove study i from the data
+  data_without_study <- data_full[-i, ]
+
+  # refit the model on the remaining 11 studies
+  fit_without_study <- brm(
+    beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
+    data = data_without_study,
+    prior = priors,
+    save_pars = save_pars(all = TRUE),
+    chains = 4,
+    iter = 4000
+  )
+
+  # Pull out the pooled estimate and CI for this fit
+  pooled_estimate <- fixef(fit_without_study)["Intercept", ]
+
+  # Store results in table, row by row
+  loo_bayes_results$excluded_study[i] <- data_full$author_year[i]
+  loo_bayes_results$estimate[i] <- pooled_estimate["Estimate"]
+  loo_bayes_results$lower_ci[i] <- pooled_estimate["Q2.5"]
+  loo_bayes_results$upper_ci[i] <- pooled_estimate["Q97.5"]
+
+  # save fits for inspection
+  saveRDS(
+    fit_without_study,
+    file = paste0("models/sensitivity/loo/m.brm_excl_", i, ".rds")
+  )
+
+  # print progress
+  cat("Finished fitting excluding:", data_full$author_year[i], "\n")
+}
+
+saveRDS(loo_bayes_results, "results/loo_bayes_results.rds")
+saveRDS(loo_freq, "results/loo_freq_results.rds")
