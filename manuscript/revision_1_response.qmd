@@ -101,9 +101,11 @@ In Section 3.4, the authors conclude: “This shows that the results are robust 
 :::
 
 ::: {.reply}
+Thank you for flagging this, we adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Results -- Sensitivity Analysis"}
+"This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis."
 :::
 
 :::{.comment}
@@ -111,9 +113,7 @@ In the Methods section and Discussion, the authors state that all code and data 
 :::
 
 ::: {.reply}
-:::
-
-::: {.revision section=""}
+Thank you for raising this, the GitHub repository is now publicly accessible.
 :::
 
 :::{.comment}
@@ -121,9 +121,11 @@ In the Discussion, the statement that the Bayesian model yielded lower pooled ef
 :::
 
 ::: {.reply}
+Thank you, we agree and have added that the difference in pooled estimates is also attributable to the incorporation of prior information.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Discussion"}
+"This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, driven by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors."
 :::
 
 ### Minor comments

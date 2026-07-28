@@ -592,8 +592,12 @@ The results of both frameworks are shown as forest plots in Figure 2.
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](tables_figures/main/figure2.png){.lightbox}
 :::
 
-The single study estimates shown in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
-In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework.
+<!-- The single study estimates shown in Fig. 2 differ in both approaches because individual study estimates are shrunk towards the pooled estimate.
+In the context of meta-analysis, shrinkage is comparable to the inverse-variance weighting in the frequentist framework. -->
+
+The single study estimates shown in Fig. 2 differ between frameworks because Bayesian shrinkage pulls individual study estimates toward the pooled mean, borrowing information from the overall mean.
+This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting. 
+The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less).
 
 ## Sensitivity Analysis
 We conducted two sets of sensitivity analyses; results are shown in Table 4.
@@ -607,7 +611,7 @@ This is expected, because the narrow prior restricts the posterior distribution 
 When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 Additional file 5d shows prior, observed data and posterior distributions of all three prior specifications.
-This shows that the results are robust to prior specification, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
+This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
 
 ```{r}
 #| label: table_4_sensi
@@ -695,7 +699,7 @@ While previous publications have compared both frameworks, they focus either on 
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field. 
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-This is attributable to posterior shrinkage, comparable to inverse-variance weighting in the frequentist framework, as illustrated by the sensitivity analyses using wide priors. 
+This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, driven by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors.
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 The two frameworks differ in how they treat outlier studies reporting substantial uncertainty.
 Bayesian meta-analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
