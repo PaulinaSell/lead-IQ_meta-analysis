@@ -3,6 +3,7 @@
 # 1 Risk of Bias ----
 # 1.1 Bayesian MA ----
 library(brms)
+library(metafor)
 library(tidyverse)
 library(tidybayes)
 library(ggridges)
@@ -12,7 +13,7 @@ library(HDInterval)
 library(bayestestR)
 library(posterior)
 
-data_full = read.csv("data/study_data_leadIQloss.csv")
+data_full <- read.csv("data/study_data_leadIQloss.csv")
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
 data_low_medium <- data_full[
   !data_full$author_year %in% c("Crump 2013", "Earl 2016"),
@@ -151,7 +152,7 @@ priors_list <- list(
 
 # loop
 for (prior_set in names(priors_list)) {
-  priors = priors_list[[prior_set]]
+  priors <- priors_list[[prior_set]]
 
   m.brm <- brm(
     beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),

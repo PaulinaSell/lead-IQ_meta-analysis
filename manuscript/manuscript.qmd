@@ -543,6 +543,7 @@ freq_I2_ub <- freq_confint[3, 3]
 m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
 
+
 hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
 Bayes_lb <- round(as.numeric(hdi[1]), 2)
 Bayes_ub <- round(as.numeric(hdi[2]), 2)
