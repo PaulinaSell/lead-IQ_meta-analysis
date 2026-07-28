@@ -616,71 +616,38 @@ This shows that the results are robust to prior specification, because the shift
 
 table_all <- readRDS("tables_figures/main/table_sensi.rds")
 
+variant_labels <- c(
+  main = "Main",
+  narrow = "Narrow priors",
+  wide = "Wide priors",
+  full = "Full sample",
+  low = "Low RoB only",
+  low_medium = "Low/Medium RoB"
+)
+
 table4_gt <- table_all %>%
   mutate(
-    sensitivity = factor(
-      sensitivity,
-      levels = c("RoB", "Study uncertainty", "Priors")
-    ),
-    model_type = factor(
-      model_type,
-      levels = c("Bayesian", "Frequentist")
-    ),
-    variant_clean = factor(
-      variant,
-      levels = c(
-        "full",
-        "Full sample",
-        "Excluding two most uncertain studies",
-        "low_medium",
-        "low",
-        "main",
-        "narrow",
-        "wide"
-      ),
-      labels = c(
-        "Full sample",
-        "Full sample",
-        "Excluding two most uncertain studies",
-        "Low/Medium RoB",
-        "Low RoB only",
-        "Main",
-        "Narrow priors",
-        "Wide priors"
-      )
-    ),
+    sensitivity = factor(sensitivity, levels = c("RoB", "Priors")),
+    model_type = factor(model_type, levels = c("Bayesian", "Frequentist")),
+    variant_clean = variant_labels[variant],
     Estimate = sprintf("%.2f (%.2f, %.2f)", mean, lb, ub),
     is_bold = (model_type == "Bayesian" &
       sensitivity == "RoB" &
       variant == "full") |
-      (model_type == "Frequentist" &
-        sensitivity == "RoB" &
-        variant == "full") |
-      (model_type == "Bayesian" &
-        sensitivity == "Priors" &
-        variant == "main")
+      (model_type == "Frequentist" & sensitivity == "RoB" & variant == "full") |
+      (model_type == "Bayesian" & sensitivity == "Priors" & variant == "main")
   ) %>%
-  arrange(sensitivity, model_type, variant_clean) %>%
+  arrange(sensitivity, model_type, variant) %>% # <-- key change
   group_by(sensitivity, model_type) %>%
   mutate(
-    model_display = ifelse(
-      row_number() == 1,
-      as.character(model_type),
-      ""
-    )
+    model_display = ifelse(row_number() == 1, as.character(model_type), "")
   ) %>%
   ungroup() %>%
-  select(
-    sensitivity,
-    model_display,
-    variant_clean,
-    Estimate,
-    is_bold
-  )
+  select(sensitivity, model_display, variant_clean, Estimate, is_bold)
 
 
+first_model_rows <- which(table4_gt$model_display != "")
 bold_rows <- which(table4_gt$is_bold)
-
 
 table4_gt %>%
   select(-is_bold) %>%
@@ -689,11 +656,7 @@ table4_gt %>%
     title = "Table 4: Results of sensitivity analyses by framework"
   ) %>%
   tab_source_note(
-    source_note = paste(
-      "RoB, risk of bias; UI, uncertainty interval ",
-      "(credible interval for Bayesian and confidence interval ",
-      "for frequentist model results)"
-    )
+    source_note = "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)"
   ) %>%
   opt_row_striping(row_striping = FALSE) %>%
   cols_label(
@@ -701,26 +664,22 @@ table4_gt %>%
     variant_clean = "Variant",
     Estimate = "Estimate (95% UI)"
   ) %>%
-  cols_align(
-    align = "left",
-    columns = c(model_display, variant_clean)
-  ) %>%
+  cols_align(align = "left", columns = c(model_display, variant_clean)) %>%
   tab_style(
     style = cell_text(weight = "bold"),
     locations = cells_row_groups()
   ) %>%
   tab_style(
     style = cell_text(weight = "bold"),
-    locations = cells_body(
-      columns = Estimate,
-      rows = bold_rows
-    )
+    locations = cells_body(rows = bold_rows)
   ) %>%
   tab_options(
-    table.width = pct(70),
-    table.font.size = px(12),
-    data_row.padding = px(3),
+    table.width = pct(100),
+    table.font.size = px(13),
     column_labels.font.weight = "bold",
+  ) %>%
+  tab_options(
+    table.width = "50%",
     heading.align = "left"
   )
 ```
