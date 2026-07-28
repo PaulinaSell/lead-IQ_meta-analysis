@@ -1,0 +1,170 @@
+---
+title: "Leave-One-Out Sensitivity Analysis"
+format: 
+    # docx:
+    #     reference-doc: ../../../manuscript/tables_figures/supplement/ref.docx
+    pdf:
+        documentclass: scrartcl
+        fontsize: 11pt
+        colorlinks: true
+        highlight-style: github
+---
+
+```{r}
+#| label: get_fits
+#| include: false
+#| message: false
+
+library(here)
+library(gt)
+library(posterior)
+library(brms)
+
+loo_bayes_original <- readRDS(here("results", "loo_bayes_results.rds"))
+loo_freq_results <- readRDS(here("results", "loo_freq_results.rds"))
+data_full <- read.csv(here("data", "study_data_leadIQloss.csv"))
+m.brm <- readRDS(here("models", "main", "m.brm_full.rds"))
+freq_model <- readRDS(here("models", "main", "freq_full.rds"))
+
+m.brm_samples <- as_draws_df(m.brm)
+Bayes_mean <- mean(m.brm_samples$b_Intercept)
+
+freq_mean <- as.numeric(freq_model$beta)
+
+loo_freq_results <- data.frame(
+  excluded_study = data_full$author_year,
+  estimate = loo_freq_results$estimate,
+  SE = loo_freq_results$se,
+  difference_mean = loo_freq_results$estimate - freq_mean
+  #   tau2 = loo_freq_results$tau2
+)
+
+n_studies <- nrow(data_full)
+
+bayes_se <- numeric(n_studies)
+
+for (i in 1:n_studies) {
+  fit_i <- readRDS(here(
+    "models",
+    "sensitivity",
+    "loo",
+    paste0("m.brm_excl_", i, ".rds")
+  ))
+  bayes_se[i] <- fixef(fit_i)["Intercept", "Est.Error"]
+}
+
+loo_bayes_results <- data.frame(
+  excluded_study = data_full$author_year,
+  estimate = loo_bayes_original$estimate,
+  SE = bayes_se,
+  difference_mean = loo_bayes_original$estimate - Bayes_mean
+)
+
+mean_abs_dev_freq <- mean(abs(loo_freq_results$difference_mean))
+mean_abs_dev_bayes <- mean(abs(loo_bayes_results$difference_mean))
+```
+
+This supplementary file shows the leave-one-out (loo) sensitivity analysis results for both the frequentist and the Bayesian models.\
+
+# Method
+To assess the influence of individual studies on the pooled effect estimate, we performed a leave-one-study-out (loo) sensitivity analysis under both modeling frameworks.
+For the frequentist model, we used the `leave1out()` function from `metafor`, which iteratively refits the random-effects model excluding one study at a time.
+For the Bayesian model, we replicated this procedure manually: the hierarchical model was refit in `brms` twelve times, once excluding each study, using the same model specification, priors, and MCMC settings as the main analysis.
+For each exclusion, we recorded the resulting pooled effect estimate and its deviation from the estimate obtained using the full dataset.
+
+## Frequentist model: code
+```{r}
+#| label: code_freq
+#| eval: false
+
+# Frequentist model
+freq_model <- readRDS("models/main/freq_full.rds")
+loo_freq_results <- leave1out(freq_model)
+```
+
+## Bayesian model: code
+```{r}
+#| label: code_Bayes
+#| eval: false
+
+# Bayesian model - manual leave1out equivalent
+m.brm <- readRDS("models/main/m.brm_full.rds")
+
+priors <- c(
+  prior(normal(-1, 2), class = Intercept), # overall effect size µ
+  prior(normal(0, 2), class = sd, lb = 0)
+)
+
+n_studies <- nrow(data_full)
+
+loo_bayes_results <- data.frame(
+  excluded_study = character(n_studies),
+  estimate = numeric(n_studies),
+  lower_ci = numeric(n_studies),
+  upper_ci = numeric(n_studies)
+)
+
+for (i in 1:n_studies) {
+  # remove study i from the data
+  data_without_study <- data_full[-i, ]
+
+  # refit the model on the remaining 11 studies
+  fit_without_study <- brm(
+    beta_ln | se(se_beta_ln) ~ 1 + (1 | author_year),
+    data = data_without_study,
+    prior = priors,
+    save_pars = save_pars(all = TRUE),
+    chains = 4,
+    iter = 4000
+  )
+
+  # Pull out the pooled estimate and CI for this fit
+  pooled_estimate <- fixef(fit_without_study)["Intercept", ]
+
+  # Store results in table, row by row
+  loo_bayes_results$excluded_study[i] <- data_full$author_year[i]
+  loo_bayes_results$estimate[i] <- pooled_estimate["Estimate"]
+  loo_bayes_results$lower_ci[i] <- pooled_estimate["Q2.5"]
+  loo_bayes_results$upper_ci[i] <- pooled_estimate["Q97.5"]
+
+  # save fits
+  saveRDS(
+    fit_without_study,
+    file = paste0("models/sensitivity/loo/m.brm_excl_", i, ".rds")
+  )
+}
+```
+
+# Results
+
+```{r}
+#| label: freq_print
+#| echo: false 
+
+gt(loo_freq_results) |>
+  tab_header(
+    title = "Tab. XX: Loo results frequentist model"
+  ) |>
+  tab_options(
+    table.font.size = 12,
+    heading.title.font.size = 12
+  )
+```
+
+```{r}
+#| label: Bayes_print
+#| echo: false 
+
+gt(loo_bayes_results) |>
+  tab_header(
+    title = "Tab. XX: Loo results Bayesian model"
+  ) |>
+  tab_options(
+    table.font.size = 12,
+    heading.title.font.size = 12
+  )
+```
+
+Excluding individual studies shifted the pooled estimate by up to 0.31 IQ points under the frequentist model and up to 0.29 IQ points under the Bayesian model (column "difference_mean").
+The most influential study under both frameworks was Desrochers-Couture 2018, whose exclusion produced the largest deviation from the full-data estimate; this study is notable not for high uncertainty but for very high precision (SE = 0.06), which gives it substantial weight in both models.
+Averaged across all twelve exclusions, the mean absolute deviation from the full-data estimate was modestly smaller under the Bayesian framework than under the frequentist framework (mean absolute deviation: `r round(mean_abs_dev_bayes, 2)` vs. `r round(mean_abs_dev_freq, 2)` IQ points per unit increase in $\log_e$-transformed BLL) though this pattern did not hold for every individual study.
