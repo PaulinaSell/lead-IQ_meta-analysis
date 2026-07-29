@@ -53,19 +53,29 @@ $$
 I^{2(s)} = \frac{\tau^{2(s)}}{\tau^{2(s)} + v_t}
 $$
 
-This yields a posterior distribution $\{I^{2(s)}\}_{s=1}^{S}$ for $I^2$. 
-The posterior mean is:
+This yields a posterior distribution $\{I^{2(s)}\}_{s=1}^{S}$ for $I^2$.
+Because the posterior distribution of $\tau^2$ is right-skewed, we summarise it by the posterior median rather than the posterior mean, as the median represents the typical value more faithfully:
 
 $$
-\mathbb{E}[I^2 \mid \text{data}] \approx \frac{1}{S} \sum_{s=1}^{S} I^{2(s)}
+\widehat{I^2} = Q_{0.5}\!\left(\{I^{2(s)}\}\right)
 $$
 
-and a 95% credible interval is obtained from the 2.5th and 97.5th quantiles of this same set of draws:
+Since $I^2$ is a strictly increasing function of $\tau^2$ for fixed $v_t$, the median is equivariant under this transformation:
 
 $$
-\text{95\% CrI} = \left[Q_{0.025}\!\left(\{I^{2(s)}\}\right),\; 
+Q_{0.5}\!\left(\{I^{2(s)}\}\right) =
+\frac{Q_{0.5}\!\left(\{\tau^{2(s)}\}\right)}{Q_{0.5}\!\left(\{\tau^{2(s)}\}\right) + v_t}
+$$
+
+The reported $I^2$ is therefore the same formula, evaluated at the posterior median of $\tau^2$, that the frequentist framework evaluates at its point estimate of $\tau^2$.
+A 95% credible interval is obtained from the 2.5th and 97.5th quantiles of the same set of draws:
+
+$$
+\text{95\% CrI} = \left[Q_{0.025}\!\left(\{I^{2(s)}\}\right),\;
 Q_{0.975}\!\left(\{I^{2(s)}\}\right)\right]
 $$
+
+Because these interval endpoints are also quantiles, the reported point estimate and its credible interval are on a common scale.
 
 
 # References 
