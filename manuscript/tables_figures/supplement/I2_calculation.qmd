@@ -1,6 +1,6 @@
 ---
 title: "Calculation of $I^2$ in the Bayesian Framework"
-format: 
+format:
     # docx:
     #     reference-doc: ../../../manuscript/tables_figures/supplement/ref.docx
     pdf:
@@ -9,16 +9,11 @@ format:
         colorlinks: true
         highlight-style: github
 ---
-```{r}
-#| label: get_vt
-#| echo: false
-#| message: false
-freq_model <- readRDS("../../../models/main/freq_full.rds")
-vt <- freq_model$vt
-```
 
-This supplementary file describes how $I^2$ was calculated for the Bayesian meta-analysis.\
-\
+This supplementary file describes how $I^2$ was calculated for the Bayesian meta-analysis.
+
+## General definition
+
 Higgins & Thompson (2002) define $I^2$ as the proportion of total variance in observed effect sizes that is attributable to between-study heterogeneity:
 
 $$
@@ -35,50 +30,19 @@ $$
 
 where $w_k = 1/\sigma_k^2$ are the inverse-variance weights.
 
-The Bayesian meta-analysis produces a full posterior distribution of $\tau$ and doesn't yield a single point estimate of $v_t$. 
-To ensure that $I^2$ is computed on the same scale and with the same denominator in both frameworks, $v_t$ is held fixed at the value obtained from `metafor` ($v_t =$ `r round(vt, 2)`).
-This is a deliberate methodological choice: $v_t$ depends on the within-study sampling variances $\sigma_k^2$, which are treated as known constants in both models (see model specification in main article, 2.4 Methods). 
-Reusing $v_t$ ensures that any difference between the two $I^2$ estimates reflects only the difference in the estimated $\tau^2$, not a difference in the denominator.
+## Bayesian calculation
 
-Let $\tau^{(s)}$, for $s = 1, \dots, S$, denote the posterior draws of the between-study standard deviation obtained from the fitted Bayesian model. 
-The between-study variance for each draw is:
+As the formula above shows, $v_t$ is calculated from within-study sampling variances $\sigma_k^2$ and therefore not specific to the Bayesian or Frequentist framework.
+We chose to reuse the value for $v_t$ obtained from `metafor` instead of re-deriving $v_t$ from $\sigma_k^2$, but both approaches would lead to the same result.
 
-$$
-\tau^{2(s)} = \left(\tau^{(s)}\right)^2
-$$
+We calculated the distribution of $I^2$ by applying the $I^2$ formula from above to each posterior sample of $\tau^2$.
 
-Substituting into the standard formula with the fixed $v_t$, $I^2$ is computed for each posterior draw as:
+## Mean vs median
 
-$$
-I^{2(s)} = \frac{\tau^{2(s)}}{\tau^{2(s)} + v_t}
-$$
+We summarised the posterior of $\tau^2$ and $I^2$ using the median rather than the mean, because the median can be applied before or after the conversion from $\tau^2$ to $I^2$ with the same result, whereas the mean cannot.
+In short, using the median avoids distorting the result, allowing us to compare the Bayesian to the Frequentist estimates.
 
-This yields a posterior distribution $\{I^{2(s)}\}_{s=1}^{S}$ for $I^2$.
-Because the posterior distribution of $\tau^2$ is right-skewed, we summarise it by the posterior median rather than the posterior mean, as the median represents the typical value more faithfully:
-
-$$
-\widehat{I^2} = Q_{0.5}\!\left(\{I^{2(s)}\}\right)
-$$
-
-Since $I^2$ is a strictly increasing function of $\tau^2$ for fixed $v_t$, the median is equivariant under this transformation:
-
-$$
-Q_{0.5}\!\left(\{I^{2(s)}\}\right) =
-\frac{Q_{0.5}\!\left(\{\tau^{2(s)}\}\right)}{Q_{0.5}\!\left(\{\tau^{2(s)}\}\right) + v_t}
-$$
-
-The reported $I^2$ is therefore the same formula, evaluated at the posterior median of $\tau^2$, that the frequentist framework evaluates at its point estimate of $\tau^2$.
-A 95% credible interval is obtained from the 2.5th and 97.5th quantiles of the same set of draws:
-
-$$
-\text{95\% CrI} = \left[Q_{0.025}\!\left(\{I^{2(s)}\}\right),\;
-Q_{0.975}\!\left(\{I^{2(s)}\}\right)\right]
-$$
-
-Because these interval endpoints are also quantiles, the reported point estimate and its credible interval are on a common scale.
-
-
-# References 
+# References
 Higgins, J. P., & Thompson, S. G. Quantifying heterogeneity in a meta-analysis. Statistics in medicine, 2002;21:1539–1558. https://doi.org/10.1002/sim.1186.\
 
 Wolfgang Viechtbauer. Conducting meta-analyses in with the metafor package. Journal of Statistical Software 2010;36:1–48. https://doi.org/10.18637/jss.v036.i03.

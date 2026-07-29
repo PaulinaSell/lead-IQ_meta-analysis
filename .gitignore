@@ -21,3 +21,6 @@ abstracts/*.html
 /.quarto/
 **/*.quarto_ipynb
 /results/
+
+# no temporary Word files
+~*.docx
