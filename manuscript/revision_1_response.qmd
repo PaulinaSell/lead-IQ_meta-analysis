@@ -80,7 +80,11 @@ We instead opted to summarise the posterior of $\tau^2$ using the median, not th
 Using the median, the Bayesian estimates are now $\tau^2$ = 3.3 (95% CrI: 1.0 to 9.5) and $I^2$ = 84.7% (95% CrI: 63.9% to 94.2%), against a frequentist $\tau^2$ = 3.3 and $I^2$ = 85.0%. 
 The apparent asymmetry is resolved, and the two frameworks now agree on heterogeneity, too.
 
-We have updated Section 2.4.1, Section 3.3 and rewritten Additional File 4 accordingly.
+We have updated the Abstract, Section 2.4.1, Section 3.3 and rewritten Additional File 4 accordingly.
+:::
+
+::: {.revision section="Abstract -- Results"}
+"Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.3, $I^2$ = 85.0%; Bayesian: posterior median $\tau^2$ = 3.3, $I^2$ = 84.7%).""
 :::
 
 ::: {.revision section="Methods -- Bayesian Meta-Analysis"}
@@ -150,9 +154,7 @@ In Supplementary File 5, Figures 5a and 5b require clearer descriptions. The fig
 :::
 
 ::: {.reply}
-:::
-
-::: {.revision section=""}
+Thank you, we added figure legends to Supplementary File 5.
 :::
 
 :::{.comment}
@@ -160,9 +162,7 @@ In Section 3.4, the manuscript states that sensitivity analysis results are pres
 :::
 
 ::: {.reply}
-:::
-
-::: {.revision section=""}
+Thank you, we have corrected the table referencing.
 :::
 
 # Reviewer 2

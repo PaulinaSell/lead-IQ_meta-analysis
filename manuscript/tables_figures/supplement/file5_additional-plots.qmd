@@ -1,0 +1,181 @@
+---
+title: "Supplementary File 5"
+format:
+  pdf:
+    documentclass: scrartcl
+    fontsize: 11pt
+    colorlinks: true
+    highlight-style: github
+    number-sections: false
+    fig-pos: "H"
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup{labelformat=empty, labelsep=none, skip=4pt}
+        \RedeclareSectionCommand[
+          beforeskip=0.6\baselineskip,
+          afterskip=0.3\baselineskip
+        ]{paragraph}
+        \usepackage{needspace}
+---
+
+This supplementary file shows diagnostic plots for the Bayesian model and a funnel plot.
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| echo: false
+
+library(here)
+library(metafor)
+library(brms)
+library(bayesplot)
+library(ggplot2)
+
+fitPrior <- readRDS(here("models", "main", "fitPrior_full.rds"))
+m.brm <- readRDS(here("models", "main", "m.brm_full.rds"))
+freq_model <- readRDS(here("models", "main", "freq_full.rds"))
+
+# Number of draws overlaid in the pp_check plots below (5a/5b). Defined once
+# here and reused both in the plot calls and their captions so the two can't
+# drift out of sync if this number changes.
+n_draws <- 20
+
+# ASSUMPTION: fitPrior is assumed to have been fit with sample_prior = "only"
+# (i.e. draws from the prior rather than conditioning on the data). Edit the
+# caption text below if fitPrior was actually specified differently.
+prior_pred_caption <- paste0(
+  "Prior predictive check, using `p`p_check() from the bayesplot package. Density of the observed effect sizes (dark line) ",
+  "compared with ",
+  n_draws,
+  " data sets simulated from the prior predictive ",
+  "distribution (light lines), obtained by fitting the model with ",
+  "sample_prior = \"only\". This checks whether the priors imply ",
+  "plausible effect sizes before the observed data are taken into account."
+)
+
+post_pred_caption <- paste0(
+  "Posterior predictive check, using `p`p_check() from the bayesplot package. Density of the observed effect sizes (dark line) ",
+  "compared with ",
+  n_draws,
+  " data sets simulated from the posterior predictive ",
+  "distribution of the fitted model (light lines). ",
+  "This checks how well the fitted model captures and reproduces the observed data."
+)
+```
+
+#### 5a) Prior predictive check {.unnumbered}
+
+```{r, echo=FALSE, fig.width=5.5, fig.height=3, fig.cap=prior_pred_caption}
+pp_check(fitPrior, ndraws = n_draws) +
+  theme_minimal()
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+#### 5b) Posterior predictive check {.unnumbered}
+
+```{r, echo=FALSE, fig.width=5.5, fig.height=2.5, fig.cap=post_pred_caption}
+pp_check(m.brm, ndraws = n_draws) +
+  theme_minimal()
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+#### 5c) MCMC trace plots for mu and tau {.unnumbered}
+
+```{r}
+#| label: trace-plot
+#| echo: false
+#| out-width: "70%"
+#| fig-align: center
+
+knitr::include_graphics(here("results", "traceplot.png"))
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+#### 5d) Prior, observed effects and posterior across prior specifications {.unnumbered}
+
+```{r}
+#| label: priors-main
+#| echo: false
+#| out-width: "70%"
+#| fig-align: center
+
+knitr::include_graphics(
+  here(
+    "results",
+    "sensitivity",
+    "priors",
+    "prior_obs-effects_posterior_beta-main.png"
+  )
+)
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+```{r}
+#| label: priors-narrow
+#| echo: false
+#| out-width: "70%"
+#| fig-align: center
+
+knitr::include_graphics(
+  here(
+    "results",
+    "sensitivity",
+    "priors",
+    "prior_obs-effects_posterior_beta-narrow.png"
+  )
+)
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+```{r}
+#| label: priors-wide
+#| echo: false
+#| out-width: "70%"
+#| fig-align: center
+
+knitr::include_graphics(
+  here(
+    "results",
+    "sensitivity",
+    "priors",
+    "prior_obs-effects_posterior_beta-wide.png"
+  )
+)
+```
+
+```{=latex}
+\needspace{5cm}
+```
+
+#### 5e) Funnel plot {.unnumbered}
+
+```{r}
+#| label: funnel-plot
+#| echo: false
+#| fig-width: 7
+#| fig-height: 6
+#| out-width: "65%"
+#| fig-align: center
+
+funnel(
+  freq_model,
+  xlab = "IQ shift per log-unit increase in BLL (\u00b5g/dL)"
+)
+```
