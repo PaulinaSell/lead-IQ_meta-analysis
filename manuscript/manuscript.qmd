@@ -743,8 +743,8 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-First, the included studies were heterogeneous with respect to covariate adjustment and cohort characteristics, which limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
-<!-- needs more specific call for caution! -->
+First, the included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
 
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.

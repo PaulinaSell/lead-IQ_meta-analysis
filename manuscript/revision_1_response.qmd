@@ -13,7 +13,7 @@ The manuscript presents a useful applied comparison of Bayesian and frequentist 
 
 # Response to the Editor
 
-We would like to thank the editor and reviewers for their careful reading of our manuscript and their valuable feedback. Below we respond to each point in turn; revised manuscript text is quoted verbatim.
+We would like to thank the editor and reviewers for their time and careful reading of our manuscript and their valuable feedback. Below we respond to each point in turn; revised manuscript text is quoted verbatim.
 
 # Reviewer 1
 
@@ -176,6 +176,7 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 :::
 
 ::: {.reply}
+<!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
 :::
 
 ::: {.revision section=""}
@@ -186,10 +187,12 @@ Although the coefficients were converted to the same logarithmic scale, the incl
 :::
 
 ::: {.reply}
-<!-- add more explicit warning about interpreting the results (line 743) -->
+Thank you for this comment, we agree and have added a more explicit statement to the Discussion.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Discussion"}
+"First, the included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations."
 :::
 
 :::{.comment}
@@ -197,7 +200,9 @@ The manuscript states that study estimates in both panels of Figure 2 are shrunk
 :::
 
 ::: {.reply}
-<!-- sightly change wording, but is already fixed in line 598 -->
+Thank you for this comment. We agree that the explanation for Figure 2 was misleading and have adjusted the wording.
+<!-- remove / change statement in line 710 about frequentist methods implicitly using flat priors -->
+<!-- outlier claim: similar to comment 2 from reviewer 1 -->
 :::
 
 ::: {.revision section=""}
@@ -210,9 +215,8 @@ Different values appear in the Abstract, Results, Figure 2, and Table 4. Check t
 :::
 
 ::: {.reply}
-:::
-
-::: {.revision section=""}
+Thank you, we checked for numerical consistency. The inconsistency was due to MCMC noise. We now use the exact same model fit in the Abstract, Results, Figure 2 and Table 4.
+<!-- todo: update pipelie for table 4 to use the same model fit like everywhere else -->
 :::
 
 :::{.comment}
@@ -220,9 +224,12 @@ The text refers to children aged 0–11 years, while Table 1 includes participan
 :::
 
 ::: {.reply}
+Thank you for raising this — the prose description did not fully match the PECOTS criteria in Table 1.
+We removed it and refer readers directly to Table 1, which is now the sole source for this information.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Methods -- Literature Review"}
+"Publications were considered relevant according to predefined PECOTS – Population, Exposure, Comparator, Outcome, Timing of exposure and Setting (Table 1)."
 :::
 
 :::{.comment}
@@ -230,8 +237,9 @@ Check the confidence interval for frequentist heterogeneity estimate. For exampl
 :::
 
 ::: {.reply}
-Thank you for catching this. The reviewer is correct that the upper limit was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
+Thank you for catching this. The upper limit indeed was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
 :::
 
 ::: {.revision section=""}
+"The frequentist model estimated a closely comparable $\tau^2$ = 3.3 (95% CI: 1.0 to 11.7) [...]"
 :::
