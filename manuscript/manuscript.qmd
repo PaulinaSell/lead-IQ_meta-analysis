@@ -243,7 +243,7 @@ substance (Pb - including Medical Subject Headings [MeSH] terms), outcome (IQ an
 All titles and abstracts were screened by two reviewers. 
 Any conflicts were resolved by a third person. 
 Full texts were then assessed by one reviewer.
-Publications were considered relevant according to predefined PECOTS – Population (children aged 0 to 11 years), Exposure (biological measures of Pb from all matrices), Comparator (no exposure or lower levels of exposure), Outcome (IQ shift), Timing of exposure (no restriction) and Setting (no restriction) (Table 1).
+Publications were considered relevant according to predefined PECOTS – Population, Exposure, Comparator, Outcome, Timing of exposure and Setting (Table 1).
 
 ```{r}
 #| label: table_1_PECOTS
