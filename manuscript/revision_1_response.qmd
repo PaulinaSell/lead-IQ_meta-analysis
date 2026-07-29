@@ -66,19 +66,29 @@ In Section 3.3, the manuscript reports that the Bayesian model gives a larger be
 :::
 
 ::: {.reply}
-Thank you for this comment.
-We have provided a detailed explanation for how we calculated the Bayesian I^2 estimate and added it as additional file 4 in our original submission.
-In case the additional files were not available for the reviewers, they can be obtained from the public GitHub repository directly: https://github.com/PaulinaSell/lead-IQ_meta-analysis/tree/main/manuscript/tables_figures/supplement.
-Regarding why a larger $\tau^2$ did not translate into a larger $I^2$: this follows from Jensen's inequality. 
+Thank you for this comment. 
+It helped us spot an inconsistency in how we summarised the posterior for $\tau^2$.
 
-Because $I^2 = \dfrac{\tau^2}{\tau^2 + v_t}$ is a concave function of $\tau^2$ for fixed $v_t$, and the reported Bayesian $I^2$ is the posterior mean of this function evaluated across all posterior draws of $\tau^2$ — rather than the function evaluated at a single point estimate — the resulting value is necessarily smaller than would be obtained by substituting the posterior mean of $\tau^2$ directly into the formula.
-We have added a sentence to Section 3.3 clarifying this.
+We previously used the mean to summarise the right-skewed distribution of $\tau^2$, giving stronger weight to very large samples of $\tau^2$.
+This has lead to the apparent asymmetry between $\tau^2$ and $I^2$ summaries that we thank you for pointing out.
+We carried this asymmetry forward by calculating $I^2$ for each sample _first_ and _then_ summarising as opposed to calculating a single $I^2$ from the mean of $\tau^2$.
+An $I^2$ calculated this way would have been consistent with your intuition, resulting in an estimated $I^2$ of 86.6%, larger than the frequentist $I^2$ of 85.0%.
+
+While providing consistent results, this approach would have discarded the uncertainty posterior distribution.
+We instead opted to summarise the posterior of $\tau^2$ using the median, not the mean, as it more faithfully represents the typical value in a skewed distribution.
+
+Using the median, the Bayesian estimates are now $\tau^2$ = 3.3 (95% CrI: 1.0 to 9.5) and $I^2$ = 84.7% (95% CrI: 63.9% to 94.2%), against a frequentist $\tau^2$ = 3.3 and $I^2$ = 85.0%. 
+The apparent asymmetry is resolved, and the two frameworks now agree on heterogeneity, too.
+
+We have updated Section 2.4.1, Section 3.3 and rewritten Additional File 4 accordingly.
+:::
+
+::: {.revision section="Methods -- Bayesian Meta-Analysis"}
+"Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4)."
 :::
 
 ::: {.revision section="Results -- Meta Analysis"}
-"Despite the larger Bayesian posterior mean of $\tau^2$, the corresponding $I^2$ was smaller than the frequentist $I^2$.
-This is because the reported Bayesian $I^2$ was not obtained by evaluating $I^2 = \dfrac{\tau^2}{\tau^2 + v_t}$ at a single $\tau^2$ value, but by averaging this formula across all posterior draws, $I^{2(s)} = \dfrac{\tau^{2(s)}}{\tau^{2(s)} + v_t}$ (Additional File 4).
-Because $I^2$ is a concave function of $\tau^2$, this averaging yields a smaller value than would result from substituting the posterior mean of $\tau^2$ alone (Jensen's inequality [citation]), explaining why the larger Bayesian $\tau^2$ did not translate into a larger $I^2$."
+"In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of 3.3 (95% CrI: 1.0 to 9.5), corresponding to an $I^2$ of 84.7% (95% CrI: 63.9% to 94.2%)."
 :::
 
 :::{.comment}
@@ -220,6 +230,7 @@ Check the confidence interval for frequentist heterogeneity estimate. For exampl
 :::
 
 ::: {.reply}
+Thank you for catching this. The reviewer is correct that the upper limit was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
 :::
 
 ::: {.revision section=""}

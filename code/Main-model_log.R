@@ -103,12 +103,14 @@ vt <- freq_model$vt
 # Calculate I² using metafor's approach for each posterior draw
 I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
-# Summarize tau²
+# Summarize tau2
 tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_median <- median(tau_sq_samples)
 tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
-# Summarize I²
+# Summarize I2
 I2_posterior_mean <- mean(I2_samples)
+I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 
 # summary for Rhat

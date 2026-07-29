@@ -146,15 +146,17 @@ vt <- freq_model$vt
 # Calculate I² using metafor's approach for each posterior draw
 I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
-# Summarize tau²
+# Summarize tau2
 tau_sq_mean <- mean(tau_sq_samples)
 tau_sq_median <- median(tau_sq_samples)
 tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
-# Summarize I²
+# Summarize I2
 I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
+
+frnd <- function(val, digits = 1) sprintf(paste0("%.", digits, "f"), val)
 ```
 
 <!-- max 350 words in BMC  -->
@@ -172,7 +174,7 @@ $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 **Results**: Twelve studies were included in the meta-analysis.
 The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r round(freq_confint[1,1], 1)`, $\text{I}^2$ = `r round(freq_confint[3,1])`%; Bayesian: $\tau^2$ = `r round(tau_sq_mean, 2)`, $\text{I}^2$ = `r round(I2_posterior_mean, 2) * 100`%).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation. 
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
 The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
@@ -335,7 +337,8 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were di
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
 Chain resolution was assessed using the effective sample size (ESS).
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (additional file 4).
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` for each $\tau^2$ posterior sample.
+Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
@@ -559,12 +562,14 @@ vt <- freq_model$vt
 # Calculate I² using metafor's approach for each posterior draw
 I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
-# Summarize tau²
+# Summarize tau2
 tau_sq_mean <- mean(tau_sq_samples)
+tau_sq_median <- median(tau_sq_samples)
 tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 
-# Summarize I²
+# Summarize I2
 I2_posterior_mean <- mean(I2_samples)
+I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 
 # summary for Rhat
@@ -580,11 +585,8 @@ ESS indicate that sampling was efficient and central point estimates and credibl
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
 The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).
 Substantial between-study heterogeneity was observed under both frameworks.
-In the Bayesian framework, between-study heterogeneity was estimated as $\tau^2$ = `r round(tau_sq_mean, 1)` (95% CrI: `r round(tau_sq_ci[1], 1)` to `r round(tau_sq_ci[2], 1)`), corresponding to an $\text{I}^2$ of `r round(I2_posterior_mean, 3) * 100`% (95% CrI: `r round(I2_credible_interval[1], 3) * 100`% to `r round(I2_credible_interval[2], 3) * 100`%).
-Similarly, the frequentist model estimated $\tau^2$ = `r round(freq_tau2_mean, 1)` (95% CI: `r round(freq_tau2_lb, 1)` to `r round(freq_tau2_mean, 1)`), with $\text{I}^2$ = `r round(freq_I2_mean, 1)`% (95% CI: `r round(freq_I2_lb, 1)` to `r round(freq_I2_ub, 1)`%).
-Despite the larger Bayesian posterior mean of $\tau^2$, the corresponding $I^2$ was smaller than the frequentist $I^2$.
-This is because the reported Bayesian $I^2$ was not obtained by evaluating $I^2 = \dfrac{\tau^2}{\tau^2 + v_t}$ at a single $\tau^2$ value, but by averaging this formula across all posterior draws, $I^{2(s)} = \dfrac{\tau^{2(s)}}{\tau^{2(s)} + v_t}$ (Additional File 4).
-Because $I^2$ is a concave function of $\tau^2$, this averaging yields a smaller value than would result from substituting the posterior mean of $\tau^2$ alone (Jensen's inequality [@casella2002Section47Theorem]), explaining why the larger Bayesian $\tau^2$ did not translate into a larger $I^2$.
+In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of `r frnd(tau_sq_median)` (95% CrI: `r frnd(tau_sq_ci[1])` to `r frnd(tau_sq_ci[2])`), corresponding to an $\text{I}^2$ of `r frnd(I2_posterior_median * 100)`% (95% CrI: `r frnd(I2_credible_interval[1] * 100)`% to `r frnd(I2_credible_interval[2] * 100)`%).
+The frequentist model estimated a closely comparable $\tau^2$ = `r frnd(freq_tau2_mean)` (95% CI: `r frnd(freq_tau2_lb)` to `r frnd(freq_tau2_ub)`), with $\text{I}^2$ = `r frnd(freq_I2_mean)`% (95% CI: `r frnd(freq_I2_lb)`% to `r frnd(freq_I2_ub)`%).
 Additional file 6 contains the full model code and output for both frameworks.
 The results of both frameworks are shown as forest plots in Figure 2.
 
