@@ -337,8 +337,8 @@ We ran four chains with 4,000 iterations each, of which 2,000 iterations were di
 MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($\hat{R}$).
 Chain resolution was assessed using the effective sample size (ESS).
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
-$I^2$ was calculated using the typical within-study variance calculated with `metafor` (frequentist framework) so that both $I^2$ results are comparable (additional file 4).
-Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and, being equivariant under the monotone transformation $I^2 = \tau^2 / (\tau^2 + v_t)$, keeps the reported point estimates consistent with their credible intervals.
+$I^2$ was calculated using the typical within-study variance calculated with `metafor` for each $\tau^2$ posterior sample.
+Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
