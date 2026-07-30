@@ -624,7 +624,10 @@ This shows that the results are robust to the alternative priors tested in the s
 #| message: false
 #| warning: false
 
-table_all <- readRDS("tables_figures/main/table_sensi.rds")
+table_all <- bind_rows(
+  readRDS("tables_figures/main/table_sensi.rds"),
+  readRDS("tables_figures/main/table_sensi_oneway.rds")
+)
 
 variant_labels <- c(
   main = "Main",
@@ -635,21 +638,61 @@ variant_labels <- c(
   low_medium = "Low/Medium RoB"
 )
 
-table_all[4, 4:6] <- table_all[1, 4:6] # RoB full model equals Priors main model
+variant_order <- c(
+  "full",
+  "low",
+  "low_medium",
+  "main",
+  "narrow",
+  "wide",
+  "mu_skeptical",
+  "mu_default",
+  "mu_enthusiastic",
+  "tau_strong",
+  "tau_default",
+  "tau_weak"
+)
+
+sensitivity_order <- c(
+  "RoB",
+  "Priors",
+  "Effect prior",
+  "Heterogeneity prior"
+)
+
+# The RoB full-sample Bayesian model is the same fit as the Priors main model.
+is_rob_full_bayes <- with(
+  table_all,
+  sensitivity == "RoB" & model_type == "Bayesian" & variant == "full"
+)
+is_priors_main <- with(
+  table_all,
+  sensitivity == "Priors" & model_type == "Bayesian" & variant == "main"
+)
+stopifnot(sum(is_rob_full_bayes) == 1, sum(is_priors_main) == 1)
+table_all[is_rob_full_bayes, c("mean", "lb", "ub")] <-
+  table_all[is_priors_main, c("mean", "lb", "ub")]
+
+stopifnot(
+  all(table_all$variant %in% variant_order),
+  all(table_all$sensitivity %in% sensitivity_order)
+)
 
 table4_gt <- table_all %>%
   mutate(
-    sensitivity = factor(sensitivity, levels = c("RoB", "Priors")),
+    variant_clean = coalesce(variant_label, unname(variant_labels[variant])),
+    is_bold = (sensitivity == "RoB" & variant == "full") |
+      (sensitivity == "Priors" &
+        model_type == "Bayesian" &
+        variant == "main") |
+      (sensitivity == "Effect prior" & variant == "mu_default") |
+      (sensitivity == "Heterogeneity prior" & variant == "tau_default"),
+    sensitivity = factor(sensitivity, levels = sensitivity_order),
     model_type = factor(model_type, levels = c("Bayesian", "Frequentist")),
-    variant_clean = variant_labels[variant],
-    Estimate = sprintf("%.2f (%.2f, %.2f)", mean, lb, ub),
-    is_bold = (model_type == "Bayesian" &
-      sensitivity == "RoB" &
-      variant == "full") |
-      (model_type == "Frequentist" & sensitivity == "RoB" & variant == "full") |
-      (model_type == "Bayesian" & sensitivity == "Priors" & variant == "main")
+    variant = factor(variant, levels = variant_order),
+    Estimate = sprintf("%.2f (%.2f, %.2f)", mean, lb, ub)
   ) %>%
-  arrange(sensitivity, model_type, variant) %>% # <-- key change
+  arrange(sensitivity, model_type, variant) %>%
   group_by(sensitivity, model_type) %>%
   mutate(
     model_display = ifelse(row_number() == 1, as.character(model_type), "")
@@ -657,9 +700,18 @@ table4_gt <- table_all %>%
   ungroup() %>%
   select(sensitivity, model_display, variant_clean, Estimate, is_bold)
 
+stopifnot(nrow(table4_gt) == 15, sum(table4_gt$is_bold) == 5)
 
-first_model_rows <- which(table4_gt$model_display != "")
 bold_rows <- which(table4_gt$is_bold)
+
+source_note <- paste(
+  "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian",
+  "and confidence interval for frequentist model results).",
+  "Effect prior analyses hold the heterogeneity prior at Half-normal(2);",
+  "heterogeneity prior analyses hold the effect prior at Normal(0, 100), which",
+  "is effectively flat. Half-normal(s) denotes a Normal(0, s) distribution",
+  "truncated at zero."
+)
 
 table4_gt %>%
   select(-is_bold) %>%
@@ -667,9 +719,7 @@ table4_gt %>%
   tab_header(
     title = "Table 4: Results of sensitivity analyses by framework"
   ) %>%
-  tab_source_note(
-    source_note = "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian and confidence interval for frequentist model results)"
-  ) %>%
+  tab_source_note(source_note = source_note) %>%
   opt_row_striping(row_striping = FALSE) %>%
   cols_label(
     model_display = "Framework",
