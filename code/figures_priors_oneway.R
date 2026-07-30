@@ -6,6 +6,7 @@ library(tibble)
 library(purrr)
 library(ggplot2)
 library(posterior)
+library(gridExtra)
 
 source("code/prior_configs.R")
 
@@ -75,7 +76,7 @@ base_theme <- function() {
 
 plot_mu <- function(draws, xlim = c(-8, 5)) {
   ggplot(draws, aes(x = value, fill = distribution)) +
-    geom_density(alpha = 0.5, linewidth = 0.3) +
+    geom_density(alpha = 0.5, linewidth = 0.3, n = 2^14) +
     facet_wrap(~config, ncol = 1) +
     coord_cartesian(xlim = xlim) +
     scale_fill_manual(values = DIST_COLOURS, name = NULL) +
@@ -83,24 +84,21 @@ plot_mu <- function(draws, xlim = c(-8, 5)) {
     base_theme()
 }
 
-plot_mu_and_tau <- function(mu, tau) {
-  combined <- bind_rows(
-    mutate(mu, parameter = "Pooled effect, mu"),
-    mutate(tau, parameter = "Heterogeneity, tau")
-  ) %>%
-    mutate(
-      parameter = factor(
-        parameter,
-        levels = c("Pooled effect, mu", "Heterogeneity, tau")
-      )
-    )
-
-  ggplot(combined, aes(x = value, fill = distribution)) +
+plot_tau <- function(draws) {
+  ggplot(draws, aes(x = value, fill = distribution)) +
     geom_density(alpha = 0.5, linewidth = 0.3) +
-    facet_wrap(~ config + parameter, ncol = 2, scales = "free") +
+    facet_wrap(~config, ncol = 1, scales = "free") +
     scale_fill_manual(values = DIST_COLOURS, name = NULL) +
-    labs(x = NULL, y = "Density") +
+    labs(x = "Heterogeneity, tau", y = "Density") +
     base_theme()
+}
+
+plot_mu_and_tau <- function(mu, tau, mu_xlim = c(-8, 5)) {
+  gridExtra::arrangeGrob(
+    plot_mu(mu, xlim = mu_xlim),
+    plot_tau(tau),
+    ncol = 2
+  )
 }
 
 save_svg <- function(plot, filename, height) {
