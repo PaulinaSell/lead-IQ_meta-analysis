@@ -789,7 +789,7 @@ This underscores the value of the updated evidence synthesis provided here.
 Substantial heterogeneity was observed in this meta-analysis, likely driven by differences in study populations (size, location, age, and exposure range) and statistical methods, particularly the covariate adjustment sets used.
 Two studies reporting null effects were conducted in relatively low-exposed populations [@desrochers-couture2018PrenatalConcurrentSexspecific; @bauer2020AssociationsMetalMixture], where limited exposure variation reduces the detectability of an effect. 
 Differences in study location may also contribute: IQ tests not adapted to the target population can result in underestimated scores, which may apply to the study by Menezes-Filho et al. [@menezes-filho2018EnvironmentalCoExposureLead]. 
-Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (additional file 5e).
+Additionally, studies reporting larger uncertainty tended to report larger effects, suggesting a possible presence of publication bias (additional file 5g).
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
