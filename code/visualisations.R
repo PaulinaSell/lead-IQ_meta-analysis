@@ -32,15 +32,6 @@ freq_model <- readRDS("models/main/freq_full.rds")
 freq_low_medium <- readRDS("models/sensitivity/RoB/freq_low_medium.rds")
 freq_low <- readRDS("models/sensitivity/RoB/freq_low.rds")
 
-# loading model results for priors sensitivity analysis
-m.brm_main <- readRDS("models/main/m.brm_full.rds")
-m.brm_narrow <- readRDS("models/sensitivity/priors/m.brm_narrow.rds")
-m.brm_wide <- readRDS("models/sensitivity/priors/m.brm_wide.rds")
-
-fitPrior_main <- readRDS("models/main/fitPrior_full.rds")
-fitPrior_wide <- readRDS("models/sensitivity/priors/fitPrior_wide.rds")
-fitPrior_narrow <- readRDS("models/sensitivity/priors/fitPrior_narrow.rds")
-
 # create lists ----
 # for Bayesian MA
 result_models <- list(
@@ -65,25 +56,6 @@ result_configs_RoB <- list(
     model = m.brm_low,
     prior = fitPrior_low,
     data = data_low
-  )
-)
-
-# for "prior, data & posterior" plot for priors sensitivity analysis
-result_configs_Priors <- list(
-  main = list(
-    model = m.brm_main,
-    prior = fitPrior_main,
-    data = data
-  ),
-  wide = list(
-    model = m.brm_wide,
-    prior = fitPrior_wide,
-    data = data
-  ),
-  narrow = list(
-    model = m.brm_narrow,
-    prior = fitPrior_narrow,
-    data = data
   )
 )
 
@@ -279,134 +251,6 @@ for (model_name in names(result_models)) {
     height = 10,
     units = "cm"
   )
-}
-
-# Prior, data & posterior in one plot: looped over all 3 sensitivity analyses----
-
-for (config_name in names(result_configs_Priors)) {
-  current_config <- result_configs_Priors[[config_name]]
-  model <- current_config$model
-  prior <- current_config$prior
-  data <- current_config$data
-
-  # Mu
-  # Prepare data
-  posterior_samples <- as_draws_df(model)
-  prior_samples <- as_draws_df(prior)
-
-  plot_data_combined <- data.frame(
-    value = c(
-      prior_samples[["b_Intercept"]],
-      posterior_samples[["b_Intercept"]],
-      data$beta_ln
-    ),
-    distribution = factor(
-      c(
-        rep("Prior", nrow(prior_samples)),
-        rep("Posterior", nrow(posterior_samples)),
-        rep("Observed Effects", nrow(data))
-      ),
-      levels = c("Prior", "Observed Effects", "Posterior")
-    )
-  )
-
-  beta <-
-    ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
-    geom_density(alpha = 0.5, linewidth = 0.3) +
-    labs(
-      title = paste0(
-        "Sensi. analysis: ",
-        config_name,
-        " Prior, Observed Effects, and Posterior of Main effect, mu"
-      ),
-      x = "Mu",
-      y = "Density",
-      fill = "Distribution"
-    ) +
-    scale_fill_manual(
-      values = c(
-        "Prior" = "#e9c46a",
-        "Posterior" = "#2a9d8f",
-        "Observed Effects" = "#e76f51"
-      ),
-      name = ""
-    ) +
-    xlim((-8), 5) +
-    ylim(0, 0.9) +
-    theme_minimal() +
-    theme(
-      legend.position = c(.95, .95),
-      legend.justification = c("right", "top"),
-      panel.border = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      panel.background = element_blank()
-    )
-
-  # Heterogeneity:
-  plot_data_combined <- data.frame(
-    value = c(
-      prior_samples[["sd_author_year__Intercept"]],
-      posterior_samples[["sd_author_year__Intercept"]]
-    ),
-    distribution = factor(
-      c(
-        rep("Prior", nrow(prior_samples)),
-        rep("Posterior", nrow(posterior_samples))
-      ),
-      levels = c("Prior", "Posterior")
-    )
-  )
-
-  heterogeneity <-
-    ggplot(plot_data_combined, aes(x = value, fill = distribution)) +
-    geom_density(alpha = 0.5, linewidth = 0.3) +
-    labs(
-      title = paste0(
-        "Sensi. analysis: ",
-        config_name,
-        " Prior, Observed Effects, and Posterior of Heterogeneity, tau"
-      ),
-      x = "Tau",
-      y = "Density",
-      fill = "Distribution"
-    ) +
-    scale_fill_manual(
-      values = c("Prior" = "#e9c46a", "Posterior" = "#2a9d8f"),
-      name = ""
-    ) +
-    xlim((-1), 8) +
-    ylim(0, 1.1) +
-    theme_minimal() +
-    theme(
-      legend.position = c(.95, .95),
-      legend.justification = c("right", "top"),
-      panel.border = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      panel.background = element_blank()
-    )
-
-  plot_list <- list(
-    heterogeneity = heterogeneity,
-    beta = beta
-  )
-
-  for (p_name in names(plot_list)) {
-    ggsave(
-      filename = paste0(
-        "results/sensitivity/priors/prior_obs-effects_posterior_",
-        p_name,
-        "-",
-        config_name,
-        ".png"
-      ),
-      plot = plot_list[[p_name]],
-      width = 22,
-      height = 15,
-      units = "cm"
-    )
-  }
 }
 
 # Freq MA forest plot looping ----
