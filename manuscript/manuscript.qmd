@@ -641,11 +641,11 @@ variant_order <- c(
   "main",
   "narrow",
   "wide",
-  "mu_skeptical",
   "mu_default",
+  "mu_skeptical",
   "mu_enthusiastic",
-  "tau_strong",
   "tau_default",
+  "tau_strong",
   "tau_weak"
 )
 
