@@ -635,7 +635,7 @@ table_all <- bind_rows(
 variant_labels <- c(
   main = "Main",
   narrow = "Narrow: mu=N(-1, 1), tau=N+(0, 1)",
-  ignorant = "Ignorant priors",
+  ignorant = "Ignorant priors mu=N(0, 6), tau=N+(0, 6)",
   full = "Full sample",
   low = "Low RoB only",
   low_medium = "Low/Medium RoB"

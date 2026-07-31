@@ -13,6 +13,9 @@ library(HDInterval)
 library(bayestestR)
 library(posterior)
 
+# This also sources prior_configs.R
+source("code/sensitivity_priors.R")
+
 data_full <- read.csv("data/study_data_leadIQloss.csv")
 
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
