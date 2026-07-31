@@ -129,7 +129,7 @@ knitr::include_graphics(
 #| echo: false
 #| out-width: "80%"
 #| fig-align: center
-#| fig-cap: "Prior, observed study effects and posterior distribution of the pooled effect (mu) when only the centre of the effect prior changes, from skeptical (closer to no effect) through the default to enthusiastic (a large effect). The heterogeneity prior is held at Half-normal(2) throughout. The posterior moves very little, indicating that with twelve studies the observed data outweigh the effect prior."
+#| fig-cap: "Prior, observed study effects and posterior distribution of the pooled effect (mu) when only the centre of the effect prior changes, from skeptical (closer to no effect) through the default to enthusiastic (a large effect). The heterogeneity prior is held at N+(2) throughout. The posterior moves very little, indicating that with twelve studies the observed data outweigh the effect prior."
 
 knitr::include_graphics(
   here("results", "sensitivity", "priors", "mu_effect-prior.svg")
