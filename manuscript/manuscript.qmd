@@ -653,12 +653,7 @@ sensitivity_order <- c(
   "Priors"
 )
 
-# The RoB full-sample Bayesian model, the Priors main model, and the Effect
-# prior "default" model are all the same fit (Normal(-1, 2) + N+(2)), refit
-# independently, so they differ slightly by MCSE. The Effect-prior default
-# run is treated as canonical (it matches the value reported in the
-# abstract) and propagated to Priors-main and RoB-full; the now-redundant
-# Effect-prior default row is then dropped from the table.
+# Keep the results from the abstract, dodge MCSE noise
 is_rob_full_bayes <- with(
   table_all,
   sensitivity == "RoB" & model_type == "Bayesian" & variant == "full"
@@ -682,9 +677,7 @@ table_all[is_rob_full_bayes, c("mean", "lb", "ub")] <-
   table_all[is_priors_main, c("mean", "lb", "ub")]
 table_all <- table_all[!is_effect_default, ]
 
-# Effect prior and Heterogeneity prior variants are one-way sensitivity
-# analyses around the same "Priors" model family; fold them into that
-# rowgroup rather than giving them their own.
+# No longer separate row groups for Effect / Heterogeneity prior -> merge
 table_all$sensitivity[
   table_all$sensitivity %in% c("Effect prior", "Heterogeneity prior")
 ] <- "Priors"
