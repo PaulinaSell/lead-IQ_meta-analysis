@@ -177,7 +177,7 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
-The Bayesian approach was less sensitive to outlier studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
+The Bayesian approach was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
@@ -760,11 +760,16 @@ While previous publications have compared both frameworks, they focus either on 
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field.
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using ignorant priors.
+This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses (Table 4).
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
-The two frameworks differ in how they treat outlier studies reporting substantial uncertainty.
-Bayesian meta-analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
-In contrast, frequentist models implicitly rely on flat or non-informative priors, which result in greater sensitivity to studies reporting large uncertainty [@gelman2013Chapter4Asymptotics].
+
+The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
+In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
+Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
+Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
+<!-- # Not sure I want the sentence below... it kind of asks for the add-on "and that's why Bayes and freq converge under large data", but that seems a bit off-topic here... -->
+<!-- As with any other prior setting, the influence of the heterogeneity prior diminishes as the number of studies in our meta-analysis grows. -->
 
 Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow].
 While these demands may initially appear as disadvantages, they can equally be understood as methodological safeguards:
