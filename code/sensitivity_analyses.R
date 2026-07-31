@@ -14,6 +14,7 @@ library(bayestestR)
 library(posterior)
 
 data_full <- read.csv("data/study_data_leadIQloss.csv")
+
 # Subsetting full study base for sensitivity analysis: excluding studies with RoB
 data_low_medium <- data_full[
   !data_full$author_year %in% c("Crump 2013", "Earl 2016"),
@@ -146,7 +147,7 @@ priors_narrow <- c(
 # store priors in list
 priors_list <- list(
   main = priors,
-  wide = priors_wide,
+  ignorant = priors_wide,
   narrow = priors_narrow
 )
 

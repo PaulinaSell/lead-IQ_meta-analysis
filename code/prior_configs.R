@@ -61,7 +61,7 @@ oneway_prior_configs <- list(
   ),
   tau_strong = list(
     arm = "Heterogeneity prior",
-    label = "Strong shrinkage: tau=N+(0.67)",
+    label = "Strong shrinkage: mu=N(0,100), tau=N+(0, 0.67)",
     priors = c(
       mu_prior(0, MU_FLAT_SCALE),
       tau_prior(TAU_DEFAULT_SCALE / 3)
@@ -72,7 +72,7 @@ oneway_prior_configs <- list(
   ),
   tau_default = list(
     arm = "Heterogeneity prior",
-    label = "Default: tau=N+(2)",
+    label = "Default shrinkage: mu=N(0,100), tau=N+(0, 2)",
     priors = c(
       mu_prior(0, MU_FLAT_SCALE),
       tau_prior(TAU_DEFAULT_SCALE)
@@ -83,7 +83,7 @@ oneway_prior_configs <- list(
   ),
   tau_weak = list(
     arm = "Heterogeneity prior",
-    label = "Weak shrinkage: tau=N+(6)",
+    label = "Weak shrinkage: mu=N(0,100), tau=N+(0, 6)",
     priors = c(
       mu_prior(0, MU_FLAT_SCALE),
       tau_prior(TAU_DEFAULT_SCALE * 3)
@@ -97,17 +97,17 @@ oneway_prior_configs <- list(
 # Existing analyses that move both priors at once, kept for figure 5d.
 joint_prior_configs <- list(
   main = list(
-    label = "Main: mu=N(-1, 2), tau=N+(2)",
+    label = "Main: mu=N(-1, 2), tau=N+(0, 2)",
     posterior_path = "models/main/m.brm_full.rds",
     prior_path = "models/main/fitPrior_full.rds"
   ),
   narrow = list(
-    label = "Narrow: mu=N(-1, 1), tau=N+(1)",
+    label = "Narrow: mu=N(-1, 1), tau=N+(0, 1)",
     posterior_path = "models/sensitivity/priors/m.brm_narrow.rds",
     prior_path = "models/sensitivity/priors/fitPrior_narrow.rds"
   ),
   wide = list(
-    label = "Wide: mu=N(0, 6), tau=N+(6)",
+    label = "Wide: mu=N(0, 6), tau=N+(0, 6)",
     posterior_path = "models/sensitivity/priors/m.brm_wide.rds",
     prior_path = "models/sensitivity/priors/fitPrior_wide.rds"
   )

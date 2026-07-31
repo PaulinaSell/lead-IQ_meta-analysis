@@ -45,7 +45,7 @@ We thank you for this comment and acknowledge that we mixed the two separate con
 With the statement you quoted above, we intended to discuss only how "studies with uncertain estimates" are affected by shrinkage.
 
 To address your comment, we have therefore removed all references to "outlier studies" from the sections discussing the sensitivity of both statistical frameworks to studies with uncertain estimates.
-Furthermore, we have added expanded our sensitivity analysis to include prior settings that systematically vary the priors for either the location of $\mu$ or the scale of $\tau$ while holding the remaining settings constant: 
+Furthermore, we have expanded our sensitivity analysis to include prior settings that systematically vary the priors for either the location of $\mu$ or the scale of $\tau$ while holding the remaining settings constant: 
 
 While $\tau$ remained at its default, we varied $\mu$:
 
@@ -187,7 +187,7 @@ In Supplementary File 5, Figures 5a and 5b require clearer descriptions. The fig
 :::
 
 ::: {.reply}
-Thank you, we added figure legends to Supplementary File 5.
+Thank you, we added figure descriptions to Supplementary File 5.
 :::
 
 <!-- R1 C10 -->
@@ -196,7 +196,7 @@ In Section 3.4, the manuscript states that sensitivity analysis results are pres
 :::
 
 ::: {.reply}
-Thank you, we have corrected the table referencing.
+Thank you, we have corrected the table numbering and referencing.
 :::
 
 # Reviewer 2
@@ -214,7 +214,16 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 <!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
 :::
 
-::: {.revision section=""}
+::: {.revision section="Abstract -- Results"}
+"The Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge."
+:::
+
+::: {.revision section="Discussion"}
+"Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
+In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
+Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
+Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."
 :::
 
 <!-- R2 C2 -->

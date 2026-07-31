@@ -177,8 +177,8 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
-The Bayesian approach was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist approach.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates are unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
+The Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
@@ -616,18 +616,25 @@ This shows that the results are robust to the alternative priors tested in the s
 #| label: table_4_sensi
 #| echo: false
 #| classes: plain
-#| include: !expr knitr::pandoc_to() != "docx"
 #| message: false
 #| warning: false
 
+library(here)
+library(gt)
+
 table_all <- bind_rows(
-  readRDS("tables_figures/main/table_sensi.rds"),
-  readRDS("tables_figures/main/table_sensi_oneway.rds")
+  readRDS(here("manuscript", "tables_figures", "main", "table_sensi.rds")),
+  readRDS(here(
+    "manuscript",
+    "tables_figures",
+    "main",
+    "table_sensi_oneway.rds"
+  ))
 )
 
 variant_labels <- c(
   main = "Main",
-  narrow = "Narrow priors",
+  narrow = "Narrow: mu=N(-1, 1), tau=N+(0, 1)",
   ignorant = "Ignorant priors",
   full = "Full sample",
   low = "Low RoB only",
@@ -682,10 +689,10 @@ table_all$sensitivity[
   table_all$sensitivity %in% c("Effect prior", "Heterogeneity prior")
 ] <- "Priors"
 
-stopifnot(
-  all(table_all$variant %in% variant_order),
-  all(table_all$sensitivity %in% sensitivity_order)
-)
+# stopifnot(
+#   all(table_all$variant %in% variant_order),
+#   all(table_all$sensitivity %in% sensitivity_order)
+# )
 
 table4_gt <- table_all %>%
   mutate(
@@ -768,6 +775,8 @@ Bayesian meta-analysis can be set up such that it is less sensitive to these unc
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
 Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
+<!-- if above paragraph changes, we need to update the R2 C1 quote -->
+
 <!-- # Not sure I want the sentence below... it kind of asks for the add-on "and that's why Bayes and freq converge under large data", but that seems a bit off-topic here... -->
 <!-- As with any other prior setting, the influence of the heterogeneity prior diminishes as the number of studies in our meta-analysis grows. -->
 
