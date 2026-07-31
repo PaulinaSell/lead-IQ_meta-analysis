@@ -386,7 +386,7 @@ To examine the sensitivity of the results to possibly biased study estimates, we
 
 To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors that we consider to be extreme but still reasonable.
 The first set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
-The second set of priors was less informative (wider) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
+The second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 
 # Results
@@ -607,7 +607,7 @@ These shifts in both directions and their small size show that the results are r
 The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable.
 With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases.
 This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.
-When using less informative (wider) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
+When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 Additional file 5d shows prior, observed data and posterior distributions of all three prior specifications.
 This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
@@ -628,7 +628,7 @@ table_all <- bind_rows(
 variant_labels <- c(
   main = "Main",
   narrow = "Narrow priors",
-  wide = "Wide priors",
+  ignorant = "Ignorant priors",
   full = "Full sample",
   low = "Low RoB only",
   low_medium = "Low/Medium RoB"
@@ -640,8 +640,7 @@ variant_order <- c(
   "low_medium",
   "main",
   "narrow",
-  "wide",
-  "mu_default",
+  "ignorant",
   "mu_skeptical",
   "mu_enthusiastic",
   "tau_default",
@@ -651,13 +650,10 @@ variant_order <- c(
 
 sensitivity_order <- c(
   "RoB",
-  "Priors",
-  "Effect prior",
-  "Heterogeneity prior"
+  "Priors"
 )
 
-# The RoB full-sample Bayesian model, the Priors main model, and the Effect
-# prior "default" model are all the same fit (Normal(-1, 2) + Half-normal(2)).
+# Keep the results from the abstract, dodge MCSE noise
 is_rob_full_bayes <- with(
   table_all,
   sensitivity == "RoB" & model_type == "Bayesian" & variant == "full"
@@ -675,10 +671,16 @@ stopifnot(
   sum(is_priors_main) == 1,
   sum(is_effect_default) == 1
 )
+table_all[is_priors_main, c("mean", "lb", "ub")] <-
+  table_all[is_effect_default, c("mean", "lb", "ub")]
 table_all[is_rob_full_bayes, c("mean", "lb", "ub")] <-
   table_all[is_priors_main, c("mean", "lb", "ub")]
-table_all[is_effect_default, c("mean", "lb", "ub")] <-
-  table_all[is_priors_main, c("mean", "lb", "ub")]
+table_all <- table_all[!is_effect_default, ]
+
+# No longer separate row groups for Effect / Heterogeneity prior -> merge
+table_all$sensitivity[
+  table_all$sensitivity %in% c("Effect prior", "Heterogeneity prior")
+] <- "Priors"
 
 stopifnot(
   all(table_all$variant %in% variant_order),
@@ -691,9 +693,7 @@ table4_gt <- table_all %>%
     is_bold = (sensitivity == "RoB" & variant == "full") |
       (sensitivity == "Priors" &
         model_type == "Bayesian" &
-        variant == "main") |
-      (sensitivity == "Effect prior" & variant == "mu_default") |
-      (sensitivity == "Heterogeneity prior" & variant == "tau_default"),
+        variant == "main"),
     sensitivity = factor(sensitivity, levels = sensitivity_order),
     model_type = factor(model_type, levels = c("Bayesian", "Frequentist")),
     variant = factor(variant, levels = variant_order),
@@ -707,17 +707,17 @@ table4_gt <- table_all %>%
   ungroup() %>%
   select(sensitivity, model_display, variant_clean, Estimate, is_bold)
 
-stopifnot(nrow(table4_gt) == 15, sum(table4_gt$is_bold) == 5)
+stopifnot(nrow(table4_gt) == 14, sum(table4_gt$is_bold) == 3)
 
 bold_rows <- which(table4_gt$is_bold)
 
 source_note <- paste(
   "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian",
   "and confidence interval for frequentist model results).",
-  "Effect prior analyses hold the heterogeneity prior at Half-normal(2);",
-  "heterogeneity prior analyses hold the effect prior at Normal(0, 100), which",
-  "is effectively flat. Half-normal(s) denotes a Normal(0, s) distribution",
-  "truncated at zero."
+  "Rows varying only the effect prior hold the heterogeneity prior at N+(2);",
+  "rows varying only the heterogeneity prior hold the effect prior at",
+  "Normal(0, 100), which is effectively flat. N+(s) denotes a Normal(0, s)",
+  "distribution truncated at zero."
 )
 
 table4_gt %>%
@@ -760,7 +760,7 @@ While previous publications have compared both frameworks, they focus either on 
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field.
 
 Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
-This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors.
+This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using ignorant priors.
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 The two frameworks differ in how they treat outlier studies reporting substantial uncertainty.
 Bayesian meta-analysis can be less sensitive to these outliers, due to the shrinkage exerted by the prior specified for heterogeneity, provided that priors reflecting plausible domain knowledge are specified carefully.
