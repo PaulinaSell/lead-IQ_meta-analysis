@@ -12,13 +12,13 @@ TAU_DEFAULT_SCALE <- 2
 
 mu_prior <- function(location, scale = MU_SCALE) {
   prior_string(
-    sprintf("N(%.6f, %.6f)", location, scale),
+    sprintf("normal(%.6f, %.6f)", location, scale),
     class = "Intercept"
   )
 }
 
 tau_prior <- function(scale) {
-  prior_string(sprintf("N(0, %.6f)", scale), class = "sd", lb = 0)
+  prior_string(sprintf("normal(0, %.6f)", scale), class = "sd", lb = 0)
 }
 
 oneway_path <- function(prefix, config_name) {
