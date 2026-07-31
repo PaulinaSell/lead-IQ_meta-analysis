@@ -212,6 +212,17 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 
 ::: {.reply}
 <!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
+Thank you for this comment and agree that comparing a single frequentist and a single Bayesian implementation does not support conclusions about the two frameworks in general.
+Rather than broadening the comparison with an additional frequentist small-sample adjustment, we have chosen to describe the study more cautiously, reframing ... 
+:::
+
+::: {.revision section="Title"}
+"Quantifying uncertainty: A practical comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ"
+:::
+<!-- I added "practical" to the title. What do you think? -->
+
+::: {.revision section="Abstract -- Background"}
+"To evaluate differences in uncertainty quantification and applicability for risk assessment, we conducted an applied comparative study of frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study."
 :::
 
 ::: {.revision section="Abstract -- Results"}
@@ -223,7 +234,13 @@ This regularisation is particularly valuable in small meta-analyses, where frequ
 "Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."
+Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."\
+"By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis."\
+"Comparing both meta-analytic models showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making."
+:::
+
+::: {.revision section="Conclusion"}
+"This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis."
 :::
 
 <!-- R2 C2 -->

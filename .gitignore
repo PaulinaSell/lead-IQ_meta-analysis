@@ -15,6 +15,7 @@ _extensions/
 documentation/
 results/sensitivity/
 models/sensitivity/priors_oneway/*.rds
+models/sensitivity/loo/*.rds
 manuscript/tables_figures/supplement/*.docx
 manuscript/tables_figures/supplement/I2_calculation_files
 abstracts/*.docx
