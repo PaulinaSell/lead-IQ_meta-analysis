@@ -12,6 +12,18 @@ rma_model <- rma(
   method = "REML"
 ) # Restricted Maximum Likelihood
 
+print(rma_model)
+
+rma_model_knha <- rma(
+  yi = beta_ln,
+  sei = se_beta_ln,
+  data = data_full,
+  method = "REML",
+  test = "knha"
+) # Small sample adjustment
+
+print(rma_model_knha)
+
 # saveRDS(rma_model, file = "models/main/freq_full.rds")
 
 rma_model <- readRDS("models/main/freq_full.rds")

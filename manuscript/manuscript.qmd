@@ -391,6 +391,9 @@ To examine the sensitivity of the results to the choice of prior distributions, 
 The first set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
 The second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
+To be able to better discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we ran further sensitivity analyses varying one of the two parameters while holding the other constant.
+The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^2(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
 
 # Results
 ## Literature Review
@@ -602,18 +605,25 @@ This has no equivalent in the frequentist framework, where the contribution of e
 The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less).
 
 ## Sensitivity Analysis
-We conducted two sets of sensitivity analyses; results are shown in Table 4.
-First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
-For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
-These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
 
-The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable.
-With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases.
-This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.
+### Risk of Bias
+
+For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
+These shifts in both directions and their small size show that the results are robust to possible individual-study bias (Table 4).
+
+### Prior Sensitivity
+
+With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases (Table 4).
+This is expected, because the narrow $\mu$ prior, together with stronger shrinkage, favours a tighter posterior distribution with effect ranges closer to -1, the mean of $\mu$'s prior.
 When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
-Additional file 5d shows prior, observed data and posterior distributions of all three prior specifications.
-This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
+
+Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
+The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
+This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
+
+For further detail on these analyses, see additional file 5d-f for prior, likelihood and posterior distributions of all prior sensitivity analyses.
 
 ```{r}
 #| label: table_4_sensi
