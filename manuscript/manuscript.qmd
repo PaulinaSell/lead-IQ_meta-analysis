@@ -162,10 +162,7 @@ frnd <- function(val, digits = 1) sprintf(paste0("%.", digits, "f"), val)
 <!-- max 350 words in BMC  -->
 **Background**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we conducted an applied comparative study of frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
-
-<!-- old version (above), changed for R2 C1:
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study. -->
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children.
 After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
@@ -180,8 +177,8 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
-The Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
+Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
@@ -831,8 +828,6 @@ We prioritized this exposure timeframe because it enabled the inclusion of cross
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis.
-<!-- old version (above), changed for R2 C1: 
-By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks. -->
 To our knowledge, this is the first study to formally conduct such a comparison in the field of environmental epidemiology.
 Beyond this methodological contribution, we provide an updated evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
 All data and code, including the code used to produce this manuscript, are publicly available, enabling other researchers to verify and build on our analyses.
@@ -840,12 +835,9 @@ Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use 
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
-<!-- I added "applied" above (R2 C1) -->
 The resulting pooled effect estimates are consistent with previous evidence and once again underscore the importance of reducing environmental lead contamination to reduce the public health burden this substance continues to impose.
 
-Comparing both meta-analytic models showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making.
-<!-- old version (above), changed for R2 C1
-Comparing both frameworks showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making. -->
+In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty.
 Especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
 While the Bayesian framework currently demands greater statistical knowledge and programming effort than the frequentist approach, these barriers are likely to diminish if the framework gains wider adoption and training becomes more accessible.
 We believe that the benefits gained outweigh the investments made and therefore want to encourage researchers to consider Bayesian methods.
