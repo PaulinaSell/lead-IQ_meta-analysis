@@ -162,10 +162,7 @@ frnd <- function(val, digits = 1) sprintf(paste0("%.", digits, "f"), val)
 <!-- max 350 words in BMC  -->
 **Background**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
 Bayesian meta-analysis provides probabilistic uncertainty quantification.
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we conducted an applied comparative study of frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study.
-
-<!-- old version (above), changed for R2 C1:
-To evaluate differences in uncertainty quantification and applicability for risk assessment, we compared frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study. -->
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children.
 After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonized to the $\log_e$​ scale.
@@ -180,8 +177,8 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
-The Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge.
+Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
@@ -226,6 +223,7 @@ Furthermore, Bayesian posterior distributions can be directly propagated into pr
 By comparing frequentist and Bayesian approaches, we explore how the analytical framework and its approach to uncertainty quantification influence exposure-response estimates and their application.
 
 The aim of this study is twofold: first, to synthesize and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing how these analytical frameworks impact exposure-response estimates and uncertainty quantification.
+<!-- If ever necessary, we could add a sentence saying "However, a general comparison of both frameworks is not our goal because it is not possible based on this single study" -->
 
 # Methods
 ## Literature Review
@@ -387,10 +385,13 @@ The $I^2$ statistic was calculated as a measure of heterogeneity, representing t
 We conducted two sets of sensitivity analyses.
 To examine the sensitivity of the results to possibly biased study estimates, we ran both the frequentist and Bayesian models again twice, excluding (1) studies with a high RoB rating and (2) with a high or moderate RoB.
 
-To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors that we consider to be extreme but still reasonable.
-The first set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
-The second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
+To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for alternative sets of priors that we consider to be extreme but still reasonable.
+One set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
+A second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Note that for the main effect, the broader prior is centered around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
+To be able to discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
+The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
 
 # Results
 ## Literature Review
@@ -602,18 +603,25 @@ This has no equivalent in the frequentist framework, where the contribution of e
 The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less).
 
 ## Sensitivity Analysis
-We conducted two sets of sensitivity analyses; results are shown in Table 4.
-First, in order to test the sensitivity of the results to possibly biased study estimates, we excluded (1) studies with high RoB rating and (2) with high or moderate RoB rating.
-For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
-These shifts in both directions and their small size show that the results are robust to possible individual-study bias.
 
-The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable.
-With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases.
-This is expected, because the narrow prior restricts the posterior distribution to lower effect ranges.
+### Risk of Bias
+
+For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
+These shifts in both directions and their small size show that the results are robust to possible individual-study bias (Table 4).
+
+### Prior Sensitivity
+
+With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases (Table 4).
+This is expected, because the narrow $\mu$ prior, together with stronger shrinkage, favours a tighter posterior distribution with effect ranges closer to -1, the mean of $\mu$'s prior.
 When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
-Additional file 5d shows prior, observed data and posterior distributions of all three prior specifications.
-This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis.
+
+Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
+The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
+This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
+
+For further detail on these analyses, see additional file 5d-f for prior, likelihood and posterior distributions of all prior sensitivity analyses.
 
 ```{r}
 #| label: table_4_sensi
@@ -773,7 +781,7 @@ Pooled effect estimates and measures of heterogeneity were largely consistent ac
 This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses (Table 4).
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 
-The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
@@ -817,13 +825,13 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-First, the included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
 This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
-
+Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
+Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
-
-Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
+We excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 <!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken.
 Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
@@ -831,8 +839,6 @@ We prioritized this exposure timeframe because it enabled the inclusion of cross
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis.
-<!-- old version (above), changed for R2 C1: 
-By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we enable a direct comparison of the frequentist and Bayesian frameworks. -->
 To our knowledge, this is the first study to formally conduct such a comparison in the field of environmental epidemiology.
 Beyond this methodological contribution, we provide an updated evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
 All data and code, including the code used to produce this manuscript, are publicly available, enabling other researchers to verify and build on our analyses.
@@ -840,12 +846,9 @@ Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use 
 
 # Conclusions
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
-<!-- I added "applied" above (R2 C1) -->
 The resulting pooled effect estimates are consistent with previous evidence and once again underscore the importance of reducing environmental lead contamination to reduce the public health burden this substance continues to impose.
 
-Comparing both meta-analytic models showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making.
-<!-- old version (above), changed for R2 C1
-Comparing both frameworks showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making. -->
+In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty.
 Especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
 While the Bayesian framework currently demands greater statistical knowledge and programming effort than the frequentist approach, these barriers are likely to diminish if the framework gains wider adoption and training becomes more accessible.
 We believe that the benefits gained outweigh the investments made and therefore want to encourage researchers to consider Bayesian methods.

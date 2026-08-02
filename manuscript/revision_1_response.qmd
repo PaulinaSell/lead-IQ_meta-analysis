@@ -44,31 +44,43 @@ The manuscript states: “The Bayesian approach was less sensitive to outlier st
 We thank you for this comment and acknowledge that we mixed the two separate concepts of "outlier studies" and "studies with uncertain estimates".
 With the statement you quoted above, we intended to discuss only how "studies with uncertain estimates" are affected by shrinkage.
 
-To address your comment, we have therefore removed all references to "outlier studies" from the sections discussing the sensitivity of both statistical frameworks to studies with uncertain estimates.
+To address your comment, we have therefore removed all references to "outlier studies" and replaced this with "studies reporting uncertain estimates" or similar.
 Furthermore, we have expanded our sensitivity analysis to include prior settings that systematically vary the priors for either the location of $\mu$ or the scale of $\tau$ while holding the remaining settings constant: 
 
 While $\tau$ remained at its default, we varied $\mu$:
 
 - skeptical prior: $\mathcal{N}(-0.33, 2)$
-- enthusiastic prior: $\mathcal{N}(-3, 2)$) 
+- enthusiastic prior: $\mathcal{N}(-3, 2)$)
+
+<!-- say that these names come from Spiegelhalter? -->
 
 While $\mu$ was set to a flat prior, we varied $\tau$:
 
 - strong shrinkage: $\mathcal{N}^+(0, 0.66)$
 - weak shrinkage: $\mathcal{N}^+(0, 6)$)
 
-We set $\mu$ to a flat prior to be able to recover the frequentist estimate for $\mu$ under weak shrinkage.
+We set $\mu$ to a flat prior to see if we would recover the frequentist estimate for $\mu$ under weak shrinkage.
 With this baseline, the additional sensitivity analyses allow us to better highlight the different sensitivity of Bayesian and frequentist approaches to studies with uncertain estimates.
 
 We believe that this analysis and the related changes significantly improve our manuscript, and would like to thank you once again for stimulating this with your comment.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Methods -- Sensitivity Analysis"}
+"To be able to discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
+The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
+:::
+
+::: {.revision section="Results -- Sensitivity Analysis -- Prior Sensitivity"}
+"Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
+The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
+This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero."
 :::
 
 <!-- Initially a modification for R2 C3, but probably relevant here as well -->
 ::: {.revision section="Discussion"}
-"The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+"The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
@@ -212,35 +224,44 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 
 ::: {.reply}
 <!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
-Thank you for this comment and agree that comparing a single frequentist and a single Bayesian implementation does not support conclusions about the two frameworks in general.
-Rather than broadening the comparison with an additional frequentist small-sample adjustment, we have chosen to describe the study more cautiously, reframing ... 
+We thank you for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study, and have added two sentences to the limitation section in our Discussion, cautioning against interpreting our results too generally (see revisions below).
+
+In doing so, we have focused our comparison on general aspects, such as the role of shrinkage, that we can observe in our analysis through, for example, the sensitivity analyses we have added.
+In addition to our pre-existing description of how shrinkage operates in our specific sample, we now better explain which study settings our findings are expected to generalise to (small sample, high heterogeneity), and where shrinkage-induced differences in the pooled estimate are likely to be smaller (large sample, low heterogeneity).
+We described these analyses in more detail in our reply to reviewer 1's comment 2.
+
+Furthermore, we thank you for pointing out that the sample size in our study warrants a small-sample adjustment.
+We have replaced the unadjusted analysis with an analysis using the Knapp-Hartung adjustment; the confidence interval of the pooled estimate in the adjusted analyses are now ~0.2 wider.
+The adjustment is briefly introduced in the Method section (see revisions below).
 :::
 
 ::: {.revision section="Title"}
 "Quantifying uncertainty: A practical comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ"
 :::
-<!-- I added "practical" to the title. What do you think? -->
 
 ::: {.revision section="Abstract -- Background"}
-"To evaluate differences in uncertainty quantification and applicability for risk assessment, we conducted an applied comparative study of frequentist and Bayesian frameworks, using lead exposure and children's IQ as a case study."
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study.
 :::
 
 ::: {.revision section="Abstract -- Results"}
-"The Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge."
+"Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
 :::
 
+<!-- Placeholder for small sample adjustment -->
+::: {.revision section="Method"}
+:::
+
+<!-- TODO Instead point the reviewer to R1C2 -->
 ::: {.revision section="Discussion"}
-"Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
-Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."\
 "By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis."\
-"Comparing both meta-analytic models showed that the Bayesian approach offers distinct advantages for risk assessment and policy-making."
+"Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
+Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study."
 :::
 
 ::: {.revision section="Conclusion"}
-"This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis."
+"This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis."\
+"In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty."
 :::
 
 <!-- R2 C2 -->
@@ -263,7 +284,7 @@ The manuscript states that study estimates in both panels of Figure 2 are shrunk
 :::
 
 ::: {.reply}
-Thank you for pointing out the misleading terminology in Figure 2's caption. We have adjusted the wording (see below, "Results").
+Thank you for pointing out the misleading terminology relating to Figure 2. We have adjusted the wording (see below, "Results").
 
 Furthermore, we agree that in the context of our manuscript it is neither necessary nor helpful to give frequentist methods a Bayesian interpretation.
 We have replaced it with a more nuanced description of the differences in the two meta-analytic frameworks we wanted to highlight here (see below, "Discussion").
@@ -272,12 +293,14 @@ Regarding your third point, we acknowledge that the claims we make regarding out
 Since reviewer 1 has raised a similar point, we omit repeating our reply and the associated changes here, and would instead gently refer you to our reply to reviewer 1's comment 2.
 :::
 
-<!-- This one is for the Fig 2 change (not sure it is in "Results", I just winged it here) -->
 ::: {.revision section="Results"}
+"The single study estimates shown in Fig. 2 differ between frameworks because Bayesian shrinkage pulls individual study estimates toward the pooled mean, borrowing information from the overall mean."\
+"This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting."
 :::
 
+<!-- TODO Do not repeat the same revision, instead refer to R1C2! -->
 ::: {.revision section="Discussion"}
-"The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
@@ -292,8 +315,7 @@ Different values appear in the Abstract, Results, Figure 2, and Table 4. Check t
 :::
 
 ::: {.reply}
-Thank you, we checked for numerical consistency. The inconsistency was due to MCMC noise. We now use the exact same model fit in the Abstract, Results, Figure 2 and Table 4.
-<!-- todo: update pipelie for table 4 to use the same model fit like everywhere else -->
+Thank you for pointing out these numerical inconsistencies. We have fixed these issues in the Abstract, Results, Figure 2 and Table 4.
 :::
 
 <!-- R2 C5 -->
