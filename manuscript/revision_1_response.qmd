@@ -65,6 +65,7 @@ With this baseline, the additional sensitivity analyses allow us to better highl
 We believe that this analysis and the related changes significantly improve our manuscript, and would like to thank you once again for stimulating this with your comment.
 :::
 
+<!-- something to add here? not sure -->
 ::: {.revision section=""}
 :::
 
@@ -214,10 +215,11 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 
 ::: {.reply}
 <!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
-We thank you for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study (see revisions below).
+We thank you for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study, and have added two sentences to the limitation section in our Discussion, cautioning against interpreting our results too generally (see revisions below).
 
 In doing so, we have focused our comparison on general aspects, such as the role of shrinkage, that we can observe in our analysis through, for example, the sensitivity analyses we have added.
 In addition to our pre-existing description of how shrinkage operates in our specific sample, we now better explain which study settings our findings are expected to generalise to (small sample, high heterogeneity), and where shrinkage-induced differences in the pooled estimate are likely to be smaller (large sample, low heterogeneity).
+We described these analyses in more detail in our reply to reviewer 1's comment 2.
 
 Furthermore, we thank you for pointing out that the sample size in our study warrants a small-sample adjustment.
 We have replaced the unadjusted analysis with an analysis using the Knapp-Hartung adjustment; the confidence interval of the pooled estimate in the adjusted analyses are now ~0.2 wider.
@@ -237,12 +239,14 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
 :::
 
+<!-- Placeholder for small sample adjustment -->
+::: {.revision section="Method"}
+:::
+
 ::: {.revision section="Discussion"}
-"Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
-Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."\
 "By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis."\
+"Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
+Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study."
 :::
 
 ::: {.revision section="Conclusion"}

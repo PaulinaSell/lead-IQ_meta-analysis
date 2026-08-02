@@ -223,6 +223,7 @@ Furthermore, Bayesian posterior distributions can be directly propagated into pr
 By comparing frequentist and Bayesian approaches, we explore how the analytical framework and its approach to uncertainty quantification influence exposure-response estimates and their application.
 
 The aim of this study is twofold: first, to synthesize and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing how these analytical frameworks impact exposure-response estimates and uncertainty quantification.
+<!-- If ever necessary, we could add a sentence saying "However, a general comparison of both frameworks is not our goal because it is not possible based on this single study" -->
 
 # Methods
 ## Literature Review
@@ -814,13 +815,13 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-First, the included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
 This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
-
+Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
+Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
-
-Third, we excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
+We excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 <!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken.
 Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
