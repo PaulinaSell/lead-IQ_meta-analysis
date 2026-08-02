@@ -64,8 +64,8 @@ We believe that this analysis and the related changes significantly improve our 
 :::
 
 ::: {.revision section="Methods -- Sensitivity Analysis"}
-"To be able to better discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we ran further sensitivity analyses varying one of the two parameters while holding the other constant.
-The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^2(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
+"To be able to discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
+The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
 We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
 :::
 
@@ -78,7 +78,7 @@ This is because many of the strongly negative coefficients were reported by unce
 
 <!-- Initially a modification for R2 C3, but probably relevant here as well -->
 ::: {.revision section="Discussion"}
-"The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+"The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
@@ -240,6 +240,7 @@ Rather than broadening the comparison with an additional frequentist small-sampl
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable — though it relies on heterogeneity priors that are carefully grounded in domain knowledge."
 :::
 
+<!-- TODO Instead point the reviewer to R1C2 -->
 ::: {.revision section="Discussion"}
 "Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
@@ -286,8 +287,9 @@ Since reviewer 1 has raised a similar point, we omit repeating our reply and the
 ::: {.revision section="Results"}
 :::
 
+<!-- TODO Do not repeat the same revision, instead refer to R1C2! -->
 ::: {.revision section="Discussion"}
-"The two frameworks may differ in how they treat studies reporting substantial uncertainty.
+The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
