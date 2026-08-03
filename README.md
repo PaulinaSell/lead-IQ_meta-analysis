@@ -41,7 +41,28 @@ renv::restore()
 > **Environment restore may take 15–30 minutes**. If you only want to browse the code or use the saved model fits (.rds files), you can skip `renv::restore()` and install packages manually as needed.
 
 ### Running the code to reproduce the manuscript
-Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**
+Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**.
+The manuscript and supplementary files read pre-computed model fits (`.rds`) and figures from `models/` and `manuscript/tables_figures/`. To regenerate these from scratch instead of relying on the checked-in fits, run the scripts in `code/` in the order below — each stage depends on `.rds` files produced by the previous one.
+
+**Stage 1 — main model fits**
+1. `code/Main-model_log.R`
+2. `code/freq_model_log.R`
+
+**Stage 2 — sensitivity model fits** (needs Stage 1's `.rds` files)
+3. `code/sensitivity_analyses.R`
+4. `code/sensitivity_priors.R` (sources `code/prior_configs.R`)
+
+**Stage 3 — figures** (need Stage 1/2 `.rds` files)
+5. `code/Bayes_forest_plot.R`
+6. `code/visualisations.R`
+7. `code/figures_priors_oneway.R` (sources `code/prior_configs.R`)
+8. `code/transformations_vis.R`
+
+**Stage 4 — render Quarto files** (need Stage 1–3 outputs)
+- `manuscript/manuscript.qmd`
+- `manuscript/tables_figures/supplement/model_output.qmd`
+- `manuscript/tables_figures/supplement/file5_additional-plots.qmd`
+- `manuscript/tables_figures/supplement/I2_calculation.qmd`
 
 ## Resources
 

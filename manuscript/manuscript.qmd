@@ -120,20 +120,22 @@ library(metafor)
 
 data <- read.csv("../data/study_data_leadIQloss.csv")
 
-freq_mean <- round(as.numeric(freq_model$beta), 2)
-freq_lb <- round(as.numeric(freq_model$ci.lb), 2)
-freq_ub <- round(as.numeric(freq_model$ci.ub), 2)
+frnd <- function(val, digits = 2) sprintf(paste0("%.", digits, "f"), val)
+
+freq_mean <- frnd(freq_model$beta)
+freq_lb <- frnd(freq_model$ci.lb)
+freq_ub <- frnd(freq_model$ci.ub)
 
 # tau2 for frequentist model
 freq_confint <- confint(freq_model)
 freq_confint <- freq_confint$random
 
 m.brm_samples <- as_draws_df(m.brm)
-Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
+Bayes_mean <- frnd(mean(m.brm_samples$b_Intercept))
 
 hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
-Bayes_lb <- round(as.numeric(hdi[1]), 2)
-Bayes_ub <- round(as.numeric(hdi[2]), 2)
+Bayes_lb <- frnd(hdi[1])
+Bayes_ub <- frnd(hdi[2])
 
 # calculate tau2 and I2 analogous to metafor
 # Extract posterior samples of tau
@@ -155,8 +157,6 @@ tau_sq_ci <- quantile(tau_sq_samples, c(0.025, 0.975))
 I2_posterior_mean <- mean(I2_samples)
 I2_posterior_median <- median(I2_samples)
 I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
-
-frnd <- function(val, digits = 1) sprintf(paste0("%.", digits, "f"), val)
 ```
 
 <!-- max 350 words in BMC  -->
@@ -358,7 +358,7 @@ ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
 ```
 
 For the overall pooled effect $\mu$, a normally distributed prior centered at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
-This reflects the prior belief that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
+This reflects the prior belief that the overall pooled effect lies between `r frnd(lb_prior)` and `r frnd(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
 The center point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead].
 Since variance terms, such as the between study heterogeneity $\tau$, must be positive, a truncated normal distribution centered at 0 with a SD of 2 was specified.
 This reflects the prior belief that heterogeneity $\tau$ is small to moderate, but does not exclude large heterogeneity if this is present in the included studies.
@@ -377,7 +377,7 @@ Posterior predictive checks were carried out to assess if the model structure is
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below.
 
 ### Frequentist Meta-Analysis
-For the frequentist meta-analysis, we employed a random-effects model, assuming the same multilevel structure as for the Bayesian model (@eq-model).
+For the frequentist meta-analysis, we employed a random-effects model with a small-sample adjustment, assuming the same multilevel structure as for the Bayesian model (@eq-model) [@hartung2001TestsOverallTreatment].
 Parameters were estimated via the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity $\tau^2$.
 
@@ -545,12 +545,12 @@ freq_I2_lb <- freq_confint[3, 2]
 freq_I2_ub <- freq_confint[3, 3]
 
 m.brm_samples <- as_draws_df(m.brm)
-Bayes_mean <- round(mean(m.brm_samples$b_Intercept), 2)
+Bayes_mean <- frnd(mean(m.brm_samples$b_Intercept))
 
 
 hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
-Bayes_lb <- round(as.numeric(hdi[1]), 2)
-Bayes_ub <- round(as.numeric(hdi[2]), 2)
+Bayes_lb <- frnd(hdi[1])
+Bayes_ub <- frnd(hdi[2])
 
 # calculate tau2 and I2 analogous to metafor
 # Extract posterior samples of tau
@@ -579,9 +579,9 @@ s_brm <- summary(m.brm)
 
 The prior predictive check indicates that the specified priors are appropriate (additional file 5a).
 The posterior predictive check showed that the model correctly captures important patterns in the data (additional file 5b).
-$\hat{R}$ values indicate that all MCMC chains converged (`r format(round(s_brm$fixed[,"Rhat"], 2), nsmall = 2)` for both $\mu$ and $\tau$).
+$\hat{R}$ values indicate that all MCMC chains converged (`r frnd(s_brm$fixed[,"Rhat"])` for both $\mu$ and $\tau$).
 MCMC trace plots showed well-mixed chains and convergence (additional file 5c).
-ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r round((s_brm$fixe[, "Bulk_ESS"]) / (s_brm$total_ndraws), 3)*100`% and `r round((s_brm$fixe[, "Tail_ESS"]) / (s_brm$total_ndraws), 3)*100`% of total samples respectively).
+ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r frnd((s_brm$fixed[, "Bulk_ESS"]) / (s_brm$total_ndraws) * 100)`% and `r frnd((s_brm$fixed[, "Tail_ESS"]) / (s_brm$total_ndraws) * 100)`% of total samples respectively).
 
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
 The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).
@@ -715,7 +715,7 @@ table4_gt <- table_all %>%
     sensitivity = factor(sensitivity, levels = sensitivity_order),
     model_type = factor(model_type, levels = c("Bayesian", "Frequentist")),
     variant = factor(variant, levels = variant_order),
-    Estimate = sprintf("%.2f (%.2f, %.2f)", mean, lb, ub)
+    Estimate = sprintf("%s (%s, %s)", frnd(mean), frnd(lb), frnd(ub))
   ) %>%
   arrange(sensitivity, model_type, variant) %>%
   group_by(sensitivity, model_type) %>%
@@ -732,9 +732,9 @@ bold_rows <- which(table4_gt$is_bold)
 source_note <- paste(
   "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian",
   "and confidence interval for frequentist model results).",
-  "Rows varying only the effect prior hold the heterogeneity prior at N+(2);",
+  "Rows varying only the effect prior hold the heterogeneity prior at N+(0, 2);",
   "rows varying only the heterogeneity prior hold the effect prior at",
-  "Normal(0, 100), which is effectively flat. N+(s) denotes a Normal(0, s)",
+  "Normal(0, 100), which is effectively flat but not improper.",
   "distribution truncated at zero."
 )
 

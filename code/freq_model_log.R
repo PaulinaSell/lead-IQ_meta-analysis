@@ -4,7 +4,7 @@ library(metafor)
 
 data_full = read.csv("data/study_data_leadIQloss.csv")
 
-# run model
+# run unadjusted model
 rma_model <- rma(
   yi = beta_ln,
   sei = se_beta_ln,
@@ -24,23 +24,21 @@ rma_model_knha <- rma(
 
 print(rma_model_knha)
 
-# saveRDS(rma_model, file = "models/main/freq_full.rds")
-
-rma_model <- readRDS("models/main/freq_full.rds")
+saveRDS(rma_model_knha, file = "models/main/freq_full.rds")
 
 # Funnel plot
-funnel(rma_model)
+funnel(rma_model_knha)
 
 # Diagnostics
 # Influence diagnostics (equivalent to Pareto-k checks)
-inf <- influence(rma_model)
+inf <- influence(rma_model_knha)
 plot(inf)
 
 # Residuals
-plot(rma_model)
+plot(rma_model_knha)
 
 # Leave-One-Out Analysis
-loo_results <- leave1out(rma_model)
-print(loo_results)
+# loo_results <- leave1out(rma_model_knha)
+# print(loo_results)
 
-forest(rma_model)
+forest(rma_model_knha)

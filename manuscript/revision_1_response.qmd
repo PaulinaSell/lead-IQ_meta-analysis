@@ -242,7 +242,8 @@ This regularization is particularly valuable in small meta-analyses, where frequ
 :::
 
 <!-- Placeholder for small sample adjustment -->
-::: {.revision section="Method"}
+::: {.revision section="Method -- Meta-Analysis -- Frequentist Meta-Analysis"}
+"For the frequentist meta-analysis, we employed a random-effects model with a small-sample adjustment, [...]"
 :::
 
 ::: {.revision section="Discussion"}
