@@ -338,7 +338,7 @@ MCMC convergence was assessed using traceplots and the Gelman-Rubin statistic ($
 Chain resolution was assessed using the effective sample size (ESS).
 Heterogeneity $\tau$ was directly modelled as a parameter (@eq-model).
 $I^2$ was calculated using the typical within-study variance calculated with `metafor` for each $\tau^2$ posterior sample.
-Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4).
+Because the posterior distribution of $\tau^2$ is right-skewed, we summarize $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4).
 
 In the Bayesian framework, domain knowledge is elicited and captured as probability distributions (priors) which are subsequently updated by the newly observed data, resulting in a posterior distribution.
 Prior distributions are specified for all model parameters, i.e. the overall pooled effect estimate $\mu$ and between-study standard deviation (heterogeneity) $\tau$.
@@ -397,7 +397,7 @@ We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the 
 ## Literature Review
 The systematic review was conducted with a larger scope and was used as a basis for multiple case studies within the PARC project, which is why it includes another substance (mercury, Hg).
 The systematic search in PubMed and Scopus yielded 1,073 records for lead.
-After duplicate removal, title and abstract of 974 records (Pb & Hg) was screened, which left 149 records (Pb & Hg) for full text screening.
+After duplicate removal, title and abstract of 974 records (Pb & Hg) were screened, which left 149 records (Pb & Hg) for full text screening.
 After this last screening, 36 records remained for Pb.
 These were then assessed for their eligibility for the meta-analysis.
 Twelve studies were excluded because they either transformed the BLL variable into categories or left it on a linear (untransformed) scale.
@@ -459,7 +459,7 @@ two with a moderate RoB [@lucchini2012InverseAssociationIntellectual; @lucchini2
 and two studies with a high RoB rating [@crump2013StatisticalReevaluationData; @earl2016LowlevelEnvironmentalLead].
 Among the twelve included studies, items with a high overall RoB were *non-response rate* (7x high RoB, 5x some concerns), where some studies did not report the non-response rate or did not discuss whether non-responding individuals might systematically differ from included participants, leading to potential selection bias.
 Another item with overall high RoB was *accounting for confounding* (2x high RoB, 5x some concerns), where important confounders like maternal IQ were not included or the authors used a data-driven selection approach for covariate selection, when a theory-driven approach was preferable [@smith2018StepAwayStepwise].
-Finally, in the item *handling of missing values*, some of the studies contain no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
+Finally, in the item *handling of missing values*, some of the studies contained no information on how missing data was handled, while in other studies they were handled inadequately (3x high RoB, 4x some concerns).
 Results from the RoB assessment are presented in Table 3.
 
 ```{r}
@@ -526,7 +526,7 @@ for (col in names(Table3)[rob_cols]) {
 gt_table
 ```
 
-## Meta Analysis
+## Meta-Analysis
 ```{r}
 #| label: extract_results2
 #| echo: false
@@ -577,11 +577,11 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 s_brm <- summary(m.brm)
 ```
 
-The prior predictive check indicates that the specified priors are appropriate (additional file 5a).
-The posterior predictive check showed that the model correctly captures important patterns in the data (additional file 5b).
-$\hat{R}$ values indicate that all MCMC chains converged (`r frnd(s_brm$fixed[,"Rhat"])` for both $\mu$ and $\tau$).
+The prior predictive check indicated that the specified priors were appropriate (additional file 5a).
+The posterior predictive check showed that the model correctly captured important patterns in the data (additional file 5b).
+$\hat{R}$ values indicated that all MCMC chains converged (`r frnd(s_brm$fixed[,"Rhat"])` for both $\mu$ and $\tau$).
 MCMC trace plots showed well-mixed chains and convergence (additional file 5c).
-ESS indicate that sampling was efficient and central point estimates and credible intervals can be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r frnd((s_brm$fixed[, "Bulk_ESS"]) / (s_brm$total_ndraws) * 100)`% and `r frnd((s_brm$fixed[, "Tail_ESS"]) / (s_brm$total_ndraws) * 100)`% of total samples respectively).
+ESS indicated that sampling was efficient and central point estimates and credible intervals could be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r frnd((s_brm$fixed[, "Bulk_ESS"]) / (s_brm$total_ndraws) * 100)`% and `r frnd((s_brm$fixed[, "Tail_ESS"]) / (s_brm$total_ndraws) * 100)`% of total samples respectively).
 
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
 The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).
@@ -607,16 +607,16 @@ The degree of shrinkage does, however, depend on each study's precision in a way
 ### Risk of Bias
 
 For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
-These shifts in both directions and their small size show that the results are robust to possible individual-study bias (Table 4).
+These shifts in both directions and their small size showed that the results were robust to possible individual-study bias (Table 4).
 
 ### Prior Sensitivity
 
-With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreases (Table 4).
+With more informative (narrower) priors ($\mu \sim \mathcal{N}(-1, 1)$, $\tau \sim \mathcal{N}^+(0, 1)$), the posterior mean of $\mu$ decreased (Table 4).
 This is expected, because the narrow $\mu$ prior, together with stronger shrinkage, favours a tighter posterior distribution with effect ranges closer to -1, the mean of $\mu$'s prior.
-When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increases slightly compared to the main model.
+When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increased slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 
-Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
+Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical nor enthusiastic priors on the location of $\mu$ substantially altered our conclusions.
 Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
 The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
 This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
@@ -783,7 +783,7 @@ Importantly, this difference does not relevantly affect the overall interpretati
 
 The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
+In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighted less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
 Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
 
@@ -812,7 +812,7 @@ Our results are consistent with previous toxicological and epidemiological evide
 Direct comparison of effect magnitudes is, however, limited by methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ [@needleman1990LowLevelLeadExposure] or standardized mean differences [@heidari2022EffectLeadExposurea].
 
 The RoB sensitivity analysis indicated that results are generally robust to individual-study bias.
-Notably, the study published by @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by @lanphear2005LowLevelEnvironmentalLead received a high RoB rating in our assessment.
+Notably, the study published by @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by @lanphear2005LowLevelEnvironmentalLead, received a high RoB rating in our assessment.
 Given that this re-analysis has informed multiple downstream analyses, including EBD assessments, its potential to introduce bias is a concern.
 The primary driver of the high RoB rating was the use of stepwise backward-elimination regression, a method that has been extensively criticized [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise] and is central to the findings of Crump et al.
 This underscores the value of the updated evidence synthesis provided here.
@@ -826,7 +826,7 @@ The Bayesian approach was less sensitive to estimates from such studies, because
 This study has several limitations that should be considered when interpreting the results.
 The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
 This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations.
-Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
+Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the data analyzed here, it should not be taken as a comprehensive comparison of both statistical frameworks.
 Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
@@ -847,8 +847,7 @@ Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use 
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
 The resulting pooled effect estimates are consistent with previous evidence and once again underscore the importance of reducing environmental lead contamination to reduce the public health burden this substance continues to impose.
 
-In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty.
-Especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
+In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty -- especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
 While the Bayesian framework currently demands greater statistical knowledge and programming effort than the frequentist approach, these barriers are likely to diminish if the framework gains wider adoption and training becomes more accessible.
 We believe that the benefits gained outweigh the investments made and therefore want to encourage researchers to consider Bayesian methods.
 
