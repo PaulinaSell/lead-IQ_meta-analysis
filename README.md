@@ -45,29 +45,24 @@ Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**.
 The manuscript and supplementary files read pre-computed model fits (`.rds`) and figures from `models/` and `manuscript/tables_figures/`. To regenerate these from scratch instead of relying on the checked-in fits, run the scripts in `code/` in the order below — each stage depends on `.rds` files produced by the previous one.
 
 **Stage 1 — main model fits**
-1. `code/Main-model_log.R` — fits the main Bayesian model. The `saveRDS()` calls that write `models/main/m.brm_full.rds` and `models/main/fitPrior_full.rds` are commented out by default (the script re-reads the checked-in fits instead of overwriting them); uncomment them to persist a fresh fit.
-2. `code/freq_model_log.R` — fits the main frequentist model (`test = "knha"` small-sample adjustment) and writes `models/main/freq_full.rds`. This is the single source for the frequentist estimate; every downstream script and `.qmd` file reads this `.rds` rather than refitting.
+1. `code/Main-model_log.R`
+2. `code/freq_model_log.R`
 
 **Stage 2 — sensitivity model fits** (needs Stage 1's `.rds` files)
-3. `code/sensitivity_analyses.R` — fits the risk-of-bias subset models (Bayesian + frequentist, both with `knha`) and the main/wide/narrow prior variants; writes `models/sensitivity/RoB/*.rds`, `models/sensitivity/priors/*.rds`, and `manuscript/tables_figures/main/table_sensi.rds`. Ignore the leave-one-out section at the bottom of this script (`results/loo_freq_results.rds`, `results/loo_bayes_results.rds`) — it is obsolete and no longer feeds the manuscript.
-4. `code/sensitivity_priors.R` (sources `code/prior_configs.R`) — fits the one-way prior sensitivity models; some configs reuse Stage 1/3 fits (`m.brm_full.rds`, `priors/{narrow,wide}`) rather than refitting. Writes `models/sensitivity/priors_oneway/*.rds` and `manuscript/tables_figures/main/table_sensi_oneway.rds`.
+3. `code/sensitivity_analyses.R`
+4. `code/sensitivity_priors.R` (sources `code/prior_configs.R`)
 
 **Stage 3 — figures** (need Stage 1/2 `.rds` files)
-5. `code/Bayes_forest_plot.R` — combined Bayesian + frequentist forest plot, `manuscript/tables_figures/main/figure2.png`.
-6. `code/visualisations.R` — remaining main and supplementary figures.
-7. `code/figures_priors_oneway.R` (sources `code/prior_configs.R`) — prior-comparison figures for the supplement.
-8. `code/transformations_vis.R` is a standalone exploratory plot (log vs. linear exposure-response), not wired into any manuscript output.
-
-> [!NOTE]
-> `results/traceplot.png`, embedded in `file5_additional-plots.qmd`, currently has no generating script in `code/` — it must be supplied manually.
+5. `code/Bayes_forest_plot.R`
+6. `code/visualisations.R`
+7. `code/figures_priors_oneway.R` (sources `code/prior_configs.R`)
+8. `code/transformations_vis.R`
 
 **Stage 4 — render Quarto files** (need Stage 1–3 outputs)
-- `manuscript/manuscript.qmd` — main manuscript. Also embeds `tables_figures/main/figure1.png` (PRISMA diagram), which is created manually, not by code.
+- `manuscript/manuscript.qmd`
 - `manuscript/tables_figures/supplement/model_output.qmd`
 - `manuscript/tables_figures/supplement/file5_additional-plots.qmd`
-- `manuscript/tables_figures/supplement/I2_calculation.qmd` — text only, no code dependencies, can be rendered independently at any time.
-
-`manuscript/tables_figures/supplement/loo_analysis.qmd` is obsolete and no longer part of the manuscript; it is not included in the render order above.
+- `manuscript/tables_figures/supplement/I2_calculation.qmd`
 
 ## Resources
 
