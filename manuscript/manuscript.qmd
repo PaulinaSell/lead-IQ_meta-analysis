@@ -95,7 +95,7 @@ Environmental epidemiology\
 
 # Graphical abstract {.unnumbered}
 
-![](tables_figures/main/lead_iq_graphical_abstract.png){width=100% height=100% fig-align="center"}
+![](tables_figures/main/graphical_abstract.png){width=100% height=100% fig-align="center"}
 
 # Abstract {.unnumbered}
 ```{r}
