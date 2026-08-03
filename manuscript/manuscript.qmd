@@ -178,7 +178,7 @@ Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(fre
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
 Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
+This regularization is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
@@ -786,7 +786,6 @@ Bayesian meta-analysis can be set up such that it is less sensitive to these unc
 In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
 Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
-<!-- if above paragraph changes, we need to update the R2 C1 quote -->
 
 <!-- # Not sure I want the sentence below... it kind of asks for the add-on "and that's why Bayes and freq converge under large data", but that seems a bit off-topic here... -->
 <!-- As with any other prior setting, the influence of the heterogeneity prior diminishes as the number of studies in our meta-analysis grows. -->

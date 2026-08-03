@@ -124,7 +124,7 @@ We have updated the Abstract, Section 2.4.1, Section 3.3 and rewritten Additiona
 :::
 
 ::: {.revision section="Abstract -- Results"}
-"Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.3, $I^2$ = 85.0%; Bayesian: posterior median $\tau^2$ = 3.3, $I^2$ = 84.7%).""
+"Between-study heterogeneity was substantial (frequentist: $\tau^2$ = 3.3, $I^2$ = 85.0%; Bayesian: posterior median $\tau^2$ = 3.3, $I^2$ = 84.7%)."
 :::
 
 ::: {.revision section="Methods -- Bayesian Meta-Analysis"}
@@ -144,11 +144,10 @@ In Section 3.3, the authors state: “In the context of meta-analysis, shrinkage
 Thank you, we agree that this statement might be misleading and have revised the text to clarify that shrinkage affects individual study estimates, while inverse-variance weighting affects each study's contribution to the pooled estimate.
 :::
 
-::: {.revision section="Results -- Meta Analysis & Discussion"}
+::: {.revision section="Results -- Meta Analysis"}
 "The single study estimates shown in Fig. 2 differ between frameworks because Bayesian shrinkage pulls individual study estimates toward the pooled mean, borrowing information from the overall mean.
 This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting. 
-The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less)."\
-"This is attributable to posterior shrinkage, as illustrated by the sensitivity analyses using wide priors."
+The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less)."
 :::
 
 <!-- R1 C6 -->
@@ -157,16 +156,11 @@ In Section 3.4, the authors conclude: “This shows that the results are robust 
 :::
 
 ::: {.reply}
-Thank you for flagging this, we adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis.
+Thank you for raising this, we adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis (see revisions below). Following your second comment, we have added two additional prior sensitivity analyses and would like to gently refer you to our reply to your second comment to see the changes made in the Results -- Sensitivity Analysis section.
 :::
 
 :::{.revision section="Methods -- Meta-Analysis -- Sensitivity Analysis"}
-"To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for two alternative sets of priors that we consider to be extreme but still reasonable."
-:::
-
-::: {.revision section="Results -- Sensitivity Analysis"}
-"The second set of sensitivity analyses examined the sensitivity of the results of the Bayesian meta-analysis to more extreme prior settings that can still be considered reasonable."\
-"This shows that the results are robust to the alternative priors tested in the sensitivity analysis, because the shifts in the pooled estimate are not substantial and do not change the conclusion of our analysis."
+"To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for alternative sets of priors that we consider to be extreme but still reasonable."
 :::
 
 <!-- R1 C7 -->
@@ -175,7 +169,7 @@ In the Methods section and Discussion, the authors state that all code and data 
 :::
 
 ::: {.reply}
-Thank you for raising this, the GitHub repository is now publicly accessible.
+Thank you for raising this, the GitHub repository is now publicly accessible at github.com/PaulinaSell/lead-IQ_meta-analysis.
 :::
 
 <!-- R1 C8 -->
@@ -188,7 +182,7 @@ Thank you, we agree and have added that the difference in pooled estimates is al
 :::
 
 ::: {.revision section="Discussion"}
-"This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses using wide priors."
+"This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses (Table 4)"
 :::
 
 ### Minor comments
@@ -223,11 +217,10 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 :::
 
 ::: {.reply}
-<!-- Reuse some of the answer to reviewer 1, comment 2 here? lines to check and change (claims too general): 180, 181, 709?, 769 -->
 We thank you for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study, and have added two sentences to the limitation section in our Discussion, cautioning against interpreting our results too generally (see revisions below).
 
 In doing so, we have focused our comparison on general aspects, such as the role of shrinkage, that we can observe in our analysis through, for example, the sensitivity analyses we have added.
-In addition to our pre-existing description of how shrinkage operates in our specific sample, we now better explain which study settings our findings are expected to generalise to (small sample, high heterogeneity), and where shrinkage-induced differences in the pooled estimate are likely to be smaller (large sample, low heterogeneity).
+In addition to our pre-existing description of how shrinkage operates in our specific sample, we now better explain which study settings our findings are expected to generalize to (small sample, high heterogeneity), and where shrinkage-induced differences in the pooled estimate are likely to be smaller (large sample, low heterogeneity).
 We described these analyses in more detail in our reply to reviewer 1's comment 2.
 
 Furthermore, we thank you for pointing out that the sample size in our study warrants a small-sample adjustment.
@@ -245,14 +238,13 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 
 ::: {.revision section="Abstract -- Results"}
 "Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
-This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
+This regularization is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
 :::
 
 <!-- Placeholder for small sample adjustment -->
 ::: {.revision section="Method"}
 :::
 
-<!-- TODO Instead point the reviewer to R1C2 -->
 ::: {.revision section="Discussion"}
 "By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis."\
 "Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the here analyzed data, it should not be taken as a comprehensive comparison of both statistical frameworks.
@@ -270,11 +262,11 @@ Although the coefficients were converted to the same logarithmic scale, the incl
 :::
 
 ::: {.reply}
-Thank you for this comment, we agree and have added a more explicit statement to the Discussion.
+Thank you for this comment, we agree and have added a more explicit statement to the Discussion, emphasizing that the coefficients pooled in our study may not represent exactly the same estimand which complicates the interpretability of the pooled estimate.
 :::
 
 ::: {.revision section="Discussion"}
-"First, the included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+"The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand. 
 This limits the generalizability of the pooled estimate and complicates its interpretation for specific populations."
 :::
 
@@ -298,13 +290,9 @@ Since reviewer 1 has raised a similar point, we omit repeating our reply and the
 "This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting."
 :::
 
-<!-- TODO Do not repeat the same revision, instead refer to R1C2! -->
 ::: {.revision section="Discussion"}
-The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
-Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
-Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."
+"In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
+Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies."
 :::
 
 ### Minor comments
@@ -325,7 +313,7 @@ The text refers to children aged 0–11 years, while Table 1 includes participan
 
 ::: {.reply}
 Thank you for raising this — the prose description did not fully match the PECOTS criteria in Table 1.
-We removed it and refer readers directly to Table 1, which is now the sole source for this information.
+We removed it and refer readers directly to Table 1, which is now the only source for this information.
 :::
 
 ::: {.revision section="Methods -- Literature Review"}
