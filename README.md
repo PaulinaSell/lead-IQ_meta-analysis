@@ -45,7 +45,7 @@ Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**.
 The manuscript and supplementary files read pre-computed model fits (`.rds`) and figures from `models/` and `manuscript/tables_figures/`. To regenerate these from scratch instead of relying on the checked-in fits, run the scripts in `code/` in the order below — each stage depends on `.rds` files produced by the previous one.
 
 **Stage 1 — main model fits**
-1. `code/Main-model_log.R` \
+1. `code/Main-model_log.R`
 2. `code/freq_model_log.R`
 
 **Stage 2 — sensitivity model fits** (needs Stage 1's `.rds` files) \
