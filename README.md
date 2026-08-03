@@ -45,18 +45,17 @@ Open `manuscript/manuscript.qmd` in RStudio or Positron and click **Render**.
 The manuscript and supplementary files read pre-computed model fits (`.rds`) and figures from `models/` and `manuscript/tables_figures/`. To regenerate these from scratch instead of relying on the checked-in fits, run the scripts in `code/` in the order below — each stage depends on `.rds` files produced by the previous one.
 
 **Stage 1 — main model fits**
-1. `code/Main-model_log.R`
+1. `code/Main-model_log.R` \
 2. `code/freq_model_log.R`
 
-**Stage 2 — sensitivity model fits** (needs Stage 1's `.rds` files)
-3. `code/sensitivity_analyses.R`
+**Stage 2 — sensitivity model fits** (needs Stage 1's `.rds` files) \
+3. `code/sensitivity_analyses.R` \
 4. `code/sensitivity_priors.R` (sources `code/prior_configs.R`)
 
-**Stage 3 — figures** (need Stage 1/2 `.rds` files)
-5. `code/Bayes_forest_plot.R`
-6. `code/visualisations.R`
-7. `code/figures_priors_oneway.R` (sources `code/prior_configs.R`)
-8. `code/transformations_vis.R`
+**Stage 3 — figures** (need Stage 1 and 2 `.rds` files) \
+5. `code/Bayes_forest_plot.R` \
+6. `code/visualisations.R` \
+7. `code/figures_priors_oneway.R` (sources `code/prior_configs.R`) 
 
 **Stage 4 — render Quarto files** (need Stage 1–3 outputs)
 - `manuscript/manuscript.qmd`
@@ -66,7 +65,7 @@ The manuscript and supplementary files read pre-computed model fits (`.rds`) and
 
 ## Resources
 
-Resources I found helpful while working on this project:
+Resources we found helpful while working on this project:
 
 - [Harrer, M. et al. (2021). *Doing Meta-Analysis With R: A Hands-On Guide.*](https://doing-meta.guide/bayesian-ma) — accessible introduction to Bayesian meta-analysis in R
 - [Grant, R., & Di Tanna, G. L. (2025). *Bayesian Meta-Analysis: A Practical Introduction.*](https://doi.org/10.1201/9781003375821) - great book on Bayesian meta-analysis

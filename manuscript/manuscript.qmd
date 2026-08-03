@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -121,6 +121,7 @@ library(metafor)
 data <- read.csv("../data/study_data_leadIQloss.csv")
 
 frnd <- function(val, digits = 2) sprintf(paste0("%.", digits, "f"), val)
+frnd_pct <- function(val, digits = 1) sprintf(paste0("%.", digits, "f"), val)
 
 freq_mean <- frnd(freq_model$beta)
 freq_lb <- frnd(freq_model$ci.lb)
@@ -133,7 +134,8 @@ freq_confint <- freq_confint$random
 m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- frnd(mean(m.brm_samples$b_Intercept))
 
-hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+# hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+hdi <- quantile(m.brm_samples$b_Intercept, c(0.025, 0.975))
 Bayes_lb <- frnd(hdi[1])
 Bayes_ub <- frnd(hdi[2])
 
@@ -174,7 +176,7 @@ $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 **Results**: Twelve studies were included in the meta-analysis.
 The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
-Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd(I2_posterior_median * 100)`%).
+Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd_pct(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd_pct(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
 Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
@@ -548,7 +550,7 @@ m.brm_samples <- as_draws_df(m.brm)
 Bayes_mean <- frnd(mean(m.brm_samples$b_Intercept))
 
 
-hdi <- hdi(m.brm_samples$b_Intercept, credMass = 0.95)
+hdi <- quantile(m.brm_samples$b_Intercept, c(0.025, 0.975))
 Bayes_lb <- frnd(hdi[1])
 Bayes_ub <- frnd(hdi[2])
 
@@ -581,13 +583,13 @@ The prior predictive check indicated that the specified priors were appropriate 
 The posterior predictive check showed that the model correctly captured important patterns in the data (additional file 5b).
 $\hat{R}$ values indicated that all MCMC chains converged (`r frnd(s_brm$fixed[,"Rhat"])` for both $\mu$ and $\tau$).
 MCMC trace plots showed well-mixed chains and convergence (additional file 5c).
-ESS indicated that sampling was efficient and central point estimates and credible intervals could be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r frnd((s_brm$fixed[, "Bulk_ESS"]) / (s_brm$total_ndraws) * 100)`% and `r frnd((s_brm$fixed[, "Tail_ESS"]) / (s_brm$total_ndraws) * 100)`% of total samples respectively).
+ESS indicated that sampling was efficient and central point estimates and credible intervals could be interpreted with confidence (ESS bulk for $\mu$: `r format(round(s_brm$fixed[,"Bulk_ESS"], 0), big.mark = ",")`; ESS tail: `r format(round(s_brm$fixed[,"Tail_ESS"], 0), big.mark = ",")`, corresponding to `r frnd_pct((s_brm$fixed[, "Bulk_ESS"]) / (s_brm$total_ndraws) * 100)`% and `r frnd_pct((s_brm$fixed[, "Tail_ESS"]) / (s_brm$total_ndraws) * 100)`% of total samples respectively).
 
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
 The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).
 Substantial between-study heterogeneity was observed under both frameworks.
-In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of `r frnd(tau_sq_median)` (95% CrI: `r frnd(tau_sq_ci[1])` to `r frnd(tau_sq_ci[2])`), corresponding to an $\text{I}^2$ of `r frnd(I2_posterior_median * 100)`% (95% CrI: `r frnd(I2_credible_interval[1] * 100)`% to `r frnd(I2_credible_interval[2] * 100)`%).
-The frequentist model estimated a closely comparable $\tau^2$ = `r frnd(freq_tau2_mean)` (95% CI: `r frnd(freq_tau2_lb)` to `r frnd(freq_tau2_ub)`), with $\text{I}^2$ = `r frnd(freq_I2_mean)`% (95% CI: `r frnd(freq_I2_lb)`% to `r frnd(freq_I2_ub)`%).
+In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of `r frnd(tau_sq_median)` (95% CrI: `r frnd(tau_sq_ci[1])` to `r frnd(tau_sq_ci[2])`), corresponding to an $\text{I}^2$ of `r frnd_pct(I2_posterior_median * 100)`% (95% CrI: `r frnd_pct(I2_credible_interval[1] * 100)`% to `r frnd_pct(I2_credible_interval[2] * 100)`%).
+The frequentist model estimated a closely comparable $\tau^2$ = `r frnd(freq_tau2_mean)` (95% CI: `r frnd(freq_tau2_lb)` to `r frnd(freq_tau2_ub)`), with $\text{I}^2$ = `r frnd_pct(freq_I2_mean)`% (95% CI: `r frnd_pct(freq_I2_lb)`% to `r frnd_pct(freq_I2_ub)`%).
 Additional file 6 contains the full model code and output for both frameworks.
 The results of both frameworks are shown as forest plots in Figure 2.
 
@@ -847,7 +849,7 @@ Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use 
 This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
 The resulting pooled effect estimates are consistent with previous evidence and once again underscore the importance of reducing environmental lead contamination to reduce the public health burden this substance continues to impose.
 
-In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty -- especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
+In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty – especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
 While the Bayesian framework currently demands greater statistical knowledge and programming effort than the frequentist approach, these barriers are likely to diminish if the framework gains wider adoption and training becomes more accessible.
 We believe that the benefits gained outweigh the investments made and therefore want to encourage researchers to consider Bayesian methods.
 

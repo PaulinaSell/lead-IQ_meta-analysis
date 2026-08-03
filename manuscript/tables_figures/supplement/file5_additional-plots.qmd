@@ -8,7 +8,7 @@ format:
     highlight-style: github
     number-sections: false
     fig-pos: "H"
-    fig-format: svg
+    fig-format: pdf
     include-in-header:
       text: |
         \usepackage{caption}

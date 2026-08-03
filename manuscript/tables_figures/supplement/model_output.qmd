@@ -20,7 +20,7 @@ This supplementary file contains the model code and output for both meta-analysi
 #| output: false
 
 library(metafor)
-library(brms) 
+library(brms)
 
 m.brm <- readRDS("../../../models/main/m.brm_full.rds")
 fitPrior <- readRDS("../../../models/main/fitPrior_full.rds")

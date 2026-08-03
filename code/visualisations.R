@@ -70,6 +70,9 @@ freq_result_models <- list(
 # prior for beta
 x <- seq(-6, 4, by = 0.1)
 y <- dnorm(x, -1, 2)
+
+dev.off()
+
 ggplot() +
   aes(x, y) +
   geom_vline(xintercept = 0, colour = "black") +
@@ -129,13 +132,13 @@ ggsave(
 )
 
 # Traceplot incl. warmup (no loop) ----
-posterior_samples_warm = as_draws_df(m.brm_full, inc_warmup = T)
+posterior_samples_warm <- as_draws_df(m.brm_full, inc_warmup = T)
 names(posterior_samples_warm)[
   names(posterior_samples_warm) == "b_Intercept"
-] = "beta"
+] <- "beta"
 names(posterior_samples_warm)[
   names(posterior_samples_warm) == "sd_author_year__Intercept"
-] = "tau"
+] <- "tau"
 
 p <- mcmc_trace(
   posterior_samples_warm,
