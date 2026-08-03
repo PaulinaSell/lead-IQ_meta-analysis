@@ -254,7 +254,6 @@ Publications were considered relevant according to predefined PECOTS – Populat
 #| message: false
 #| warning: false
 #| classes: plain
-#| include: !expr knitr::pandoc_to() != "docx"
 
 library(gt)
 library(tidyverse)
@@ -415,7 +414,6 @@ Study characteristics and regression coefficients (effect estimates) are shown i
 #| message: false
 #| warning: false
 #| classes: plain
-#| include: !expr knitr::pandoc_to() != "docx"
 
 Table2 <- read_csv("tables_figures/main/table2.csv")
 
@@ -471,7 +469,6 @@ Results from the RoB assessment are presented in Table 3.
 #| warning: false
 #| fig-cap-location: top
 #| classes: plain
-#| include: !expr knitr::pandoc_to() != "docx"
 
 Table3 <- read_csv("tables_figures/main/table3.csv")
 
