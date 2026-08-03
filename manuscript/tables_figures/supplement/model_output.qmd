@@ -38,7 +38,8 @@ rma_model <- rma(
   yi = beta_ln,
   sei = se_beta_ln,
   data = data_full,
-  method = "REML"
+  method = "REML",
+  test = "knha"
 )
 ```
 

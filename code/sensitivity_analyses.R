@@ -108,8 +108,14 @@ rma_models <- list()
 for (data_subset in names(models_data)) {
   data <- models_data[[data_subset]]
 
-  # run model
-  rma_model <- rma(yi = beta_ln, sei = se_beta_ln, data = data, method = "REML") # Restricted Maximum Likelihood
+  # run model, now small sample adj
+  rma_model <- rma(
+    yi = beta_ln,
+    sei = se_beta_ln,
+    data = data,
+    method = "REML",
+    test = "knha"
+  )
 
   # save in env
   rma_models[[data_subset]] <- rma_model
