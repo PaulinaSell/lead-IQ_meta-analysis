@@ -131,7 +131,7 @@ We have updated the Abstract, Section 2.4.1, Section 3.3 and rewritten Additiona
 "Because the posterior distribution of $\tau^2$ is right-skewed, we summarise $\tau^2$ and $I^2$ by their posterior medians rather than their posterior means, as the median represents the typical value more faithfully and keeps the reported point estimates consistent with their credible intervals (for further detail, see additional file 4)."
 :::
 
-::: {.revision section="Results -- Meta Analysis"}
+::: {.revision section="Results -- Meta-Analysis"}
 "In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of 3.3 (95% CrI: 1.0 to 9.5), corresponding to an $I^2$ of 84.7% (95% CrI: 63.9% to 94.2%)."
 :::
 
@@ -144,7 +144,7 @@ In Section 3.3, the authors state: “In the context of meta-analysis, shrinkage
 Thank you, we agree that this statement might be misleading and have revised the text to clarify that shrinkage affects individual study estimates, while inverse-variance weighting affects each study's contribution to the pooled estimate.
 :::
 
-::: {.revision section="Results -- Meta Analysis"}
+::: {.revision section="Results -- Meta-Analysis"}
 "The single study estimates shown in Fig. 2 differ between frameworks because Bayesian shrinkage pulls individual study estimates toward the pooled mean, borrowing information from the overall mean.
 This has no equivalent in the frequentist framework, where the contribution of each study to the pooled effect is determined by inverse-variance weighting. 
 The degree of shrinkage does, however, depend on each study's precision in a way that parallels inverse-variance weighting: more precise studies are shrunk less (and are also weighted more heavily toward the frequentist pooled estimate), while less precise studies are shrunk more (and weighted less)."
@@ -329,6 +329,6 @@ Check the confidence interval for frequentist heterogeneity estimate. For exampl
 Thank you for catching this. The upper limit indeed was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Results -- Meta-Analysis"}
 "The frequentist model estimated a closely comparable $\tau^2$ = 3.3 (95% CI: 1.0 to 11.7) [...]"
 :::
