@@ -14,6 +14,7 @@
 _extensions/
 abstracts/
 documentation/
+results/
 results/sensitivity/
 models/sensitivity/priors_oneway/*.rds
 models/sensitivity/loo/*.rds

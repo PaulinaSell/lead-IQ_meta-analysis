@@ -20,7 +20,6 @@ The paper compares Bayesian and frequentist meta-analytic frameworks, using lead
 - `manuscript/tables_figures/main` – All tables and figures used in main article
 - `manuscript/tables_figures/supplement` – All tables and figures used in main supplementary files
 - `models/` – .rds files containing model fits for main and sensitivity analyses
-- `results/`– .csv files containing extracted draws from brms model fits
 - `renv.lock` – R package versions for reproducibility
 - `.gitignore` – Files not tracked by git
 - `README.md` – This file
