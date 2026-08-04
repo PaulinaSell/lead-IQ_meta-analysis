@@ -13,7 +13,11 @@ The manuscript presents a useful applied comparison of Bayesian and frequentist 
 
 # Response to the Editor
 
-We would like to thank the editor and reviewers for their time and careful reading of our manuscript and their valuable feedback. Below we respond to each point in turn; revised manuscript text is quoted verbatim.
+We would like to thank the editor and the two reviewers for their time and careful reading of our manuscript.
+We believe that their valuable feedback and the revisions we made in response have substantially improved our work.
+We agree that our study compares two specific implementations of Bayesian and frequentist meta-analytic models, not the frameworks as such.
+We have reframed the manuscript accordingly and have removed or narrowed the generalising claims about comparing both frameworks.
+Below we respond to each point; the revised manuscript text is quoted verbatim.
 
 # Reviewer 1
 
@@ -168,7 +172,7 @@ In the Methods section and Discussion, the authors state that all code and data 
 :::
 
 ::: {.reply}
-We thank the reviewer for raising this. The GitHub repository is now publicly accessible at github.com/PaulinaSell/lead-IQ_meta-analysis.
+We thank the reviewer for raising this. The GitHub repository is now publicly accessible at [github.com/PaulinaSell/lead-IQ_meta-analysis](https://github.com/PaulinaSell/lead-IQ_meta-analysis).
 :::
 
 <!-- R1 C8 -->
@@ -307,7 +311,7 @@ Different values appear in the Abstract, Results, Figure 2, and Table 4. Check t
 :::
 
 ::: {.reply}
-We thank the reviewer for pointing out these numerical inconsistencies. We have fixed these issues in the Abstract, Results, Figure 2 and Table 4.
+We thank the reviewer for pointing out these numerical inconsistencies. We have fixed these issues in the Graphical Abstract, the Abstract, Results, Figure 2 and Table 4.
 :::
 
 <!-- R2 C5 -->
