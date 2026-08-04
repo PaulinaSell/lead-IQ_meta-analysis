@@ -50,14 +50,14 @@ Furthermore, we have expanded our sensitivity analysis to include prior settings
 While $\tau$ remained at its default, we varied $\mu$:
 
 - skeptical prior: $\mathcal{N}(-0.33, 2)$
-- enthusiastic prior: $\mathcal{N}(-3, 2)$)
+- enthusiastic prior: $\mathcal{N}(-3, 2)$
 
 <!-- say that these names come from Spiegelhalter? -->
 
 While $\mu$ was set to a flat prior, we varied $\tau$:
 
 - strong shrinkage: $\mathcal{N}^+(0, 0.66)$
-- weak shrinkage: $\mathcal{N}^+(0, 6)$)
+- weak shrinkage: $\mathcal{N}^+(0, 6)$
 
 We set $\mu$ to a flat prior to see if we would recover the frequentist estimate for $\mu$ under weak shrinkage.
 With this baseline, the additional sensitivity analyses allow us to better highlight the different sensitivity of Bayesian and frequentist approaches to studies with uncertain estimates.

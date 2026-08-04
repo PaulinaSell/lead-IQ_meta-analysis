@@ -615,8 +615,8 @@ This is expected, because the narrow $\mu$ prior, together with stronger shrinka
 When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\tau \sim \mathcal{N}^+(0, 6)$), the posterior mean of $\mu$ increased slightly compared to the main model.
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 
-Varying the prior on the location of $\mu$ while holding $\tau$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical nor enthusiastic priors on the location of $\mu$ substantially altered our conclusions.
-Varying the strength of shrinkage by decreasing or increasing the scale of $\tau$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter what we concluded from the estimates.
+Varying the prior on the location of $\mu$ while holding $\tau$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical nor enthusiastic priors on the location of $\mu$ substantially altered what we concluded from the estimates.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
 The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
 This is because many of the strongly negative coefficients were reported by studies with large uncertainty which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
 
@@ -808,10 +808,10 @@ Such assessments integrate both population exposure and the exposure–response 
 The distributional results of the present study enable probabilistic EBD assessments via Monte Carlo simulations without requiring additional assumptions about the uncertainty distribution of the exposure–response function.
 
 Our results are consistent with previous toxicological and epidemiological evidence [@baghurst1992EnvironmentalExposureLead; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead; @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead] as well as prior meta-analyses on the effects of lead on IQ.
-Direct comparison of effect magnitudes is, however, limited by methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ [@needleman1990LowLevelLeadExposure] or standardised mean differences [@heidari2022EffectLeadExposurea].
+Direct comparison of effect magnitudes is, however, limited due to methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ [@needleman1990LowLevelLeadExposure] or standardised mean differences [@heidari2022EffectLeadExposurea].
 
 The RoB sensitivity analysis indicated that results were generally robust to individual-study bias.
-Notably, the study published by @crump2013StatisticalReevaluationData, which is a re-analysis of the landmark study by @lanphear2005LowLevelEnvironmentalLead, received a high RoB rating in our assessment.
+Notably, the study published by Crump et al. [@crump2013StatisticalReevaluationData], which is a re-analysis of the landmark study by Lanphear et al. [@lanphear2005LowLevelEnvironmentalLead], received a high RoB rating in our assessment.
 Given that this re-analysis has informed multiple downstream analyses, including EBD assessments, its potential to introduce bias is a concern.
 The primary driver of the high RoB rating was the use of stepwise backward-elimination regression, a method that has been extensively criticised [@thompson1995StepwiseRegressionStepwise; @harrell2015RegressionModelingStrategies; @smith2018StepAwayStepwise] and is central to the findings of Crump et al.
 This underscores the value of the updated evidence synthesis provided here.
