@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  # html:
-  #   toc: true
-  #   toc-location: left
-  #   tbl-cap-location: bottom
-  #   title-block-banner: false
-  #   number-sections: true
-  #   embed-resources: true
-  #   css: custom.scss
-  #   page-layout: full
-  #   theme: yeti
-  docx:
-    reference-doc: ref.docx
+  html:
+    toc: true
+    toc-location: left
+    tbl-cap-location: bottom
+    title-block-banner: false
     number-sections: true
-    fig-align: "center"
-    fig-width: 6.5
-    fig-height: 3.5
-    fig-dpi: 600
-    out-width: "40%"
+    embed-resources: true
+    css: custom.scss
+    page-layout: full
+    theme: yeti
+  # docx:
+  #   reference-doc: ref.docx
+  #   number-sections: true
+  #   fig-align: "center"
+  #   fig-width: 6.5
+  #   fig-height: 3.5
+  #   fig-dpi: 600
+  #   out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -174,11 +174,11 @@ Sensitivity analyses examined robustness to RoB and to prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 **Results**: Twelve studies were included in the meta-analysis.
-The frequentist framework yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
+The frequentist model yielded a pooled estimate of `r freq_mean` (95% confidence interval: `r freq_lb` to `r freq_ub`) IQ points per unit increase in $\log_e$-transformed BLL (µg/dL).
 The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credible interval: `r Bayes_lb` to `r Bayes_ub`).
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd_pct(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd_pct(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
-Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors.
+Sensitivity analyses showed both meta-analyses were robust to RoB, and Bayesian estimates were insensitive to tested priors.
 Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
@@ -390,9 +390,9 @@ To examine the sensitivity of the results to the choice of prior distributions, 
 One set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
 A second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
 Note that for the main effect, the broader prior is centred around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
-To be able to discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
+To be able to identify the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
 The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
-We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values as in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
 
 # Results
 ## Literature Review
@@ -585,10 +585,10 @@ ESS indicated that sampling was efficient and central point estimates and credib
 The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2).
 The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`).
 Substantial between-study heterogeneity was observed under both frameworks.
-In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of `r frnd(tau_sq_median)` (95% CrI: `r frnd(tau_sq_ci[1])` to `r frnd(tau_sq_ci[2])`), corresponding to an $\text{I}^2$ of `r frnd_pct(I2_posterior_median * 100)`% (95% CrI: `r frnd_pct(I2_credible_interval[1] * 100)`% to `r frnd_pct(I2_credible_interval[2] * 100)`%).
+In the Bayesian model, between-study heterogeneity was estimated as a posterior median $\tau^2$ of `r frnd(tau_sq_median)` (95% CrI: `r frnd(tau_sq_ci[1])` to `r frnd(tau_sq_ci[2])`), corresponding to an $\text{I}^2$ of `r frnd_pct(I2_posterior_median * 100)`% (95% CrI: `r frnd_pct(I2_credible_interval[1] * 100)`% to `r frnd_pct(I2_credible_interval[2] * 100)`%).
 The frequentist model estimated a closely comparable $\tau^2$ = `r frnd(freq_tau2_mean)` (95% CI: `r frnd(freq_tau2_lb)` to `r frnd(freq_tau2_ub)`), with $\text{I}^2$ = `r frnd_pct(freq_I2_mean)`% (95% CI: `r frnd_pct(freq_I2_lb)`% to `r frnd_pct(freq_I2_ub)`%).
-Additional file 6 contains the full model code and output for both frameworks.
-The results of both frameworks are shown as forest plots in Figure 2.
+Additional file 6 contains the full model code and output for both models.
+The results of both models are shown as forest plots in Figure 2.
 
 ::: {custom-style="Image Caption"}
 ![Fig. 2: Forest plots for Bayesian (left) and frequentist (right) meta-analyses. BLL, blood lead level; CI, confidence interval; CrI, credible interval](tables_figures/main/figure2.png){.lightbox}
@@ -605,7 +605,7 @@ The degree of shrinkage does, however, depend on each study's precision in a way
 
 ### Risk of Bias
 
-For both the frequentist and Bayesian frameworks, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
+For both the frequentist and Bayesian model, the strength of the mean pooled effect decreased after removing studies with high risk of bias and slightly increased again after removing high and moderate RoB studies.
 These shifts in both directions and their small size showed that the results were robust to possible individual-study bias (Table 4).
 
 ### Prior Sensitivity
@@ -616,9 +616,9 @@ When using less informative (ignorant) priors ($\mu \sim \mathcal{N}(0, 6)$, $\t
 This set of priors gives more weight to studies reporting high effects with large uncertainty ranges.
 
 Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical nor enthusiastic priors on the location of $\mu$ substantially altered our conclusions.
-Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter what we concluded from the estimates.
 The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
-This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
+This is because many of the strongly negative coefficients were reported by studies with large uncertainty which are in turn more affected by shrinkage, pulling their estimands closer towards zero.
 
 For further detail on these analyses, see additional file 5d-f for prior, likelihood and posterior distributions of all prior sensitivity analyses.
 
@@ -776,13 +776,13 @@ In this study, we provide an updated pooled effect estimate for the association 
 While previous publications have compared both meta-analytic frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field.
 
-Pooled effect estimates and measures of heterogeneity were largely consistent across both frameworks, though the Bayesian model yielded slightly lower mean pooled effects.
+Pooled effect estimates and measures of heterogeneity were largely consistent across both models, though the Bayesian model yielded slightly lower mean pooled effects.
 This is attributable to both the prior for the overall effect ($\mu$) and the posterior shrinkage of individual study estimates, influenced by the heterogeneity prior ($\tau$), as illustrated by the sensitivity analyses (Table 4).
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 
 The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighted less, but the degree to which this happens cannot be configured by the researcher.
+In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – studies with large uncertainty are weighted less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
 Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
 

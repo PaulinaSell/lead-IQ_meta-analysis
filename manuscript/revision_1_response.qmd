@@ -27,12 +27,12 @@ In the Abstract, the authors state: “Sensitivity analyses showed robustness to
 :::
 
 ::: {.reply}
-Thank you for this thoughtful comment.
+Thank the reviewer for this thoughtful comment.
 We agree and have revised the abstract to clarify that both frameworks were similarly robust to exclusion of studies with high or moderate RoB, and that Bayesian estimates were insensitive to the alternative priors examined in our sensitivity analysis — which is not a general property of Bayesian analysis.
 :::
 
 ::: {.revision section="Abstract -- Results"}
-"Sensitivity analyses showed both frameworks were robust to RoB, and Bayesian estimates were insensitive to tested priors."
+"Sensitivity analyses showed both meta-analyses were robust to RoB, and Bayesian estimates were insensitive to tested priors."
 :::
 
 <!--R1 C2 -->
@@ -41,10 +41,10 @@ The manuscript states: “The Bayesian approach was less sensitive to outlier st
 :::
 
 ::: {.reply}
-We thank you for this comment and acknowledge that we mixed the two separate concepts of "outlier studies" and "studies with uncertain estimates".
-With the statement you quoted above, we intended to discuss only how "studies with uncertain estimates" are affected by shrinkage.
+We thank the reviewer for this comment and acknowledge that we mixed the two separate concepts of "outlier studies" and "studies with uncertain estimates".
+With the statement quoted above, we intended to discuss only how "studies with uncertain estimates" are affected by shrinkage.
 
-To address your comment, we have therefore removed all references to "outlier studies" and replaced this with "studies reporting uncertain estimates" or similar.
+To address the reviewers comment, we have therefore removed all references to "outlier studies" and replaced this with "studies reporting uncertain estimates" or comparable wording.
 Furthermore, we have expanded our sensitivity analysis to include prior settings that systematically vary the priors for either the location of $\mu$ or the scale of $\tau$ while holding the remaining settings constant: 
 
 While $\tau$ remained at its default, we varied $\mu$:
@@ -62,27 +62,26 @@ While $\mu$ was set to a flat prior, we varied $\tau$:
 We set $\mu$ to a flat prior to see if we would recover the frequentist estimate for $\mu$ under weak shrinkage.
 With this baseline, the additional sensitivity analyses allow us to better highlight the different sensitivity of Bayesian and frequentist approaches to studies with uncertain estimates.
 
-We believe that this analysis and the related changes significantly improve our manuscript, and would like to thank you once again for stimulating this with your comment.
+We believe that this analysis and the related changes significantly improve our manuscript, and would like to thank the reviewer once again for stimulating this with their comment.
 :::
 
 ::: {.revision section="Methods -- Sensitivity Analysis"}
-"To be able to discern the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
+"To be able to identify the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
 The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
-We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of the setting in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values as in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
 :::
 
 ::: {.revision section="Results -- Sensitivity Analysis -- Prior Sensitivity"}
 "Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
-Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter what we concluded from the estimates.
 The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
-This is because many of the strongly negative coefficients were reported by uncertain studies which are in turn more affected by shrinkage, pulling their estimands closer towards zero."
+This is because many of the strongly negative coefficients were reported by studies with large uncertainty which are in turn more affected by shrinkage, pulling their estimands closer towards zero."
 :::
 
-<!-- Initially a modification for R2 C3, but probably relevant here as well -->
 ::: {.revision section="Discussion"}
 "The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – uncertain studies are weighed less, but the degree to which this happens cannot be configured by the researcher.
+In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – studies with large uncertainty are weighed less, but the degree to which this happens cannot be configured by the researcher.
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
 Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies."
 :::
@@ -93,7 +92,7 @@ In the Background, the authors state: “Unlike frequentist confidence intervals
 :::
 
 ::: {.reply}
-Thank you for this comment, we changed the wording of this sentence to explain the difference between frequentist confidence intervals and Bayesian credible intervals more precisely.
+We thank the reviewer for this comment, we changed the wording of this sentence to explain the difference between frequentist confidence intervals and Bayesian credible intervals more precisely.
 :::
 
 ::: {.revision section="Background"}
@@ -106,13 +105,13 @@ In Section 3.3, the manuscript reports that the Bayesian model gives a larger be
 :::
 
 ::: {.reply}
-Thank you for this comment. 
+We thank the reviewer for this comment. 
 It helped us spot an inconsistency in how we summarised the posterior for $\tau^2$.
 
 We previously used the mean to summarise the right-skewed distribution of $\tau^2$, giving stronger weight to very large samples of $\tau^2$.
-This has lead to the apparent asymmetry between $\tau^2$ and $I^2$ summaries that we thank you for pointing out.
+This has lead to the apparent asymmetry between $\tau^2$ and $I^2$ summaries that we thank the reviewer for pointing out.
 We carried this asymmetry forward by calculating $I^2$ for each sample _first_ and _then_ summarising as opposed to calculating a single $I^2$ from the mean of $\tau^2$.
-An $I^2$ calculated this way would have been consistent with your intuition, resulting in an estimated $I^2$ of 86.6%, larger than the frequentist $I^2$ of 85.0%.
+An $I^2$ calculated this way would have been consistent with the reviewers intuition, resulting in an estimated $I^2$ of 86.6%, larger than the frequentist $I^2$ of 85.0%.
 
 While providing consistent results, this approach would have discarded the uncertainty posterior distribution.
 We instead opted to summarise the posterior of $\tau^2$ using the median, not the mean, as it more faithfully represents the typical value in a skewed distribution.
@@ -132,7 +131,7 @@ We have updated the Abstract, Section 2.4.1, Section 3.3 and rewritten Additiona
 :::
 
 ::: {.revision section="Results -- Meta-Analysis"}
-"In the Bayesian framework, between-study heterogeneity was estimated as a posterior median $\tau^2$ of 3.3 (95% CrI: 1.0 to 9.5), corresponding to an $I^2$ of 84.7% (95% CrI: 63.9% to 94.2%)."
+"In the Bayesian model, between-study heterogeneity was estimated as a posterior median $\tau^2$ of 3.3 (95% CrI: 1.0 to 9.5), corresponding to an $I^2$ of 84.7% (95% CrI: 63.9% to 94.2%)."
 :::
 
 <!-- R1 C5 -->
@@ -141,7 +140,7 @@ In Section 3.3, the authors state: “In the context of meta-analysis, shrinkage
 :::
 
 ::: {.reply}
-Thank you, we agree that this statement might be misleading and have revised the text to clarify that shrinkage affects individual study estimates, while inverse-variance weighting affects each study's contribution to the pooled estimate.
+We thank the reviewer and agree that this statement might be misleading and have revised the text to clarify that shrinkage affects individual study estimates, while inverse-variance weighting affects each study's contribution to the pooled estimate.
 :::
 
 ::: {.revision section="Results -- Meta-Analysis"}
@@ -156,7 +155,7 @@ In Section 3.4, the authors conclude: “This shows that the results are robust 
 :::
 
 ::: {.reply}
-Thank you for raising this, we adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis (see revisions below). Following your second comment, we have added two additional prior sensitivity analyses and would like to gently refer you to our reply to your second comment to see the changes made in the Results -- Sensitivity Analysis section.
+We thank the reviewer for raising this and have adjusted the wording to clarify that the results show robustness to the alternative priors tested in the sensitivity analysis (see revisions below). Following the reviewers second comment, we have added two additional prior sensitivity analyses and would like to gently refer the reviewer to our reply to their second comment to see the changes made in the Results -- Sensitivity Analysis section.
 :::
 
 :::{.revision section="Methods -- Meta-Analysis -- Sensitivity Analysis"}
@@ -169,7 +168,7 @@ In the Methods section and Discussion, the authors state that all code and data 
 :::
 
 ::: {.reply}
-Thank you for raising this, the GitHub repository is now publicly accessible at github.com/PaulinaSell/lead-IQ_meta-analysis.
+We thank the reviewer for raising this. The GitHub repository is now publicly accessible at github.com/PaulinaSell/lead-IQ_meta-analysis.
 :::
 
 <!-- R1 C8 -->
@@ -178,7 +177,7 @@ In the Discussion, the statement that the Bayesian model yielded lower pooled ef
 :::
 
 ::: {.reply}
-Thank you, we agree and have added that the difference in pooled estimates is also attributable to the incorporation of prior information.
+We thank the reviewer and agree and have added that the difference in pooled estimates is also attributable to the incorporation of prior information.
 :::
 
 ::: {.revision section="Discussion"}
@@ -193,7 +192,7 @@ In Supplementary File 5, Figures 5a and 5b require clearer descriptions. The fig
 :::
 
 ::: {.reply}
-Thank you, we added figure descriptions to Supplementary File 5.
+We thank the reviewer and added figure descriptions to Supplementary File 5.
 :::
 
 <!-- R1 C10 -->
@@ -202,7 +201,7 @@ In Section 3.4, the manuscript states that sensitivity analysis results are pres
 :::
 
 ::: {.reply}
-Thank you, we have corrected the table numbering and referencing.
+We thank the reviewer and we have corrected the table numbering and referencing.
 :::
 
 # Reviewer 2
@@ -217,13 +216,13 @@ The manuscript compares one REML model with one Bayesian normal-normal hierarchi
 :::
 
 ::: {.reply}
-We thank you for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study, and have added two sentences to the limitation section in our Discussion, cautioning against interpreting our results too generally (see revisions below).
+We thank the reviewer for this comment and fully acknowledge that a single application cannot provide a definitive comparison between both statistical frameworks, and have therefore weakened conclusions that are beyond the scope of our applied study, and have added two sentences to the limitation section in our Discussion, cautioning against interpreting our results too generally (see revisions below).
 
 In doing so, we have focused our comparison on general aspects, such as the role of shrinkage, that we can observe in our analysis through, for example, the sensitivity analyses we have added.
 In addition to our pre-existing description of how shrinkage operates in our specific sample, we now better explain which study settings our findings are expected to generalize to (small sample, high heterogeneity), and where shrinkage-induced differences in the pooled estimate are likely to be smaller (large sample, low heterogeneity).
 We described these analyses in more detail in our reply to reviewer 1's comment 2.
 
-Furthermore, we thank you for pointing out that the sample size in our study warrants a small-sample adjustment.
+Furthermore, we thank the reviewer for pointing out that the sample size in our study warrants a small-sample adjustment.
 We have replaced the unadjusted analysis with an analysis using the Knapp-Hartung adjustment; the confidence interval of the pooled estimate in the adjusted analyses are now ~0.2 wider.
 The adjustment is briefly introduced in the Method section (see revisions below).
 :::
@@ -241,9 +240,13 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 This regularization is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
 :::
 
-<!-- Placeholder for small sample adjustment -->
 ::: {.revision section="Method -- Meta-Analysis -- Frequentist Meta-Analysis"}
 "For the frequentist meta-analysis, we employed a random-effects model with a small-sample adjustment, [...]"
+:::
+
+::: {.revision section="Results -- Meta-Analysis"}
+"Additional file 6 contains the full model code and output for both models.
+The results of both models are shown as forest plots in Figure 2."
 :::
 
 ::: {.revision section="Discussion"}
@@ -263,7 +266,7 @@ Although the coefficients were converted to the same logarithmic scale, the incl
 :::
 
 ::: {.reply}
-Thank you for this comment, we agree and have added a more explicit statement to the Discussion, emphasizing that the coefficients pooled in our study may not represent exactly the same estimand which complicates the interpretability of the pooled estimate.
+We thank the reviewer for this comment. We agree and have added a more explicit statement to the Discussion, emphasizing that the coefficients pooled in our study may not represent exactly the same estimand which complicates the interpretability of the pooled estimate.
 :::
 
 ::: {.revision section="Discussion"}
@@ -277,13 +280,13 @@ The manuscript states that study estimates in both panels of Figure 2 are shrunk
 :::
 
 ::: {.reply}
-Thank you for pointing out the misleading terminology relating to Figure 2. We have adjusted the wording (see below, "Results").
+We thank the reviewer for pointing out the misleading terminology relating to Figure 2. We have adjusted the wording (see below, "Results").
 
 Furthermore, we agree that in the context of our manuscript it is neither necessary nor helpful to give frequentist methods a Bayesian interpretation.
 We have replaced it with a more nuanced description of the differences in the two meta-analytic frameworks we wanted to highlight here (see below, "Discussion").
 
-Regarding your third point, we acknowledge that the claims we make regarding outlier treatment in the Bayesian model are too strong, and thank you for this comment; we believe that with its help, we could significantly improve the clarity and argumentation in our manuscript.
-Since reviewer 1 has raised a similar point, we omit repeating our reply and the associated changes here, and would instead gently refer you to our reply to reviewer 1's comment 2.
+Regarding the reviewers third point, we acknowledge that the claims we make regarding outlier treatment in the Bayesian model are too strong, and thank them for this comment; we believe that with its help, we could significantly improve the clarity and argumentation in our manuscript.
+Since reviewer 1 has raised a similar point, we omit repeating our reply and the associated changes here, and would instead gently refer the reviewer to our reply to reviewer 1's comment 2.
 :::
 
 ::: {.revision section="Results"}
@@ -304,7 +307,7 @@ Different values appear in the Abstract, Results, Figure 2, and Table 4. Check t
 :::
 
 ::: {.reply}
-Thank you for pointing out these numerical inconsistencies. We have fixed these issues in the Abstract, Results, Figure 2 and Table 4.
+We thank the reviewer for pointing out these numerical inconsistencies. We have fixed these issues in the Abstract, Results, Figure 2 and Table 4.
 :::
 
 <!-- R2 C5 -->
@@ -313,7 +316,7 @@ The text refers to children aged 0–11 years, while Table 1 includes participan
 :::
 
 ::: {.reply}
-Thank you for raising this — the prose description did not fully match the PECOTS criteria in Table 1.
+We thank the reviewer for raising this — the prose description did not fully match the PECOTS criteria in Table 1.
 We removed it and refer readers directly to Table 1, which is now the only source for this information.
 :::
 
@@ -327,7 +330,7 @@ Check the confidence interval for frequentist heterogeneity estimate. For exampl
 :::
 
 ::: {.reply}
-Thank you for catching this. The upper limit indeed was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
+We thank the reviewer for catching this. The upper limit indeed was wrong: a coding error caused the point estimate of $\tau^2$ to be printed in place of the upper confidence limit. We have corrected this, and the confidence interval is now reported from the correct bound returned by `metafor`.
 :::
 
 ::: {.revision section="Results -- Meta-Analysis"}
