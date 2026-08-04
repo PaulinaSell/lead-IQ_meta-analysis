@@ -4,7 +4,7 @@
 **Journal:** *[Journal name]* · [Year] · DOI: `[doi]`\
 **Funding:** European Partnership for the Assessment of Risks from Chemicals (PARC) - EU Horizon (Grant Agreement No 101057014)
 
-[![DOI](https://img.shields.io/badge/DOI-[doi]-blue)](https://doi.org/[doi])
+[![DOI](https://zenodo.org/badge/1025483469.svg)](https://doi.org/10.5281/zenodo.21791967)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 ![](manuscript/tables_figures/main/graphical_abstract.png)
 
