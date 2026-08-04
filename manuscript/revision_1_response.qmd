@@ -66,14 +66,14 @@ We believe that this analysis and the related changes significantly improve our 
 :::
 
 ::: {.revision section="Methods -- Sensitivity Analysis"}
-"To be able to identify the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
-The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
+"To be able to identify the individual impact of the prior settings for $\mu$ and $\tau$, we varied one of the two parameters while holding the other constant.
+The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
 We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values from the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
 :::
 
 ::: {.revision section="Results -- Sensitivity Analysis -- Prior Sensitivity"}
-"Varying the prior on the location of $\mu$ while holding $\tau^2$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
-Varying the strength of shrinkage by decreasing or increasing the scale of $\tau^2$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter what we concluded from the estimates.
+"Varying the prior on the location of $\mu$ while holding $\tau$ at $\mathcal{N}^+(0, 2)$, we found neither skeptical and enthusiastic priors on the location of $\mu$ substantially alter our conclusions.
+Varying the strength of shrinkage by decreasing or increasing the scale of $\tau$ while holding $\mu$ at $\mathcal{N}(0, 100)$ also did not substantially alter what we concluded from the estimates.
 The estimate for $\mu$ under weak shrinkage matched that of the frequentist analysis, while the estimate under strong shrinkage was notably more conservative. 
 This is because many of the strongly negative coefficients were reported by studies with large uncertainty which are in turn more affected by shrinkage, pulling their estimands closer towards zero."
 :::
