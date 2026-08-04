@@ -68,7 +68,7 @@ We believe that this analysis and the related changes significantly improve our 
 ::: {.revision section="Methods -- Sensitivity Analysis"}
 "To be able to identify the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
 The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
-We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values as in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values from the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage."
 :::
 
 ::: {.revision section="Results -- Sensitivity Analysis -- Prior Sensitivity"}
@@ -236,7 +236,7 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 :::
 
 ::: {.revision section="Abstract -- Results"}
-"Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+"Depending on the specified prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
 This regularization is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable."
 :::
 

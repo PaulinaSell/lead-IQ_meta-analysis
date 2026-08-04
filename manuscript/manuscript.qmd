@@ -179,7 +179,7 @@ The Bayesian model yielded a mean pooled estimate of `r Bayes_mean` (95% credibl
 Between-study heterogeneity was substantial (frequentist: $\tau^2$ = `r frnd(freq_confint[1,1])`, $\text{I}^2$ = `r frnd_pct(freq_confint[3,1])`%; Bayesian: posterior median $\tau^2$ = `r frnd(tau_sq_median)`, $\text{I}^2$ = `r frnd_pct(I2_posterior_median * 100)`%).
 The Bayesian approach provided a full posterior distribution for heterogeneity, directly quantifying uncertainty from between-study variation.
 Sensitivity analyses showed both meta-analyses were robust to RoB, and Bayesian estimates were insensitive to tested priors.
-Depending on the chosen prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
+Depending on the specified prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
 **Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
@@ -224,7 +224,7 @@ Unlike frequentist confidence intervals, which are often misinterpreted as havin
 Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease and risk assessments, providing seamless integration with probabilistic frameworks in public health decision-making.
 By comparing frequentist and Bayesian approaches, we explore how the analytical framework and its approach to uncertainty quantification influence exposure-response estimates and their application.
 
-The aim of this study is twofold: first, to synthesise and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing how these analytical frameworks impact exposure-response estimates and uncertainty quantification.
+The aim of this study is twofold: first, to synthesise and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing uncertainty quantification and applicability for risk assessment.
 <!-- If ever necessary, we could add a sentence saying "However, a general comparison of both frameworks is not our goal because it is not possible based on this single study" -->
 
 # Methods
@@ -359,7 +359,7 @@ ub_prior <- qnorm((1 - (1 - prob_prior_mu) / 2), prior_mean, prior_sd)
 ```
 
 For the overall pooled effect $\mu$, a normally distributed prior centred at `r prior_mean` with a standard deviation (SD) of `r prior_sd` was chosen.
-This reflects the prior belief that the overall pooled effect lies between `r frnd(lb_prior)` and `r frnd(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
+This reflects the prior belief that the overall pooled effect lies between `r round(lb_prior)` and `r round(ub_prior)` with $\sim$ `r prob_prior_mu * 100`% probability.
 The centre point of the prior was chosen to be `r prior_mean` because the negative effects of lead on the developing nervous system and its toxicological mechanisms of action are well established [@efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead].
 Since variance terms, such as the between study heterogeneity $\tau$, must be positive, a truncated normal distribution centred at 0 with a SD of 2 was specified.
 This reflects the prior belief that heterogeneity $\tau$ is small to moderate, but does not exclude large heterogeneity if this is present in the included studies.
@@ -389,10 +389,10 @@ To examine the sensitivity of the results to possibly biased study estimates, we
 To examine the sensitivity of the results to the choice of prior distributions, we fit the Bayesian model again for alternative sets of priors that we consider to be extreme but still reasonable.
 One set of priors was more informative (narrower) than the main priors, with $\mu \sim \mathcal{N}(-1, 1)$ and $\tau \sim \mathcal{N}^+(0, 1)$.
 A second set of priors was less informative (ignorant) with $\mu \sim \mathcal{N}(0, 6)$ and $\tau \sim \mathcal{N}^+(0, 6)$.
-Note that for the main effect, the broader prior is centred around 0, giving equal weight to the probability of a protective and detrimental effect of lead.
+Note that for $\mu$, the broader prior is centred at 0, giving equal weight to the probability of a protective and detrimental effect of lead.
 To be able to identify the individual impact of the prior settings for $\mu$ and $\tau^2$, we varied one of the two parameters while holding the other constant.
 The location of the $\mu$ prior was varied to values a third and three times that of the default value, while $\tau$ was held at $\mathcal{N}^+(0, 2)$, and the same was done for the scale of the $\tau^2$ prior while holding $\mu$ at $\mathcal{N}(0, 100)$ (Table 4).
-We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values as in the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
+We decided to hold $\mu$ at $\mathcal{N}(0, 100)$ instead of using the values from the main analysis $\mathcal{N}(-1, 2)$ because it allowed us to examine if Bayesian and frequentist estimates converge under a very wide $\mu$ prior and weak shrinkage.
 
 # Results
 ## Literature Review
