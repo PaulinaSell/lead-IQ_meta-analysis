@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -731,10 +731,10 @@ bold_rows <- which(table4_gt$is_bold)
 source_note <- paste(
   "RoB, risk of bias; UI, uncertainty interval (credible interval for Bayesian",
   "and confidence interval for frequentist model results).",
-  "Rows varying only the effect prior hold the heterogeneity prior at N+(0, 2);",
-  "rows varying only the heterogeneity prior hold the effect prior at",
+  "Configurations varying only the effect prior hold the heterogeneity prior at N+(0, 2);",
+  "configurations varying only the heterogeneity prior hold the effect prior at",
   "Normal(0, 100), which is effectively flat but not improper.",
-  "distribution truncated at zero."
+  "N+() denotes a Normal distribution with a lower bound of 0."
 )
 
 table4_gt %>%
