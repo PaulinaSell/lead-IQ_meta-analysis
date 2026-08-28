@@ -13,26 +13,28 @@ After a round of revisions, both reviewers agree that the manuscript has greatly
 
 We would like to thank the editor and the two reviewers for their time and careful reading of our manuscript.
 We believe that their valuable feedback and the revisions we made in response have substantially improved our work.
-We agree that our study compares two specific implementations of Bayesian and frequentist meta-analytic models, not the frameworks as such.
-We have reframed the manuscript accordingly and have removed or narrowed the generalising claims about comparing both frameworks.
 Below we respond to each point; the revised manuscript text is quoted verbatim.
 
 # Reviewer 1
-
+The authors have adequately addressed my previous comments, and the manuscript has been substantially improved.
+I only have one minor comment.
 
 ### Minor comments
 
 <!-- R1 C1 -->
 ::: {.comment}
-
+The statement in the Abstract that “frequentist meta-analytic approaches ... often fall short in this regard” seems somewhat unbalanced. I suggest revising this statement to present a more objective comparison between frequentist and Bayesian approaches.
 :::
 
 ::: {.reply}
-
+We thank the reviewer for this comment and agree that our original statement in the abstract was unbalanced.
+We have revised the paragraph to communicate the differences between both approaches more balanced.
 :::
 
-::: {.revision section=""}
-
+::: {.revision section="Abstract - Background"}
+"Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making.
+Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides a different approach to uncertainty quantification through posterior distributions.
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study."
 :::
 
 # Reviewer 2
