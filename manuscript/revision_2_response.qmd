@@ -1,0 +1,90 @@
+---
+title: "Response to Reviewers"
+format:
+  response-letter-typst: default
+---
+
+# Editor comments
+
+After a round of revisions, both reviewers agree that the manuscript has greatly improved, but there are still some issues that need to be addressed by the authors.
+-Rongji Mu
+
+# Response to the Editor
+
+We would like to thank the editor and the two reviewers for their time and careful reading of our manuscript.
+We believe that their valuable feedback and the revisions we made in response have substantially improved our work.
+We agree that our study compares two specific implementations of Bayesian and frequentist meta-analytic models, not the frameworks as such.
+We have reframed the manuscript accordingly and have removed or narrowed the generalising claims about comparing both frameworks.
+Below we respond to each point; the revised manuscript text is quoted verbatim.
+
+# Reviewer 1
+
+
+### Minor comments
+
+<!-- R1 C1 -->
+::: {.comment}
+
+:::
+
+::: {.reply}
+
+:::
+
+::: {.revision section=""}
+
+:::
+
+# Reviewer 2
+
+
+### Minor comments
+
+<!-- R2 C1 -->
+:::{.comment}
+
+:::
+
+::: {.reply}
+
+:::
+
+::: {.revision section=""}
+
+:::
+
+::: {.revision section=""}
+
+:::
+
+
+
+<!-- R2 C2 -->
+:::{.comment}
+
+:::
+
+::: {.reply}
+
+:::
+
+::: {.revision section=""}
+
+:::
+
+<!-- R2 C3 -->
+:::{.comment}
+
+:::
+
+::: {.reply}
+
+:::
+
+::: {.revision section=""}
+
+:::
+
+::: {.revision section=""}
+
+:::
