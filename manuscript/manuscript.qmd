@@ -162,9 +162,14 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 ```
 
 <!-- max 350 words in BMC  -->
-**Background**: Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
-Bayesian meta-analysis provides probabilistic uncertainty quantification.
+**Background**: 
+Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making.
+Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides a different approach to uncertainty quantification through posterior distributions.
 We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study.
+
+<!-- Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making, but frequentist meta-analytic approaches - currently predominant in epidemiology - often fall short in this regard.
+Bayesian meta-analysis provides probabilistic uncertainty quantification.
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study. -->
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children.
 After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonised to the $\log_e$​ scale.
@@ -182,7 +187,7 @@ Sensitivity analyses showed both meta-analyses were robust to RoB, and Bayesian 
 Depending on the specified prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
-**Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
+**Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ covering the literature between January 2005 and July 2023.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
 These features are particularly valuable for risk assessment and policy-making.
 
@@ -224,7 +229,8 @@ Unlike frequentist confidence intervals, which are often misinterpreted as havin
 Furthermore, Bayesian posterior distributions can be directly propagated into probabilistic burden of disease and risk assessments, providing seamless integration with probabilistic frameworks in public health decision-making.
 By comparing frequentist and Bayesian approaches, we explore how the analytical framework and its approach to uncertainty quantification influence exposure-response estimates and their application.
 
-The aim of this study is twofold: first, to synthesise and quantitatively pool available epidemiological findings on the association between BLL and IQ scores in children; and second, to conduct both frequentist and Bayesian meta-analyses, comparing uncertainty quantification and applicability for risk assessment.
+The aim of this study is to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
+We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association.
 <!-- If ever necessary, we could add a sentence saying "However, a general comparison of both frameworks is not our goal because it is not possible based on this single study" -->
 
 # Methods
@@ -771,7 +777,7 @@ table4_gt %>%
 ```
 
 # Discussion
-In this study, we provide an updated pooled effect estimate for the association between children's lead exposure and IQ, and compare a conventional, frequentist meta-analysis to a Bayesian meta-analysis – a framework that is less used in the field of environmental epidemiology to date.
+In this study, we compare uncertainty quantification of frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead expsoure and childrens IQ as an applied example.
 
 While previous publications have compared both meta-analytic frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field.
@@ -823,13 +829,15 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
+While this study provides an updated pooled effect estimate on the association of BLL and children's IQ, our literature search was limited to the period between January 2005 and July 2023.
+Both the full-text screening and RoB assessment was done by only one person, while a parallel screening 
 The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
 This limits the generalisability of the pooled estimate and complicates its interpretation for specific populations.
 Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the data analysed here, it should not be taken as a comprehensive comparison of both statistical frameworks.
 Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
 Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigourous evaluation.
 The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
-We excluded studies that did not report effect estimates on the logarithmic scale of blood lead levels.
+We excluded studies that did not report effect estimates on the logarithmic scale of BLL.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 <!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken.
 Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
