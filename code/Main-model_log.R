@@ -3,6 +3,7 @@
 
 library(brms)
 library(tidybayes)
+library(tidyverse)
 
 data = read.csv("data/study_data_leadIQloss.csv")
 
@@ -100,7 +101,7 @@ freq_model <- readRDS(
 )
 vt <- freq_model$vt
 
-# Calculate I² using metafor's approach for each posterior draw
+# Calculate I2 using metafor's approach for each posterior draw
 I2_samples <- tau_sq_samples / (tau_sq_samples + vt)
 
 # Summarize tau2
@@ -115,3 +116,10 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 
 # summary for Rhat
 s_brm <- summary(m.brm)
+
+# Calculate PPI for hypothetical new studies
+mu <- draws$b_Intercept
+tau <- draws$sd_author_year__Intercept
+theta_new <- rnorm(nrow(draws), mu, tau)
+theta_new_mean <- mean(theta_new)
+theta_new_qs <- quantile(theta_new, probs = c(0.025, 0.975))
