@@ -777,7 +777,7 @@ table4_gt %>%
 ```
 
 # Discussion
-In this study, we compare uncertainty quantification of frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead expsoure and childrens IQ as an applied example.
+In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example.
 
 While previous publications have compared both meta-analytic frameworks, they focus either on evidence-based medicine [@kazi2026PvaluesBayesFactor; @yao2025RandomeffectsMetaanalysisModels; @ciyer2025BayesianMetaanalysis21st; @hong2013ComparingBayesianFrequentist] or network meta-analysis [@sadeghirad2023TheoryPracticeBayesian; @seide2020ComparisonBayesianFrequentist] and thus address methodological challenges that only partially overlap with those encountered in environmental epidemiology.
 To our knowledge, this is the first study to compare Bayesian and frequentist meta-analytic approaches in this field.

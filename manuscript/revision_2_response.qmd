@@ -28,7 +28,7 @@ The statement in the Abstract that “frequentist meta-analytic approaches ... o
 
 ::: {.reply}
 We thank the reviewer for this comment and agree that our original statement in the abstract was unbalanced.
-We have revised the paragraph to communicate the differences between both approaches more balanced.
+We have revised the paragraph.
 :::
 
 ::: {.revision section="Abstract - Background"}
@@ -39,12 +39,11 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 
 # Reviewer 2
 
-
-### Minor comments
+### Major comments
 
 <!-- R2 C1 -->
 :::{.comment}
-
+Please address the omitted request for frequentist prediction intervals and Bayesian posterior predictive intervals, particularly given the very high heterogeneity and the manuscript's focus on uncertainty quantification.
 :::
 
 ::: {.reply}
@@ -58,25 +57,40 @@ We performed frequentist and Bayesian meta-analyses to compare uncertainty quant
 ::: {.revision section=""}
 
 :::
-
-
 
 <!-- R2 C2 -->
 :::{.comment}
-
+Please address the previously raised systematic-review concern, especially the literature search ending in July 2023 and the use of a single human reviewer for full-text screening/RoB assessment. (One of prior comments: The literature search ended in July 2023, although the manuscript includes references from 2025 and appears to have been prepared later. The search should be updated.)
 :::
 
 ::: {.reply}
+We thank the reviewer for their comment and agree that had the main aim of our study been an evidence synthesis of the literature on blood lead concentration and children's IQ, independent full-text screening and RoB assessment by multiple researchers would be preferable and an update of the literature search would be crucial.
+However, this was not the main aim of the present study, which was rather to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
+We agree that this was not clear in the manuscript and have therefore revised the conclusions paragraph in the Abstract and the aims statement at the end of the Background section.
 
+Furthermore, we have added to the limitations section in the Discussion, acknowledging that the search was limited to the period between January 2005 and July 2023 and that both full-text screening and RoB assessment were conducted by only one person.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Abstract -- Conclusion"}
+"We provide updated pooled estimates for the effect of lead exposure on children's IQ covering the literature between January 2005 and July 2023."
+:::
 
+::: {.revision section="Background"}
+"The aim of this study is to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
+We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association."
+:::
+
+::: {.revision section="Discussion"}
+"In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example."\
+"Our literature search was limited to the period between January 2005 and July 2023 and was not updated prior to submission.
+Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints."\
+"Taken together, these limitations mean that the pooled estimate should be read as reflecting the evidence available up to July 2023, and that its transferability to specific populations is limited.
+Given this study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, they do not affect our main conclusions."
 :::
 
 <!-- R2 C3 -->
 :::{.comment}
-
+Please revise the remaining statistical overstatements regarding shrinkage as “giving less weight,” frequentist weighting being “not configurable,” and high heterogeneity being attributable simply to a small number of studies.
 :::
 
 ::: {.reply}
