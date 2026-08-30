@@ -829,16 +829,20 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-While this study provides an updated pooled effect estimate on the association of BLL and children's IQ, our literature search was limited to the period between January 2005 and July 2023.
-Both the full-text screening and RoB assessment was done by only one person, while a parallel screening 
-The included studies were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
-This limits the generalisability of the pooled estimate and complicates its interpretation for specific populations.
+A first set of limitations concerns the evidence base underlying the pooled estimate.
+Our literature search was limited to the period between January 2005 and July 2023 and was not updated prior to submission.
+Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints.
+We further excluded studies that did not report effect estimates on the logarithmic scale of BLL.
+While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
+The studies we did include were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+Finally, publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
+The visual assessment did not rule out publication bias, which may have led to overestimation of the pooled effect.
+Taken together, these limitations mean that the pooled estimate should be read as reflecting the evidence available up to July 2023, and that its transferability to specific populations is limited.
+Given this study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, they do not affect our main conclusions.
+
+A second limitation concerns the scope of the comparison itself.
 Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the data analysed here, it should not be taken as a comprehensive comparison of both statistical frameworks.
 Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
-Publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigourous evaluation.
-The visual assessment suggested the presence of publication bias, which may have led to overestimation of the pooled effect.
-We excluded studies that did not report effect estimates on the logarithmic scale of BLL.
-While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
 <!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken.
 Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
 We prioritised this exposure timeframe because it enabled the inclusion of cross-sectional studies and yields pooled estimates directly applicable to environmental burden of disease assessments. -->
@@ -851,7 +855,7 @@ All data and code, including the code used to produce this manuscript, are publi
 Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use of the raRoB tool for risk of bias assessment, ensuring consistency and rigour in study selection, data extraction, study quality appraisal, and statistical analysis.
 
 # Conclusions
-This study provides both an updated evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ, and an applied methodological comparison of the Bayesian and conventional frequentist frameworks for meta-analysis.
+This study provides an applied methodological comparison of Bayesian and frequentist meta-analysis and an evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ.
 The resulting pooled effect estimates are consistent with previous evidence and once again underscore the importance of reducing environmental lead contamination to reduce the public health burden this substance continues to impose.
 
 In the context of our study, comparing both meta-analytic models showed that the Bayesian approach offered distinct advantages for risk assessment and policy-making by fully quantifying uncertainty – especially the ability to incorporate prior knowledge, comprehensively quantify uncertainty, and produce probabilistic outputs that are more directly useable for decision-makers.
