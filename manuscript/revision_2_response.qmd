@@ -38,22 +38,28 @@ Below we respond to each point; the revised manuscript text is quoted verbatim.
 # Reviewer 2
 
 
-### Minor comments
+### Major comments
 
 <!-- R2 C1 -->
 :::{.comment}
-
+Please address the omitted request for frequentist prediction intervals and Bayesian posterior predictive intervals, particularly given the very high heterogeneity and the manuscript's focus on uncertainty quantification.
 :::
 
 ::: {.reply}
+We have now added frequentist and Bayesian predictive intervals to the manuscript and revised the methods, results, and discussion accordingly.
+We thank the reviewer for suggesting this addition and agree that it's an important addition to our manuscript.
+We have also refocused the aims of our study in this direction (see also our response to reviewer 1, comment 1).
+:::
+
+::: {.revision section="Methods"}
 
 :::
 
-::: {.revision section=""}
+::: {.revision section="Results"}
 
 :::
 
-::: {.revision section=""}
+::: {.revision section="Discussion"}
 
 :::
 
@@ -74,11 +80,11 @@ Below we respond to each point; the revised manuscript text is quoted verbatim.
 
 <!-- R2 C3 -->
 :::{.comment}
-
+Please revise the remaining statistical overstatements regarding shrinkage as “giving less weight,” frequentist weighting being “not configurable,” and high heterogeneity being attributable simply to a small number of studies.
 :::
 
 ::: {.reply}
-
+We thank reviewer 2 for pointing out these remaining overstatements. We have corrected that high heterogeneity is not simply a function of the number of studies
 :::
 
 ::: {.revision section=""}
