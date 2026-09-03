@@ -13,30 +13,31 @@ After a round of revisions, both reviewers agree that the manuscript has greatly
 
 We would like to thank the editor and the two reviewers for their time and careful reading of our manuscript.
 We believe that their valuable feedback and the revisions we made in response have substantially improved our work.
-We agree that our study compares two specific implementations of Bayesian and frequentist meta-analytic models, not the frameworks as such.
-We have reframed the manuscript accordingly and have removed or narrowed the generalising claims about comparing both frameworks.
 Below we respond to each point; the revised manuscript text is quoted verbatim.
 
 # Reviewer 1
-
+The authors have adequately addressed my previous comments, and the manuscript has been substantially improved.
+I only have one minor comment.
 
 ### Minor comments
 
 <!-- R1 C1 -->
 ::: {.comment}
-
+The statement in the Abstract that “frequentist meta-analytic approaches ... often fall short in this regard” seems somewhat unbalanced. I suggest revising this statement to present a more objective comparison between frequentist and Bayesian approaches.
 :::
 
 ::: {.reply}
-
+We thank the reviewer for this comment and agree that our original statement in the abstract was unbalanced.
+We have revised the paragraph.
 :::
 
-::: {.revision section=""}
-
+::: {.revision section="Abstract - Background"}
+"Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making.
+Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides a different approach to uncertainty quantification through posterior distributions.
+We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study."
 :::
 
 # Reviewer 2
-
 
 ### Major comments
 
@@ -63,19 +64,34 @@ We have also refocused the aims of our study in this direction (see also our res
 
 :::
 
-
-
 <!-- R2 C2 -->
 :::{.comment}
-
+Please address the previously raised systematic-review concern, especially the literature search ending in July 2023 and the use of a single human reviewer for full-text screening/RoB assessment. (One of prior comments: The literature search ended in July 2023, although the manuscript includes references from 2025 and appears to have been prepared later. The search should be updated.)
 :::
 
 ::: {.reply}
+We thank the reviewer for their comment and agree that had the main aim of our study been an evidence synthesis of the literature on blood lead concentration and children's IQ, independent full-text screening and RoB assessment by multiple researchers would be preferable and an update of the literature search would be crucial.
+However, this was not the main aim of the present study, which was rather to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
+We agree that this was not clear in the manuscript and have therefore revised the conclusions paragraph in the Abstract and the aims statement at the end of the Background section.
 
+Furthermore, we have added to the limitations section in the Discussion, acknowledging that the search was limited to the period between January 2005 and July 2023 and that both full-text screening and RoB assessment were conducted by only one person.
 :::
 
-::: {.revision section=""}
+::: {.revision section="Abstract -- Conclusion"}
+"We provide updated pooled estimates for the effect of lead exposure on children's IQ covering the literature between January 2005 and July 2023."
+:::
 
+::: {.revision section="Background"}
+"The aim of this study is to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
+We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association."
+:::
+
+::: {.revision section="Discussion"}
+"In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example."\
+"Our literature search was limited to the period between January 2005 and July 2023 and was not updated prior to submission.
+Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints."\
+"Taken together, these limitations mean that the pooled estimate should be read as reflecting the evidence available up to July 2023, and that its transferability to specific populations is limited.
+Given this study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, they do not affect our main conclusions."
 :::
 
 <!-- R2 C3 -->
