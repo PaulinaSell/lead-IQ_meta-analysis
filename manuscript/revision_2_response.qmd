@@ -52,16 +52,31 @@ We thank the reviewer for suggesting this addition and agree that it's an import
 We have also refocused the aims of our study in this direction (see also our response to reviewer 1, comment 1).
 :::
 
-::: {.revision section="Methods"}
-
+::: {.revision section="Methods -- Bayesian Meta-Analysis"}
+To quantify uncertainty in the pooled mean and heterogeneity jointly, we constructed the posterior predictive distribution of hypothetical future studies by sampling from $\mathcal{N}(\mu, \tau)$.
+Additionally, a sensitivity analysis with alternative priors was conducted, as described below.
 :::
 
-::: {.revision section="Results"}
+::: {.revision section="Methods -- Frequentist Meta-Analysis"}
+In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
+To enable parametric simulation from point estimates, we assumed $\mu$ to be normally distributed and $\tau$ to be log-normally distributed, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
+The number of draws in the parametric simulation matched the number of MCMC samples from the Bayesian approach.
+:::
 
+
+<!-- do we load the RData files here to paste the results below? -->
+::: {.revision section="Results"}
+The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2) and a 95% predictive interval from `r bayes_ppi$theta_new_q025` to `r bayes_ppi$theta_new_q975`.
+The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) and comparable a 95% predictive interal from `r freq_ppi$theta_new_q025` to `r freq_ppi$theta_new_q975`.
 :::
 
 ::: {.revision section="Discussion"}
-
+These predictive distributions are, however, not exclusive to the Bayesian approach.
+In the frequentist framework, they can be obtained using, for example, parametric simulation, nonparametric bootstrap, or the delta method.
+Each methods comes with its own assumptions that may impact the results, thus requiring the researcher to make a decision.
+To illustrate this, we opted for parametric simulation because the calculations were similar to the Bayesian approach and because our small sample size made nonparametric bootstrap unfeasible, frequently leading to convergence issues.
+Next, we assumed normal and log-normal distributions for $\mu$ and $\tau$, respectively, but we could have also assumed a normal distribution restricted to positive values for $\tau$ – under this assumption, the predictive intervals would have reached from `r freq_ppi$theta_new_alt_q025` to `r freq_ppi$theta_new_alt_q975`.
+A notable difference to the Bayesian approach is that the data have no option to overrule the assumed distributions whereas, given sufficient data, Bayesian priors will converge to the true distribution so long as that prior places non-zero probability on the true values, which is almost always feasible in practice.
 :::
 
 <!-- R2 C2 -->

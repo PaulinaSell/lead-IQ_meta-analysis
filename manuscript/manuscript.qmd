@@ -394,7 +394,7 @@ Additionally, a sensitivity analysis with alternative priors was conducted, as d
 
 ### Frequentist Meta-Analysis
 For the frequentist meta-analysis, we employed a random-effects model with a small-sample adjustment, assuming the same multilevel structure as for the Bayesian model (@eq-model) [@hartung2001TestsOverallTreatment].
-Parameters were estimated via the restricted maximum-likelihood estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
+Parameters were estimated via the restricted maximum-likelihood (REML) estimation from the R package `metafor` version 4.8-0 [@wolfgangviechtbauer2010ConductingMetaanalysesMetafor].
 The $I^2$ statistic was calculated as a measure of heterogeneity, representing the proportion of total variation attributable to between-study heterogeneity $\tau^2$.
 In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
 To enable parametric simulation from point estimates, we assumed $\mu$ to be normally distributed and $\tau$ to be log-normally distributed, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
@@ -799,10 +799,10 @@ This is attributable to both the prior for the overall effect ($\mu$) and the po
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 
 The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
-Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a narrower prior distribution for the heterogeneity leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-In contrast, frequentist models rely on inverse-variance weighting that is fully determined by the data – studies with large uncertainty are weighted less, but the degree to which this happens cannot be configured by the researcher.
+Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a prior distribution for the heterogeneity that is more concentrated near zero leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
 Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, the observed heterogeneity may be high simply due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
+Here, it can be difficult to estimate heterogeneity due to the small sample size, leaving our pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
+By contrast, while frequentist meta-analysis can configure the strength of weighting indirectly by changing the estimation methods for $\tau$, these options do not allow for stabilising heterogeneity estimates in small sample settings.
 
 <!-- # Not sure I want the sentence below... it kind of asks for the add-on "and that's why Bayes and freq converge under large data", but that seems a bit off-topic here... -->
 <!-- As with any other prior setting, the influence of the heterogeneity prior diminishes as the number of studies in our meta-analysis grows. -->
