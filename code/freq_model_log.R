@@ -2,6 +2,7 @@
 
 library(metafor)
 library(tidyverse)
+# library(distsfactory)
 
 data_full = read.csv("data/study_data_leadIQloss.csv")
 
@@ -57,5 +58,23 @@ log_tau_mu <- log(tau_hat)
 log_tau_sd <- se_tau / tau_hat
 tau_samples <- exp(rnorm(n_samples, log_tau_mu, log_tau_sd))
 theta_new <- rnorm(n_samples, mu_samples, tau_samples)
+
 theta_new_mean <- mean(theta_new)
-theta_new_qs <- quantile(theta_new, probs = c(0.025, 0.975))
+theta_new_q025 <- quantile(theta_new, probs = 0.025)
+theta_new_q975 <- quantile(theta_new, probs = 0.975)
+
+tau_alt <- make_dist("normal", mean = tau_hat, std = se_tau, support = c(0, Inf))
+tau_alt_samples <- tau_alt$r(n_samples)
+theta_new_alt <- rnorm(n_samples, mu_samples, tau_alt_samples)
+theta_new_q025_alt <- quantile(theta_new_alt, probs = 0.025)
+theta_new_q975_alt <- quantile(theta_new_alt, probs = 0.975)
+
+freq_ppi <- list(
+  theta_new_mean = theta_new_mean,
+  theta_new_q025 = theta_new_q025,
+  theta_new_q975 = theta_new_q975#,
+  theta_new_q025_alt = theta_new_q025_alt, # -6.48
+  theta_new_q975_alt = theta_new_q975_alt # 1.75
+)
+
+saveRDS(freq_ppi, "models/main/freq_ppi.rds")

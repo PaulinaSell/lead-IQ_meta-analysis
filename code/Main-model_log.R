@@ -121,5 +121,15 @@ s_brm <- summary(m.brm)
 mu <- draws$b_Intercept
 tau <- draws$sd_author_year__Intercept
 theta_new <- rnorm(nrow(draws), mu, tau)
+
 theta_new_mean <- mean(theta_new)
-theta_new_qs <- quantile(theta_new, probs = c(0.025, 0.975))
+theta_new_q025 <- quantile(theta_new, probs = 0.025)
+theta_new_q975 <- quantile(theta_new, probs = 0.975)
+
+bayes_ppi <- list(
+  theta_new_mean = theta_new_mean,
+  theta_new_q025 = theta_new_q025,
+  theta_new_q975 = theta_new_q975
+)
+
+saveRDS(bayes_ppi, "models/main/bayes_ppi.rds")
