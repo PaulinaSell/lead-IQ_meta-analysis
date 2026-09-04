@@ -4,6 +4,18 @@ format:
   response-letter-typst: default
 ---
 
+```{r}
+#| label: read_models_ppi
+#| echo: false
+
+m.brm <- readRDS("../models/main/m.brm_full.rds")
+fitPrior <- readRDS("../models/main/fitPrior_full.rds")
+freq_model <- readRDS("../models/main/freq_full.rds")
+
+freq_ppi <- readRDS("../models/main/freq_full.rds")
+bayes_ppi <- readRDS("../models/main/bayes_ppi.rds")
+```
+
 # Editor comments
 
 After a round of revisions, both reviewers agree that the manuscript has greatly improved, but there are still some issues that need to be addressed by the authors.
@@ -64,10 +76,9 @@ The number of draws in the parametric simulation matched the number of MCMC samp
 :::
 
 
-<!-- do we load the RData files here to paste the results below? -->
 ::: {.revision section="Results"}
-The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2) and a 95% predictive interval from `r bayes_ppi$theta_new_q025` to `r bayes_ppi$theta_new_q975`.
-The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) and comparable a 95% predictive interal from `r freq_ppi$theta_new_q025` to `r freq_ppi$theta_new_q975`.
+The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2) and a 95% predictive interval from `r frnd(bayes_ppi$theta_new_q025)` to `r frnd(bayes_ppi$theta_new_q975)`.
+The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) and a comparable 95% predictive interval from `r frnd(freq_ppi$theta_new_q025)` to `r frnd(freq_ppi$theta_new_q975)`.
 :::
 
 ::: {.revision section="Discussion"}
@@ -85,15 +96,18 @@ Please address the previously raised systematic-review concern, especially the l
 :::
 
 ::: {.reply}
-We thank the reviewer for their comment and agree that had the main aim of our study been an evidence synthesis of the literature on blood lead concentration and children's IQ, independent full-text screening and RoB assessment by multiple researchers would be preferable and an update of the literature search would be crucial.
-However, this was not the main aim of the present study, which was rather to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
-We agree that this was not clear in the manuscript and have therefore revised the conclusions paragraph in the Abstract and the aims statement at the end of the Background section.
-
-Furthermore, we have added to the limitations section in the Discussion, acknowledging that the search was limited to the period between January 2005 and July 2023 and that both full-text screening and RoB assessment were conducted by only one person.
-:::
-
-::: {.revision section="Abstract -- Conclusion"}
-"We provide updated pooled estimates for the effect of lead exposure on children's IQ covering the literature between January 2005 and July 2023."
+We thank the reviewer for this comment and agree that the search should be updated.
+We have conducted a rapid update search in PubMed for the period from July 2023 to 2 September 2026, using the original search terms. 
+Titles were screened by one reviewer and, in addition, by the LLM Claude Opus 5.
+If the two judgements diverged, the record was revisited by the researcher, who made the final decision.
+The search returned 173 records, and no record met the PECOTS and eligibility criteria.
+No study was therefore added and the pooled estimates are unchanged.
+The update is now reported in the Methods, the Results and the Discussion and the screening decisions are documented in additional file 3.
+Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we also stated in the Discussion that we cannot rule out that a full update would have identified further studies.
+On the second part of the comment: we have made the limitation of having a single reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
+We have also added that the meta-analysis rests on a restricted rather than an exhaustive evidence base and should not be read as a comprehensive evidence synthesis of the literature on lead and children's IQ.
+This reviewer comment also helped us realise that the main objective of our study, which is the comparison of uncertainty quantification in frequentist and Bayesian meta-analysis, was not stated clearly enough.
+We have therefore revised the aims statement at the end of the Background, the opening sentence of the Discussion and the Conclusions.
 :::
 
 ::: {.revision section="Background"}
@@ -101,12 +115,40 @@ Furthermore, we have added to the limitations section in the Discussion, acknowl
 We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association."
 :::
 
+::: {.revision section="Methods -- Literature Review"}
+"The search was updated in September 2026 by a PubMed search, using the same queries as in the original search and restricted to records published after July 2023.
+Titles were first screened by one reviewer and then additionally by the large language model (LLM) Claude Opus 5 (Anthropic), which was prompted to classify records using the PECOTS criteria.
+If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision.
+Where necessary, abstracts and full texts were assessed."
+:::
+
+::: {.revision section="Results -- Literature Review"}
+"The update search in PubMed yielded 173 records published after July 2023.
+No record met both the PECOTS and the meta-analysis eligibility criteria.
+40 and 44 records were excluded because the outcome or exposure definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including the record being an animal study or focusing on the mechanisms of lead neurotoxicity.
+Therefore, no new studies were added.
+Screening decisions for the update are documented in additional file 3."
+:::
+
 ::: {.revision section="Discussion"}
 "In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example."\
-"Our literature search was limited to the period between January 2005 and July 2023 and was not updated prior to submission.
-Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints."\
-"Taken together, these limitations mean that the pooled estimate should be read as reflecting the evidence available up to July 2023, and that its transferability to specific populations is limited.
-Given this study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, they do not affect our main conclusions."
+"A first set of limitations concerns the evidence base underlying the pooled estimate.
+Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
+Because this update had a narrower scope than the original search, we cannot rule out that a full update covering both databases would have identified new studies.
+Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints.
+We further excluded studies that did not report effect estimates on the logarithmic scale of BLL.
+While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
+The studies we did include were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+Finally, publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
+The visual assessment did not rule out publication bias, which may have led to overestimation of the pooled effect.
+
+Taken together, these limitations mean that the pooled estimate rests on a restricted rather than an exhaustive evidence base.
+This study should therefore not be interpreted as a comprehensive evidence synthesis of the literature on lead and children's IQ.
+Given our study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, these limitations do not affect our main conclusions."
+:::
+
+::: {.revision section="Conclusion"}
+"This study provides an applied methodological comparison of Bayesian and frequentist meta-analysis and an evidence synthesis of epidemiological studies examining the association between lead exposure and children's IQ."
 :::
 
 <!-- R2 C3 -->
