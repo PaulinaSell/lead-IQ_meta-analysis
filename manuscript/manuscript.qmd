@@ -822,17 +822,15 @@ In EBD studies, health impacts are quantified using metrics such as DALYs, allow
 Such assessments integrate both population exposure and the exposure–response relationship [@pruss-ustun2003AssessingEnvironmentalBurden].
 The distributional results of the present study enable probabilistic EBD assessments via Monte Carlo simulations without requiring additional assumptions about the uncertainty distribution of the exposure–response function.
 
-<!-- is there something missing here? The sentence below seems disconnected -->
-These predictive distributions are, however, not exclusive to the Bayesian approach.
+The option to create predictive distributions that can inform EBD studies are, however, not exclusive to the Bayesian approach.
 In the frequentist framework, they can be obtained using, for example, parametric simulation, nonparametric bootstrap, or the delta method.
-Each methods comes with its own assumptions that may impact the results, thus requiring the researcher to make decisions.
-To illustrate this, we estimated a predictive interval for the frequentist model using the parametric simulation approach because the calculations are similar to the Bayesian approach. 
-Also, the small sample size made nonparametric bootstrap unfeasible, leading to convergence issues.
-We asassumed normal and log-normal distributions for $\mu$ and $\tau$, respectively, while we could have also assumed a normal distribution restricted to positive values for $\tau$.
-Under this assumption, the predictive intervals would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
-<!-- draft from here onwards! -->
-<!-- maybe "overpower" instead of "overrule"? not sure though.. -->
-A notable difference to the Bayesian approach is that by assuming distributions for $\mu$ and $\tau$, the data cannot overrule the assumed distributions whereas, given sufficient data, Bayesian priors will converge to the true distribution so long as that prior places non-zero probability on the true values [@gelman2026BayesianWorkflow].
+Each methods comes with its own assumptions that may impact the results, requiring the researcher to carefully weigh these decisions.
+In this study, the small sample size lead to convergence issues when attempting to use nonparametric bootstrap.
+We instead estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
+We assumed normal and truncated normal distributions for $\mu$ and $\tau$, respectively, to match the Bayesian setup but we could have theoretically assumed any distribution for $\tau$ whose support is limited to positive real values.
+If we had instead picked a log-normal distribution for $\tau$, the predictive interval would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
+By assuming distributions for $\mu$ and $\tau$ after conditioning on the data, the data cannot inform the assumed distributions during parameter estimation.
+The Bayesian approach differs in that prior distributions will, given sufficient data, converge to the true distribution so long as that prior places non-zero probability on the true values [@gelman2026BayesianWorkflow].
 
 Our results are consistent with previous toxicological and epidemiological evidence [@baghurst1992EnvironmentalExposureLead; @bellinger1992LowLevelLeadExposure; @lanphear2005LowLevelEnvironmentalLead; @efsapaneloncontaminantsinthefoodchaincontam2010ScientificOpinionLead] as well as prior meta-analyses on the effects of lead on IQ.
 Direct comparison of effect magnitudes is, however, limited due to methodological differences: some studies estimated effects per exposure category [@goodman2023SexDifferencePre; @schwartz1994LowLevelLeadExposure; @pocock1994EnvironmentalLeadChildrens], while others reported partial $\text{r}$ [@needleman1990LowLevelLeadExposure] or standardised mean differences [@heidari2022EffectLeadExposurea].
