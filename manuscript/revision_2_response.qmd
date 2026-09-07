@@ -146,13 +146,13 @@ Please revise the remaining statistical overstatements regarding shrinkage as â€
 :::
 
 ::: {.reply}
-We thank reviewer 2 for pointing out these remaining overstatements. We have corrected that high heterogeneity is not simply a function of the number of studies
+We thank reviewer 2 for pointing out these remaining overstatements. We have described the mechanism of shrinkage more precisely, added detail on how frequentist weighting may be configured, and deleted the earlier incorrect statement that high heterogeneity is a function of the number of studies.
 :::
 
-::: {.revision section=""}
-
-:::
-
-::: {.revision section=""}
-
+::: {.revision section="Discussion"}
+"The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
+Bayesian meta-analysis can be set up such that it is less sensitive to uncertain studies via the prior distribution for the heterogeneity: the more concentrated this prior is towards zero the stronger the shrinkage, pulling uncertain studies more towards the pooled estimate than certain studies (Table 4).
+The frequentist meta-analysis can configure heterogeneity by changing the estimation methods for $\tau^2$.
+At the time of writing, the `metafor` package included a list of references pointing to publications for each of these estimation methods.
+However, a vignette to illustrate the use of these methods to make them more accessible to applied researchers was not available."
 :::

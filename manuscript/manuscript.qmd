@@ -799,10 +799,10 @@ This is attributable to both the prior for the overall effect ($\mu$) and the po
 Importantly, this difference does not relevantly affect the overall interpretation of the association between lead exposure and IQ.
 
 The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
-Bayesian meta-analysis can be set up such that it is less sensitive to these uncertain studies: a prior distribution for the heterogeneity that is more concentrated near zero leads to stronger shrinkage, giving less weight to uncertain studies (Table 4).
-Setting the model up for stronger shrinkage via priors can therefore be particularly relevant in meta-analyses analysing only a small set of studies.
-Here, it can be difficult to estimate heterogeneity due to the small sample size, leaving the pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
-By contrast, while frequentist meta-analysis can configure the strength of weighting indirectly by changing the estimation methods for $\tau$, these options do not allow for stabilising heterogeneity estimates in small sample settings.
+Bayesian meta-analysis can be set up such that it is less sensitive to uncertain studies via the prior distribution for the heterogeneity: the more concentrated this prior is towards zero the stronger the shrinkage, pulling uncertain studies more towards the pooled estimate than certain studies (Table 4).
+The frequentist meta-analysis can configure heterogeneity by changing the estimation methods for $\tau^2$.
+At the time of writing, the `metafor` package included a list of references pointing to publications for each of these estimation methods.
+However, a vignette to illustrate the use of these methods to make them more accessible to applied researchers was not available.
 
 Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow].
 While these demands may initially appear as disadvantages, they can equally be understood as methodological safeguards:
