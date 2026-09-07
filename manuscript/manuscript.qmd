@@ -460,7 +460,7 @@ Detailed information on the screening process and exclusion reasons can be found
 ![Fig. 1: PRISMA flow diagram. BLL, blood lead level; Pb, lead; Hg, mercury](tables_figures/main/figure1.png){width=60% fig-align="center"}
 
 The size of the study population in included studies ranged from 127 [@earl2016LowlevelEnvironmentalLead] to 1,355 [@crump2013StatisticalReevaluationData].
-Study designs included cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @schnaas2006ReducedIntellectualDevelopment] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @earl2016LowlevelEnvironmentalLead; @lee2021PrenatalPostnatalExposures].
+Study designs included cross-sectional [@bauer2020AssociationsMetalMixture; @hong2015EnvironmentalLeadExposure; @lucchini2012InverseAssociationIntellectual; @lucchini2019NeurocognitiveImpactMetal; @roy2013EffectModificationTransferrin; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead] and cohort studies [@crump2013StatisticalReevaluationData; @dantzer2020ComparisonBloodToenails; @desrochers-couture2018PrenatalConcurrentSexspecific; @lee2021PrenatalPostnatalExposures; @schnaas2006ReducedIntellectualDevelopment].
 The included studies were conducted in multiple different regions of the world (North America: 4, South America: 1, Europe: 3, Asia: 3, Australia: 1) and some populations were sampled in hotspot regions with presumably higher lead concentrations [@bauer2020AssociationsMetalMixture; @earl2016LowlevelEnvironmentalLead; @menezes-filho2018EnvironmentalCoExposureLead].
 The study by @roy2013EffectModificationTransferrin reported implausibly large effect sizes.
 We contacted the corresponding author, who confirmed that decimal points were missing in the publication.
@@ -825,8 +825,8 @@ The distributional results of the present study enable probabilistic EBD assessm
 The option to create predictive distributions that can inform EBD studies are, however, not exclusive to the Bayesian approach.
 In the frequentist framework, they can be obtained using, for example, parametric simulation, nonparametric bootstrap, or the delta method.
 Each methods comes with its own assumptions that may impact the results, requiring the researcher to carefully weigh these decisions.
-In this study, the small sample size lead to convergence issues when attempting to use nonparametric bootstrap.
-We instead estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
+In this study, the small sample size leads to convergence issues when attempting to use nonparametric bootstrap.
+We therefore estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
 We assumed normal and truncated normal distributions for $\mu$ and $\tau$, respectively, to match the Bayesian setup but we could have theoretically assumed any distribution for $\tau$ whose support is limited to positive real values.
 If we had instead picked a log-normal distribution for $\tau$, the predictive interval would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
 By assuming distributions for $\mu$ and $\tau$ after conditioning on the data, the data cannot inform the assumed distributions during parameter estimation.
