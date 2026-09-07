@@ -96,17 +96,16 @@ Please address the previously raised systematic-review concern, especially the l
 :::
 
 ::: {.reply}
-We thank the reviewer for this comment and agree that the search should be updated.
-We have conducted a rapid update search in PubMed for the period from July 2023 to 2 September 2026, using the original search terms. 
-Titles were screened by one reviewer and, in addition, by the LLM Claude Opus 5.
+We thank the reviewer for this comment and agree that the search should be updated, which we did by conducting a rapid search in PubMed for the period from July 2023 to 2 September 2026, using the original search terms.
+All titles were first screened by one reviewer and, afterwards, by the LLM Claude Opus 5.
 If the two judgements diverged, the record was revisited by the researcher, who made the final decision.
 The search returned 173 records, and no record met the PECOTS and eligibility criteria.
-No study was therefore added and the pooled estimates are unchanged.
+No study was therefore added to the meta-analysis and the pooled estimates are unchanged.
 The update is now reported in the Methods, the Results and the Discussion and the screening decisions are documented in additional file 3.
 Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we also stated in the Discussion that we cannot rule out that a full update would have identified further studies.
 On the second part of the comment: we have made the limitation of having a single reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
-We have also added that the meta-analysis rests on a restricted rather than an exhaustive evidence base and should not be read as a comprehensive evidence synthesis of the literature on lead and children's IQ.
-This reviewer comment also helped us realise that the main objective of our study, which is the comparison of uncertainty quantification in frequentist and Bayesian meta-analysis, was not stated clearly enough.
+We have also added that the meta-analysis rests on a restricted rather than an exhaustive evidence base and should not be read as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ.
+This comment also helped us realise that the main objective of our study, which is the comparison of uncertainty quantification in a frequentist and a Bayesian meta-analysis, was not stated clearly enough.
 We have therefore revised the aims statement at the end of the Background, the opening sentence of the Discussion and the Conclusions.
 :::
 
@@ -118,33 +117,23 @@ We apply both meta-analytic approaches to the association between BLL and IQ sco
 ::: {.revision section="Methods -- Literature Review"}
 "The search was updated in September 2026 by a PubMed search, using the same queries as in the original search and restricted to records published after July 2023.
 Titles were first screened by one reviewer and then additionally by the large language model (LLM) Claude Opus 5 (Anthropic), which was prompted to classify records using the PECOTS criteria.
-If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision.
-Where necessary, abstracts and full texts were assessed."
+If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision."
 :::
 
 ::: {.revision section="Results -- Literature Review"}
 "The update search in PubMed yielded 173 records published after July 2023.
 No record met both the PECOTS and the meta-analysis eligibility criteria.
 40 and 44 records were excluded because the outcome or exposure definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including the record being an animal study or focusing on the mechanisms of lead neurotoxicity.
-Therefore, no new studies were added.
+Therefore, no new studies were added to the meta-analysis.
 Screening decisions for the update are documented in additional file 3."
 :::
 
 ::: {.revision section="Discussion"}
 "In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example."\
-"A first set of limitations concerns the evidence base underlying the pooled estimate.
-Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
+"Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
 Because this update had a narrower scope than the original search, we cannot rule out that a full update covering both databases would have identified new studies.
-Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints.
-We further excluded studies that did not report effect estimates on the logarithmic scale of BLL.
-While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
-The studies we did include were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
-Finally, publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
-The visual assessment did not rule out publication bias, which may have led to overestimation of the pooled effect.
-
-Taken together, these limitations mean that the pooled estimate rests on a restricted rather than an exhaustive evidence base.
-This study should therefore not be interpreted as a comprehensive evidence synthesis of the literature on lead and children's IQ.
-Given our study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, these limitations do not affect our main conclusions."
+Due to resource constraints, full-text screening and RoB assessment could not be carried out by multiple independent persons."\
+"Due to the above-mentioned limitations, this study should not be interpreted as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ."\
 :::
 
 ::: {.revision section="Conclusion"}

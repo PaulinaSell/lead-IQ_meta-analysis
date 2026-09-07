@@ -230,7 +230,6 @@ By comparing frequentist and Bayesian approaches, we explore how the analytical 
 
 The aim of this study is to compare uncertainty quantification of frequentist and Bayesian meta-analyses.
 We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association.
-<!-- If ever necessary, we could add a sentence saying "However, a general comparison of both frameworks is not our goal because it is not possible based on this single study" -->
 
 # Methods
 ## Literature Review
@@ -290,7 +289,6 @@ For all included studies, effect estimates from the most-adjusted model were ext
 The search was updated in September 2026 by a PubMed search, using the same queries as in the original search and restricted to records published after July 2023.
 Titles were first screened by one reviewer and then additionally by the large language model (LLM) Claude Opus 5 (Anthropic), which was prompted to classify records using the PECOTS criteria.
 If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision.
-Where necessary, abstracts and full texts were assessed.
 
 ## Risk of Bias Assessment
 To assess study quality, we conducted a risk of bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies [@plate2024DevelopmentToolRapid].
@@ -470,7 +468,7 @@ We contacted the corresponding author, who confirmed that decimal points were mi
 The update search in PubMed yielded 173 records published after July 2023.
 No record met both the PECOTS and the meta-analysis eligibility criteria.
 40 and 44 records were excluded because the outcome or exposure definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including the record being an animal study or focusing on the mechanisms of lead neurotoxicity.
-Therefore, no new studies were added.
+Therefore, no new studies were added to the meta-analysis.
 Screening decisions for the update are documented in additional file 3.
 
 ## Risk of Bias
@@ -806,9 +804,6 @@ Setting the model up for stronger shrinkage via priors can therefore be particul
 Here, it can be difficult to estimate heterogeneity due to the small sample size, leaving the pooled estimate prone to being disproportionately impacted by a handful of uncertain studies.
 By contrast, while frequentist meta-analysis can configure the strength of weighting indirectly by changing the estimation methods for $\tau$, these options do not allow for stabilising heterogeneity estimates in small sample settings.
 
-<!-- # Not sure I want the sentence below... it kind of asks for the add-on "and that's why Bayes and freq converge under large data", but that seems a bit off-topic here... -->
-<!-- As with any other prior setting, the influence of the heterogeneity prior diminishes as the number of studies in our meta-analysis grows. -->
-
 Conducting a Bayesian meta-analysis can be more demanding than frequentist approaches, requiring greater statistical knowledge, explicit consideration of modelling assumptions, and typically more programming effort [@gelman2020BayesianWorkflow].
 While these demands may initially appear as disadvantages, they can equally be understood as methodological safeguards:
 by requiring researchers to state assumptions explicitly rather than accepting software defaults, the Bayesian approach encourages deeper engagement with the data and statistical model.
@@ -855,26 +850,18 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-A first set of limitations concerns the evidence base underlying the pooled estimate.
 Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
 Because this update had a narrower scope than the original search, we cannot rule out that a full update covering both databases would have identified new studies.
-Both the full-text screening and RoB assessment were done by only one person; while it would have been preferable to have multiple persons screen full texts and assess RoB independently, this was not feasible in this study due to resource constraints.
+Due to resource constraints, full-text screening and RoB assessment could not be carried out by multiple independent persons.
+The studies we included in the meta-analysis were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
+Publication bias was assessed through visual inspection only, which did not rule out publication bias.
+This may have led to overestimation of the pooled effect.
+Due to the above-mentioned limitations, this study should not be interpreted as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ. 
 We further excluded studies that did not report effect estimates on the logarithmic scale of BLL.
 While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
-The studies we did include were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
-Finally, publication bias was assessed through visual inspection only; formal statistical testing, such as Egger's test, would provide a more rigorous evaluation.
-The visual assessment did not rule out publication bias, which may have led to overestimation of the pooled effect.
 
-Taken together, these limitations mean that the pooled estimate rests on a restricted rather than an exhaustive evidence base.
-This study should therefore not be interpreted as a comprehensive evidence synthesis of the literature on lead and children's IQ.
-Given our study's primary focus on comparing uncertainty quantification in two meta-analytic frameworks, however, these limitations do not affect our main conclusions.
-
-A second limitation concerns the scope of the comparison itself.
 Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the data analysed here, it should not be taken as a comprehensive comparison of both statistical frameworks.
 Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
-<!-- Concurrent exposure measurement (at the time of IQ testing) only partially captured the exposure window: it implicitly assumed that BLL was constant from the time of the exposure onset to the time the IQ measurement was taken.
-Factors such as relocation to more or less lead exposed areas may lead to misclassification when using concurrent measurements, but such misclassification would likely be non-differential, biasing our results towards the null.
-We prioritised this exposure timeframe because it enabled the inclusion of cross-sectional studies and yields pooled estimates directly applicable to environmental burden of disease assessments. -->
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis.
