@@ -12,7 +12,7 @@ m.brm <- readRDS("../models/main/m.brm_full.rds")
 fitPrior <- readRDS("../models/main/fitPrior_full.rds")
 freq_model <- readRDS("../models/main/freq_full.rds")
 
-freq_ppi <- readRDS("../models/main/freq_full.rds")
+freq_ppi <- readRDS("../models/main/freq_ppi.rds")
 bayes_ppi <- readRDS("../models/main/bayes_ppi.rds")
 ```
 
@@ -65,29 +65,33 @@ We have also refocused the aims of our study in this direction (see also our res
 :::
 
 ::: {.revision section="Methods -- Bayesian Meta-Analysis"}
-To quantify uncertainty in the pooled mean and heterogeneity jointly, we constructed the posterior predictive distribution of hypothetical future studies by sampling from $\mathcal{N}(\mu, \tau)$.
-Additionally, a sensitivity analysis with alternative priors was conducted, as described below.
+"To quantify uncertainty in the pooled mean and heterogeneity jointly, we constructed the posterior predictive distribution of hypothetical future studies by sampling from $\mathcal{N}(\mu, \tau)$.
+Additionally, a sensitivity analysis with alternative priors was conducted, as described below."
 :::
 
 ::: {.revision section="Methods -- Frequentist Meta-Analysis"}
-In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
+"In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
 To enable parametric simulation from point estimates, we assumed $\mu$ to be normally distributed and $\tau$ to be log-normally distributed, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
-The number of draws in the parametric simulation matched the number of MCMC samples from the Bayesian approach.
+The number of draws in the parametric simulation matched the number of MCMC samples from the Bayesian approach."
 :::
 
 
 ::: {.revision section="Results"}
-The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2) and a 95% predictive interval from `r frnd(bayes_ppi$theta_new_q025)` to `r frnd(bayes_ppi$theta_new_q975)`.
-The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) and a comparable 95% predictive interval from `r frnd(freq_ppi$theta_new_q025)` to `r frnd(freq_ppi$theta_new_q975)`.
+"The Bayesian random-effects meta-analysis yielded a posterior mean pooled estimate of `r Bayes_mean` (95% credible interval (CrI): `r Bayes_lb` to `r Bayes_ub`) IQ points per log-unit increase in BLL (µg/dL) (see Fig. 2) and a 95% predictive interval from `r frnd(bayes_ppi$theta_new_q025)` to `r frnd(bayes_ppi$theta_new_q975)`.
+The frequentist approach produced a comparable pooled estimate of `r freq_mean` (95% confidence interval (CI): `r freq_lb` to `r freq_ub`) and a comparable 95% predictive interval from `r frnd(freq_ppi$theta_new_q025)` to `r frnd(freq_ppi$theta_new_q975)`."
 :::
 
 ::: {.revision section="Discussion"}
-These predictive distributions are, however, not exclusive to the Bayesian approach.
+"The option to create predictive distributions that can inform EBD studies are, however, not exclusive to the Bayesian approach.
 In the frequentist framework, they can be obtained using, for example, parametric simulation, nonparametric bootstrap, or the delta method.
-Each methods comes with its own assumptions that may impact the results, thus requiring the researcher to make a decision.
-To illustrate this, we opted for parametric simulation because the calculations were similar to the Bayesian approach and because our small sample size made nonparametric bootstrap unfeasible, frequently leading to convergence issues.
-Next, we assumed normal and log-normal distributions for $\mu$ and $\tau$, respectively, but we could have also assumed a normal distribution restricted to positive values for $\tau$ – under this assumption, the predictive intervals would have reached from `r freq_ppi$theta_new_alt_q025` to `r freq_ppi$theta_new_alt_q975`.
-A notable difference to the Bayesian approach is that the data have no option to overrule the assumed distributions whereas, given sufficient data, Bayesian priors will converge to the true distribution so long as that prior places non-zero probability on the true values, which is almost always feasible in practice.
+Each methods comes with its own assumptions that may impact the results, requiring the researcher to carefully weigh these decisions.
+In this study, the small sample size leads to convergence issues when attempting to use nonparametric bootstrap.
+We therefore estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
+We assumed normal and truncated normal distributions for $\mu$ and $\tau$, respectively, to match the Bayesian setup but we could have theoretically assumed any distribution for $\tau$ whose support is limited to positive real values.
+If we had instead chosen a log-normal distribution for $\tau$, the predictive interval would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
+By assuming distributions for $\mu$ and $\tau$ after conditioning on the data, the data cannot inform the assumed distributions during parameter estimation.
+The Bayesian approach differs in that prior distributions will, given sufficient data, converge to the true distribution so long as that prior places non-zero probability on the true values."\
+"We also demonstrate how both approaches quantify uncertainty in predictive quantities, exemplified by calculating the distribution of hypothetical new studies."
 :::
 
 <!-- R2 C2 -->
@@ -102,11 +106,11 @@ If the two judgements diverged, the record was revisited by the researcher, who 
 The search returned 173 records, and no record met the PECOTS and eligibility criteria.
 No study was therefore added to the meta-analysis and the pooled estimates are unchanged.
 The update is now reported in the Methods, the Results and the Discussion and the screening decisions are documented in additional file 3.
-Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we also stated in the Discussion that we cannot rule out that a full update would have identified further studies.
-On the second part of the comment: we have made the limitation of having a single reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
-We have also added that the meta-analysis rests on a restricted rather than an exhaustive evidence base and should not be read as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ.
-This comment also helped us realise that the main objective of our study, which is the comparison of uncertainty quantification in a frequentist and a Bayesian meta-analysis, was not stated clearly enough.
-We have therefore revised the aims statement at the end of the Background, the opening sentence of the Discussion and the Conclusions.
+Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we cannot fully rule out that a comprehensive update of the literature search would have identified further studies, but we consider it unlikely that such comprehensive update would materially change our results.\
+We have also made the limitation of only one human reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
+This comment also helped us realise that the main objective of our study, which is to compare uncertainty quantification of frequentist and Bayesian meta-analyses, was not stated clearly enough.
+We have therefore revised the aims statement at the end of the Background section, as well as the opening sentence of the Discussion, and the Conclusions section.
+We would like to thank the reviewer once again for their comment and believe that the changes made have greatly improved the manuscript.
 :::
 
 ::: {.revision section="Background"}
@@ -115,25 +119,23 @@ We apply both meta-analytic approaches to the association between BLL and IQ sco
 :::
 
 ::: {.revision section="Methods -- Literature Review"}
-"The search was updated in September 2026 by a PubMed search, using the same queries as in the original search and restricted to records published after July 2023.
-Titles were first screened by one reviewer and then additionally by the large language model (LLM) Claude Opus 5 (Anthropic), which was prompted to classify records using the PECOTS criteria.
-If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision."
+"We conducted a rapid update search in PubMed in September 2026, using the same queries as the original search and restricted to records published after July 2023. 
+Titles were first screened by one reviewer and additionally by the large language model (LLM) Claude Opus 5 (Anthropic); when the two judgements deviated, the reviewer revisited the record and made the final decision."
 :::
 
 ::: {.revision section="Results -- Literature Review"}
-"The update search in PubMed yielded 173 records published after July 2023.
-No record met both the PECOTS and the meta-analysis eligibility criteria.
-40 and 44 records were excluded because the outcome or exposure definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including the record being an animal study or focusing on the mechanisms of lead neurotoxicity.
+"The rapid update search in PubMed yielded 173 records published after July 2023, none of which met the eligibility criteria.
+44 and 40 records were excluded because the exposure or outcome definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including animal studies and studies on the mechanisms of lead neurotoxicity.
 Therefore, no new studies were added to the meta-analysis.
 Screening decisions for the update are documented in additional file 3."
 :::
 
 ::: {.revision section="Discussion"}
 "In this study, we compare uncertainty quantification of a frequentist and a Bayesian meta-analysis, which is less used in the field of environmental epidemiology to date, using lead exposure and children's IQ as an applied example."\
-"Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
-Because this update had a narrower scope than the original search, we cannot rule out that a full update covering both databases would have identified new studies.
+"Our original literature search was limited to January 2005 to July 2023 and was updated in September 2026 through a rapid search in PubMed, which identified no additional eligible studies.
+Although this update was narrower in scope than the original search, it is unlikely that a full update covering both databases would materially change the pooled estimate.
 Due to resource constraints, full-text screening and RoB assessment could not be carried out by multiple independent persons."\
-"Due to the above-mentioned limitations, this study should not be interpreted as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ."\
+"While these limitations should be considered when interpreting the pooled estimate, the main objective of this study was to compare uncertainty quantification in frequentist and Bayesian meta-analysis in an applied setting."\
 :::
 
 ::: {.revision section="Conclusion"}

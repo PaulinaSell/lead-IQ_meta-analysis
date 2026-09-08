@@ -252,6 +252,9 @@ Any conflicts were resolved by a third person.
 Full texts were then assessed by one reviewer.
 Publications were considered relevant according to predefined PECOTS – Population, Exposure, Comparator, Outcome, Timing of exposure and Setting (Table 1).
 
+We conducted a rapid update search in PubMed in September 2026, using the same queries as the original search and restricted to records published after July 2023. 
+Titles were first screened by one reviewer and additionally by the large language model (LLM) Claude Opus 5 (Anthropic); when the two judgements deviated, the reviewer revisited the record and made the final decision.
+
 ```{r}
 #| label: table_1_PECOTS
 #| echo: false
@@ -285,10 +288,6 @@ For this present study, only studies that used a continuous, log-transformed BLL
 The exposure timeframe for this study was restricted to concurrent, i.e. IQ and BLL measurements must have been conducted at the same time.
 Descriptive study data was extracted using a grid based on the one proposed by the Office of Health Assessment and Translation within the US National Toxicology Program [@ntpohat2019HandbookConductingLiteratureBased].
 For all included studies, effect estimates from the most-adjusted model were extracted and the adjustment set was recorded.
-
-The search was updated in September 2026 by a PubMed search, using the same queries as in the original search and restricted to records published after July 2023.
-Titles were first screened by one reviewer and then additionally by the large language model (LLM) Claude Opus 5 (Anthropic), which was prompted to classify records using the PECOTS criteria.
-If the judgement of the researcher and the LLM deviated, the record was revisited by the researcher, who made the final decision.
 
 ## Risk of Bias Assessment
 To assess study quality, we conducted a risk of bias assessment using the rapid Risk of Bias (RoB) tool with a specific focus on human observational epidemiological studies [@plate2024DevelopmentToolRapid].
@@ -465,9 +464,8 @@ The included studies were conducted in multiple different regions of the world (
 The study by @roy2013EffectModificationTransferrin reported implausibly large effect sizes.
 We contacted the corresponding author, who confirmed that decimal points were missing in the publication.
 
-The update search in PubMed yielded 173 records published after July 2023.
-No record met both the PECOTS and the meta-analysis eligibility criteria.
-40 and 44 records were excluded because the outcome or exposure definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including the record being an animal study or focusing on the mechanisms of lead neurotoxicity.
+The rapid update search in PubMed yielded 173 records published after July 2023, none of which met the eligibility criteria.
+44 and 40 records were excluded because the exposure or outcome definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including animal studies and studies on the mechanisms of lead neurotoxicity.
 Therefore, no new studies were added to the meta-analysis.
 Screening decisions for the update are documented in additional file 3.
 
@@ -828,7 +826,7 @@ Each methods comes with its own assumptions that may impact the results, requiri
 In this study, the small sample size leads to convergence issues when attempting to use nonparametric bootstrap.
 We therefore estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
 We assumed normal and truncated normal distributions for $\mu$ and $\tau$, respectively, to match the Bayesian setup but we could have theoretically assumed any distribution for $\tau$ whose support is limited to positive real values.
-If we had instead picked a log-normal distribution for $\tau$, the predictive interval would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
+If we had instead chosen a log-normal distribution for $\tau$, the predictive interval would have reached from `r frnd(freq_ppi$theta_new_q025_alt)` to `r frnd(freq_ppi$theta_new_q975_alt)`.
 By assuming distributions for $\mu$ and $\tau$ after conditioning on the data, the data cannot inform the assumed distributions during parameter estimation.
 The Bayesian approach differs in that prior distributions will, given sufficient data, converge to the true distribution so long as that prior places non-zero probability on the true values [@gelman2026BayesianWorkflow].
 
@@ -848,23 +846,22 @@ Additionally, studies reporting larger uncertainty tended to report larger effec
 The Bayesian approach was less sensitive to estimates from such studies, because the results of individual studies with large uncertainty were shrunk towards the pooled estimate, which is a particular advantage when pooling a small number of studies.
 
 This study has several limitations that should be considered when interpreting the results.
-Our original literature search was limited to the period between January 2005 and July 2023 and was updated in September 2026 through a single-reviewer search in PubMed, which identified no additional eligible studies.
-Because this update had a narrower scope than the original search, we cannot rule out that a full update covering both databases would have identified new studies.
+Our original literature search was limited to January 2005 to July 2023 and was updated in September 2026 through a rapid search in PubMed, which identified no additional eligible studies.
+Although this update was narrower in scope than the original search, it is unlikely that a full update covering both databases would materially change the pooled estimate.
 Due to resource constraints, full-text screening and RoB assessment could not be carried out by multiple independent persons.
 The studies we included in the meta-analysis were heterogeneous with respect to covariate adjustment, exposure range, IQ measurement instrument and cohort characteristics, meaning that the coefficients pooled in this study may not represent exactly the same estimand.
 Publication bias was assessed through visual inspection only, which did not rule out publication bias.
 This may have led to overestimation of the pooled effect.
-Due to the above-mentioned limitations, this study should not be interpreted as a comprehensive evidence synthesis of the literature on lead exposure and children's IQ. 
 We further excluded studies that did not report effect estimates on the logarithmic scale of BLL.
-While this reduced the number of studies available for pooling, exclusion was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
-
-Whilst our study illustrates some of the differences of both Bayesian and frequentist approaches in the context of the data analysed here, it should not be taken as a comprehensive comparison of both statistical frameworks.
-Such a comparison would require setting up a simulation study to systematically modify and quantify differences, which was outside the scope of the present study.
+This was necessary to ensure interpretability, as combining effect estimates expressed on different scales would render the pooled estimate uninterpretable.
+While these limitations should be considered when interpreting the pooled estimate, the main objective of this study was to compare uncertainty quantification in frequentist and Bayesian meta-analysis in an applied setting.
+It should be noted that a more comprehensive and general comparison of Bayesian and frequentist meta-analytic approaches would require a simulation study, which we think would be useful to conduct in future research, but was outside the scope of the present study.
 
 Despite these limitations, this study also has several important strengths.
 By applying a parallel approach to both meta-analytic models — including the use of identical effect estimates, a multilevel random-effects model, and $I^2$ as a common measure of heterogeneity — we provide a direct comparison of a frequentist and a Bayesian random-effects meta-analysis.
+We also demonstrate how both approaches quantify uncertainty in predictive quantities, exemplified by calculating the distribution of hypothetical new studies.
 To our knowledge, this is the first study to formally conduct such a comparison in the field of environmental epidemiology.
-Beyond this methodological contribution, we provide an updated evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
+Beyond this methodological contribution, we provide an evidence synthesis on the association between lead exposure and children’s IQ based on a systematic literature review.
 All data and code, including the code used to produce this manuscript, are publicly available, enabling other researchers to verify and build on our analyses.
 Finally, we adhered to PRISMA and BARG reporting guidelines, along with the use of the raRoB tool for risk of bias assessment, ensuring consistency and rigour in study selection, data extraction, study quality appraisal, and statistical analysis.
 
@@ -968,7 +965,3 @@ MS and PP: Data curation, writing – review and editing.
 SS: Methodology, writing – review and editing.
 DP: Supervision, writing – review and editing.
 All authors read and approved the final manuscript.
-
-<!-- ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process {.unnumbered}
-During the preparation of this work the authors used the large language model Claude Sonnet 4.6 (Anthropic) in order to assist in the risk of bias assessment of the studies included in the literature review and assess language and grammar throughout the manuscript.
-After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. -->
