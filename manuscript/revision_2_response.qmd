@@ -60,7 +60,7 @@ Please address the omitted request for frequentist prediction intervals and Baye
 
 ::: {.reply}
 We have now added frequentist and Bayesian predictive intervals to the manuscript and revised the methods, results, and discussion accordingly.
-We thank the reviewer for suggesting this addition and agree that it's an important addition to our manuscript.
+We thank the reviewer for suggesting this addition and agree that it is an important addition to our manuscript.
 :::
 
 ::: {.revision section="Methods -- Bayesian Meta-Analysis"}
@@ -80,15 +80,15 @@ The number of draws in the parametric simulation matched the number of MCMC samp
 :::
 
 ::: {.revision section="Discussion"}
-"The option to create predictive distributions that can inform EBD studies are, however, not exclusive to the Bayesian approach.
+"The option to create predictive distributions that can inform EBD studies is, however, not exclusive to the Bayesian approach.
 In the frequentist framework, they can be obtained using, for example, parametric simulation, nonparametric bootstrap, or the delta method.
-Each methods comes with its own assumptions that may impact the results, requiring the researcher to carefully weigh these decisions.
-In this study, the small sample size leads to convergence issues when attempting to use nonparametric bootstrap.
-We therefore estimated the predictive interval using parametric simulation because it was feasible in our setting while the procedure also has some similarities to the Bayesian approach.
+Each method comes with its own assumptions that may impact the results, requiring the researcher to carefully weigh these decisions.
+In this study, the small sample size led to convergence issues when attempting to use nonparametric bootstrap.
+We therefore estimated the predictive interval using parametric simulation because it was feasible in our setting and procedurally similar to the Bayesian approach, making it more comparable.
 We assumed normal and truncated normal distributions for $\mu$ and $\tau$, respectively, to match the Bayesian setup but we could have theoretically assumed any distribution for $\tau$ whose support is limited to positive real values.
 If we had instead chosen a log-normal distribution for $\tau$, the predictive interval would have reached from -6.74 to 1.74.
 By assuming distributions for $\mu$ and $\tau$ after conditioning on the data, the data cannot inform the assumed distributions during parameter estimation.
-The Bayesian approach differs in that prior distributions will, given sufficient data, converge to the true distribution so long as that prior places non-zero probability on the true values."\
+The Bayesian approach differs in that prior distributions will, given sufficient data, converge to the true distribution so long as that prior places non-zero probability on the true values [63]."\
 "We also demonstrate how both approaches quantify uncertainty in predictive quantities, exemplified by calculating the distribution of hypothetical new studies."
 :::
 
@@ -104,7 +104,7 @@ If the two judgements diverged, the record was revisited by the researcher, who 
 The search returned 173 records, and no record met the PECOTS and eligibility criteria.
 No study was therefore added to the meta-analysis and the pooled estimates are unchanged.
 The update is now reported in the Methods, the Results and the Discussion and the screening decisions are documented in additional file 3.
-Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we cannot fully rule out that a comprehensive update of the literature search would have identified further studies, but we consider it unlikely that such comprehensive update would materially change our results.\
+Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we cannot fully rule out that a comprehensive update of the literature search would have identified further studies, but we consider it unlikely that such a comprehensive update would materially change our results.\
 We have also made the limitation of only one human reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
 This comment also helped us realise that the main objective of our study, which is to compare uncertainty quantification of frequentist and Bayesian meta-analyses, was not stated clearly enough.
 We have therefore revised the aims statement at the end of the Background section, as well as the opening sentence of the Discussion, and the Conclusions section.
@@ -133,7 +133,7 @@ Screening decisions for the update are documented in additional file 3."
 "Our original literature search was limited to January 2005 to July 2023 and was updated in September 2026 through a rapid search in PubMed, which identified no additional eligible studies.
 Although this update was narrower in scope than the original search, it is unlikely that a full update covering both databases would materially change the pooled estimate.
 Due to resource constraints, full-text screening and RoB assessment could not be carried out by multiple independent persons."\
-"While these limitations should be considered when interpreting the pooled estimate, the main objective of this study was to compare uncertainty quantification in frequentist and Bayesian meta-analysis in an applied setting."\
+"However, these limitations did not affect the main objective of this study, which was to to compare uncertainty quantification in frequentist and Bayesian meta analysis in an applied setting."\
 :::
 
 ::: {.revision section="Conclusion"}
@@ -152,7 +152,7 @@ We thank reviewer 2 for pointing out these remaining overstatements. We have des
 ::: {.revision section="Discussion"}
 "The two frameworks may differ in how they treat studies reporting substantial uncertainty depending on prior configuration and sample size.
 Bayesian meta-analysis can be set up such that it is less sensitive to uncertain studies via the prior distribution for the heterogeneity: the more concentrated this prior is towards zero the stronger the shrinkage, pulling uncertain studies more towards the pooled estimate than certain studies (Table 4).
-The frequentist meta-analysis can configure heterogeneity by changing the estimation methods for $\tau^2$.
+The frequentist meta-analysis can configure the weighting of individual studies by changing the estimation methods for $\tau^2$.
 At the time of writing, the `metafor` package included a list of references pointing to publications for each of these estimation methods.
-However, a vignette to illustrate the use of these methods to make them more accessible to applied researchers was not available."
+However, a vignette to illustrate the use of these methods to make them more accessible to applied researchers was not available [60]."
 :::
