@@ -70,7 +70,7 @@ Additionally, a sensitivity analysis with alternative priors was conducted, as d
 
 ::: {.revision section="Methods -- Frequentist Meta-Analysis"}
 "In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
-To enable parametric simulation from point estimates, we assumed $\mu$ to be normally distributed and $\tau$ to be log-normally distributed, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
+To enable parametric simulation from point estimates, we assumed a normal distribution for $\mu$ and a positive half-normal distribution for $\tau$, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
 The number of draws in the parametric simulation matched the number of MCMC samples from the Bayesian approach."
 :::
 
