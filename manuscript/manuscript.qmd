@@ -46,24 +46,24 @@ reference-section-title: "References"
 csl: springer-vancouver-brackets.csl
 
 format:
-  html:
-    toc: true
-    toc-location: left
-    tbl-cap-location: bottom
-    title-block-banner: false
-    number-sections: true
-    embed-resources: true
-    css: custom.scss
-    page-layout: full
-    theme: yeti
-  # docx:
-  #   reference-doc: ref.docx
+  # html:
+  #   toc: true
+  #   toc-location: left
+  #   tbl-cap-location: bottom
+  #   title-block-banner: false
   #   number-sections: true
-  #   fig-align: "center"
-  #   fig-width: 6.5
-  #   fig-height: 3.5
-  #   fig-dpi: 600
-  #   out-width: "40%"
+  #   embed-resources: true
+  #   css: custom.scss
+  #   page-layout: full
+  #   theme: yeti
+  docx:
+    reference-doc: ref.docx
+    number-sections: true
+    fig-align: "center"
+    fig-width: 6.5
+    fig-height: 3.5
+    fig-dpi: 600
+    out-width: "40%"
   # pdf:
   #   toc: true
 ---
@@ -167,14 +167,14 @@ I2_credible_interval <- quantile(I2_samples, c(0.025, 0.975))
 <!-- max 350 words in BMC  -->
 **Background**:
 Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making.
-Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides a different approach to uncertainty quantification through posterior distributions.
+Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides posterior distributions.
 We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study.
 
 **Methods**: We systematically searched PubMed and Scopus for epidemiological studies on blood lead level (BLL) and IQ score in children.
 After screening, risk of bias (RoB) in the identified studies was assessed and regression coefficients were harmonised to the $\log_e$​ scale.
 In both meta-analyses, we included the same effect estimates, assumed a multilevel structure and used random-effects models.
 The Bayesian meta-analysis employed a hierarchical model with weakly-informative priors.
-Sensitivity analyses examined robustness to RoB and to prior specification.
+Sensitivity analyses examined robustness to RoB and prior specification.
 $\tau^2$ and $I^2$ were estimated as measures of between-study heterogeneity.
 
 **Results**: Twelve studies were included in the meta-analysis.
@@ -186,7 +186,7 @@ Sensitivity analyses showed both meta-analyses were robust to RoB, and Bayesian 
 Depending on the specified prior configuration, the Bayesian model was less sensitive to studies reporting substantial uncertainty, resulting in a lower pooled effect compared to the frequentist model.
 This regularisation is particularly valuable in small meta-analyses, where frequentist heterogeneity estimates can be unstable.
 
-**Conclusions**: We provide updated pooled estimates for the effect of lead exposure on children's IQ.
+**Conclusions**: We provide updated pooled estimates for the effect of lead on children's IQ.
 The Bayesian framework provides posterior distributions, enabling direct probability statements, e.g. about exceeding risk thresholds, and comparative assessments between pollutants.
 These features are particularly valuable for risk assessment and policy-making.
 

@@ -2,6 +2,9 @@
 title: "Response to Reviewers"
 format:
   response-letter-typst: default
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
 ---
 
 ```{r}
@@ -18,14 +21,14 @@ bayes_ppi <- readRDS("../models/main/bayes_ppi.rds")
 
 # Editor comments
 
-After a round of revisions, both reviewers agree that the manuscript has greatly improved, but there are still some issues that need to be addressed by the authors.
+After a round of revisions, both reviewers agree that the manuscript has greatly improved, but there are still some issues that need to be addressed by the authors.\
 -Rongji Mu
 
 # Response to the Editor
 
 We would like to thank the editor and the two reviewers for their time and careful reading of our manuscript.
 We believe that their valuable feedback and the revisions we made in response have substantially improved our work.
-Below we respond to each point; the revised manuscript text is quoted verbatim.
+We respond to each point with the modified text quoted below our respective reply.
 
 # Reviewer 1
 The authors have adequately addressed my previous comments, and the manuscript has been substantially improved.
@@ -39,13 +42,13 @@ The statement in the Abstract that “frequentist meta-analytic approaches ... o
 :::
 
 ::: {.reply}
-We thank the reviewer for this comment and agree that our original statement in the abstract was unbalanced.
+We thank the reviewer for this comment and agree that our original statement in the abstract could be improved.
 We have revised the paragraph.
 :::
 
 ::: {.revision section="Abstract - Background"}
 "Uncertainty quantification is central to evidence synthesis for risk assessment and policy-making.
-Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides a different approach to uncertainty quantification through posterior distributions.
+Frequentist meta-analysis - currently predominant in epidemiology - quantifies uncertainty through confidence intervals, while Bayesian meta-analysis provides posterior distributions.
 We performed frequentist and Bayesian meta-analyses to compare uncertainty quantification and applicability for risk assessment using lead exposure and children's IQ as a case study."
 :::
 
@@ -63,12 +66,12 @@ We have now added frequentist and Bayesian predictive intervals to the manuscrip
 We thank the reviewer for suggesting this addition and agree that it is an important addition to our manuscript.
 :::
 
-::: {.revision section="Methods -- Bayesian Meta-Analysis"}
+::: {.revision section="Methods - Bayesian Meta-Analysis"}
 "To quantify uncertainty in the pooled mean and heterogeneity jointly, we constructed the posterior predictive distribution of hypothetical future studies by sampling from $\mathcal{N}(\mu, \tau)$.
 Additionally, a sensitivity analysis with alternative priors was conducted, as described below."
 :::
 
-::: {.revision section="Methods -- Frequentist Meta-Analysis"}
+::: {.revision section="Methods - Frequentist Meta-Analysis"}
 "In the frequentist approach, we constructed the predictive distribution of hypothetical future studies via parametric simulation.
 To enable parametric simulation from point estimates, we assumed a normal distribution for $\mu$ and a positive half-normal distribution for $\tau$, sampled from these distributions, and then used these samples to draw from the predictive distribution $\mathcal{N}(\mu, \tau)$.
 The number of draws in the parametric simulation matched the number of MCMC samples from the Bayesian approach."
@@ -101,12 +104,12 @@ Please address the previously raised systematic-review concern, especially the l
 We thank the reviewer for this comment and agree that the search should be updated, which we did by conducting a rapid search in PubMed for the period from July 2023 to 2 September 2026, using the original search terms.
 All titles were first screened by one reviewer and, afterwards, by the LLM Claude Opus 5.
 If the two judgements diverged, the record was revisited by the researcher, who made the final decision.
-The search returned 173 records, and no record met the PECOTS and eligibility criteria.
+Our search returned 173 records, none of which met the PECOTS and eligibility criteria.
 No study was therefore added to the meta-analysis and the pooled estimates are unchanged.
-The update is now reported in the Methods, the Results and the Discussion and the screening decisions are documented in additional file 3.
+We have added the update in the manuscript and additional file 3.
 Because the update was narrower in scope than the original search, covering one database and relying on a single reviewer, we cannot fully rule out that a comprehensive update of the literature search would have identified further studies, but we consider it unlikely that such a comprehensive update would materially change our results.\
 We have also made the limitation of only one human reviewer for the full-text screening and the RoB assessment explicit in the limitations paragraph.
-This comment also helped us realise that the main objective of our study, which is to compare uncertainty quantification of frequentist and Bayesian meta-analyses, was not stated clearly enough.
+This comment also helped us realise that a core objective of our study, which is to compare uncertainty quantification of frequentist and Bayesian meta-analyses, was not stated clearly enough.
 We have therefore revised the aims statement at the end of the Background section, as well as the opening sentence of the Discussion, and the Conclusions section.
 We would like to thank the reviewer once again for their comment and believe that the changes made have greatly improved the manuscript.
 :::
@@ -116,12 +119,12 @@ We would like to thank the reviewer once again for their comment and believe tha
 We apply both meta-analytic approaches to the association between BLL and IQ scores in children using the results of a systematic review on epidemiological studies published between January 2005 and July 2023, thereby also providing an updated pooled effect estimate of this association."
 :::
 
-::: {.revision section="Methods -- Literature Review"}
+::: {.revision section="Methods - Literature Review"}
 "We conducted a rapid update search in PubMed in September 2026, using the same queries as the original search and restricted to records published after July 2023. 
 Titles were first screened by one reviewer and additionally by the large language model (LLM) Claude Opus 5 (Anthropic); when the two judgements deviated, the reviewer revisited the record and made the final decision."
 :::
 
-::: {.revision section="Results -- Literature Review"}
+::: {.revision section="Results - Literature Review"}
 "The rapid update search in PubMed yielded 173 records published after July 2023, none of which met the eligibility criteria.
 44 and 40 records were excluded because the exposure or outcome definition did not match, respectively; 30 records were excluded because the record was a review rather than a primary study and 59 records were excluded for other reasons, including animal studies and studies on the mechanisms of lead neurotoxicity.
 Therefore, no new studies were added to the meta-analysis.
