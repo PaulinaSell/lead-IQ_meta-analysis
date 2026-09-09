@@ -1826,6 +1826,34 @@
       "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
       "Repository": "CRAN"
     },
+    "distsfactory": {
+      "Package": "distsfactory",
+      "Version": "0.2.0",
+      "Source": "GitHub",
+      "Title": "Construct Probability Distributions from Partial Specifications",
+      "Authors@R": "c( person(\"Ron\", \"Ashri\", role = \"aut\"), person(\"Sarat\", \"Moka\", role = \"aut\"), person(\"Yoni\", \"Nazarathy\", email = \"y.nazarathy@uq.edu.au\", role = c(\"aut\", \"cre\")) )",
+      "Description": "Construct probability distributions from partial specifications such as moments (mean, variance), quantiles, or mode. Wraps base R distribution functions (dnorm(), pgamma(), qbeta(), etc.) and returns convenient distribution objects with d/p/q/r methods.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/Distribution-Matching/distsfactory-r",
+      "BugReports": "https://github.com/Distribution-Matching/distsfactory-r/issues",
+      "Encoding": "UTF-8",
+      "Roxygen": "list(markdown = TRUE)",
+      "RoxygenNote": "7.3.3",
+      "Suggests": [
+        "testthat (>= 3.0.0)",
+        "jsonlite"
+      ],
+      "Config/testthat/edition": "3",
+      "Collate": "'solvers.R' 'spec.R' 'dist_object.R' 'gamma.R' 'exponential.R' 'logistic.R' 'beta.R' 'normal.R' 'lognormal.R' 'uniform.R' 'weibull.R' 'tdist.R' 'chisq.R' 'fdist.R' 'laplace.R' 'gumbel.R' 'rayleigh.R' 'pareto.R' 'frechet.R' 'inverse_gamma.R' 'chi.R' 'folded_normal.R' 'erlang.R' 'sym_triangular.R' 'triangular.R' 'cauchy.R' 'binomial.R' 'poisson.R' 'negative_binomial.R' 'geometric.R' 'discrete_uniform.R' 'discrete_sym_triangular.R' 'discrete_triangular.R' 'langevin.R' 'support.R' 'moments.R' 'partial.R' 'distsfactory-package.R' 'api.R'",
+      "Author": "Ron Ashri [aut], Sarat Moka [aut], Yoni Nazarathy [aut, cre]",
+      "Maintainer": "Yoni Nazarathy <y.nazarathy@uq.edu.au>",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "Distribution-Matching",
+      "RemoteRepo": "distsfactory-r",
+      "RemoteRef": "main",
+      "RemoteSha": "cc5a776cbfa1ddbb746b03bc4749e496d3d3f032"
+    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.1.4",
