@@ -1,7 +1,7 @@
-# Quantifying uncertainty: A comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ
+# Quantifying uncertainty: A practical comparison of Bayesian and frequentist meta-analytic frameworks applied to lead exposure and children's IQ
 
 **Authors:** Paulina Sell, Margaux Sanchez, Philippe Palmont, Simon Steiger and Dietrich Plass\
-**Journal:** *[Journal name]* · [Year] · DOI: `[doi]`\
+**Journal:** *BMC Medical Research Methodology* · 2026 · DOI: [https://doi.org/10.1186/s12874-026-03010-z](https://doi.org/10.1186/s12874-026-03010-z)\
 **Funding:** European Partnership for the Assessment of Risks from Chemicals (PARC) - EU Horizon (Grant Agreement No 101057014)
 
 [![DOI](https://zenodo.org/badge/1025483469.svg)](https://doi.org/10.5281/zenodo.21791967)
@@ -73,11 +73,14 @@ Resources we found helpful while working on this project:
 
 ```bibtex
 @article{sell2026,
-  author  = {[Last, First] and [Last, First] and …},
-  title   = {[Paper title]},
-  journal = {[Journal name]},
-  year    = {[Year]},
-  doi     = {[doi]}
+  author  = {Sell, Paulina and Sanchez, Margaux and Palmont, Philippe and Steiger, Simon and Plass, Dietrich},
+  title   = {Quantifying uncertainty: A practical comparison of {Bayesian} and frequentist meta-analytic frameworks applied to lead exposure and children's {IQ}},
+  journal = {BMC Medical Research Methodology},
+  year    = {2026},
+  volume  = {26},
+  pages   = {209},
+  doi     = {10.1186/s12874-026-03010-z},
+  issn    = {1471-2288},
 }
 ```
 
